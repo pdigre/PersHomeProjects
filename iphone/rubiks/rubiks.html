@@ -1,0 +1,103 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>iPhone Rubik's Solver</title>
+<meta name="viewport" content="width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+<style type="text/css" media="screen">@import "../iui/iui.css";</style>
+<script type="application/x-javascript" src="../iui/iui.js"></script>
+<script type="application/x-javascript" src="rubiks.js"></script>
+<style type="text/css">
+.U {background-color: white;}
+.D {background-color: yellow;}
+.L {background-color: blue;}
+.R {background-color: green;}
+.F {background-color: orange;}
+.B {background-color: red;}
+.s {background-color: black;}
+.side TD {height:24px; width:20px; border:solid 1px black;}
+
+</style>
+</head>
+<body onload="drawScreen()">
+    <div class="toolbar">
+        <h1 id="pageTitle"></h1>
+        <a class="button" id="backButton" href="#"></a>
+    </div>
+    
+    <ul id="menu" title="Menu" >
+        <li><a href="#2d">Rubiks 2D-view</a></li>
+        <li><a href="#3d">Rubiks 3D-view</a></li>
+        <li><a href="#log">Log</a></li>
+        <li><a href="#options">Options</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+    <ul id="2d" title="Rubiks 2D"  selected="true">
+<table border="0" cellpadding="2" id="brd"
+  style="background:white;" 
+  onclick="click(event)">
+<tr><td></td>
+  <td class="s"><table border="1" class="side" name="up"    id="U"></table></td>
+  <td colspan="2">
+    <select id="mode" onchange="setMode(options[selectedIndex].value)" value="assign">
+       <option value="assign" selected="selected">Assign</option>
+       <option value="rotate">Rotate</option>
+       <option value="quick">Solve:Quick</option>
+       <option value="easy">Solve:Easy</option>
+       <option value="comp">Solve:Computer</option>
+       <option value="id">ID</option>
+    </select>
+  </td>
+</tr><tr>
+  <td class="s"><table border="1" class="side" name="left"  id="L"></table></td>
+  <td class="s"><table border="1" class="side" name="front" id="F"></table></td>
+  <td class="s"><table border="1" class="side" name="right" id="R"></table></td>
+  <td class="s"><table border="1" class="side" name="back"  id="B"></table></td>
+</tr><tr><td></td>
+  <td class="s"><table border="1" class="side" name="down"  id="D"></table></td>
+<td colspan="2">
+  <button onclick="solve();">Solve</button>
+  <!-- 
+  <table>
+  <tr>
+    <td class="U">U</td>
+    <td class="D">D</td>
+    <td class="L">L</td>
+    <td class="R">R</td>
+    <td class="F">F</td>
+    <td class="B">B</td>
+  </tr>
+  </table>
+   -->  
+</td>
+</tr></table>
+<div id="text"></div>
+    </ul>
+
+    <div id="log" title="Log" class="panel">
+    <textarea id="logarea" cols="40" rows="10" style="background-color:#C3A480;width:100%;height:100%;"></textarea>
+    </div>
+
+    <div id="options" title="Options" class="panel">
+    </div>
+    <div id="about" title="About" class="panel">
+      <table width="100%" style="border-color:green;">
+      <tr>
+        <td align="left">
+          <p><strong>iPhone Rubik's Solver</strong> is a JavaScript program to Solve Rubik's cube by Per Digre.</p>
+          <ul>
+            <li>*** COMING SOON ***</li>
+            <li>Development at https://sourceforge.net/projects/iphonegamez</li>
+            <li>BSD, Apache and Public Domain license</li>
+            <li>Built on John Hewitt's iUI available from http://code.google.com/p/iui/</li>
+          </ul>
+          <p><strong>Notes</strong></p>
+          <ul>
+            <li>You can assign your current cube in the 2D-view.</li>
+            <li>3D-view (SVG movie) makes it easy to follow directions to solve</li>
+            <li>3 Solving strategies: Standard, Easier, Computed</li>
+          </ul>
+        </td>
+      </tr>
+      </table>
+    </div>
+</body>
+</html>

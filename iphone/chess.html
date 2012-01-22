@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>iPhone Chess</title>
+<meta name="viewport" content="width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+<style type="text/css" media="screen">@import "iui/iui.css";</style>
+<script type="application/x-javascript" src="iui/iui.js"></script>
+<script type="application/x-javascript" src="screen.js"></script>
+<script type="application/x-javascript" src="chess.js"></script>
+<style type="text/css">
+#brd TD {width:34px;height:38px;}  
+.w {background-color: #F8F5DF;}
+.b {background-color: #C3A480;}
+.r {background-color: red;}
+.p {background-color: pink;}
+#PI IMG {position:absolute}
+</style>
+</head>
+<body onclick="console.log('Hello', event.target);" onload="initHTML()">
+    <div class="toolbar">
+        <h1 id="pageTitle"></h1>
+        <a class="button" id="backButton" href="#"></a>
+    </div>
+    
+    <ul id="menu" title="Menu" selected="true">
+        <li><a href="#play">Play iPhone Chess</a></li>
+        <li><a href="#log">Log</a></li>
+        <li><a href="#options">Options</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+    <ul id="play" title="iPhone Chess">
+<table border="0" cellpadding="2" id="brd" style="background:white;" onclick="return engine.click(event)"></table>
+<div id="text">Welcome to iPhone Javascript Chess</div>
+<div id="PI"></div>
+    </ul>
+
+    <div id="log" title="Log" class="panel">
+    <textarea id="logarea" cols="40" rows="10" style="background-color:#C3A480;width:100%;height:100%;"></textarea>
+    </div>
+
+    <div id="options" title="Options" class="panel">
+      <div class="row">
+          <button onclick="newGame();iui.showPageById('play');"> New </button>
+          <button onclick="engine.Undo();iui.showPageById('play');"> Undo </button>
+      </div>
+      <div class="row">
+          <label>Human Player</label>
+          <div class="toggle" id="side" onclick="engine.setPlayer(8-P);iui.showPageById('play');" 
+          ><span class="thumb"></span><span class="toggleOn">White</span><span class="toggleOff">Black</span></div>
+      </div>
+      <div class="row">
+        <label style="text-align:left;">Want</label>
+        <select id="nextPiece">
+            <option selected="selected">queen</option>
+            <option>bishop</option>
+            <option>knight</option>
+            <option>rook</option>
+        </select>
+      </div>
+      <div class="row">
+        <label>Level</label>
+        <select id="level">
+            <option selected="selected">stupid</option>
+            <option>normal</option>
+            <option>slow</option>
+        </select>
+      </div>
+    </div>
+<form name="FF" method="get" action="chess.html">
+</form>
+    <div id="about" title="About" class="panel">
+      <table width="100%" style="border-color:green;">
+      <tr>
+        <td align="left">
+          <p><strong>iPhone Chess</strong> is a JavaScript chess adaptation written by Per Digre.</p>
+          <ul>
+            <li>Development at https://sourceforge.net/projects/iphonegamez</li>
+            <li>BSD, Apache and Public Domain license</li>
+            <li>Built on John Hewitt's iUI available from http://code.google.com/p/iui/</li>
+            <li>opensource chess images</li>
+          </ul>
+          <p><strong>Notes</strong></p>
+          <ul>
+            <li>Supports Castling and En Passant.</li>
+            <li>Castling is done by moving the king, rook moves automatically.</li>
+            <li>When swapping sides computer makes its move instantly (since it's its turn) so you may be disoriented at first and not notice it. 
+            Also undo moves you will have to do it twice since you first get the computers side.</li>
+          </ul>
+        </td>
+      </tr>
+      </table>
+    </div>
+</body>
+</html>

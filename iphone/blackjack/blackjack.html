@@ -1,0 +1,118 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>BlackJack for iPhone</title>
+<meta name="viewport" content="width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+<style type="text/css" media="screen">@import "../iui/iui.css";</style>
+<script type="application/x-javascript" src="../iui/iui.js"></script>
+<script type="application/x-javascript" src="engine.js"></script>
+<script type="application/x-javascript" src="player.js"></script>
+<script type="application/x-javascript" src="screen.js"></script>
+<style type="text/css">
+#brd TD {width:34px;height:38px;}  
+.w {background-color: #F8F5DF;}
+.b {background-color: #C3A480;}
+.r {background-color: red;}
+.p {background-color: pink;}
+.msg {color: white;}
+.card {position:absolute;left:0px;top:0px;border:solid black 1px}
+.red  {position:absolute;left:0px;top:0px;border:solid red 3px}
+BUTTON {height:36px;width:55px;}
+.table {background-image:url(images/table.gif);position:relative;width:320px;}
+</style>
+</head>
+<body onload="load()">
+    <div class="toolbar">
+        <h1 id="pageTitle"></h1>
+        <a class="button" id="backButton" href="#"></a>
+    </div>
+    
+    <ul id="menu" title="Menu">
+        <li><a href="#play">Play BlackJack</a></li>
+        <li><a href="#log">Log</a></li>
+        <li><a href="#options">Options</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+    <ul id="play" title="BlackJack for iPhone" selected="true">
+<div class="table" style="height:100px;"><table width="100%"><tr>
+   <td id="hint" width="30%">1</td>
+   <td id="dlrcards" align="center" width="40%">2</td>
+   <td id="count" width="30%">3</td>
+</tr></table></div>
+<div class="table" id="plrcards" style="height:100px;"></div>
+<div class="table" id="bet"      style="height:25px;">
+<table width="100%"><tr>
+<td align="center" width="50%">Bet:
+  <select id="bet1" value="1">
+    <option value="1" selected="selected" >$100 </option>
+    <option value="2"  >$200 </option>
+    <option value="5"  >$500 </option>
+    <option value="10" >$1000</option>
+    <option value="20" >$2000</option>
+    <option value="50" >$5000</option>
+    <option value="100">$10000</option>
+  </select>
+  </td>
+  <td align="center" id="bet2">
+  </td>
+  </tr></table>
+</div>
+<div style="position:relative;width:320px;height:25px;">
+<table width="100%"><tr><td align="center" id="money1">0</td><td align="center" id="money2">0</td></tr></table>
+</div>
+<div class="table" id="commands" style="height:65px;" onclick="player.button(event)"></div>
+<div id="text">Welcome to iPhone BlackJack Trainer</div>
+    </ul>
+
+    <div id="options" title="Options" class="panel">
+      <div class="row">
+          <button onclick="newGame();iui.showPageById('play');"> New </button>
+          <button onclick="engine.Undo();iui.showPageById('play');"> Undo </button>
+      </div>
+      <div class="row">
+          <label>Human Player</label>
+          <div class="toggle" id="side" onclick="engine.setPlayer(8-P);iui.showPageById('play');" 
+          ><span class="thumb"></span><span class="toggleOn">White</span><span class="toggleOff">Black</span></div>
+      </div>
+      <div class="row">
+        <label style="text-align:left;">Want</label>
+        <select id="nextPiece">
+            <option selected="selected">queen</option>
+            <option>bishop</option>
+            <option>knight</option>
+            <option>rook</option>
+        </select>
+      </div>
+      <div class="row">
+        <label>Level</label>
+        <select id="level">
+            <option selected="selected">stupid</option>
+            <option>normal</option>
+            <option>slow</option>
+        </select>
+      </div>
+    </div>
+    <div id="about" title="About" class="panel">
+      <table width="100%" style="border-color:green;">
+      <tr>
+        <td align="left">
+          <p><strong>iPhone BlackJack</strong> is a JavaScript BlackJack Trainer written by Per Digre.</p>
+          <ul>
+            <li>*** COMING SOON ***</li>
+            <li>Development at https://sourceforge.net/projects/iphonegamez</li>
+            <li>BSD, Apache and Public Domain license</li>
+            <li>Built on John Hewitt's iUI available from http://code.google.com/p/iui/</li>
+            <li>royalty free card images</li>
+          </ul>
+          <p><strong>Notes</strong></p>
+          <ul>
+            <li>Teach modes: basic strategy, simple card-count, advanced cardcount.</li>
+            <li>Betting strategies follows Mensa's advice for such as Stand on 16, Split 10s, Insurance, etc</li>
+            <li>6 deck standard with 1 deck cut</li>
+            <li>Computer player can be set to Basic or Mensa Simple / Advanced</li>
+          </ul>
+        </td>
+      </tr>
+      </table>
+    </div>
+</body>
+</html>
