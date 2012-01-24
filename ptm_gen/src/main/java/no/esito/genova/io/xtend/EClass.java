@@ -1,5 +1,6 @@
 package no.esito.genova.io.xtend;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.TreeSet;
@@ -10,10 +11,11 @@ public class EClass {
 
 	public Class<?> clazz;
 
+	ArrayList<ELink> links = new ArrayList<ELink>();
 	HashSet<EClass> subclasses = new HashSet<EClass>();
 	HashSet<EClass> iterators = new HashSet<EClass>();
-	HashSet<String> properties = new HashSet<String>();
-	HashSet<String> variables = new HashSet<String>();
+	HashSet<EProperty> properties = new HashSet<EProperty>();
+	HashSet<EVariable> variables = new HashSet<EVariable>();
 
 	public EClass(Class<?> clazz) {
 		this.clazz = clazz;
@@ -21,6 +23,10 @@ public class EClass {
 
 	public void addSubclass(EClass eclass) {
 		subclasses.add(eclass);
+	}
+
+	public void addLinks(String name,EClass eclass) {
+		links.add(new ELink(name,eclass));
 	}
 
 	public void addIterator(EClass ecl) {
@@ -50,9 +56,34 @@ public class EClass {
 		return getName();
 	}
 
-	public String print() {
-		String text = "Iterators="+new DelimitedList(",",iterators).toString()+"\n";
-		text+="SubClasses="+new DelimitedList(",",subclasses).toString()+"\n";
-		return text;
+	public void addVariable(EVariable variable) {
+		for (EVariable var : variables) {
+			if(var.name.equals(variable.name))
+				return;
+		}
+		variables.add(variable);
 	}
+	public void addProperty(EProperty property) {
+		for (EProperty var : properties) {
+			if(var.name.equals(property.name))
+				return;
+		}
+		properties.add(property);
+	}
+
+	public String print() {
+		StringBuilder sb=new StringBuilder();
+		sb.append("Iterators="+new DelimitedList(",",iterators).toString()+"\n");
+		sb.append("SubClasses="+new DelimitedList(",",subclasses).toString()+"\n");
+		sb.append("Links="+new DelimitedList(",",links).toString()+"\n");
+		for (EProperty var : properties) {
+			sb.append("public XProperty "+var.name+" = new XProperty(\""+var.name+"\",this);\n");
+		}
+		for (EVariable var : variables) {
+			sb.append("public XVariable "+var.name+" = new XVariable(\""+var.name+"\",this);\n");
+		}
+		return sb.toString();
+	}
+
+
 }

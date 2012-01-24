@@ -89,7 +89,7 @@ class Ptm2Xtend extends AbstractPtm2Xtend {
 	        	'''
             case SET:
 	        	'''
-	        	set(«expr(EXPSTATE::String,1)»,«expr(EXPSTATE::String,2)»)
+	        	«expr(EXPSTATE::String,1)» = «expr(EXPSTATE::String,2)»
 	        	'''
             case TYPES_MODE:
 	        	walk
@@ -215,9 +215,9 @@ class Ptm2Xtend extends AbstractPtm2Xtend {
             case AND:
         		'''«expr(EXPSTATE::Boolean,1)» && «expr(EXPSTATE::Boolean,2)»'''
             case EQUAL:
-        		'''«expr(EXPSTATE::String,1)».equals(«expr(EXPSTATE::String,2)»)'''
+        		'''«expr(EXPSTATE::String,1)» == «expr(EXPSTATE::String,2)»'''
             case NE:
-        		'''!«expr(EXPSTATE::String,1)».equals(«expr(EXPSTATE::String,2)»)'''
+        		'''«expr(EXPSTATE::String,1)» != «expr(EXPSTATE::String,2)»'''
             case GT:
         		'''«expr(EXPSTATE::Integer,1)» > «expr(EXPSTATE::Integer,2)»'''
             case GE:
@@ -232,28 +232,28 @@ class Ptm2Xtend extends AbstractPtm2Xtend {
         		'''if («expr(EXPSTATE::Boolean,1)») «expr(EXPSTATE::String,2)» else «expr(EXPSTATE::String,3)»'''
             case VARIABLE:
 	            if(exprtype==EXPSTATE::Boolean)
-        		'''hasVariable("«txt(1)»"«expr2(2)»)'''
+        		'''«vscope(txt(1))»«expr2(2)»'''
         		else
-        		'''variable("«txt(1)»"«expr2(2)»)'''
+        		'''«vscope(txt(1))»«expr2(2)»'''
             case VARIABLE2:
 	            if(exprtype==EXPSTATE::Boolean)
-        		'''hasVariable("«txt(1)»","«txt(2)»"«expr2(3)»)'''
+        		'''«vscope(txt(1),txt(2))»«expr2(3)».toBool'''
         		else
-        		'''variable("«txt(1)»","«txt(2)»"«expr2(3)»)'''
+        		'''«vscope(txt(1),txt(2))»«expr2(3)»'''
             case ATTRIBUTE:
 	            if(exprtype==EXPSTATE::Boolean)
-        		'''hasAttribute("«txt(1)»"«expr2(2)»)'''
+        		'''«scope(txt(1))».toBool'''
         		else if(exprtype==EXPSTATE::Integer)
-        		'''intAttribute("«txt(1)»"«expr2(2)»)'''
+        		'''«scope(txt(1))».toInt'''
         		else
-        		'''attribute("«txt(1)»"«expr2(2)»)'''
+        		'''«scope(txt(1))»'''
             case ATTRIBUTE2:
 	            if(exprtype==EXPSTATE::Boolean)
-        		'''hasAttribute("«txt(1)»","«txt(2)»"«expr2(3)»)'''
+        		'''«scope(txt(1),txt(2))».toBool'''
         		else if(exprtype==EXPSTATE::Integer)
-        		'''intAttribute("«txt(1)»","«txt(2)»"«expr2(3)»)'''
+        		'''«scope(txt(1),txt(2))».toInt'''
         		else 
-        		'''attribute("«txt(1)»","«txt(2)»"«expr2(3)»)'''
+        		'''«scope(txt(1),txt(2))»'''
             case RESERVED:
         		'''reserved("«txt(1)»")'''
             case TYPED:

@@ -402,6 +402,62 @@ public abstract class AbstractPtm2Xtend extends AbstractAnalysis {
 		return super.getRoot();
 	}
 
+	public CharSequence scope(CharSequence txt1, CharSequence txt2) {
+		if (scanMode)
+			return "";
+		String p1 = txt1.toString();
+		String p2 = txt2.toString();
+		if (iterator_stack.contains(p1))
+			return fixName(p1.toLowerCase()) + "." + fixName(p2);
+		String linkname = fixName(firstLower(p1));
+		ELink link = structure.getLink(iterator_stack.peek(), linkname);
+		if (link != null) {
+			return fixName(iterator_stack.peek().toLowerCase()) + "."
+					+ linkname + "." + fixName(p2);
+		}
+		;
+		return fixName(p1.toLowerCase()) + "." + fixName(p2);
+	}
+
+	public CharSequence scope(CharSequence txt2) {
+		if (scanMode)
+			return "";
+		String p1 = iterator_stack.peek();
+		if(p1.isEmpty())
+			p1=getRoot();
+		String p2 = txt2.toString();
+		return fixName(p1.toLowerCase()) + "." + fixName(p2);
+	}
+
+	public CharSequence vscope(CharSequence txt2) {
+		if (scanMode)
+			return "";
+		String p1 = iterator_stack.peek();
+		if(p1.isEmpty())
+			p1=getRoot();
+		String p2 = txt2.toString();
+		return fixName(p1.toLowerCase()) + "." + fixName(p2);
+	}
+
+	public String firstLower(String t) {
+		return t.substring(0, 1).toLowerCase() + t.substring(1);
+	}
+
+	public CharSequence vscope(CharSequence txt1, CharSequence txt2) {
+		if (scanMode)
+			return "";
+		String p1 = txt1.toString();
+		String p2 = txt2.toString();
+		if (iterator_stack.contains(p1))
+			return fixName(p1.toLowerCase()) + "." + fixName(p2);
+		ELink link = structure.getLink(iterator_stack.peek(), p1);
+		if (link != null)
+			return fixName(iterator_stack.peek()) + "." + fixName(p1) + "."
+					+ fixName(p2);
+		;
+		return fixName(p1.toLowerCase()) + "." + fixName(p2);
+	}
+
 	public String fixName(String text) {
 		if (text.equals("class"))
 			return "clazz";

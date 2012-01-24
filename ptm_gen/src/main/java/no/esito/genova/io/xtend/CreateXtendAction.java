@@ -23,32 +23,36 @@ public class CreateXtendAction extends GMenuAction {
 
 	@Override
 	public void run(IAction action) {
-		PTM_Engine ptm_Engine = new PTM_Engine();
-		recurse(ptm_Engine, getGProject().getIProject());
-
-		for (Ptm2Xtend xtend : set) {
-			xtend.iterator_stack = new Stack<String>();
-            xtend.iterator_stack.push("");
-            xtend.scanMode = true;
-            xtend._stat();
-		}
         try {
-            EStructure structure = new EStructure(ptm_Engine.getTargetClassLoader());
+    		PTM_Engine ptm_Engine = new PTM_Engine();
+    		recurse(ptm_Engine, getGProject().getIProject());
+    		for (Ptm2Xtend xtend : set) {
+    			xtend.iterator_stack = new Stack<String>();
+                xtend.iterator_stack.push("");
+                xtend.scanMode = true;
+                xtend._stat();
+    		}
             IFolder folder = getGProject().getIProject().getFolder("src");
-			structure.load(folder);
-            structure.print(folder);
+            EStructure structure = new EStructure();
+			structure.load(folder,ptm_Engine.getTargetClassLoader());
             for (Ptm2Xtend xtend : set) {
-                xtend.printUsage(structure,set);
+    			xtend.structure=structure;
+                xtend.collect(set);
+            }
+            structure.print(folder);
+
+            for (Ptm2Xtend xtend : set) {
+                xtend.printUsage(set);
+            }
+            for (Ptm2Xtend xtend : set) {
+                xtend.iterator_stack = new Stack<String>();
+                xtend.iterator_stack.push("");
+                xtend.scanMode = false;
+                xtend.isClosed = true;
+                xtend.saveResource("src", xtend.clazzname + ".xtend", xtend._stat().toString());
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
-        }
-        for (Ptm2Xtend xtend : set) {
-            xtend.iterator_stack = new Stack<String>();
-            xtend.iterator_stack.push("");
-            xtend.scanMode = false;
-            xtend.isClosed = true;
-            xtend.saveResource("src", xtend.clazzname + ".xtend", xtend._stat().toString());
         }
 	}
 
@@ -57,8 +61,9 @@ public class CreateXtendAction extends GMenuAction {
 			for (IResource res : container.members()) {
 				if (res instanceof IFile) {
 					Ptm2Xtend xtend = ptm_Engine.convertXtend((IFile) res);
-					if (xtend != null)
+					if (xtend != null){
 						set.add(xtend);
+					}
 				}
 				if (res instanceof IContainer)
 					recurse(ptm_Engine, (IContainer) res);

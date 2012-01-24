@@ -12,6 +12,8 @@ import no.esito.genova.model.util.DelimitedList;
 public class AbstractAnalysis extends AbstractSupport {
 
 	public Stack<String> iterator_stack = new Stack<String>();
+	public ArrayList<EVariable> variables = new ArrayList<EVariable>();
+	public ArrayList<EProperty> properties = new ArrayList<EProperty>();
 
 	public TreeMap<String, EIterator> iterators = new TreeMap<String, EIterator>();
 	public TreeSet<String> iterations = new TreeSet<String>();
@@ -20,17 +22,18 @@ public class AbstractAnalysis extends AbstractSupport {
 
 	public TreeSet<String> contexts = new TreeSet<String>();
 
-	public String root;
+	public String root="Object";
 	public EXPSTATE exprtype = EXPSTATE.Output;
 
 	public boolean scanMode = false;
+	public EStructure structure;
 
 	public String deduceParent(String iterator) {
 		if (scanMode)
 			return "";
-		String parent="";
+		String parent = "";
 		int n = iterator_stack.size();
-		if(n>1){
+		if (n > 1) {
 			parent = iterator_stack.get(n - 2);
 		}
 		if (parent.isEmpty()) {
@@ -47,6 +50,8 @@ public class AbstractAnalysis extends AbstractSupport {
 			iterator = new EIterator(ctx);
 			iterators.put(ctx, iterator);
 		}
+		properties.add(new EProperty(name,
+				new ArrayList<String>(iterator_stack), exprtype, ctx));
 		iterator.recordAttribute(name + exprtype.suffix());
 	}
 
@@ -57,21 +62,23 @@ public class AbstractAnalysis extends AbstractSupport {
 		if (iterator == null) {
 			iterator = new EIterator(ctx);
 		}
+		variables.add(new EVariable(name,
+				new ArrayList<String>(iterator_stack), exprtype, ctx));
 		iterator.recordVariable(name + exprtype.suffix());
 	}
 
-    public String getRoot() {
-        return root==null?"xx":root;
-    }
+	public String getRoot() {
+		return root == null ? "xx" : root;
+	}
 
 	public Collection<String> getDirectIterators() {
 		TreeSet<String> direct = new TreeSet<String>();
-		for (String text : iterations) 
+		for (String text : iterations)
 			direct.add(new DelimitedList(",", text).get(0));
 		return direct;
 	}
 
-	public void printUsage(EStructure structure, HashSet<Ptm2Xtend> set) {
+	public void printUsage(HashSet<Ptm2Xtend> set) {
 		StringBuilder sb = new StringBuilder();
 		for (EIterator iterator : iterators.values()) {
 			sb.append(iterator.toString());
@@ -105,13 +112,27 @@ public class AbstractAnalysis extends AbstractSupport {
 				}
 			}
 		}
-		Collection<String> direct = getDirectIterators();
-		root = structure.getRoot(direct).getName();
 		sb.append("==================================================================================================================\n");
-		sb.append("Direct:" + new DelimitedList(",", direct)+"\n");
-		sb.append("Root:" + root+"\n");
+		sb.append("Direct:" + new DelimitedList(",", getDirectIterators())
+				+ "\n");
+		sb.append("Root:" + root + "\n");
 
 		saveResource("src", clazzname + ".txt", sb.toString());
+	}
+
+	public void collect(HashSet<Ptm2Xtend> set) {
+		Collection<String> direct = getDirectIterators();
+		EClass root2 = structure.getRoot(direct);
+		if (root2 != null)
+			root = root2.getName();
+		for (EVariable var : variables) {
+			var.setRoot(root);
+			structure.recordVariable(var);
+		}
+		for (EProperty var : properties) {
+			var.setRoot(root);
+			structure.recordProperty(var);
+		}
 	}
 
 }
