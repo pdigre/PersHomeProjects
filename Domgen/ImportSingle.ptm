@@ -1,0 +1,97 @@
+%REM: ----------------------------------------------------
+%REM: Copyright (c) 2005-11 Esito AS. All rights reserved.
+%REM: Version: 9.0.7-SNAPSHOT. September 23, 2011.
+%REM: ----------------------------------------------------
+%REM: ---------------------------------------------------------------------------
+%REM: First determine what we want to import...
+%REM: ---------------------------------------------------------------------------
+%IF: NodeType=="Attribute" | NodeType=="Member" | NodeType=="Parameter" | NodeType=="Method"%
+  %INCLUDE% JavaType.ptm
+  %SET: #impSinType = DEFINED(#impSinTypeOverridden) ? #impSinTypeOverridden : DEFINED(#appendTransportSuffix) ? #javaType ++ ClassModel#Suffix : #javaType%
+  %SET: #impSinPack =  DEFINED(#impSinPackOverridden) ? #impSinPackOverridden :  DEFINED(#typePackageName) ? #typePackageName : TypePackageName%
+  %IF: !DEFINED(#impSinTypeOverridden) & (NodeType=="Parameter" | NodeType=="Method") %
+    %IF: DEFINED(IsJavaContainer) %
+      %SET: #impSinPackOverridden = DEFINED(TypePackageName) ? TypePackageName : "java.lang"%
+      %SET: #impSinTypeOverridden = MappedJavaContainerType %
+      %INCLUDE% ImportSingle.ptm
+      %SET: #impSinType = FIRST_UPPER(JavaContainer) %
+      %SET: #impSinPack = "java.util" %
+    %ENDIF%
+  %ENDIF%
+%ELSEIF: NodeType=="Association"%
+  %REM: impSinType and impSinPack is set by caller...%
+%ELSEIF: NodeType=="Generalization"%
+  %SET: #impSinType = DEFINED(#appendTransportSuffix) ?  SuperClass.Name ++ ClassModel#Suffix : SuperClass.Name%
+  %SET: #impSinPack = SuperClass.PackageName%
+%ELSEIF: NodeType=="Class"%
+  %REM: impSinType and impSinPack is set by caller...%
+%ELSE%
+  %ERROR: "NodeType " ++ NodeType ++ " not handled by ImportSingle.ptm"%
+%ENDIF: NodeType%
+%REM: ---------------------------------------------------------------------------
+%REM: Now see if we really want to import it...
+%REM: ---------------------------------------------------------------------------
+%SET: #tmpSkip = "False"%
+%REM: -----------------------------------
+%REM: Check if it has been imported before...
+%REM: -----------------------------------
+%IFCONTEXT: Class%
+  %IF: DEFINED(Class#Imports[#impSinType])%
+    %SET: #tmpSkip = "True"%
+  %ENDIF%
+%ENDIF%
+%IFCONTEXT: Subclass%
+  %IF: DEFINED(Class#SubImports[#impSinType])%
+    %SET: #tmpSkip = "True"%
+  %ENDIF%
+%ENDIF%
+%IFCONTEXT: Interface%
+  %IF: DEFINED(Interface#Imports[#impSinType])%
+    %SET: #tmpSkip = "True"%
+  %ENDIF%
+%ENDIF%
+%IFCONTEXT: Attribute%
+   %REM: Special case for custom Date classes; have to use fully qualified name for those classes. %
+   %IF: #impSinType == "Date" & (DEFINED(#impSinPack) & #impSinPack != "java.util")%
+     %SET: #tmpSkip = "True"%
+   %ENDIF%
+%ENDIF%
+%IF: DEFINED(#impSinPack) & #impSinPack == "java.lang" %
+   %SET: #tmpSkip = "True"%
+%ENDIF%
+%REM: -----------------------------------
+%REM: Check if it is in the same package...
+%REM: -----------------------------------
+%IFCONTEXT: Interface%
+  %IF: DEFINED(#impSinPack) & #impSinPack==Interface.PackageName%
+    %SET: #tmpSkip = "True"%
+  %ENDIF%
+%ELSE%
+  %IF: DEFINED(#impSinPack) & #impSinPack==Class.PackageName%
+    %SET: #tmpSkip = "True"%
+  %ENDIF%
+%ENDIF%
+%REM: ---------------------------------------------------------------------------
+%REM: Now add import clause if we figured out we want this import...
+%REM: ---------------------------------------------------------------------------
+%IF: #tmpSkip=="False"%
+  %IF: #impSinType=="Date" | #impSinType=="Set" | #impSinType=="HashSet" | #impSinType=="List" | #impSinType=="Collection" | #impSinType=="SortedSet" %
+    %SET: #impSinPack = "java.util"%
+  %ELSEIF: #impSinType=="Numeric"%
+    %SET: #impSinPack = "no.genova.support"%
+  %ENDIF%
+  %IF: #impSinType=="boolean" | #impSinType=="char" | #impSinType=="byte" | #impSinType=="short" | #impSinType=="int"%
+  %ELSEIF: #impSinType=="long" | #impSinType=="float" | #impSinType=="double" | #impSinType=="String"| #impSinType=="void"%
+  %ELSEIF: #impSinPack!=""%
+  	import %SLASH_TO_DOT(#impSinPack)%.%#impSinType%;
+  %ENDIF%
+  %IFCONTEXT: Class%
+    %SET: Class#Imports[#impSinType] = "True"%
+  %ENDIF%
+  %IFCONTEXT: Subclass%
+    %SET: Class#SubImports[#impSinType] = "True"%
+  %ENDIF%
+  %IFCONTEXT: Interface%
+    %SET: Interface#Imports[#impSinType] = "True"%
+  %ENDIF%
+%ENDIF%

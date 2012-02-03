@@ -1,0 +1,140 @@
+%REM: ----------------------------------------------------
+%REM: Copyright (c) 2005-11 Esito AS. All rights reserved.
+%REM: Version: 9.0.7-SNAPSHOT. September 23, 2011.
+%REM: ----------------------------------------------------
+%REM: Note about abstract methods and abstract classes:
+%REM: Code will be generated according to this table:
+%REM: 
+%REM:   Case    | Single class    | Default class   | Sub class
+%REM:   --------|-----------------|-----------------|-----------------
+%REM:   aC aM   | Declared        | Declared        | Skipped
+%REM:   aC cM   | Dummy with TODO | Declared        | Dummy with TODO
+%REM:   cC aM   | Warning         | Warning         | Warning
+%REM:   cC cM   | Dummy with TODO | Declared        | Dummy with TODO
+%REM: 
+%REM: a = abstract, c = concrete, C = class, M = Method
+%REM: thus, cC aM means abstract method in a concrete class
+%REM: 
+%REM: This behaviour is controleld in Class.ptm
+%REM: 
+%REM: 
+%REM: 
+%INCLUDE% JavaType.ptm
+%SET: #returnType = ModelType=="" ? "void" : #javaType%
+%SET: #parameterType = ""%
+%ITERATE: Parameter%
+  %INCLUDE% JavaType.ptm
+  %IF: IsFirst%
+    %SET: Method#parameterType = #javaType%
+  %ELSE%
+    %SET: Method#parameterType = Method#parameterType ++ "," ++ #javaType%
+  %ENDIF%
+%ENDITERATE: Parameter%
+%REM: Set #tmpIsAbstract if this is the superclass...
+%IFCONTEXT: Class%
+  %IF: !DEFINED(TopParent#GenerateSingleClass)%
+    %SET: #tmpIsAbstract = "True"%
+  %ENDIF%
+%ENDIF%
+%REM: Set tmpIsAbstract if method is abstract...
+%IF: Abstract%
+  %SET: #tmpIsAbstract = "True"%
+%ENDIF%
+%REM: Check if we want to generate for this method...
+%IF: DEFINED(#tmpIsAbstract) & Visibility=="Private"%
+  %REM: Abstract private... skip
+  %IF: !DEFINED(Class#Methods[Name][#parameterType])%
+    %WARNING: "Skipping generation of " ++ Name ++ ": Private and abstract."%
+  %ENDIF%
+  %SET: #skip = "True"%
+%ENDIF%
+%IF: DEFINED(Class#Methods[Name][#parameterType])%
+  %DEBUG: "Skipping generation of " ++ Name ++ ": Method already exists."%
+  %SET: #skip = "True"%
+%ENDIF%
+%IFCONTEXT: Subclass%
+  %IF: Abstract%
+    %REM: Already declared in default class. Skip...
+    %SET: #skip = "True"%
+  %ENDIF%
+%ELSE%
+  %IF: DEFINED(#tmpIsAbstract) & DEFINED(Class#Methods[Name]["*abstract*" ++ #parameterType])%
+    %DEBUG: "Skipping generation of " ++ Name ++ ": Method already exists."%
+    %SET: #skip = "True"%
+  %ENDIF%
+%ENDIF%
+%IF: Class.Name==Name & DEFINED(Class#Methods[Name]["*constructor*" ++ #parameterType])%
+  %DEBUG: "Skipping generation of " ++ Name ++ ": Method already exists."%
+  %SET: #skip = "True"%
+%ENDIF%
+%IFCONTEXT: Class%
+  %IF: Class.Name==Name & !DEFINED(TopParent#GenerateSingleClass)%
+    %DEBUG: "Skipping generation of " ++ Name ++ ": Constructor."%
+    %SET: #skip = "True"%
+  %ENDIF%
+%ENDIF%
+%IF: !DEFINED(#skip)%
+  %IF: Class.Name==Name%
+    %SET: Class#Methods[Name]["*constructor*" ++ #parameterType] = "True"%
+  %ELSEIF: DEFINED(#tmpIsAbstract)%
+    %SET: Class#Methods[Name]["*abstract*" ++ #parameterType] = "True"%
+  %ELSE%
+    %SET: Class#Methods[Name][#parameterType] = "True"%
+  %ENDIF%
+  %SET: #tmpAddJavaDoc = "True"%
+  %IFCONTEXT: Subclass%
+    %IF: Visibility!="Private" & Class.Name!=Name%
+      %SET: #tmpAddJavaDoc = "False"%
+    %ENDIF%
+  %ENDIF%
+  %IF: DEFINED(#tmpAddJavaDoc)%
+    /**
+    %REM: Note: Intended space at the end of next line (SUP-209 workaround)
+    %IF:HasDescription%%MACRO:JavaDocDesc% 
+    %ENDIF%
+    %INDENT:+1%
+      %ITERATE: Parameter%
+        * @param %Name% %Description%
+      %ENDITERATE: Parameter%
+      %IF: ModelType!="void" & ModelType!=""%
+        * @return %MACRO:javaType%
+
+      %ENDIF%
+      */
+    %INDENT:-1%
+  %ELSE%
+    @Override
+  %ENDIF%
+  %LINE%
+    %MACRO:Visibility%
+    %IF: DEFINED(#tmpIsAbstract)%abstract %ENDIF%
+    %IF: Class.Name!=Name%%#returnType% %ENDIF%
+    %Name%(
+    %ITERATE: Parameter%
+      %IF: !IsFirst%, %ENDIF%
+      %MACRO:javaType% %Name%
+    %ENDITERATE%
+    )
+    %IF: DEFINED(#tmpIsAbstract)%;%ELSE% {%ENDIF%
+  %ENDLINE%
+  %IF: !DEFINED(#tmpIsAbstract)%
+    %INDENT:+4%
+      // TODO: Add implementation for this method
+      %IF: #returnType!="void"%
+        %IF: ModelTypeIsJavaPrimitive%
+          %IF: ModelType=="boolean"%
+            return false;
+          %ELSEIF: ModelType=="char"%
+            return '\u0000';
+          %ELSE%
+            return 0;
+          %ENDIF%
+        %ELSE%
+          return null;
+        %ENDIF%
+      %ENDIF%
+    %INDENT:-4%
+    }
+  %ENDIF%
+
+%ENDIF: !DEFINED(#skip)%

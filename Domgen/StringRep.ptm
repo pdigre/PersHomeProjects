@@ -1,0 +1,63 @@
+%REM: ----------------------------------------------------
+%REM: Copyright (c) 2005-11 Esito AS. All rights reserved.
+%REM: Version: 9.0.7-SNAPSHOT. September 23, 2011.
+%REM: ----------------------------------------------------
+%IF: DEFINED(Class#Methods["toString"][""])%
+  %INFO: "Skipping generation of toString() for " ++ Class.Name ++ ": A method with that name is already defined"%
+%ELSE: Generate method toString()%
+  %SET: Class#Methods["toString"][""] = "True"%
+  /**
+  %INDENT:+1%
+   * Returns a debug-friendly String representation of this instance
+   *
+   * @return String representation of this instance
+   */
+  %INDENT:-1%
+  @Override
+  public String toString() {
+  %INDENT:+4%
+    StringBuffer sb = new StringBuffer("[%Name% |");
+    %SET: #KeyFound = "False"%
+    %ITERATE: Attribute%
+      %IF: IsDefaultDomainKey%
+        %INCLUDE% StringRepRecursive.ptm
+        %SET: Parent#KeyFound="True"%
+        %BREAK%
+      %ENDIF%
+    %ENDITERATE%
+    %IF: !#KeyFound%
+      %ITERATE: Group%
+        %IF: IsDefaultDomainKey%
+          %ITERATE: Member%
+            %INCLUDE% StringRepRecursive.ptm
+          %ENDITERATE%
+          %SET: Parent#KeyFound = "True"%
+          %BREAK%
+        %ENDIF%
+      %ENDITERATE%
+    %ENDIF%
+    %IF: !#KeyFound%
+      %ITERATE: Attribute%
+        %IF: IsPrimaryKey%
+          %INCLUDE% StringRepRecursive.ptm
+          %SET: Parent#KeyFound="True"%
+          %BREAK%
+        %ENDIF%
+      %ENDITERATE%
+    %ENDIF%
+    %IF: !#KeyFound%
+      %ITERATE: Group%
+        %IF: IsPrimaryKey%
+          %ITERATE: Member%
+            %INCLUDE% StringRepRecursive.ptm
+          %ENDITERATE%
+          %BREAK%
+        %ENDIF%
+      %ENDITERATE%
+    %ENDIF%
+    sb.append("]");
+    return sb.toString();
+  %INDENT:-4%
+  }
+
+%ENDIF%

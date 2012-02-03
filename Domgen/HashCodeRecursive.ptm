@@ -1,0 +1,35 @@
+%REM: ----------------------------------------------------
+%REM: Copyright (c) 2005-11 Esito AS. All rights reserved.
+%REM: Version: 9.0.7-SNAPSHOT. September 23, 2011.
+%REM: ----------------------------------------------------
+%IF: NodeType=="Attribute" | MemberType=="Attribute"%
+  %IF: StartRoleNamePath!="" & !Class.IsPersistent%
+    /* The following line may cause an IllegalStateException */
+  %ENDIF%
+  %IF: MappedModelType=="boolean"%
+    i = (get%MACRO:InheritAttrName%() ? 0:1);
+  %ELSEIF: MappedModelType=="int" | MappedModelType=="short" | MappedModelType=="byte" | MappedModelType=="char"%
+    i = get%MACRO:InheritAttrName%();
+  %ELSEIF: MappedModelType=="long"%
+    i = (int)(get%MACRO:InheritAttrName%() ^ (get%MACRO:InheritAttrName%()>>>32));
+  %ELSEIF: MappedModelType=="float"%
+    i = Float.floatToIntBits(get%MACRO:InheritAttrName%());
+  %ELSEIF: MappedModelType=="double"%
+    i = (int) (Double.doubleToLongBits(get%MACRO:InheritAttrName%()) ^ (Double.doubleToLongBits(get%MACRO:InheritAttrName%())>>>32));
+  %ELSE: We have an object reference...%
+    if (get%MACRO:InheritAttrName%() == null) {
+    %INDENT:+4%
+        i = 0;
+    %INDENT:-4%
+    } else {
+    %INDENT:+4%
+        i = get%MACRO:InheritAttrName%().hashCode();
+    %INDENT:-4%
+    }
+  %ENDIF%
+  result = 37*result + i;
+%ELSE: NodeType is "Group"%
+  %ITERATE: Member%
+    %INCLUDE% HashCodeRecursive.ptm
+  %ENDITERATE: Member%
+%ENDIF%

@@ -1,0 +1,41 @@
+%REM: ----------------------------------------------------
+%REM: Copyright (c) 2005-11 Esito AS. All rights reserved.
+%REM: Version: 9.0.7-SNAPSHOT. September 23, 2011.
+%REM: ----------------------------------------------------
+%IF: DEFINED(Class#Methods["getPrimaryKey"][""])%
+  %INFO: "Skipping generation of getPrimaryKey() for " ++ Class.Name ++ ": A method with that name is already defined"%
+%ELSE: Generate method getPrimaryKey()%
+  %SET: Class#Methods["getPrimaryKey"][""] = "True"%
+  /**
+  %INDENT:+1%
+   * Return all elements of the primary key.
+   *
+   * @return Map of key names to values
+   */
+  %INDENT:-1%
+  public Map<String, Object> getPrimaryKey() {
+  %INDENT:+4%
+    Map<String, Object> ret = new LinkedHashMap<String, Object>(6);
+    %SET: #KeyFound = "False"%
+    %ITERATE: Attribute%
+      %IF: IsPrimaryKey%
+        %INCLUDE% PrimaryKeyRecursive.ptm
+        %SET: Parent#KeyFound="True"%
+        %BREAK%
+      %ENDIF: PrimaryKey%
+    %ENDITERATE: Attribute%
+    %IF: !#KeyFound%
+      %ITERATE: Group%
+        %IF: IsPrimaryKey%
+          %ITERATE: Member%
+            %INCLUDE% PrimaryKeyRecursive.ptm
+          %ENDITERATE: Member%
+          %BREAK%
+        %ENDIF: PrimaryKey%
+      %ENDITERATE: Group%
+    %ENDIF: !#KeyFound%
+    return ret;
+  %INDENT:-4%
+  }
+
+%ENDIF%

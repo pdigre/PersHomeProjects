@@ -1,0 +1,302 @@
+%REM: ----------------------------------------------------
+%REM: Copyright (c) 2005-11 Esito AS. All rights reserved.
+%REM: Version: 9.0.7-SNAPSHOT. September 23, 2011.
+%REM: ----------------------------------------------------
+%REM:
+%REM:
+%REM: This file generates java code for one enumeration class.
+%REM:
+%REM: If the template parameter GenerateOldStyleEnums is set, an old-style 
+%REM: enumeration (java 1.4) is generated. Or else we get a java enum.
+%REM:
+%REM:
+
+%FILE% %MACRO:DomainDirectory%/%Name%.java
+%IF: DEFINED(CommentFile)%
+  %INCLUDE% %CommentFile%
+%ELSE%
+  // %GeneratedWith%
+%ENDIF%
+
+package %SLASH_TO_DOT(LOWER(PackageName))%;
+
+%REM:
+%REM:
+%REM: Now we need to know if we are generating a java Enum, or an instance of GenovaEnumerator
+%REM:
+%REM:
+%IF: DEFINED(GenerateJavaStyleEnums)%
+  %REM:
+  %REM:
+  %REM: This branch generates java enum
+  %REM:
+  %REM:
+  /**
+  %REM: Note: Intended space at the end of next line (SUP-209 workaround)
+  %IF: HasDescription%%MACRO:JavaDocDesc% 
+  %ENDIF%
+  %INDENT:+1%
+   */
+  %INDENT:-1%
+  %MACRO:suppressAllWarnings% 
+  public enum %Name% {
+  %INDENT:+4%
+
+    %REM: The variable #lastAssignedOrdinal is used to assign ordinal values to 
+    %REM: enum values without an explicit ordinal.
+    %SET: #lastAssignedOrdinal = 0%
+    %ITERATE: EnumValue%
+      %IF: HasDescription%
+        /** %Description% */
+      %ELSE%
+        /** The %Name% constant */
+      %ENDIF%
+      %IF: OrdinalNumber == ""%
+        %SET: Parent#lastAssignedOrdinal = Parent#lastAssignedOrdinal + 1%
+      %ELSE%
+        %SET: Parent#lastAssignedOrdinal = OrdinalNumber%
+      %ENDIF%
+      %Name%(%Parent#lastAssignedOrdinal%, "%DisplayText%")%IsLast ? ";" : ","%
+      
+    %ENDITERATE%
+    
+    private final int ordinalValue;
+    private final String title;
+
+    /* 
+    %INDENT:+1%
+     * Creates an enum with the given title and ordinal value
+     */
+    %INDENT:-1%
+    private %Name%(final int ordinalValue, final String title) {
+    %INDENT:+4%
+        this.ordinalValue = ordinalValue;
+        this.title = title;
+    %INDENT:-4%
+    }
+
+    /** 
+    %INDENT:+1%
+     * Returns the title value of this enum.
+     *
+     * @return the title value of this enum
+     */
+    %INDENT:-1%
+    public final String getTitle() {
+    %INDENT:+4%
+        return title;
+    %INDENT:-4%
+    }
+
+    /** 
+    %INDENT:+1%
+     * Returns the ordinal value of this enum.
+     *
+     * @return the ordinal value of this enum
+     */
+    %INDENT:-1%
+    public final int getOrdinalValue() {
+    %INDENT:+4%
+        return ordinalValue;
+    %INDENT:-4%
+    }
+
+    /**
+    %INDENT:+1%
+     * Returns the enum value corresponding to the given title.
+     *
+     * @param title the title to look up
+     * @return the enum value corresponding to the given title
+     */
+    %INDENT:-1%
+    public static final %Name% titleToEnum(final String title) {
+    %INDENT:+4%
+        for (%Name% some%Name% : values()) {
+        %INDENT:+4%
+            if (some%Name%.title.equals(title)) {
+            %INDENT:+4%
+                return some%Name%;
+            %INDENT:-4%
+            }
+        %INDENT:-4%
+        }
+        throw new IllegalArgumentException("No such title: " + title);
+    %INDENT:-4%
+    }
+
+    /**
+    %INDENT:+1%
+     * Returns the enum value corresponding to the given ordinal value.
+     *
+     * @param ordinalValue the ordinal value to look up
+     * @return the enum value corresponding to the given ordinal value
+     */
+    %INDENT:-1%
+    public static final %Name% ordinalToEnum(final int ordinalValue) {
+    %INDENT:+4%
+        for (%Name% some%Name% : values()) {
+        %INDENT:+4%
+            if (some%Name%.ordinalValue == ordinalValue) {
+            %INDENT:+4%
+                return some%Name%;
+            %INDENT:-4%
+            }
+        %INDENT:-4%
+        }
+        throw new IllegalArgumentException("No such ordinal: " + ordinalValue);
+    %INDENT:-4%
+    }
+
+    @Override
+    public String toString() {
+    %INDENT:+4%
+        return getTitle();
+    %INDENT:-4%
+    }
+
+  %INDENT:-4%
+  }
+%ELSE%
+  %REM:
+  %REM:
+  %REM: This branch generates "old-style" enumerations, subclasses of GenovaEnumerator
+  %REM:
+  %REM:
+  import no.genova.support.GenovaEnumerator;
+  import no.genova.domain.GenovaEnums;
+  import java.util.LinkedList;
+  import java.util.List;
+
+  /**
+  %REM: Note: Intended space at the end of next line (SUP-209 workaround)
+  %IF: HasDescription%%MACRO:JavaDocDesc% 
+  %ENDIF%
+  %INDENT:+1%
+   */
+  %INDENT:-1%
+  %MACRO:suppressAllWarnings% 
+  public class %Name% extends GenovaEnumerator {
+  %INDENT:+4%
+
+    %REM: The variable #lastAssignedOrdinal is used to assign ordinal values to 
+    %REM: enum values without an explicit ordinal.
+    %SET: #lastAssignedOrdinal = 0%
+    %ITERATE: EnumValue%
+      %IF: OrdinalNumber == ""%
+        %SET: Parent#lastAssignedOrdinal = Parent#lastAssignedOrdinal + 1%
+      %ELSE%
+        %SET: Parent#lastAssignedOrdinal = OrdinalNumber%
+      %ENDIF%
+      %IF: HasDescription%
+        /** %Description% */
+      %ELSE%
+        /** The %Name% constant */
+      %ENDIF%
+      public static final int %Name% = %Parent#lastAssignedOrdinal%;
+    %ENDITERATE%
+ 
+    /**
+    %INDENT:+1%
+     * Default constructor
+     */
+    %INDENT:-1%
+    public %Name%() {
+    %INDENT:+4%
+      super();
+    %INDENT:-4%
+    }
+
+    /**
+    %INDENT:+1%
+     * Constructs a new %Name%
+     *
+     * @param ordinalValue the int value of the enumeration
+     */
+    %INDENT:-1%
+    public %Name%(int ordinalValue) {
+    %INDENT:+4%
+      currentValue = ordinalValue;
+    %INDENT:-4%
+    }
+
+    /**
+    %INDENT:+1%
+     * Returns the int (ordinal) value for an enumeration with the given title.
+     * This method may be called by generated code.
+     *
+     * @param title The title of the enum to convert.
+     * @return The int value (currentValue) of the enumerator.
+     */
+    %INDENT:-1%
+    public static int toValue(String title) {
+    %INDENT:+4%
+      if (title == null) {
+      %INDENT:+4%
+          return GenovaEnums.NO_VALUE;
+      %INDENT:-4%
+      }
+      %ITERATE:EnumValue%
+        if (title.equals("%DisplayText%")) {
+        %INDENT:+4%
+            return %OrdinalNumber%;
+        %INDENT:-4%
+        }
+      %ENDITERATE:EnumValue%
+      return GenovaEnums.NO_VALUE;
+    %INDENT:-4%
+    }
+
+    /**
+    %INDENT:+1%
+     * Converts the ordinal value of an enumeration to its corresponding title.
+     * This method may be called by generated code.
+     *
+     * @param value The ordinal value of the enumeration.
+     * @return The title of the enumeration.
+     */
+    %INDENT:-1%
+    public static String toTitle(int value) {
+    %INDENT:+4%
+      switch (value) {
+      %ITERATE:EnumValue%
+        case %OrdinalNumber%: return "%DisplayText%";
+      %ENDITERATE:EnumValue%
+      default: return "";
+      }
+    %INDENT:-4%
+    }
+
+    /**
+    %INDENT:+1%
+     * Returns a list of all enumeration objects for this enumeration.
+     *
+     * @return A list of all enumeration objects for this enumeration.
+     */
+    %INDENT:-1%
+    public static List<%Name%> allEnums() {
+    %INDENT:+4%
+      LinkedList<%Name%> all = new LinkedList<%Name%>();
+      %ITERATE:EnumValue%
+        all.add(new %Parent.Name%(%OrdinalNumber%));
+      %ENDITERATE:EnumValue%
+      return all;
+    %INDENT:-4%
+    }
+
+    /**
+    %INDENT:+1%
+     * Returns The title of this enumeration.
+     *
+     * @return The title of this enumeration.
+     */
+    %INDENT:-1%
+    @Override
+    public String toString() {
+    %INDENT:+4%
+      return toTitle(currentValue);
+    %INDENT:-4%
+    }
+  %INDENT:-4%
+  }
+%ENDIF%
+%ENDFILE%

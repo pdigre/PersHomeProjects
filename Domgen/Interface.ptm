@@ -1,0 +1,96 @@
+%REM: ----------------------------------------------------
+%REM: Copyright (c) 2005-11 Esito AS. All rights reserved.
+%REM: Version: 9.0.7-SNAPSHOT. September 23, 2011.
+%REM: ----------------------------------------------------
+%CONTEXT: Interface%
+
+%FILE% %MACRO:DomainDirectory%/%Name%.java
+%IF: DEFINED(CommentFile)%
+  %INCLUDE% %CommentFile%
+%ELSE%
+  // %GeneratedWith%
+%ENDIF%
+
+package %STR:SLASH_TO_DOT%%STR:LOWER%%PackageName%%ENDSTR%%ENDSTR%;
+
+%REM: Imports...
+%ITERATE: Attribute%
+  %INCLUDE% ImportSingle.ptm
+%ENDITERATE%
+%ITERATE: Method%
+  %INCLUDE% ImportSingle.ptm
+  %ITERATE: Parameter%
+    %INCLUDE% ImportSingle.ptm
+  %ENDITERATE: Parameter%
+%ENDITERATE% 
+%ITERATE: Generalization%
+  %IF: Interface.Name==SubClass.Name%
+    %SET: Interface#Generalization = SuperClass.Name%
+    %INCLUDE% ImportSingle.ptm
+    %BREAK%
+  %ENDIF%
+%ENDITERATE%
+
+%REM: Interface declaration...
+/**
+%REM: Note: Intended space at the end of next line (SUP-209 workaround)
+%IF: HasDescription%%MACRO:JavaDocDesc% 
+%ENDIF%
+%INDENT:+1%
+*/
+%INDENT:-1%
+%MACRO:suppressAllWarnings% 
+%MACRO:Visibility%interface %Name%%DEFINED(#Generalization) ? (" extends " ++ #Generalization) : ""% {
+%INDENT:+4%
+
+  %ITERATE: Attribute%
+    %IF: HasDescription%
+      /**
+      %REM: Note: Intended space at the end of next line (SUP-209 workaround)
+      %MACRO:JavaDocDesc% 
+      %INDENT:+1%
+       */
+      %INDENT:-1%
+    %ENDIF%
+    %MACRO:Visibility%final static %MACRO:javaType% %Name% = %InitialValue%;
+
+  %ENDITERATE%
+  %ITERATE: Method%
+    /**
+    %REM: Note: Intended space at the end of next line (SUP-209 workaround)
+    %IF: HasDescription%%MACRO:JavaDocDesc% 
+    %ENDIF%
+    %INDENT:+1%
+     *
+    %ITERATE: Parameter%
+     * @param %Name% %Description%
+    %ENDITERATE: Parameter%
+    %IF: ModelType!="void" & ModelType!=""%
+     * @return %MACRO:javaType%
+
+    %ENDIF%
+     */
+    %INDENT:-1%
+    %LINE%
+    %IF: DEFINED(ModelType)%
+      %MACRO:javaType% 
+    %ELSE%
+      void 
+    %ENDIF%
+    %Name%(
+    %ITERATE: Parameter%
+      %IF: IsLast%
+        %MACRO:javaType% %Name%
+      %ELSE%
+        %MACRO:javaType% %Name%, 
+      %ENDIF%
+    %ENDITERATE%
+    );
+    %ENDLINE%
+
+  %ENDITERATE: Method%
+%INDENT:-4%
+}
+%ENDFILE%
+
+%ENDCONTEXT%

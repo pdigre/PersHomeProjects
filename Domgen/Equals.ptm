@@ -1,0 +1,93 @@
+%REM: ----------------------------------------------------
+%REM: Copyright (c) 2005-11 Esito AS. All rights reserved.
+%REM: Version: 9.0.7-SNAPSHOT. September 23, 2011.
+%REM: ----------------------------------------------------
+%SET: #instanceClass = Class.Name ++ (DEFINED(TopParent#GenerateSingleClass) ? "" : "Default")%
+%IF: DEFINED(Class#Methods["equalKeys"]["Object"])%
+  %WARNING: "Skipping generation of equalKeys for " ++ Class.Name ++ ": A method with that name is already defined"%
+%ELSE: Generate method equalKeys(...)%
+  %SET: Class#Methods["equalKeys"]["Object"] = "True"%
+  /**
+  %INDENT:+1%
+   * Compares the key for this instance with another %Name%.
+   *
+   * @param other The object to compare to
+   * @return True if other object is instance of class %Name% and the key objects are equal.
+   */
+  %INDENT:-1%
+  private boolean equalKeys(Object other) {
+  %INDENT:+4%
+    if (this==other) {
+    %INDENT:+4%
+      return true;
+    %INDENT:-4%
+    }
+    if (!(other instanceof %#instanceClass%)) {
+    %INDENT:+4%
+      return false;
+    %INDENT:-4%
+    }
+    %#instanceClass% that = (%#instanceClass%) other;
+    %SET: #KeyFound = "False"%
+    %ITERATE: Attribute%
+      %IF: IsDefaultDomainKey%
+        %INCLUDE% EqualsRecursive.ptm
+        %SET: Parent#KeyFound = "True"%
+        %BREAK%
+      %ENDIF%
+    %ENDITERATE: Attribute%
+    %IF: !DEFINED(#KeyFound)%
+      %ITERATE: Group%
+        %IF: IsDefaultDomainKey%
+          %ITERATE: Member%
+            %INCLUDE% EqualsRecursive.ptm
+          %ENDITERATE: Member%
+          %SET: Parent#KeyFound = "True"%
+          %BREAK%
+        %ENDIF%
+      %ENDITERATE: Group%
+    %ENDIF%
+    %IF: !DEFINED(#KeyFound)%
+      %ITERATE: Attribute%
+        %IF: IsPrimaryKey%
+          %INCLUDE% EqualsRecursive.ptm
+          %SET: Parent#KeyFound = "True"%
+          %BREAK%
+        %ENDIF%
+      %ENDITERATE: Attribute%
+    %ENDIF%
+    %IF: !DEFINED(#KeyFound)%
+      %ITERATE: Group%
+        %IF: IsPrimaryKey%
+          %ITERATE: Member%
+            %INCLUDE% EqualsRecursive.ptm
+          %ENDITERATE: Member%
+          %BREAK%
+        %ENDIF%
+      %ENDITERATE: Group%
+    %ENDIF%
+    return true;
+  %INDENT:-4%
+  }
+
+%ENDIF: Check for / generate equalKeys%
+%IF: DEFINED(Class#Methods["equals"]["Object"])%
+  %WARNING: "Skipping generation of equals for " ++ Class.Name ++ ": A method with that name is already defined"%
+%ELSE: Generate method equals(...)%
+  %SET: Class#Methods["equals"]["Object"] = "True"%
+  /**
+  %INDENT:+1%
+   * Compares this instance with another %Name%.
+   *
+   * @param other The object to compare to
+   * @return True if the objects are the same
+   */
+  %INDENT:-1%
+  @Override
+  public boolean equals(Object other) {
+  %INDENT:+4%
+    return this.equalKeys(other) && ((%#instanceClass%)other).equalKeys(this);
+  %INDENT:-4%
+  }
+
+%ENDIF: check for / generate equals%

@@ -1,0 +1,24 @@
+%REM: ----------------------------------------------------
+%REM: Copyright (c) 2005-11 Esito AS. All rights reserved.
+%REM: Version: 9.0.7-SNAPSHOT. September 23, 2011.
+%REM: ----------------------------------------------------
+%REM:-----------------------------------------------%
+%REM: Setting of template variables defining common java properties,
+%REM: ie. sub directory structures for Java generation
+%REM:-----------------------------------------------%
+
+%SET:TopParent#JavaDirectory          = !EXISTS(JavaDirectory)      ? "java/"      : JavaDirectory    == "" ? "" : JavaDirectory++"/"    %
+%SET:TopParent#TransportDirectory     = !EXISTS(TransportDirectory) ? "java/"      : TransportDirectory    == "" ? "" : TransportDirectory++"/"    %
+%SET:TopParent#ConverterDirectory     = !EXISTS(ConverterDirectory) ? "java/"      : ConverterDirectory    == "" ? "" : ConverterDirectory++"/"    %
+%SET:TopParent#CastorMappingDirectory = !EXISTS(CastorMappingDirectory) ? "resources/"  : CastorMappingDirectory    == "" ? "" : CastorMappingDirectory++"/"    %
+%SET:TopParent#MappingDirectory       = !EXISTS(MappingDirectory)   ? "java/"      : MappingDirectory == "" ? "" : MappingDirectory++"/" %
+%SET:TopParent#WebDirectory           = !EXISTS(WebDirectory)       ? "webapp/"    : WebDirectory     == "" ? "" : WebDirectory++"/"     %
+%SET:TopParent#ConfigDirectory        = !EXISTS(ConfigDirectory)    ? "config/"    : ConfigDirectory  == "" ? "" : ConfigDirectory++"/"  %
+%SET:TopParent#PrintDirectory         = !EXISTS(PrintDirectory)     ? "print/"     : PrintDirectory   == "" ? "" : PrintDirectory++"/"   %
+%SET:TopParent#GeneratedPackage       = !EXISTS(GeneratedPackage)   ? "generated." : GeneratedPackage == "" ? "" : GeneratedPackage++"." %
+%SET:TopParent#SuppressAllWarnings    = EXISTS(SuppressAllWarnings) ? SuppressAllWarnings : "True"%
+%SET:TopParent#GenerateSingleClass    = EXISTS(GenerateSingleClass) ? GenerateSingleClass : "True"%
+%SET:TopParent#GeneratePublicSetGet   = EXISTS(GeneratePublicSetGet) ? GeneratePublicSetGet : "True"%
+
+
+%TYPEDEF% suppressAllWarnings;%IF:TopParent#SuppressAllWarnings == "True"%@SuppressWarnings("all")%ENDIF%

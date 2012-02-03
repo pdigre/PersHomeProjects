@@ -1,0 +1,101 @@
+%REM: ----------------------------------------------------
+%REM: Copyright (c) 2005-11 Esito AS. All rights reserved.
+%REM: Version: 9.0.7-SNAPSHOT. September 23, 2011.
+%REM: ----------------------------------------------------
+%REM: This template will generate one getter and one setter.
+%REM:
+%REM: Parameters:
+%REM: #pName Name of the field
+%REM: #pType Type of the field
+%REM: #pTypeStripGen Type of the parameter stripped of generics tag. Used only to keep track of generated methods
+%REM: #pVisibility Visibility for the field, ending space included
+%REM:
+%REM: Some locally used variables...
+%SET: #tmpGetName = (#pType=="boolean" & DEFINED(GenerateIsAsBooleanPrefix) ? "is" : "get") ++ FIRST_UPPER(#pName)%
+%SET: #tmpSetName = "set" ++ FIRST_UPPER(#pName)%
+%REM: 
+%REM: 
+%REM: 
+%REM: 
+%IF: DEFINED(Class#Methods[#tmpGetName][""])%
+  %WARNING: "Skipping generation of " ++ #tmpGetName ++ "(): Already generated."%
+%ELSE: Generate getter...%
+  %IF: DEFINED(Class#MethodVisibility[#tmpGetName][""])%
+    %IF: Class#MethodVisibility[#tmpGetName][""]=="Package"%
+      %SET: #tmpVisibility = ""%
+    %ELSE%
+      %SET: #tmpVisibility = LOWER(Class#MethodVisibility[#tmpGetName][""]) ++ " "%
+    %ENDIF%
+  %ELSE%
+    %IF: DEFINED(TopParent#GeneratePublicSetGet)%
+      %SET: #tmpVisibility = "public "%
+    %ELSE%
+      %SET: #tmpVisibility = #pVisibility%
+    %ENDIF%
+  %ENDIF%
+  %SET: Class#Methods[#tmpGetName][""] = "True"%
+  %IF: !DEFINED(TopParent#GenerateSingleClass) & #tmpVisibility == "private "%
+    %WARNING: "Skipping generation of " ++ #tmpGetName ++ "(): Method is private."%
+  %ELSE%
+    /**
+    %INDENT:+1%
+      * Access method for %#pName%.
+      *
+      %IF: #pType=="boolean"%
+        * @return true if and only if %#pName% is currently true
+      %ELSE%
+        * @return the current value of %#pName%
+      %ENDIF%
+      */
+    %INDENT:-1%
+    %#tmpVisibility%%#pType% %#tmpGetName%() {
+    %INDENT:+4%
+      %IF: DEFINED(#pSkipGenerateSetter) & #pTypeStripGen == "Set"%
+      if(%#pName% == null) {
+      %INDENT:+4%
+      %#pName% = new Hash%#pType%();
+      %INDENT:-4%
+      }	
+      %ENDIF%
+      return %#pName%;
+    %INDENT:-4%
+    }
+
+  %ENDIF%
+%ENDIF%
+%IF: DEFINED(Class#Methods[#tmpSetName][#pTypeStripGen])%
+  %WARNING: "Skipping generation of " ++ #tmpSetName ++ "(" ++ #pTypeStripGen ++ "): Already generated."%
+%ELSE: Generate setter...%
+  %IF: DEFINED(Class#MethodVisibility[#tmpSetName][#pType])%
+    %IF: Class#MethodVisibility[#tmpSetName][#pType]=="Package"%
+      %SET: #tmpVisibility = ""%
+    %ELSE%
+      %SET: #tmpVisibility = LOWER(Class#MethodVisibility[#tmpSetName][#pType]) ++ " "%
+    %ENDIF%
+  %ELSE%
+    %IF: DEFINED(TopParent#GeneratePublicSetGet)%
+      %SET: #tmpVisibility = "public "%
+    %ELSE%
+      %SET: #tmpVisibility = #pVisibility%
+    %ENDIF%
+  %ENDIF%
+  %SET: Class#Methods[#tmpSetName][#pTypeStripGen] = "True"%
+  %IF: !DEFINED(TopParent#GenerateSingleClass) & #tmpVisibility == "private "%
+    %WARNING: "Skipping generation of " ++ #tmpSetName ++ "(" ++ #pType ++ "): Method is private."%
+  %ELSEIF: DEFINED(#pSkipGenerateSetter)%
+  %ELSE%
+    /**
+    %INDENT:+1%
+      * Access method for %#pName%.
+      *
+      * @param a%FIRST_UPPER(#pName)% the new value for %#pName%
+      */
+    %INDENT:-1%
+    %#tmpVisibility%void %#tmpSetName%(final %#pType% a%FIRST_UPPER(#pName)%) {
+    %INDENT:+4%
+      %#pName% = a%FIRST_UPPER(#pName)%;
+    %INDENT:-4%
+    }
+
+  %ENDIF%
+%ENDIF%

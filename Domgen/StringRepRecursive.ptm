@@ -1,0 +1,14 @@
+%REM: ----------------------------------------------------
+%REM: Copyright (c) 2005-11 Esito AS. All rights reserved.
+%REM: Version: 9.0.7-SNAPSHOT. September 23, 2011.
+%REM: ----------------------------------------------------
+%IF:NodeType=="Attribute" | MemberType=="Attribute"%
+  %IF: StartRoleNamePath!="" & !Class.IsPersistent%
+    /* The following line may cause an IllegalStateException */
+  %ENDIF%
+  sb.append(" %MACRO:InheritAttrNameFirstLower%=").append(get%MACRO:InheritAttrName%());
+%ELSE%
+  %ITERATE:Member%
+    %INCLUDE% StringRepRecursive.ptm
+  %ENDITERATE:Member%
+%ENDIF%

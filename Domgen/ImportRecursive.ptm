@@ -1,0 +1,12 @@
+%REM: ----------------------------------------------------
+%REM: Copyright (c) 2005-11 Esito AS. All rights reserved.
+%REM: Version: 9.0.7-SNAPSHOT. September 23, 2011.
+%REM: ----------------------------------------------------
+%ITERATE:Member%
+  %IF:MemberType=="Attribute"%
+    %INCLUDE% ImportSingle.ptm
+  %ELSE:!MemberType=="Attribute"%
+    %INCLUDE% ImportRecursive.ptm
+  %ENDIF:MemberType=="Attribute"%
+%ENDITERATE:Member%
+

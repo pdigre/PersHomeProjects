@@ -1,0 +1,497 @@
+%REM: ----------------------------------------------------
+%REM: Copyright (c) 2005-11 Esito AS. All rights reserved.
+%REM: Version: 9.0.7-SNAPSHOT. September 23, 2011.
+%REM: ----------------------------------------------------
+%REM: ---------------------------------------------------------------------------
+%REM: Set some variables...
+%REM: ---------------------------------------------------------------------------
+
+%REM: Class#ImplementSerializable will be true if class implements Serializable
+%REM: Will be set during generation of imports.
+
+%REM: Class#PrimaryKey will be defined if the class has a primary key
+%ITERATE: Attribute%
+  %IF: IsPrimaryKey%
+    %SET: Class#PrimaryKey = Name%
+    %BREAK%
+  %ENDIF%
+%ENDITERATE: Attribute%
+%IF: !DEFINED(Class#PrimaryKey)%
+  %ITERATE: Group%
+    %IF: IsPrimaryKey%
+      %SET: Class#PrimaryKey = Name%
+      %BREAK%
+    %ENDIF%
+  %ENDITERATE: Group%
+%ENDIF%
+
+%REM: Class#DefaultDomainKey will be defined if the class has a default domain key
+%ITERATE: Attribute%
+  %IF: IsDefaultDomainKey%
+    %SET: Class#DefaultDomainKey = Name%
+    %BREAK%
+  %ENDIF%
+%ENDITERATE: Attribute%
+%IF: !DEFINED(Class#DefaultDomainKey)%
+  %ITERATE: Group%
+    %IF: IsDefaultDomainKey%
+      %SET: Class#DefaultDomainKey = Name%
+      %BREAK%
+    %ENDIF%
+  %ENDITERATE: Group%
+%ENDIF%
+
+%REM: Class#SuperClassName will hold the name of the super class (if any)
+%REM: Class#SuperClassPackage will hold the name of the package of the super class (if any)
+%ITERATE: Generalization%
+  %IF: Class.Name==SubClass.Name%
+    %SET: Class#SuperClassName = SuperClass.Name%
+    %SET: Class#SuperClassPackage = SuperClass.PackageName%
+    %BREAK%
+  %ENDIF%
+%ENDITERATE: Generalization%
+%IF: !DEFINED(#SuperClassName)%
+%IF: IsPersistent & DEFINED(PersistentClass)%
+  %SET: #SuperClassName = PersistentClass%
+%ELSEIF: !IsPersistent & DEFINED(TransientClass)%
+  %SET: #SuperClassName = TransientClass%
+%ENDIF%
+%ENDIF%
+
+%REM: Class#Method[ReturnType][ParameterList] will be true if the method with the
+%REM: signature is already generated. Used to prevent multiple methods with the
+%REM: same signature. 
+%REM: The ParameterList will be a comma-separated string, and it will be prefixed
+%REM: in the following cases: *abstract* if an abstract method is generated, and
+%REM: "*constructor*" if a the method has no return type.
+%REM: This array will be populated as methods are generated.
+
+%REM: Class#MethodVisibility[name][args] will hold the visibility of methods in
+%REM: the model. Used only when generating getters and setters.
+%ITERATE: Method%
+  %SET: #parameters = ""%
+  %ITERATE: Parameter%
+    %INCLUDE% JavaType.ptm
+    %IF: IsFirst%
+      %SET: Method#parameters = #javaType%
+    %ELSE%
+      %SET: Method#parameters = Method#parameters ++ "," ++ #javaType%
+    %ENDIF%
+  %ENDITERATE: Parameter%
+  %SET: Class#MethodVisibility[Name][#parameters] = Visibility%
+%ENDITERATE: Method%
+
+
+%REM: ---------------------------------------------------------------------------
+%REM: Open source file, add head comment and package...
+%REM: ---------------------------------------------------------------------------
+
+%CONTEXT: Class%
+
+%IF: DEFINED(TopParent#GenerateSingleClass)%
+  %IF:SkipNewFiles%
+    %FILE% %MACRO:DomainDirectory%/%Name%.java
+  %ELSE:SkipNewFiles%
+    %NEWFILE% %MACRO:DomainDirectory%/%Name%.java
+  %ENDIF:SkipNewFiles%
+%ELSE: This is the generated super class%
+  %FILE% %MACRO:DomainDirectory%/%Name%Default.java
+%ENDIF: TopParent#GenerateSingleClass%
+%IF: DEFINED(CommentFile)%
+  %INCLUDE% %CommentFile%
+%ELSE: CommentFile%
+  // %GeneratedWith%
+%ENDIF: CommentFile%
+
+package %SLASH_TO_DOT(LOWER(PackageName))%;
+
+%REM: ---------------------------------------------------------------------------
+%REM: Imports...
+%REM: ---------------------------------------------------------------------------
+%REM: Class#Imports["SomeClassName"] is set to prevent double imports.
+%ITERATE: Attribute%
+  %INCLUDE% ImportSingle.ptm
+%ENDITERATE: Attribute%
+%ITERATE: Group%
+  %INCLUDE% ImportRecursive.ptm
+%ENDITERATE: Group%
+%ITERATE: Association%
+  %IF: Class.Name==OwnerClass.Name & IsMemberNavigable%
+    %IF: IsMemberMany%
+      %SET: #impSinType = "Set"%
+      %INCLUDE% ImportSingle.ptm
+    %ENDIF: IsMemberMany%
+    %SET: #impSinType = MemberClass.Name%
+    %SET: #impSinPack = MemberClass.PackageName%
+    %INCLUDE% ImportSingle.ptm
+  %ENDIF%
+  %IF: Class.Name==MemberClass.Name & IsOwnerNavigable%
+    %IF: IsOwnerMany%
+      %SET: #impSinType = "Set"%
+     %INCLUDE% ImportSingle.ptm
+    %ENDIF: IsOwnerMany%
+    %SET: #impSinType = OwnerClass.Name%
+    %SET: #impSinPack = OwnerClass.PackageName%
+    %INCLUDE% ImportSingle.ptm
+  %ENDIF%
+%ENDITERATE: Association%
+%ITERATE: Method%
+  %IF: DEFINED(TopParent#GenerateSingleClass) | !(Visibility=="Private" | Class.Name==Name)%
+    %INCLUDE% ImportSingle.ptm
+    %ITERATE: Parameter%
+      %INCLUDE% ImportSingle.ptm
+    %ENDITERATE: Parameter%
+  %ENDIF%
+%ENDITERATE: Method%
+%ITERATE:Generalization%
+  %IF: Class.Name==SubClass.Name%
+    %INCLUDE% ImportSingle.ptm
+    %BREAK%
+  %ENDIF%
+%ENDITERATE: Generalization%
+%REM: Import realizations, and set Class#ImplementSerializable...
+%ITERATE: Realization%
+  %SET: #tmp = SLASH_TO_DOT(LOWER(Interface.PackageName)) ++ "." ++ Interface.Name%
+  %IF: #tmp=="java.io.Serializable"%
+    %SET: Class#Serializable = "True"%
+  %ENDIF%
+  %IF: Interface.PackageName != Class.PackageName%
+    import %#tmp%;
+  %ENDIF%
+%ENDITERATE: Realization%
+%IF: !DEFINED(Class#Serializable)%
+  %IF: IsPersistent & !DEFINED(#GeneralizationName) & DEFINED(PersistentSerializable)%
+    %SET: Class#ImplementSerializable = "True"%
+  %ENDIF%
+%ENDIF: !DEFINED%
+%REM: Now, make sure we dont implement serializable if a superclass does...%
+%ITERATE:Generalization%
+  %IF: Class.Name==SubClass.Name & Class.IsPersistent%
+    %SET: Class#ImplementSerializable = "False"%
+    %BREAK%
+  %ENDIF%
+%ENDITERATE: Generalization%
+%IF: !DEFINED(#GeneralizationName)%
+%IF: DEFINED(PersistentClass) & IsPersistent%
+  %SET: #GeneralizationName = PersistentClass%
+%ELSEIF: DEFINED(TransientClass) & !IsPersistent%
+  %SET: #GeneralizationName = TransientClass%
+%ENDIF%
+%ENDIF%
+%IF: DEFINED(Class#ImplementSerializable)%
+  %SET: #impSinPack = "java.io"%
+  %SET: #impSinType = "Serializable"%
+  %INCLUDE% ImportSingle.ptm
+%ENDIF%
+%IF: DEFINED(Class#SuperClassPackage)%
+  %SET: #impSinPack = Class#SuperClassPackage%
+  %SET: #impSinType = Class#SuperClassName%
+  %INCLUDE% ImportSingle.ptm
+%ENDIF%
+%IF: DEFINED(Class#PrimaryKey)%
+  %SET: #impSinPack = "java.util"%
+  %SET: #impSinType = "LinkedHashMap"%
+  %INCLUDE% ImportSingle.ptm
+  %SET: #impSinPack = "java.util"%
+  %SET: #impSinType = "Map"%
+  %INCLUDE% ImportSingle.ptm
+%ENDIF%
+%IF: DEFINED(GenerateAttributeInfo)%
+  %SET: #impSinPack = "java.util"%
+  %SET: #impSinType = "HashMap"%
+  %INCLUDE% ImportSingle.ptm
+  %SET: #impSinPack = "java.util"%
+  %SET: #impSinType = "Map"%
+  %INCLUDE% ImportSingle.ptm
+  %SET: #impSinPack = "no.genova.domain"%
+  %SET: #impSinType = "AttributeInfo"%
+  %INCLUDE% ImportSingle.ptm
+%ENDIF%
+
+%REM: ---------------------------------------------------------------------------
+%REM: Class declaration...
+%REM: ---------------------------------------------------------------------------
+/**
+%REM: Note: Intended space at the end of next line (SUP-209 workaround)
+%IF: HasDescription%%MACRO:JavaDocDesc% 
+%ENDIF%
+%INDENT:+1%
+ */
+%INDENT:-1%
+%IF: !DEFINED(TopParent#GenerateSingleClass)%
+%MACRO:suppressAllWarnings%
+
+%ENDIF%
+%LINE%
+%IF: DEFINED(TopParent#GenerateSingleClass)%
+  %MACRO:Visibility%%Abstract ? "abstract " : ""%class %Name% 
+%ELSE: This is the abstract base class%
+  public abstract class %Name%Default 
+%ENDIF: TopParent#GenerateSingleClass%
+%IF: DEFINED(Class#SuperClassName)%
+  extends %Class#SuperClassName% 
+%ENDIF%
+%IF: DEFINED(Class#ImplementSerializable) | CountRealization > 0%
+  implements 
+%ENDIF%
+%ITERATE: Realization%
+  %IF: IsLast & !DEFINED(Class#ImplementSerializable)%
+    %Interface.Name% 
+  %ELSE%
+    %Interface.Name%, 
+  %ENDIF%
+%ENDITERATE: Realization%
+%IF: DEFINED(Class#ImplementSerializable)%
+  Serializable 
+%ENDIF%
+{
+%ENDLINE%
+%INDENT:+4%
+
+%REM: ---------------------------------------------------------------------------
+%REM: Class attributes...
+%REM: ---------------------------------------------------------------------------
+%IF: DEFINED(TopParent#GenerateSingleClass) & DEFINED(SerialVersionUID)%
+  /** Serial Version UID. */
+  private static final long serialVersionUID = %SerialVersionUID%;
+%ENDIF%
+%IF: DEFINED(GenerateClassNameString)%
+  /** Class name. */
+  public static final String NAME = "%Name%";
+%ENDIF%
+%IF: DEFINED(Class#PrimaryKey)%
+  /** Primary key. */
+  protected static final String PK = "%Class#PrimaryKey%";
+%ENDIF%
+%IF: DEFINED(GenerateAttributeNameString)%
+  %ITERATE: Attribute%
+    /** Attribute name. */
+    public static final String ATTR_%UPPER(UNCAMELIZE(Name))% = "%Name%";
+  %ENDITERATE: Attribute%
+  %ITERATE: Association%
+    %IF: Class.Name==OwnerClassName & IsMemberNavigable%
+      /** Association attribute name. */
+      public static final String ATTR_%UPPER(UNCAMELIZE(MemberRoleName))% = "%MemberRoleName%";
+    %ENDIF%
+    %IF: Class.Name==MemberClassName & IsOwnerNavigable%
+      /** Association attribute name. */
+      public static final String ATTR_%UPPER(UNCAMELIZE(OwnerRoleName))% = "%OwnerRoleName%";
+    %ENDIF%
+  %ENDITERATE: Association%
+  %ITERATE: Group%
+    %IF: IsPrimaryKey%
+      %ITERATE: Member%
+        %IF: MemberType!="Attribute"%
+          %INCLUDE% FinalAttributeRecursive.ptm
+        %ENDIF%
+      %ENDITERATE: Member%
+    %ENDIF%
+  %ENDITERATE: Group%
+%ENDIF: DEFINED(GenerateAttributeNameString)%
+%IF: DEFINED(GenerateAttributeInfo)%
+%INCLUDE% AttributeFormatting.ptm
+%ENDIF: DEFINED(GenerateAttributeInfo)%
+%ITERATE: Attribute%
+  %IF: HasDescription%
+
+    /**
+    %MACRO:JavaDocDesc% 
+    %INDENT:+1%
+    */
+    %INDENT:-1%
+  %ENDIF%
+  %IF: DEFINED(TopParent#GeneratePublicSetGet)%
+    %MACRO:Visibility%%IF:IsStatic%static %ENDIF%%MACRO:javaType% %Name%%IF:HasInitialValue% = %InitialValue%%ENDIF%;
+  %ELSE%
+    private %IF:IsStatic%static %ENDIF%%MACRO:javaType% %Name%%IF:HasInitialValue% = %InitialValue%%ENDIF%;
+  %ENDIF: DEFINED(TopParent#GeneratePublicSetGet)%
+%ENDITERATE: Attribute%
+%ITERATE: Association%
+  %IF: Class.Name==OwnerClassName%
+    %IF: IsMemberNavigable%
+      %IF: IsMemberMany%
+        %IF: HasDescription%
+          /** 
+          %REM: Note: Intended space at the end of next line (SUP-209 workaround)
+          %MACRO:JavaDocDesc% 
+          %INDENT:+1%
+            */
+          %INDENT:-1%
+        %ENDIF%
+        private Set<%MemberClassName%> %MemberRoleName%;
+      %ELSE%
+        %IF: HasDescription%
+          /** %Description% */
+        %ENDIF%
+        private %MemberClassName% %MemberRoleName%;
+      %ENDIF: IsMemberMany%
+    %ENDIF: IsMemberNavigable%
+  %ENDIF: Class.Name==OwnerClassName%
+  %IF: Class.Name==MemberClassName%
+    %IF: IsOwnerNavigable%
+      %IF: IsOwnerMany%
+        %IF: HasDescription%
+          /** 
+          %REM: Note: Intended space at the end of next line (SUP-209 workaround)
+          %MACRO:JavaDocDesc% 
+          %INDENT:+1%
+            */
+          %INDENT:-1%
+        %ENDIF%
+        private Set<%OwnerClassName%> %OwnerRoleName%;
+      %ELSE%
+        %IF: HasDescription%
+          /** 
+          %REM: Note: Intended space at the end of next line (SUP-209 workaround)
+          %MACRO:JavaDocDesc% 
+          %INDENT:+1%
+            */
+          %INDENT:-1%
+        %ENDIF%
+        private %OwnerClassName% %OwnerRoleName%;
+      %ENDIF: IsOwnerMany%
+    %ENDIF: IsOwnerNavigable%
+  %ENDIF: Class.Name==MemberClassName%
+%ENDITERATE: Association%
+
+%REM: ---------------------------------------------------------------------------
+%REM: Constructors, accessors and methods...
+%REM: ---------------------------------------------------------------------------
+  /** Default constructor. */
+%IF: DEFINED(TopParent#GenerateSingleClass)%
+  %SET: #tmpVisibility = "public "%
+  %IF: DEFINED(Class#MethodVisibility[Name][""])%
+    %SET: #tmpVisibility = Class#MethodVisibility[Name][""] == "Package" ? "" : (LOWER(Class#MethodVisibility[Name][""]) ++ " ")%
+  %ENDIF%
+  %#tmpVisibility%%Name%() {
+  %SET:Class#Methods[Name]["*constructor*"] = "True"%
+%ELSE%
+  protected %Name%Default() {
+  %SET:Class#Methods[Name ++ "Default"]["*constructor*"] = "True"%
+%ENDIF%
+%INDENT:+4%
+  super();
+%INDENT:-4%
+}
+
+%ITERATE: Method%
+  %REM: This iteration will take care of constructors
+  %IF: Class.Name==Name%
+    %INCLUDE% Method.ptm
+  %ENDIF%
+%ENDITERATE%
+%ITERATE: Attribute%
+  %INCLUDE% JavaType.ptm
+  %SET: #pName = Name%
+  %SET: #pType = #javaType%
+  %SET: #pTypeStripGen = #javaType%
+  %SET: #pVisibility = Visibility=="Package"?"":LOWER(Visibility)++" "%
+  %INCLUDE% GetSetSingle.ptm
+%ENDITERATE%
+%ITERATE: Association%
+  %IF: Class.Name==OwnerClassName%
+    %IF: IsMemberNavigable%
+      %SET: #pName = MemberRoleName%
+      %SET: #pType = IsMemberMany ? "Set<"++MemberClassName++">" : MemberClassName%
+      %SET: #pTypeStripGen = IsMemberMany ? "Set" : MemberClassName%
+      %SET: #pVisibility = "public "%
+      %INCLUDE% GetSetSingle.ptm
+    %ENDIF%
+  %ENDIF%
+  %IF:Class.Name==MemberClassName%
+    %IF:IsOwnerNavigable%
+      %SET: #pName = OwnerRoleName%
+      %SET: #pType = IsOwnerMany ? "Set<"++OwnerClassName++">" : OwnerClassName%
+      %SET: #pTypeStripGen = IsOwnerMany ? "Set" : OwnerClassName%
+      %SET: #pVisibility = "public "%
+      %INCLUDE% GetSetSingle.ptm
+    %ENDIF%
+  %ENDIF%
+%ENDITERATE%
+%ITERATE: Group%
+  %IF: IsPrimaryKey%
+    %ITERATE: Member%
+      %INCLUDE% GetSetGroup.ptm
+    %ENDITERATE: Member%
+    %BREAK%
+  %ENDIF%
+%ENDITERATE: Group%
+%ITERATE: Method%
+  %REM: This iteration will take care of non-constructor methods%
+  %IF: Class.Name != Name%
+    %IF: !Class.Abstract & Abstract%
+      %WARNING: "Non-abstract class " ++ Class.Name ++ " contains abstract method " ++ Name ++ "."%
+    %ELSE%
+      %INCLUDE% Method.ptm
+    %ENDIF%
+  %ENDIF%
+%ENDITERATE%
+%REM: ---------------------------------------------------------------------------
+%REM: Misc...
+%REM: ---------------------------------------------------------------------------
+%IF:DEFINED(Class#PrimaryKey) | DEFINED(Class#DefaultDomainKey)%
+  %INCLUDE% Equals.ptm
+  %INCLUDE% HashCode.ptm
+  %INCLUDE% StringRep.ptm
+%ENDIF%
+%IF:DEFINED(Class#PrimaryKey)%
+  %INCLUDE% PrimaryKey.ptm
+%ENDIF%
+%IF: DEFINED(GenerateGetStaticClassNameMethod)%
+  %IF: DEFINED(Class#Methods["getStaticName"][""])%
+    %INFO: "Skipping generation of getStaticName() for " ++ Class.Name ++ ": A method with that name is already defined"%
+  %ELSE: Generate method getStaticName()...%
+    %SET: Class#Methods["getStaticName"][""] = "True"%
+    /**
+    %INDENT:+1%
+    %IF: DEFINED(TopParent#GenerateSingleClass)%
+     * Return the name of this class.
+    %ELSE%
+     * Return the name of the (generated) subclass.
+    %ENDIF%
+     *
+     * @return Class name
+     */
+    %INDENT:-1%
+    public static String getStaticName() {
+    %INDENT:+4%
+      return "%Name%";
+    %INDENT:-4%
+    }
+  %ENDIF%
+  %IF: DEFINED(Class#Methods["getDomainName"][""])%
+    %INFO: "Skipping generation of getDomainName() for " ++ Class.Name ++ ": A method with that name is already defined"%
+  %ELSE: Generate method getDomainName()...%
+    %SET: Class#Methods["getDomainName"][""] = "True"%
+
+    /**
+    %INDENT:+1%
+    %IF: DEFINED(TopParent#GenerateSingleClass)%
+     * Return the full name of this class, including the package name.
+    %ELSE%
+     * Return the full name of the (generated) subclass, including the package name.
+    %ENDIF%
+     *
+     * @return full Class name, including the package name
+     */
+    %INDENT:-1%
+    public static String getDomainName() {
+    %INDENT:+4%
+      %IF:DEFINED(PackageName)%
+      return "%SLASH_TO_DOT(LOWER(PackageName))%." + getStaticName();
+      %ELSE%
+      return getStaticName();
+      %ENDIF%
+    %INDENT:-4%
+    }
+  %ENDIF%
+%ENDIF: GenerateGetStaticClassNameMethod%
+%INDENT:-4%
+}
+%ENDFILE%
+
+%ENDCONTEXT%
+
+%IF: !DEFINED(TopParent#GenerateSingleClass)%
+  %INCLUDE% SubClass.ptm
+%ENDIF%

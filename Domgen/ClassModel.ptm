@@ -1,0 +1,67 @@
+%REM: ----------------------------------------------------
+%REM: Copyright (c) 2005-11 Esito AS. All rights reserved.
+%REM: Version: 9.0.7-SNAPSHOT. September 23, 2011.
+%REM: ----------------------------------------------------
+%REM: ---------------------------------------------------------------------------------------------------
+%REM: This template set generates java classes for a target domain model
+%REM:
+%REM: OPTIONAL TEMPLATE PARAMETERS
+%REM:
+%REM: JavaDirecotory: The directory (below "Target directory") for generated code 
+%REM: TransientClass: If set, the super class for transient classes
+%REM: PersistentClass: Set to override default no.genova.domain.PersistentClass
+%REM: PersistentSerializable: Set to true if persistent classes should implement Serializable
+%REM: CommentFile: Set a filename to include as a comment file.
+%REM: GenerateSingleClass: Set to true if no XxxDefault class should be generated
+%REM: GenerateJavaStyleEnums: If true, enumerations will be proper java 1.5 enums, rather than subclasses of GenovaEnumerator
+%REM: GenerateIsAsBooleanPrefix: Set to true to use "is" as accessor prefix for booleans (default is "get")
+%REM: GenerateAttributeInfo: Set to true to generate model info (display rule, justification etc) for attributes
+%REM: TopParent#GeneratePublicSetGet: Set to true to always generate public getters and setters for attributes
+%REM: GenerateClassNameString: Set to true to generate final string NAME
+%REM: GenerateAttributeNameString: Set to true to generate final string ATTR_SOMEATTR
+%REM: GenerateGetStaticClassNameMethod: Set to true to generate static methods that returns class name, getStaticName/getDomainName
+%REM: SerialVersionUID: Set to a numeric to generate UID for classes
+%REM:
+%REM: ---------------------------------------------------------------------------------------------------
+
+@types
+boolean;Boolean
+char;Character
+byte;Byte
+short;Short
+int;Integer
+long;Long
+float;Float
+double;Double
+
+%REM: Substitutes with correct visibility
+Visibility;%IF: Visibility!="Package"%%LOWER(Visibility)% %ENDIF%
+
+UpperMemberRole;%FIRST_UPPER(MemberRoleName)%
+UpperOwnerRole;%FIRST_UPPER(OwnerRoleName)%
+InheritAttr;%FIRST_UPPER(StartRoleNamePath) ++ FIRST_UPPER(NOSEP_CAMEL(RestRoleNamePath))%
+InheritAttrName;%FIRST_UPPER(StartRoleNamePath) ++ FIRST_UPPER(NOSEP_CAMEL(RestRoleNamePath)) ++ FIRST_UPPER(Name)%
+InheritAttrNameFirstLower;%NOSEP_CAMEL((DEFINED(StartRoleNamePath) ? StartRoleNamePath ++ "/" : "") ++ (DEFINED(RestRoleNamePath) ? RestRoleNamePath ++ "/" : "") ++ Name)%
+JavaDocDesc;%JAVADOC(Description)%
+
+@template
+
+%INCLUDE% JavaUtility.ptm
+%CONTEXT:MacroDef%
+  %INCLUDE% JavaType.ptm
+%ENDCONTEXT%
+
+%REM: Path for a class relative to target directory%
+%TYPEDEF% DomainDirectory;%TopParent#JavaDirectory%%STR:BSLASH_TO_SLASH%%IF:DEFINED(PackageName)%%PackageName%%ENDIF%%ENDSTR%
+
+%ITERATE: Class%
+  %INCLUDE% Class.ptm
+%ENDITERATE:Class%
+
+%ITERATE:Interface%
+  %INCLUDE% Interface.ptm
+%ENDITERATE:Interface%
+
+%ITERATE:Enumerator%
+  %INCLUDE% Enumerator.ptm
+%ENDITERATE:Enumerator%

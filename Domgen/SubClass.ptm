@@ -1,0 +1,65 @@
+%REM: ----------------------------------------------------
+%REM: Copyright (c) 2005-11 Esito AS. All rights reserved.
+%REM: Version: 9.0.7-SNAPSHOT. September 23, 2011.
+%REM: ----------------------------------------------------
+%CONTEXT: Subclass%
+%NEWFILE% %MACRO:DomainDirectory%/%Name%.java
+%IF: DEFINED(CommentFile)%
+  %INCLUDE% %CommentFile%
+%ELSE%
+  // %GeneratedWith%
+%ENDIF%
+
+package %SLASH_TO_DOT(LOWER(PackageName))%;
+
+%ITERATE: Method%
+  %INCLUDE% ImportSingle.ptm
+  %ITERATE: Parameter%
+    %INCLUDE% ImportSingle.ptm
+  %ENDITERATE: Parameter%
+%ENDITERATE: Method%
+
+/**
+%REM: Note: Intended space at the end of next line (SUP-209 workaround)
+%IF: HasDescription%%MACRO:JavaDocDesc% 
+%ENDIF%
+%INDENT:+1%
+*/
+%INDENT:-1%
+%MACRO:Visibility%%Abstract ? "abstract " : ""%class %Name% extends %Name%Default {
+%INDENT:+4%
+
+  %IF: DEFINED(SerialVersionUID)%
+  /** Serial Version UID. */
+  private static final long serialVersionUID = %SerialVersionUID%;
+
+  %ENDIF%
+
+  /** Default constructor. */
+  %SET: #tmpVisibility = "public "%
+  %IF: DEFINED(Class#MethodVisibility[Name][""])%
+    %SET: #tmpVisibility = Class#MethodVisibility[Name][""] == "Package" ? "" : (LOWER(Class#MethodVisibility[Name][""]) ++ " ")%
+  %ENDIF%
+  %#tmpVisibility%%Name%() {
+  %INDENT:+4%
+    super();
+  %INDENT:-4%
+  }
+  %SET:Class#Methods[Name]["*constructor*"] ="True"%
+
+  %ITERATE: Method%
+    %REM: This iteration will take care of constructors
+    %IF: Class.Name==Name%
+      %INCLUDE% Method.ptm
+    %ENDIF%
+  %ENDITERATE%
+  %ITERATE: Method%
+    %REM: This iteration will take care of non-constructor methods
+    %IF: Class.Name != Name & !(!Class.Abstract & Abstract)%
+      %INCLUDE% Method.ptm
+    %ENDIF%
+  %ENDITERATE%
+%INDENT:-4%
+}
+%ENDFILE%
+%ENDCONTEXT%

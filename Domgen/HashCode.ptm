@@ -1,0 +1,63 @@
+%REM: ----------------------------------------------------
+%REM: Copyright (c) 2005-11 Esito AS. All rights reserved.
+%REM: Version: 9.0.7-SNAPSHOT. September 23, 2011.
+%REM: ----------------------------------------------------
+%IF: DEFINED(Class#Methods["hashCode"][""])%
+  %WARNING: "Skipping generation of hashCode for " ++ Class.Name ++ ": A method with that name is already defined"%
+%ELSE: Generate method hashCode(...)%
+  %SET: Class#Methods["hashCode"][""] = "True"%
+  /**
+  %INDENT:+1%
+   * Returns a hash code for this instance.
+   *
+   * @return Hash code
+   */
+  %INDENT:-1%
+  @Override
+  public int hashCode() {
+  %INDENT:+4%
+    int i;
+    int result = 17;
+    %SET: #KeyFound = "False"%
+    %ITERATE: Attribute%
+      %IF: IsDefaultDomainKey%
+        %INCLUDE% HashCodeRecursive.ptm
+        %SET: Parent#KeyFound = "True"%
+        %BREAK%
+      %ENDIF: IsDefaultDomainKey%
+    %ENDITERATE: Attribute%
+    %IF: !DEFINED(#KeyFound)%
+      %ITERATE: Group%
+        %IF: IsDefaultDomainKey%
+          %ITERATE: Member%
+            %INCLUDE% HashCodeRecursive.ptm
+          %ENDITERATE:Member%
+          %SET: Parent#KeyFound = "True"%
+          %BREAK%
+        %ENDIF%
+      %ENDITERATE: Group%
+    %ENDIF: !#KeyFound%
+    %IF: !DEFINED(#KeyFound)%
+      %ITERATE: Attribute%
+        %IF: IsPrimaryKey%
+          %INCLUDE% HashCodeRecursive.ptm
+          %SET: Parent#KeyFound = "True"%
+          %BREAK%
+        %ENDIF: IsPrimaryKey%
+      %ENDITERATE: Attribute%
+    %ENDIF: !#KeyFound%
+    %IF: !DEFINED(#KeyFound)%
+      %ITERATE: Group%
+        %IF: IsPrimaryKey%
+          %ITERATE: Member%
+            %INCLUDE% HashCodeRecursive.ptm
+          %ENDITERATE:Member%
+          %BREAK%
+        %ENDIF%
+      %ENDITERATE: Group%
+    %ENDIF: !#KeyFound%
+    return result;
+  %INDENT:-4%
+  }
+
+%ENDIF: check for / generate hashCode%

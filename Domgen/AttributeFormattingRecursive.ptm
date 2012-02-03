@@ -1,0 +1,22 @@
+%REM: ----------------------------------------------------
+%REM: Copyright (c) 2005-11 Esito AS. All rights reserved.
+%REM: Version: 9.0.7-SNAPSHOT. September 23, 2011.
+%REM: ----------------------------------------------------
+%IF: NodeType=="Attribute" | MemberType=="Attribute"%
+  %IF: DEFINED(GenerateAttributeNameString)%
+    ATTRIBUTE_INFO.put(ATTR_%IF:NodeType=="Attribute"%%UPPER(UNCAMELIZE(Name))%%ELSE%%STR:UPPER%%MACRO:InheritAttrName%%ENDSTR%%ENDIF%,
+  %ELSE%
+    ATTRIBUTE_INFO.put("%Name%",
+  %ENDIF%
+  %INDENT:+4%
+        new AttributeInfo("%Displayrule%", %IsBlankWhenZero?"true":"false"%,
+        %INDENT:+8%
+            AttributeInfo.JUSTIFICATION.%UPPER(InputJustification)%,
+            AttributeInfo.JUSTIFICATION.%UPPER(OutputJustification)%));
+        %INDENT:-8%
+  %INDENT:-4%                   
+%ELSE%
+  %ITERATE: Member%
+    %INCLUDE% AttributeFormattingRecursive.ptm
+  %ENDITERATE%
+%ENDIF%

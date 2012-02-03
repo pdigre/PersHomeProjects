@@ -1,0 +1,41 @@
+%REM: ----------------------------------------------------
+%REM: Copyright (c) 2005-11 Esito AS. All rights reserved.
+%REM: Version: 9.0.7-SNAPSHOT. September 23, 2011.
+%REM: ----------------------------------------------------
+%IF: NodeType=="Attribute" | MemberType=="Attribute"%
+  %IF: StartRoleNamePath!="" & !Class.IsPersistent%
+    /* The following line may cause an IllegalStateException */
+  %ENDIF%
+  %REM: Handle float and double as special cases (to catch NaN and -0.0)
+  %IF: ModelType=="float"%
+    if Float.floatToIntBits(this.get%MACRO:InheritAttrName%()) != Float.floatToIntBits(that.get%MACRO:InheritAttrName%()) {
+    %INDENT:+4%
+        return false;
+    %INDENT:-4%
+    }
+  %ELSEIF: ModelType=="double"%
+    if Double.doubleToLongBits(this.get%MACRO:InheritAttrName%()) != Double.doubleToLongBits(that.get%MACRO:InheritAttrName%()) {
+    %INDENT:+4%
+      return false;
+    %INDENT:-4%
+    }
+  %ELSEIF: ModelTypeIsJavaPrimitive%
+    if (this.get%MACRO:InheritAttrName%() != that.get%MACRO:InheritAttrName%()) {
+    %INDENT:+4%
+      return false;
+    %INDENT:-4%
+    }
+  %ELSE%
+    Object my%MACRO:InheritAttrName% = this.get%MACRO:InheritAttrName%();
+    Object your%MACRO:InheritAttrName% = that.get%MACRO:InheritAttrName%();
+    if (my%MACRO:InheritAttrName%==null ? your%MACRO:InheritAttrName%!=null : !my%MACRO:InheritAttrName%.equals(your%MACRO:InheritAttrName%)) {
+    %INDENT:+4%
+      return false;
+    %INDENT:-4%
+    }
+  %ENDIF%
+%ELSE: Not an attribute... iterate members and recurse...%
+  %ITERATE: Member%
+    %INCLUDE% EqualsRecursive.ptm
+  %ENDITERATE: Member%
+%ENDIF%

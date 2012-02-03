@@ -1,0 +1,48 @@
+%REM: ----------------------------------------------------
+%REM: Copyright (c) 2005-11 Esito AS. All rights reserved.
+%REM: Version: 9.0.7-SNAPSHOT. September 23, 2011.
+%REM: ----------------------------------------------------
+
+/** Maps attribute name to attribute info. */
+%IF: DEFINED(Class#SuperClassName) %
+  @SuppressWarnings("all")
+%ENDIF%
+protected static final Map<String, AttributeInfo> ATTRIBUTE_INFO =
+%INDENT:+8%
+new HashMap<String, AttributeInfo>();
+%INDENT:-8%
+
+/* Initialize the attribute map. */
+static { 
+%INDENT:+4%
+  %ITERATE:Attribute%
+    %INCLUDE% AttributeFormattingRecursive.ptm
+    %IF:IsPrimaryKey%
+      %SET:#KeyFound="True"%
+    %ENDIF:IsPrimaryKey%
+  %ENDITERATE:Attribute%
+  %ITERATE: Group%
+    %IF: IsPrimaryKey%
+      %ITERATE: Member%
+        %IF: MemberType != "Attribute"%
+          %INCLUDE% AttributeFormattingRecursive.ptm
+        %ENDIF%
+      %ENDITERATE: Member%
+    %ENDIF%
+  %ENDITERATE: Group%
+%INDENT:-4%
+}
+
+/**
+%INDENT: 1%
+ * Get the attribute info for the specified attribute.
+ * @param attributeName the name of the attribute.
+ * @return the attribute's {@link no.genova.domain.AttributeInfo AttributeInfo}.
+%INDENT: -1%
+*/
+public static AttributeInfo getAttributeInfo(String attributeName) {
+%INDENT:+4%
+    return ATTRIBUTE_INFO.get(attributeName);
+%INDENT:-4%
+}
+

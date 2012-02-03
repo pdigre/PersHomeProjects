@@ -1,0 +1,129 @@
+%REM: ----------------------------------------------------
+%REM: Copyright (c) 2005-11 Esito AS. All rights reserved.
+%REM: Version: 9.0.7-SNAPSHOT. September 23, 2011.
+%REM: ----------------------------------------------------
+%REM: Note: Class.XXX in this file is not ClassModel.Class.XXX. It is ClassModel.Class.Group.Member...Class.XXX
+%IF: MemberType=="Attribute"%
+  %INCLUDE% JavaType.ptm
+  %IF: StartRoleNamePath!=""%
+    %REM: Some locally used variables...
+    %SET: #tmpVarPostfix = StartRoleNamePath ++ FIRST_UPPER(NOSEP_CAMEL(RestRoleNamePath)++FIRST_UPPER(Name))%
+    %SET: #tmpGetName = "get"++FIRST_UPPER(#tmpVarPostfix)%
+    %SET: #tmpSetName = "set"++FIRST_UPPER(#tmpVarPostfix)%
+    %IF: Class.IsPersistent%
+      /** Temporary value holder for group key fragment %#tmpVarPostfix% */
+      private transient %#javaType% temp%FIRST_UPPER(#tmpVarPostfix)%;
+
+    %ELSE%
+      %WARNING: "A field in transient Class " ++ Class.Name ++ " is used as key fragment."%
+    %ENDIF%
+    %IF: DEFINED(Class#MethodVisibility[#tmpGetName][""])%
+      %IF: Class#MethodVisibility[#tmpGetName][""]=="Package"%
+        %SET: #tmpVisibility = ""%
+      %ELSE%
+        %SET: #tmpVisibility = LOWER(Class#MethodVisibility[#tmpGetName][""]) ++ " "%
+      %ENDIF%
+    %ELSE%
+      %SET: #tmpVisibility = "public "%
+    %ENDIF%
+    %SET: Class#Methods[#tmpGetName][""] = "True"%
+    %IF: !DEFINED(TopParent#GenerateSingleClass) & #tmpVisibility == "private "%
+      %WARNING: "Skipping generation of " ++ #tmpGetName ++ "(): Method is private."%
+    %ELSE%
+      /**
+      %INDENT:+1%
+       * Gets the key fragment %Name% for member %StartRoleNamePath%.
+      %IF: Class.IsPersistent%
+       * If this.%StartRoleNamePath% is null, a temporary stored value for the key
+       * fragment will be returned. The temporary value is set by set%FIRST_UPPER(#tmpVarPostfix)%. 
+       * This behavior is required by some persistence libraries to allow
+       * fetching of objects in arbitrary order.
+       * 
+       * @return Current (or temporary) value of the key fragment.
+      %ELSE%
+       * If this.%StartRoleNamePath% is null, an IllegalStateException will be thrown.
+       *
+       * @return Current value of the key fragment.
+       * @exception IllegalStateException if this.%StartRoleNamePath% is null
+      %ENDIF%
+       * @see %OwnerClassName%
+       */
+      %INDENT:-1%
+      %#tmpVisibility%%#javaType% %#tmpGetName%() {
+      %INDENT:+4%
+        %IF: Class.IsPersistent%
+          return (get%FIRST_UPPER(StartRoleNamePath)%() == null ? temp%FIRST_UPPER(#tmpVarPostfix)% : get%FIRST_UPPER(StartRoleNamePath)%().get%FIRST_UPPER(NOSEP_CAMEL(RestRoleNamePath ++ FIRST_UPPER(Name)))%());
+        %ELSE%
+          if (get%FIRST_UPPER(StartRoleNamePath)%() == null) {
+          %INDENT:+4%
+              throw new IllegalStateException("Unable to access member %StartRoleNamePath%");
+          %INDENT:-4%
+          }
+          return get%FIRST_UPPER(StartRoleNamePath)%().get%FIRST_UPPER(NOSEP_CAMEL(RestRoleNamePath ++ FIRST_UPPER(Name)))%();
+        %ENDIF%
+      %INDENT:-4%
+      }
+
+    %ENDIF%
+    %IF: DEFINED(Class#MethodVisibility[#tmpSetName][#javaType])%
+      %IF: Class#MethodVisibility[#tmpSetName][#javaType]=="Package"%
+        %SET: #tmpVisibility = ""%
+      %ELSE%
+        %SET: #tmpVisibility = LOWER(Class#MethodVisibility[#tmpSetName][#javaType]) ++ " "%
+      %ENDIF%
+    %ELSE%
+      %SET: #tmpVisibility = "public "%
+    %ENDIF%
+    %SET: Class#Methods[#tmpSetName][#javaType] = "True"%
+    %IF: !DEFINED(TopParent#GenerateSingleClass) & #tmpVisibility == "private "%
+      %WARNING: "Skipping generation of " ++ #tmpSetName ++ "(): Method is private."%
+    %ELSE%
+      /**
+      %INDENT:+1%
+       * Sets the key fragment %Name% from member %StartRoleNamePath%
+      %IF: Class.IsPersistent%
+       * If this.%StartRoleNamePath% is null, the passed value will be temporary 
+       * stored, and returned by subsequent calls to get%FIRST_UPPER(#tmpVarPostfix)%. 
+       * This behaviour is required by some persistence libraries to allow
+       * fetching of objects in arbitrary order.
+       * 
+       * @param a%FIRST_UPPER(Name)% New value for the key fragment
+      %ELSE%
+       * If this.%StartRoleNamePath% is null, an IllegalStateException will be thrown.
+       *
+       * @param a%FIRST_UPPER(Name)% New value for the key fragment
+       * @exception IllegalStateException if this.%StartRoleNamePath% is null
+      %ENDIF%
+       * @see %OwnerClassName%
+       */
+      %INDENT:-1%
+      %#tmpVisibility%void %#tmpSetName%(final %#javaType% a%FIRST_UPPER(Name)%) {
+      %INDENT:+4%
+        %IF: Class.IsPersistent%
+          if (get%FIRST_UPPER(StartRoleNamePath)%() == null) {
+          %INDENT:+4%
+              temp%FIRST_UPPER(#tmpVarPostfix)% = a%FIRST_UPPER(Name)%;
+          %INDENT:-4%
+          } else {
+          %INDENT:+4%
+              get%FIRST_UPPER(StartRoleNamePath)%().set%FIRST_UPPER(NOSEP_CAMEL(RestRoleNamePath ++ FIRST_UPPER(Name)))%(a%FIRST_UPPER(Name)%);
+          %INDENT:-4%
+          }
+        %ELSE%
+          if (get%FIRST_UPPER(StartRoleNamePath)%() == null) {
+          %INDENT:+4%
+              throw new IllegalStateException("Unable to access member %StartRoleNamePath%");
+          %INDENT:-4%
+          }
+          get%FIRST_UPPER(StartRoleNamePath)%().set%FIRST_UPPER(NOSEP_CAMEL(RestRoleNamePath ++ FIRST_UPPER(Name)))%(a%FIRST_UPPER(Name)%);
+        %ENDIF%
+      %INDENT:-4%
+      }
+
+    %ENDIF%
+  %ENDIF: StartRoleNamePath!=""%
+%ELSE: MemberType is "Group"%
+  %ITERATE:Member%
+    %INCLUDE% GetSetGroup.ptm
+  %ENDITERATE%
+%ENDIF%
