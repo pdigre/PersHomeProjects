@@ -6,7 +6,7 @@
 	<ModelType>GeneratorTarget</ModelType>
 	<GeneratorRoot>
 		<Generator Description="Java Domain target" Engine="XTEND"
-			Entry="ClassModel.xtend" Image="target.png" name="XtendDomain" SubDir="src/main"
+			Entry="ClassModel.xtend" Image="xtend/xtend.png" name="XtendDomain" SubDir="src/main"
 			TopLevel="False" Type="DomainModel">
 			<GenSetup Default="False" name="Skip generation of .new files"
 				Type="Bool" />

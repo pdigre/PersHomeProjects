@@ -11,7 +11,7 @@
 			Description="Android target"
 			Engine="XTEND"
 			Entry="Android.xtend"
-			Image="android.png"
+			Image="android/android.png"
 			SubDir="src/main"
 			TopLevel="False"
 			Type="DialogModel"

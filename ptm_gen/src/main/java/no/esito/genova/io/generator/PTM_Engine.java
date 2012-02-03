@@ -35,6 +35,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
 import org.eclipse.ui.PlatformUI;
@@ -90,24 +91,32 @@ public class PTM_Engine implements IGeneratorEngine {
     @Override
     public void generateObjects(Collection<QObject> list, boolean doApplication, boolean doChildren)
         throws Exception {
-        String tplfile = templatefile.replaceAll("\\.ptm", "");
+        String tplfile = templatefile.replaceAll("\\.xtend", "");
         try {
             Class<?> c = getTargetClassLoader().loadClass(tplfile);
-            Field[] fields = c.getFields();
             @SuppressWarnings("unchecked")
             Callable<CharSequence> callable = (Callable<CharSequence>) c.newInstance();
             for (QObject go : list) {
                 c.getField("context").set(callable, go);
+                c.getField("outputdir").set(callable, outputdir);
+                c.getField("target").set(callable, gt);
                 CharSequence output = callable.call();
                 System.out.println("Reply:" + output);
             }
         } catch (Exception e) {
-            System.out.println("Exception");
+            e.printStackTrace();
         }
     }
 
     public URLClassLoader getTargetClassLoader() throws MalformedURLException {
-        URL url = new URL("file:/" + templatedir + "bin/");
+        GProject gpro2 = gpro;
+        if(gt!=null){
+            GProject modelManager = gt.getGeneratorModel().getModelManager();
+            gpro2=modelManager;
+        }
+        IPath location = gpro2.getIProject().getLocation();
+        String string = location.toPortableString();
+        URL url = new URL("file:/" + string + "/bin/");
         return URLClassLoader.newInstance(new URL[] { url }, getClass().getClassLoader());
     }
 
@@ -188,17 +197,17 @@ public class PTM_Engine implements IGeneratorEngine {
     }
 
     public Ptm2Xtend convertXtend(IFile ifile) throws IOException, CoreException {
-        if (!ifile.getName().endsWith(".ptm"))
+        String fname = ifile.getName();
+        if (!fname.endsWith(".ptm"))
             return null;
         IContainer parent = ifile.getParent();
         templatedir = parent.getLocation().toPortableString() + "/";
-        templatefile = ifile.getName();
-        String name = ifile.getProjectRelativePath().toString();
+        templatefile = fname;
         final GTreeUnit unit = getGTreeUnit(templatedir, templatefile);
         CommonTree tree = unit.getTree();
         Ptm2Xtend xtend = new Ptm2Xtend();
         xtend.engine = this;
-        xtend.clazzname = name.replaceFirst("\\.ptm", "");
+        xtend.clazzname = fname.replaceFirst("\\.ptm", "");
         xtend.node = tree;
         xtend.output = ifile;
         return xtend;

@@ -117,7 +117,7 @@ public class AbstractAnalysis extends AbstractSupport {
 				+ "\n");
 		sb.append("Root:" + root + "\n");
 
-		saveResource("src", clazzname + ".txt", sb.toString());
+		saveResource("usage", clazzname + ".txt", sb.toString());
 	}
 
 	public void collect(HashSet<Ptm2Xtend> set) {
