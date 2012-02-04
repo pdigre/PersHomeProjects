@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="no.esito.genova.ptm"
+         name="Genova PTM Driver"
+         point="no.esito.genova.driver">
+      <generator
+            class="no.esito.genova.io.driver.XtendDriver"
+            description="XTEND Template Engine"
+            name="XTEND">
+      </generator>
+
+   </extension>
+<extension
+      point="org.eclipse.ui.actionSets">
+   <actionSet
+         id="no.esito.genova.actionSet.xtend"
+         label="Genova"
+         visible="true">
+      <action
+            class="no.esito.genova.io.ptm.ConvertPtmAction"
+            icon="src/main/resources/icons/Build.png"
+            id="no.esito.genova.action.ptm2xtend"
+            label="PTM -&gt; Xtend"
+            menubarPath="project/projEnd"
+            tooltip="Create Xtend equivalent template files from PTM">
+      </action>
+      <action
+            class="no.esito.genova.io.tmpl.ConvertTmplAction"
+            icon="src/main/resources/icons/Build.png"
+            id="no.esito.genova.action.tmpl2xtend"
+            label="TMPL -&gt; Xtend"
+            menubarPath="project/projEnd"
+            tooltip="Create Xtend equivalent template files from PTM">
+      </action>
+   </actionSet>
+</extension>
+
+</plugin>
