@@ -1,0 +1,2849 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@file_noreplace @@GetParameter DialogFileDir@@/@@DialogNameLower@@/@@DialogName@@View.java
+// ---------------------------------------------------------------------
+// @@GeneratedWith@@
+// ---------------------------------------------------------------------
+
+package @@GetParameter DialogClassPackage@@.@@DialogNameLower@@;
+
+import no.genova.domain.GenovaEnums;
+@//
+/**
+ * Public class interpreting the customized view part of @@DialogName@@.
+ */ 
+public class @@DialogName@@View extends @@DialogName@@DefaultView{
+@//    
+    /** Internal use. Preferably do not use this method, use an event defined in genova (window open event) insted.
+     * @param controller The controller to use.
+     * @param applicationEnums The dynamic enumeration object.
+     */
+    public @@DialogName@@View(@@DialogName@@DefaultController controller, GenovaEnums applicationEnums) {
+        super(controller, applicationEnums);
+    }
+}
+
+
+
+
+@file @@GetParameter DialogFileDir@@/@@DialogNameLower@@/@@DialogName@@DefaultView.java
+// ---------------------------------------------------------------------
+// @@GeneratedWith@@
+// ---------------------------------------------------------------------
+
+package @@GetParameter DialogClassPackage@@.@@DialogNameLower@@;
+@//
+import javax.swing.border.*;
+import javax.swing.event.*;
+import javax.swing.text.*;
+import javax.swing.table.*;
+import javax.swing.tree.*;
+@//
+import java.awt.AWTEvent;
+import java.awt.event.*;
+import java.util.*;
+@//
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.JFrame;
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultCellEditor;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JPopupMenu;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JSlider;
+import javax.swing.JSeparator;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JToolBar.Separator;
+import javax.swing.JTree;
+import javax.swing.JDialog;
+import javax.swing.KeyStroke;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.ListSelectionModel;
+import javax.swing.DefaultListSelectionModel;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
+import java.util.HashMap;
+@//
+import no.genova.client.component.GenovaTextField;
+import no.genova.client.component.GenovaPasswordField;
+import no.genova.client.component.GenovaTextArea;
+import no.genova.client.component.GenovaCheckBox;
+import no.genova.client.component.GenovaButtonGroup;
+import no.genova.client.event.GenovaValueChangedEvent;
+import no.genova.client.event.GenovaValueChangedListener;
+import no.genova.client.component.GenovaButton;
+import no.genova.client.component.GenovaRadioButton;
+import no.genova.client.component.GenovaComboBox;
+import no.genova.client.component.menu.GenovaEditMenu;
+import no.genova.client.component.menu.GenovaFileMenu;
+import no.genova.client.component.menu.GenovaHelpMenu;
+import no.genova.client.component.menu.GenovaMenu;
+import no.genova.client.component.menu.GenovaMenuItem;
+import no.genova.client.component.menu.GenovaMenuBar;
+import no.genova.client.component.menu.GenovaViewMenu;
+import no.genova.client.component.menu.GenovaWindowMenu;
+import no.genova.client.component.GenovaToolBar;
+import no.genova.client.component.GenovaDialogBox;
+import no.genova.client.component.GenovaTabPaneManager;
+
+@//
+@//
+/*
+ * The following imports are known to be used. To avoid potentially
+ * errors due to lack of imports no.genova.client.support.*; 
+ * is added last.
+ */ 
+import no.genova.client.support.GenovaDialogFrame;
+import no.genova.client.support.RepositoryProxy;
+import no.genova.client.support.BottomWindow;
+import no.genova.client.support.GenovaTable;
+import no.genova.client.support.ToolTipHeader;
+import no.genova.client.support.RowHeaderRenderer;
+import no.genova.client.support.ListblockLine;
+import no.genova.client.support.JComponentCellEditor;
+import no.genova.client.support.ComponentLink;
+import no.genova.client.support.GenovaRender;
+import no.genova.client.event.GenovaDroppedDownEvent;
+import no.genova.client.event.GenovaEvent;
+import no.genova.client.event.GenovaEventHolder;
+import no.genova.client.event.GenovaKeyEventHolder;
+import no.genova.client.event.GenovaActionEventHolder;
+import no.genova.client.event.GenovaWindowEventHolder;
+import no.genova.client.event.GenovaFocusEventHolder;
+import no.genova.client.event.GenovaComponentEventHolder;
+import no.genova.client.event.GenovaListSelectionEventHolder;
+import no.genova.client.event.GenovaHeaderClickedEventHolder;
+import no.genova.client.event.GenovaMouseEventHolder;
+import no.genova.client.event.GenovaWindowEvent;
+import no.genova.client.event.GenovaWindowAdapter;
+import no.genova.client.event.GenovaItemEventHolder;
+import no.genova.client.event.GenovaSelectionListener;
+import no.genova.client.event.GenovaSelectedEvent;
+import no.genova.client.event.GenovaVetoableSelectionListener;
+import no.genova.client.event.GenovaVetoableSelectionEvent;
+import no.genova.domain.GenovaEnums;
+import no.genova.message.Message;
+import no.genova.message.CRuntimeMsg;
+import no.genova.message.MessageFactory;
+import no.genova.message.MessageLogDispatcher;
+import no.genova.domain.DomainUtil;
+
+import no.genova.client.support.*;
+import no.genova.exception.GenovaClientException;
+
+
+@//
+/**
+ * The following imports are known to be used. To avoid potentially
+ * errors due to lack of imports no.genova.support.*; 
+ * is added last.
+ */ 
+import no.genova.exception.GeneralException;
+import no.genova.exception.DBException;
+import no.genova.support.TypeTool;
+import no.genova.support.*;
+
+@//
+
+// Import of enumerations. 
+@@JavaEnumeratorImports@@
+@//
+
+// Other imports.
+@section otherImportsDialog
+
+@//
+/**
+ * Public class interpreting the generated view part of
+ * @@DialogName@@. This class is generated and should not be edited
+ * in. If any changes are needed, do them in @@DialogName@@View.
+ */ 
+@SuppressWarnings("all")
+public class @@DialogName@@DefaultView extends GenovaDialogFrame implements BottomWindow {
+    @//
+    boolean selectItemOK = true;
+    
+    @//
+    @@DialogName@@DefaultController controller;
+    GenovaEnums applicationEnums;
+
+    @//
+    FocusProc focusProc = new FocusProc();
+    ComponentProc componentProc = new ComponentProc();
+    ActionProc actionProc = new ActionProc();
+    WindowProc windowProc = new WindowProc();
+    GenovaWindowProc genovaWindowProc = new GenovaWindowProc();
+    KeyProc keyProc = new KeyProc();
+    GenovaSelectionListener listSelectionProc = new ListSelectionProc();
+    MouseProc mouseProc = new MouseProc();
+    ItemProc itemProc = new ItemProc();
+    ChangeProc changeProc = new ChangeProc();
+    Vector toolBarElements = new Vector();
+    JInternalFrame the@@DialogName@@InternalFrame = this;
+
+    @//
+    int totalBlockAllEvents = 0;
+    int noFocusException = 0;
+    final int HorizontalAlign_right = SwingConstants.RIGHT;
+    final int HorizontalAlign_RIGHT = SwingConstants.RIGHT;
+    final int HorizontalAlign_left = SwingConstants.LEFT;
+    final int HorizontalAlign_LEFT = SwingConstants.LEFT;
+    final int HorizontalAlign_center = SwingConstants.CENTER;
+    final int HorizontalAlign_CENTER = SwingConstants.CENTER;
+    @//   
+@section Declaration
+    @//
+    /** If you want to ovveride the close button, you must
+     * setDestroyOnClose to 'true'. Then you must perform your own
+     * destructment of the window in a "WM Close" event in
+     * Genova. In it, use controller.disposeDialog() to remove the
+     * window. 
+     * @param f if <code>true</code> dialog is disposed on close.
+     */
+     public void setDestroyOnClose(boolean f) {
+        setDefaultCloseOperation(f ? JInternalFrame.DISPOSE_ON_CLOSE:JInternalFrame.DO_NOTHING_ON_CLOSE);
+     }
+     @//
+
+     public GenovaDialogController getController() {
+        return (GenovaDialogController) controller;
+     }
+     
+   /**
+     * Empty method. Override if needed.
+     * 
+     * @param pane the scroll pane
+     */
+    public void modifyScrollPane(JScrollPane pane) {/*EMPTY override if needed */}
+
+    /**
+     * Here we can generate code which don't belong anywhere due to missing
+     * sections or whatever. It will not be called by any method. 
+     * @deprecated
+     */
+    void trashDepartment() {
+        modifyKeyCode(3);
+    }
+
+    public boolean isModal() {
+        return controller.isModal();
+    }
+
+    /**
+     * @param key the key to get the mnemonic for
+     * @return integer representing the specified key.
+     * @deprecated
+     */
+    int translateMemonic(String key) {
+        String msgID = null;
+        Exception ex = null;
+        String upCase = key.toUpperCase();
+        try {
+            Field f = KeyEvent.class.getField("VK_"+upCase);
+            return f.getInt(KeyEvent.class);
+        } catch (SecurityException e) {
+            ex = e;
+        } catch (NoSuchFieldException e) {
+            ex = e;
+        } catch (IllegalArgumentException e) {
+            ex = e;
+        } catch (IllegalAccessException e) {
+            ex = e;
+        } finally {
+            if (ex != null) {
+                msgID = CRuntimeMsg.CF_UNABLE_TO_ACCESS_FIELD_OR_METHOD;
+                Object[] msgArgs = {this.getClass(), "VK_"+upCase, KeyEvent.class, ex.getMessage()};
+                Message msg = MessageFactory.getInstance().getMessage(msgID, msgArgs);
+                MessageLogDispatcher.getInstance().log(msg, null);
+            }
+        }            
+        return -1;
+    }
+
+
+    /**
+     * Initialize dialog components, set up initial application context.
+     * @param controller the dialog controller
+     * @param applicationEnums the application enumerators.
+     */
+    public @@DialogName@@DefaultView(final @@DialogName@@DefaultController controller, GenovaEnums applicationEnums) {
+@section InitModality
+        this.controller = controller;
+        this.applicationEnums = applicationEnums;
+        positionWindow();
+    }
+
+    @//
+    /**
+     * Internal use.
+     * Inits the dialog. 
+     */
+    public void init() {        
+        totalBlockAllEvents++;
+@section SetupDialogPane
+        initOuterPanel();
+        initNameComponentMappings();
+        initFocusActions();
+        pack();
+        getRootPane().putClientProperty("defeatSystemEventQueueCheck", Boolean.TRUE);
+        controller.application.commonViewStartup(this, controller);
+
+        totalBlockAllEvents--;
+    }
+@//
+@//
+    private void initNameComponentMappings() {
+@section setUpNameComponentMapping
+    }
+
+    private void initFocusActions() {
+@section FocusActions
+@section ValueChanged
+    }
+
+
+
+    /** 
+     * @deprecated To block or unblock a dialog, invoke 
+     * blockDialog or unblockDialog.
+     */
+    public class Blocker {
+        boolean doDebug = System.getProperty("DEBUG_BLOCK") != null;
+        
+        /**
+         * Prints a debug message to standard out.
+         * @param value the value
+         * @param name the name
+         */
+        void debug(int value, String name) {
+            if(doDebug) {
+                System.out.println("BLOCK: "+name+" Value:"+value);
+            }
+        }
+        
+@section BlockerClass
+        
+    }
+    Blocker block = new Blocker();
+
+
+
+@section SetupInit
+    /**
+     * Internal code.
+     */
+    public void initOuterPanel() {
+@section Setup
+
+
+
+@section Expression
+
+@section SetupEnd
+ 
+
+@section setdefaultbutton
+@// 
+        // Disable components that are initially disabled         
+        Iterator it = disabledComponents.iterator();
+        while(it.hasNext()) {
+            super.disableComponent((Component)it.next());
+        }
+@//        
+        // update component tree 
+@section UpdateComponentTree
+        setComboBoxSelectionManager();
+    }
+
+    /** 
+     * Sets the selection manager for combo boxes. 
+     */
+    private void setComboBoxSelectionManager() {
+@section ComboSelectionManager
+         // Avoid compiler warnings
+        if (false) {
+            int i = 1;
+        }
+    }
+    
+    
+
+
+@section AcceleratorEvent
+
+    /**
+     * Returns the outer panel
+     * @return the outer panel
+     */
+    public JPanel getOuterPanel() {
+        return theOutmostFrame;
+    }
+    @//
+    List acceleratorEvents = new Vector();
+    @//
+        /**
+         * NODODC
+         */
+    public class AcceleratorEvent {
+        /** the alt modifier */
+        public boolean altModifier = false;
+        /** the ctrl modifier */
+        public boolean ctrlModifier = false;
+        /** the shift modifier */
+        public boolean shiftModifier = false;
+        /** the key code */
+        public int keyCode;
+        /** the method name */
+        public String methodName = "dummy";
+        /** 
+         * Creates a new AcceleratorEvent
+         * @param a value of alt modifier
+         * @param b value of ctrl modifier
+         * @param c value of shift modifier
+         * @param code the key code
+         * @param method the method name
+         */
+        public AcceleratorEvent(boolean a, 
+                                 boolean b,
+                                 boolean c,
+                                 int code,
+                                 String method) {
+            altModifier = a;
+            ctrlModifier = b;
+            shiftModifier = c;
+            keyCode = code;
+            methodName = method;
+        }
+
+@//
+        public String toString() {
+            return "Keycode:"+keyCode+" altModifer:"+altModifier+" ctrlModifier:"+ctrlModifier+" shiftModifier:"+shiftModifier;
+        }
+    }
+    @//
+    
+@//
+@//
+
+@section SetShownHidden
+
+@section ClearBlock
+
+@//
+    /**
+     * Clears all window blocks in the dialog.    
+     */
+    public void clear@@DialogName@@() {
+@section ClearBlockDialog
+    }
+@//
+
+    /** 
+     * Internal use.
+     * @param keyEvent the key event 
+     * @return <code>true</code> if a corresponding accelerator is found.
+     */
+    public boolean genovaAccelerator(KeyEvent keyEvent) {
+        boolean found = false;
+        Exception ex = null;
+        for(Iterator i = acceleratorEvents.iterator();i.hasNext();) {
+            AcceleratorEvent event = (AcceleratorEvent)i.next();
+            if(keyEvent.getKeyCode() == event.keyCode &&
+                    keyEvent.isShiftDown() == event.shiftModifier && 
+                    keyEvent.isAltDown() == event.altModifier &&
+                    keyEvent.isControlDown() == event.ctrlModifier) {
+                final Class params[] = {GenovaEventHolder.class};
+                found = true;
+                try {
+                    Method m = controller.getClass().getMethod(event.methodName, params);
+                    GenovaKeyEventHolder holder = new GenovaKeyEventHolder(keyEvent);
+                    final Object args[] = {holder}; 
+                    m.invoke(controller, args);
+                    if(!holder.shouldConsume()) {
+                        found = false;
+                    }
+                } catch (SecurityException e) {
+                    ex = e;
+                } catch (IllegalArgumentException e) {
+                    ex = e;
+                } catch (IllegalAccessException e) {
+                    ex = e;
+                } catch (NoSuchMethodException e) {
+                    ex = e;
+                } catch (InvocationTargetException e) {
+                    ex = e;
+                } finally {
+                    if (ex != null) {
+                        String msgID = CRuntimeMsg.CF_UNABLE_TO_ACCESS_FIELD_OR_METHOD;
+                        Object[] msgArgs = {this.getClass(), event.methodName, event.getClass(), ex.getMessage()};
+                        Message msg = MessageFactory.getInstance().getMessage(msgID, msgArgs);
+                        MessageLogDispatcher.getInstance().log(msg, null);
+                    }
+                }        
+            }
+        }
+        return found;
+    }
+
+
+
+@section BasicMethods
+@//
+    /** 
+     * Invoked when a combo box is dropped down.
+     * @param theBox the combo box
+     * @param source the source
+     */
+        public void comboBoxDroppedDown(JComboBox theBox, Object source) {
+            try {
+@section comboboxDroppedDown
+    
+    /* Might be generated empty */
+    if(false) {
+        theBox.getClass();
+        source.getClass();
+    }
+            } catch(Throwable t) {
+                exceptionHandler(t);
+            }
+        }
+
+
+
+
+    /** 
+     * Internal use.
+     * Invoked as part of a value changed event.
+     * 
+     * @param button the button
+     * @param newValue the new value
+     * @param oldValue the old value
+     * @param e the focus event
+     * @return the result of the value changes test.
+     */
+        public String valueChangedTestCheckButton(JComponent button, String newValue, String oldValue, FocusEvent e) {
+            try {
+@section ValueChangedTestCheckButton
+    /* Might be generated empty */
+    if(false) {
+        button.getClass();
+        newValue.getClass();
+        oldValue.getClass();
+        e.getClass();
+    }
+            } catch(Throwable t) {
+                exceptionHandler(t);
+            }
+            return null;
+        }
+    
+    /** 
+     * Internal use
+     * @param newlines array of new line numbers
+     * @param oldlines array of old line numbers
+     * @return <code>true</code> if selections are equal
+     */
+        public boolean equalSelection(int[] newlines, int oldlines[]) {
+            if(oldlines == null || newlines.length != oldlines.length) {
+                return false;
+            }
+            for(int i=0; i<newlines.length; i++) {
+                if(newlines[i] != oldlines[i]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    
+    /** 
+     * Internal use.
+     * Invoked as part of selected event in listblock
+     * @param source 
+     * @param lines 
+     * @param e 
+     */
+        public void selectionInListblockTest(GenovaTable source, int lines[], GenovaSelectedEvent e) {
+            try {
+@section selectionInListblockTest
+    /* Might be generated empty */
+    if(false) {
+        source.getClass();
+        lines.getClass();
+        e.getClass();
+    }
+            } catch(Throwable t) {
+                exceptionHandler(t);
+            }
+        }
+
+    /** 
+     * Invoked as part of value changed in combo box.
+     * @param jc 
+     * @param g
+     * @param e 
+     * @param oldValue 
+     * @return result of value change test
+     */
+        public String valueChangedTestComboBox(JComponent jc, GenovaComboBox g, FocusEvent e, String oldValue) {
+            try {
+@section ValueChangedTest
+    /* Might be generated empty */
+    if(false) {
+        jc.getClass();
+        g.getClass();
+        e.getClass();
+        oldValue.getClass();
+    }
+            } catch(Throwable t) {
+                exceptionHandler(t);
+            }
+            return null;
+        }
+
+
+
+
+    /** 
+     * Internal use.
+     * Invoked as part of value changed in text field.
+     * @param jc 
+     * @param newValue 
+     * @param oldValue 
+     * @param e 
+     * @return reuslt of test.
+     */
+        public String valueChangedTextField(JComponent jc, String newValue, String oldValue, FocusEvent e ) {
+            try {
+@section ValueChangedTextField
+                // Might be generated empty. Silence code-checkers:
+                if (false) {jc.getClass();}
+            }catch(Throwable t) {
+                exceptionHandler(t);
+            }
+            // if nothing is changed, oldValue is returned.
+            return oldValue;
+        }
+     
+    /** 
+     * Internal use
+     * @param theButton 
+     * @param source 
+     * @param e 
+     */
+        public void selectedInCheckButton(JComponent theButton, JComponent source, ItemEvent e) {
+            try {
+@section SelectedTestCheckButton
+    /* Might be generated empty */
+            } catch(Throwable t) {
+                exceptionHandler(t);
+            }
+            if(false) {
+               theButton.getClass();
+               source.getClass();
+               e.getClass();
+           }
+        }
+
+    /** 
+     * Internal use
+     * @param source 
+     * @param event 
+     */
+    public void selectedInCombobox(JComboBox source, GenovaSelectedEvent event) {
+        try {
+            // Might be generated empty 
+@section selectedInCombobox
+        } catch(Throwable t) {
+            exceptionHandler(t);
+        }
+    }
+
+    /** 
+     * Internal use
+     * @param s the string to break.
+     * @return the broken string?
+     */
+        public static String breakString(String s) {
+            if(s == null) {
+                return "";
+            }
+            StringBuffer result = new StringBuffer(s.length()*2);
+            java.text.BreakIterator bi = java.text.BreakIterator.getWordInstance();
+            bi.setText(s);
+            int linePos = 0;
+            int start = bi.first();
+            int end = bi.next();
+            while(end != java.text.BreakIterator.DONE) {
+                if(linePos + (end-start) > 50) {
+                    result.append("\n");
+                    linePos = 0;
+                }
+                linePos += (end-start);
+                result.append(s.substring(start,end));
+
+                start = end;
+                end = bi.next();
+            }
+            return result.toString();
+        }
+
+        /** 
+         * Internal use.
+         * Handles exceptino in dialog.
+         * @param t the throwable to handle.
+         */
+        public void exceptionHandler(Throwable t) {
+            noFocusException++;
+            Object[] args = {getClass(), t.getMessage()};
+            Message msg = MessageFactory.getInstance().getMessage(CRuntimeMsg.CF_CAUGHT, args);
+            MessageLogDispatcher.getInstance().log(msg, null);
+            noFocusException--;
+        }
+
+        /**
+         * Internal use.
+         * Popup class 
+         */
+        class PopupProc implements PopupMenuListener {
+            public void popupMenuCanceled(PopupMenuEvent e) {
+
+            }
+            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+            }
+            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+
+            }
+        }
+
+        /**
+         * Internal use.
+         */
+        class FocusProc implements FocusListener {
+            /** Reference to the last focused component */
+            private Component lastFocusedComponent = null;
+            @//
+                /** Gets the last component to receive focus.
+                 * @return the last focused component.
+                 */
+            public Component getLastFocusedComponent() {
+                return lastFocusedComponent;
+            }
+ 
+            @//
+            public void focusGained(FocusEvent e) {
+                if(totalBlockAllEvents != 0) {
+                    return;
+                }
+                lastFocusedComponent = (Component)e.getSource();
+                @//
+                /* No focus handling while busy with exceptions */
+                if(noFocusException > 0) {
+                    return;
+                }
+                if(e.getSource() instanceof JTextComponent) {
+                    JTextComponent tc = ((JTextComponent)e.getSource());
+                    if(!(tc.getParent() instanceof JTable)) {
+                        //tc.selectAll();
+                    }                   
+                }
+                @//
+                try {
+
+@section FocusGained
+
+    /* Might be generated empty */
+                }catch(Throwable t) {
+                    exceptionHandler(t);
+                }
+            }
+
+            @//
+            public void focusLost(FocusEvent e) {
+                @//
+                if(totalBlockAllEvents != 0) {
+                    return;
+                }
+                @//
+                /* No focus handling while busy with exceptions */
+                if(noFocusException > 0) {
+                    return;
+                }
+                @//
+                if(e.getSource() instanceof JTextComponent) {
+                    JTextComponent tc = ((JTextComponent)e.getSource());
+                    //tc.setCaretPosition(0);
+                }                
+                noFocusException++;
+
+                try {
+
+@section FocusLost
+
+
+                /* Might be generated empty */
+                }catch(Throwable t) {
+                    exceptionHandler(t);
+                }finally {
+                    noFocusException--;
+                }
+            }
+        }
+
+        /**
+         * ActionProc class that captures all the actions in the dialog, for
+         * instance: buttons pressed, listblock entires selected.  
+         * The action-event is analyzed and the appropriate methods are called. 
+         *
+         */ 
+        @//
+        class ActionProc implements ActionListener {
+            public void actionPerformed(ActionEvent e) {
+                if(totalBlockAllEvents != 0) {
+                    return;
+                }
+                controller.application.setLastException(null);
+                try {
+
+@section ActionPerformed
+
+    /* Might be generated empty */
+                }catch(Throwable t) {
+                    e.getClass();
+                    exceptionHandler(t);
+                }
+            }
+        }
+        @//
+        /**
+         * Internal use.
+         */ 
+        class ChangeProc implements ChangeListener {
+            public void stateChanged(ChangeEvent e) {
+                if(totalBlockAllEvents != 0) {
+                    return;
+                }
+                try {
+@section StateChanged
+    /* Might be generated empty */
+                }catch(Throwable t) {
+                    e.getClass();
+                    exceptionHandler(t);
+                }
+            }
+        }
+        @//
+        /**
+         * Internal use
+         */
+        public class ItemProc implements ItemListener {
+            public void itemStateChanged(ItemEvent e) {
+                if(totalBlockAllEvents != 0) {
+                    return;
+                }
+                try {
+@section ItemStateChanged
+                    // Might be generated empty
+                } catch(Throwable t) {
+                    exceptionHandler(t);
+                }
+            }
+        }
+        @//
+
+        /**
+         * Internal use.
+         */
+        public class MouseProc extends MouseAdapter {
+            public void mousePressed(MouseEvent e) {
+@section mousePressed
+            }
+            public void mouseReleased(MouseEvent e) {
+@section mouseReleased
+            }
+            public void mouseClicked(MouseEvent e) {
+                if(totalBlockAllEvents != 0) {
+                    return;
+                }
+                try {
+                    if (e.getClickCount()==1) {
+@section SingleClicked
+    /* Might be generated empty */
+                }
+                if (e.getClickCount()==2 
+                        && e.getButton() == MouseEvent.BUTTON1) {
+@section DoubleClicked
+    /* Might be generated empty */
+                }else if ((e.getModifiers()&InputEvent.BUTTON3_MASK)!=0) {
+@section PopupTrigger
+    /* Might be generated empty */
+                }
+            }catch(Throwable t) {
+                if(false) { e.getClass(); }
+                exceptionHandler(t);
+            }
+        }
+    }
+@//
+    /**
+     * Internal use.
+     */
+    class ListSelectionProc implements GenovaSelectionListener {
+        public void selectionChanged(GenovaSelectedEvent e) {
+            if(totalBlockAllEvents != 0) {
+                return;
+            }
+
+            try {
+@section ListValueChanged
+    /* Might be generated empty */
+            }
+    /* Might be generated empty */
+            catch(Throwable t) {
+                if(false) { e.getClass(); }
+                exceptionHandler(t);
+            }
+        }
+    }
+@//
+    /**
+     * Internal use.
+     */
+    class KeyProc implements KeyListener {
+        public void keyTyped(KeyEvent e) {
+            if(totalBlockAllEvents != 0) {
+                return;
+            }
+            try {
+@section KeyTyped
+    /* Might be generated empty */
+            }
+            catch(Throwable t) {
+                if(false) { e.getClass(); }
+                exceptionHandler(t);
+            }
+        }
+        public void keyPressed(KeyEvent e) {
+            if(totalBlockAllEvents != 0) {
+                return;
+            }
+            try {
+@section KeyPressed
+    /* Might be generated empty */
+            }catch(Throwable t) {
+                if(false) { e.getClass(); }
+                exceptionHandler(t);
+            }
+        }
+        public void keyReleased(KeyEvent e) {
+            if(totalBlockAllEvents != 0) {
+                return;
+            }
+            try {
+                ItemProc ip = new ItemProc();
+@section KeyReleased
+    /* Might be generated empty */
+    if(false) { ip.getClass(); }
+            }catch(Throwable t) {
+                if(false) { e.getClass(); }
+                exceptionHandler(t);
+            }
+        }
+    }
+@//
+    /**
+     * Internal use.
+     */
+    class WindowProc extends GenovaWindowAdapter {
+        public void dialogActivated(AWTEvent e) {
+            try {
+@section WindowActivated
+    /* Might be generated empty */
+            }catch(Throwable t) {
+                if(false) { e.getClass(); }
+                exceptionHandler(t);
+            }
+        }
+
+ @//
+        public void dialogDeiconified(AWTEvent e) {
+            try {
+@section WindowDeiconified
+    /* Might be generated empty */
+            }catch(Throwable t) {
+                if(false) { e.getClass(); }
+                exceptionHandler(t);
+            }
+        }
+
+@//
+        public void dialogIconified(AWTEvent e) {
+            try {
+@section WindowIconified
+    /* Might be generated empty */
+            }catch(Throwable t) {
+                if(false) { e.getClass(); }
+                exceptionHandler(t);
+            }
+        }
+
+@//
+        public void dialogClosed(AWTEvent e) {
+            // Unblock windows if the modal window is closed 
+            controller.setModal(false);
+            try {
+@section WindowClosed
+            }catch(Throwable t) {
+                if(false) { e.getClass(); }
+                exceptionHandler(t);
+            }
+        }
+@//
+        public void dialogClosing(AWTEvent e) {
+            try {
+@section WindowClosing
+    /* Might be generated empty */
+            }catch(Throwable t) {
+                if(false) { e.getClass(); }
+                exceptionHandler(t);
+            }
+        }
+
+@//
+        public void dialogDeactivated(AWTEvent e) {
+            try {
+@section WindowDeactivated
+    /* Might be generated empty */
+            }catch(Throwable t) {
+                if(false) { e.getClass(); }
+                exceptionHandler(t);
+            }
+        }
+@//
+        public void dialogOpened(AWTEvent e) {
+            // not interessted in this event. In stead, 
+            // we listen for a GenovaWindowEvent in the
+            // GenovaWindowProc-class.
+        }        
+    }
+
+
+    class GenovaWindowProc extends GenovaWindowAdapter {
+        public void dialogVisible(GenovaWindowEvent e) {
+@section WindowOpened
+
+        }
+
+        public void dialogHidden(GenovaWindowEvent e) {
+@section WindowHidden
+        }
+    }
+    
+
+    /**
+     * Internal use.
+     */
+    class ComponentProc implements ComponentListener {
+        public void componentHidden(ComponentEvent e) {
+            if(totalBlockAllEvents != 0) {
+                return;
+            }
+            try {
+@section ComponentHidden
+    /* Might be generated empty */
+            }catch(Throwable t) {
+                if(false) { e.getClass(); }
+                exceptionHandler(t);
+            }
+        }
+
+@//
+        public void componentShown(ComponentEvent e) {
+            try {
+                if(totalBlockAllEvents != 0) {
+                    return;
+                }
+@section ComponentShown
+@section WindowShown
+    /* Might be generated empty */
+            }catch(Throwable t) {
+                if(false) { e.getClass(); }
+                exceptionHandler(t);
+            }
+        }
+
+@//
+        public void componentMoved(ComponentEvent e) {
+            try {
+                if(totalBlockAllEvents != 0) {
+                    return;
+                }
+@section ComponentMoved
+    /* Might be generated empty */
+            }catch(Throwable t) {
+                if(false) { e.getClass(); }
+                exceptionHandler(t);
+            }
+        }
+
+@//
+        public void componentResized(ComponentEvent e) {
+            try {
+                if(totalBlockAllEvents != 0) {
+                    return;
+                }
+@section ComponentResized
+    /* Might be generated empty */
+            }catch(Throwable t) {
+                if(false) { e.getClass(); }
+                exceptionHandler(t);
+            }
+        }
+    }
+    @//    
+    @//
+    /* Not implemented for Internal Windows
+@section WindowHidden
+@section WindowShown
+     */
+}
+
+@file @@GetParameter DialogFileDir@@/@@DialogNameLower@@/@@DialogName@@DefaultController.java
+// ---------------------------------------------------------------------
+// @@GeneratedWith@@
+// ---------------------------------------------------------------------
+
+package @@GetParameter DialogClassPackage@@.@@DialogNameLower@@;
+
+import java.util.List;
+import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.LinkedList;
+import java.util.Vector;
+import java.util.Enumeration;
+import java.util.Collection;
+import java.util.Collections;
+import java.awt.Cursor;
+import java.awt.Component;
+import java.awt.Container;
+import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.Rectangle;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Comparator;
+import javax.swing.table.TableColumn;
+import java.beans.PropertyVetoException;
+
+@//
+import no.genova.domain.DomainUtil;
+import no.genova.exception.*;
+@//
+/**
+ * The following imports are known to be used. To avoid potentially
+ * errors due to lack of imports no.genova.client.support.*; 
+ * is added last.
+ */ 
+import no.esito.util.ServiceLoader;
+import no.genova.client.event.GenovaEventHolder;
+import no.genova.client.event.GenovaWindowEventHolder;
+import no.genova.client.event.GenovaDataEvent;
+import no.genova.client.support.ApplicationMethods;
+import no.genova.client.support.GenovaDialogController;
+import no.genova.client.support.NodeInfoList;
+import no.genova.client.support.LinkField;
+import no.genova.client.support.RoleObject;
+import no.genova.client.support.ObjectSelectionNode;
+import no.genova.client.support.ClearTool;
+import no.genova.client.support.GenovaTable;
+import no.genova.client.support.Listblock;
+import no.genova.client.support.ListblockLine;
+import no.genova.client.support.JComponentCellEditor;
+import no.genova.client.support.ECheckResult;
+import no.genova.domain.GenovaEnums;
+import no.genova.domain.DomainProxy;
+import no.genova.domain.DomainObjectProxy;
+import no.genova.client.support.GenovaWorker;
+import no.genova.client.support.DialogBoxTool;
+import no.genova.client.support.DialogBlocker;
+import no.genova.client.support.*; 
+import no.genova.client.support.message.ClientDispatcherContext;
+@//
+import no.genova.message.CRuntimeMsg;
+import no.genova.message.DispatcherContext;
+import no.genova.message.Message;
+import no.genova.message.MessageDispatcher;
+import no.genova.message.MessageDispatcherSetup;
+import no.genova.message.MessageFactory;
+import no.genova.message.MessageLogDispatcher;
+import no.genova.message.MessageReply;
+import no.genova.message.MessageReplyType;
+import no.genova.message.MessageTypeEnum;
+@//
+import no.genova.service.print.*;
+@//
+/**
+ * The following imports are known to be used. To avoid potentially
+ * errors due to lack of imports no.genova.support.*; 
+ * is added last.
+ */ 
+import no.genova.support.TypeTool;
+import no.genova.support.GenovaEnumerator;
+import no.genova.support.ObjectSelection;
+import no.genova.support.ClientContext;
+import no.genova.support.*;
+@//
+
+@section otherImportsController
+
+/**
+ * Public class interprenting the controller part of
+ * @@DialogName@@. This file is generated for each generation in
+ * Genova. Do not make changes in this file. All user added code
+ * should be done in class @@DialogName@@.
+ * To access mother application, use variable
+ * 'application'.
+ */ 
+@SuppressWarnings("all")
+public class @@DialogName@@DefaultController implements GenovaDialogController {
+    GenovaEnums applicationEnums;
+
+    /** Holds the name of the server application */
+    private String serverApplicationName = "@(hasApplication?@@ApplicationName@@:@(parameterDefined ApplicationName?@@GetParameter ApplicationName@@:@@ApplicationName@@)@)@";
+
+    /** Global reference to the domain proxy factory */
+    protected DomainProxy domainProxy;
+
+    /** Used when deciding whether to perform check change on
+     * this dialog or not. */
+    private boolean ignoreCheckChanged = false;
+@//
+    /**
+     * INTERNAL USE.
+     * Performs the runnable on the edt.
+     * @param task the task to perform on the edt
+     * @param msgArg the arguments to use if an exception is caught
+     */
+    protected void edt(Runnable task, String msgArg) {
+        String msgID = null;
+        Exception ex = null;
+        if (!SwingUtilities.isEventDispatchThread()) {
+            try {
+                SwingUtilities.invokeAndWait(task);
+            } catch (InterruptedException e) {
+                msgID = CRuntimeMsg.CT_INTERRUPTED;
+                ex = e;
+            } catch (InvocationTargetException e) {
+                msgID = CRuntimeMsg.CT_INVOCATION_TARGET;
+                if (e.getCause() != null && e.getCause() instanceof Exception) {
+                    ex = (Exception) e.getCause();
+                } else {
+                    ex = e;
+                }
+            } finally {
+                if (msgID != null) {
+                    Object[] msgArgs = {this.getClass(), msgArg, ex};
+                    Message msg = MessageFactory.getInstance().getMessage(msgID, msgArgs);
+                    MessageLogDispatcher.getInstance().log(msg, null);
+                    throw new GenovaClientFrameworkException(ex, msg);
+                }
+            } 
+        } else {
+            task.run();
+        }
+    }
+ 
+@section currentReferences
+
+@section controllerdecl
+    public ApplicationMethods getApplication() {
+        return application;
+    }
+@//  
+@//       
+    public boolean ignoreCheckChanged() {
+        return ignoreCheckChanged;
+    }
+@//  
+@//       
+    public void setIgnoreCheckChanged(boolean ignoreCheckChanged) {
+        this.ignoreCheckChanged = ignoreCheckChanged;
+    }
+@//  
+@//      
+    public void setServerApplicationName(String serverApplicationName) {
+        this.serverApplicationName = serverApplicationName;
+    }
+@//  
+@//      
+    /**
+     * Get serverApplicationName. If serverApplicationName is unknown the
+     * name of current application is used.
+     *
+     * @return name of server application
+     */
+    public String getServerApplicationName() {
+        if (serverApplicationName == null || serverApplicationName.equals("")) {
+            return getApplication().getApplicationName();
+        } else {
+            return serverApplicationName;
+        }
+    }
+    /**
+     * Default handler for alle Runtime Exceptions.
+     * Override in subclass as needed.
+     *
+     * @param bad The caught exception
+     * @return true to continue error handling,
+     * false the error is handled
+     */
+    public boolean dialogExceptionHandler(final Throwable bad) {
+    return application.applicationExceptionHandler(bad);
+    }
+    @//        
+    /** 
+     * Handles the return from another dialog
+     * @param returnObject
+     */
+    public void returnToCaller(Object returnObject){
+    }
+    @//                
+    /** 
+     * Handles initialization of a dialog from another dialog
+     * @param returnObject
+     * @param startObject
+     */
+    public void startInit(Object returnObject,Object startObject){
+    }
+    @//        
+    @//        
+    /* Keeps track of which hashmap group the component is within */
+    HashMap tabFocusComponentGroup = new HashMap();
+    @//
+    /* Keeps track of which component to jump out from a notebook */ 
+    HashMap notebookOwner = new HashMap(); 
+    @//
+    /* Keeps track of which components are radiogroups and elements within and order */
+    HashMap radioGroupsG = new HashMap();
+    @//
+// Number used for uniqe identifying groups.
+@SetNumber 3 0
+
+@section viewinit
+
+@//
+    /** Access point for methods valid for entire application. This
+     * object is an instance of the class @(hasApplication?@@ApplicationName@@:@(parameterDefined ApplicationName?@@GetParameter ApplicationName@@:@@ApplicationName@@)@)@ and can
+     * if needed be cast to this object to access spesific methods
+     * generated for this application. */
+    public ApplicationMethods application;
+
+    HashMap oldCursors = new HashMap();
+
+
+    /** 
+     * Internal use
+     * @param menuName name of the menu
+     * @return the menu
+     */
+    public JPopupMenu getPopupMenu(String menuName) {
+@section getPopupMenu
+        if(false) {
+           menuName.getBytes();
+        }
+        return null;
+    }
+
+    /** 
+     * @deprecated use DialogBlocker to block and unblock a dialog.
+     */
+    public void setWaitCursor() {
+        
+        Cursor waitCursor = new Cursor(Cursor.WAIT_CURSOR); 
+        Component c = view.focusProc.getLastFocusedComponent();
+        
+        if(c != null) {
+            oldCursors.put(c, c.getCursor());
+            c.setCursor(waitCursor);
+        }
+        
+        view.getContentPane().setCursor(waitCursor);
+    }
+
+    private boolean isModal = false;
+    
+    /**
+     * Internal use! 
+     * Sets the modal property of this dialog.
+     * Should only be called from the view.
+     * @param isModal the isModal property
+     */
+    public void setModal(boolean isModal) {
+        this.isModal = isModal;
+    }
+
+    /**
+     * Internal use.
+     * Returns the isModal flag.
+     * @return the isModal flag
+     */
+    public boolean isModal() {
+        return isModal;
+    }
+@//
+    /** 
+     * Check if this dialog is blocked.
+     * @return <code>true</code> if blocked.
+     */
+    public boolean isBlocked() {
+       Component comp = null;
+       if (isApplicationWindow()) {
+           comp = getApplication().getApplicationWindow();
+       } else {
+           comp = getWindow();
+       }
+       return DialogBlocker.isBlocked(comp);
+    }
+@//
+    /**
+     * Blocks the dialog (or application) and shows the wait cursor.
+     */
+    public void blockDialog() {
+        RootPaneContainer comp = null;
+        if (isApplicationWindow()) {
+            comp = getApplication().getApplicationWindow();
+        } else {
+            comp = (RootPaneContainer) getWindow();
+        }
+        DialogBlocker.block(comp);          
+    }
+@//
+    /**
+     * Unblocks the dialog (or application) and shows the default cursor.
+     */
+    public void unblockDialog() {
+        RootPaneContainer comp = null;
+        if (isApplicationWindow()) {
+            comp = getApplication().getApplicationWindow();
+        } else {
+            comp = (RootPaneContainer) getWindow();
+        }
+        DialogBlocker.unblock(comp);
+    }
+
+
+@//
+@//
+    /**
+     * Clears the dialog on edt.
+     * @see #clearDialog()
+     */
+    private void clearDialogEDT() {
+        Runnable task = new Runnable() {
+            public void run() {
+                clearDialog();
+            }
+        };
+        edt(task, "clearDialog");
+    }
+@//
+@//
+    public void clearDialog() {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            clearDialogEDT();
+            return;
+        }
+        view.clear@@DialogName@@();
+    }
+
+    /** 
+     * @deprecated use the DialogBlocker to unblock a dialog.
+     */
+    public void setNormalCursor() {
+        view.getContentPane().setCursor(Cursor.getDefaultCursor());
+        
+        Set comps = oldCursors.keySet();
+
+        for(Iterator i = comps.iterator();i.hasNext();) {
+            Component c = (Component)i.next();
+            
+            c.setCursor((Cursor)oldCursors.get(c));
+        }
+        oldCursors.clear();
+    }
+
+    /** 
+     * Overload this method if you want to override sorting order for a 
+     * listblock.
+     * @param listblock The listblock to override sort order for.
+     * @param nodeinfo The data to sort.
+     * @param column The column that is to be sorted 
+     * @param direction The direction of the sort.
+     * @return True if overload took place, false if not.
+     */
+    public boolean overrideSortListblock(String listblock, NodeInfoList nodeinfo, int column, Boolean direction) {
+        if(false) { listblock.getClass(); nodeinfo.getClass(); column++; direction.getClass();}
+        return false;
+    }
+
+    /** 
+     * Internal use.
+     * @param app Internal use.
+     */     
+    public @@DialogName@@DefaultController(ApplicationMethods app) { 
+        this.applicationEnums = app.getEnums();
+@section rtsetup
+       application = app;
+       domainProxy = new DomainProxy(@(hasParameter UseAccessorMethods?true:false)@, applicationEnums);
+       createRoleObjects();
+@section ApplicationCloseAppWindow
+    }
+@//
+    /**
+     * Get the title as defined in the dialogs window block
+     *
+     * @return the window title
+     */
+    public String getWindowTitle() {
+@section DialogTitle
+    }
+
+@//
+@//
+    public void setWindowTitle(String title) {
+        Object o = getWindow();
+        if (o instanceof JDialog) {
+            JDialog dView = (JDialog) o;
+            dView.setTitle(title);
+            dView.validate();
+        } else {
+            getView().setTitle(title);
+            getView().validate();
+        }
+    }
+
+
+    /**
+     * Resets the proxy for this dialog.
+     */
+    public void resetProxy() {
+        domainProxy.removeAllProxies();
+    }
+
+@//
+@//
+    /**
+     * Internal use!
+     * Gets selected lines in listblocks.
+     * If called from another thread than EDT, the thread
+     * is paused while the listblock selection is performed on the
+     * EDT.
+     * @param pathToTarget List of path target
+     * @return a List of selected lines.
+     */
+    public List getListblockStates(final List pathToTarget) {
+        class Task implements Runnable {
+            List editFieldLines = new LinkedList();
+@//
+            public void run() {
+                saveEditFieldLines();
+            }
+@//
+            public void saveEditFieldLines() {
+@section saveListblockState
+            }
+        }
+@//
+        Task task = new Task();
+        if (!SwingUtilities.isEventDispatchThread()) {
+            String msgID = null;
+            Exception ex = null;
+            try {
+                SwingUtilities.invokeAndWait(task);
+            } catch (InterruptedException e) {
+                msgID = CRuntimeMsg.CT_INTERRUPTED;
+                ex = e;
+            } catch (InvocationTargetException e) {
+                msgID = CRuntimeMsg.CT_INVOCATION_TARGET;
+                ex = e;
+            } finally {
+                if (msgID != null) {
+                    Object[] msgArgs = {@@DialogName@@DefaultController.class, "getListblockStates", ex};
+                    Message msg = MessageFactory.getInstance().getMessage(msgID, msgArgs);
+                    MessageLogDispatcher.getInstance().log(msg, null);
+                    throw new GenovaClientFrameworkException(ex, msg);
+                }
+            } 
+        } else {
+            task.saveEditFieldLines();
+        }
+
+        return task.editFieldLines;
+    }
+@//
+@//
+    /**
+     * Internal use!
+     * Scrolls listblock to the specfied lines and depending on the second parameter, selects the line.
+     * If called from another thread than EDT, the thread
+     * is paused while the listblock selection is performed on the
+     * EDT.
+     * @param selectedLines - a List of selected lines.
+     * @param doSelect - if <code>true</code> the line is selected, if not, it's just made visible.
+     */
+    public void setListblockStates(final List selectedLines, final boolean doSelect) {
+        class Task implements Runnable {
+@//
+            public void run() {
+                setListblockStates();
+            }
+@//
+            public void setListblockStates() {
+                Iterator it = selectedLines.iterator();
+                while (it.hasNext()) {
+                    ListblockLine selectedLine = (ListblockLine) it.next();
+                    Listblock listBlock = selectedLine.getListblock();
+                    Iterator jt = listBlock.allLines().iterator();
+                    while (jt.hasNext()) {
+                        ListblockLine aLine = (ListblockLine) jt.next();
+                        if (aLine.equals(selectedLine)) {
+                            if (doSelect) {
+                                aLine.displayInEditField(); 
+                                listBlock.setSelectedLine(aLine);
+                                // We don't want to fire a selected event!
+                                // listBlock.getTable().fireGenovaSelectedEvent(-1, aLine.getLineNumber());
+                            } else {
+                                listBlock.makeRowVisible(aLine.getLineNumber());
+                                Set roleNames = listBlock.getRoleNamesInUse();
+                                Iterator rIt = roleNames.iterator();
+                                while (rIt.hasNext()) {
+                                    ObjectSelectionNode node = getObjectSelectionNode((String) rIt.next());
+                                    node.clear();
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    if (!doSelect) {
+                        listBlock.clearEditFields();
+                    }
+                }
+            }
+        }
+@//
+        Task task = new Task();
+        if (!SwingUtilities.isEventDispatchThread()) {
+            String msgID = null;
+            Exception ex = null;
+            try {
+                SwingUtilities.invokeAndWait(task);
+            } catch (InterruptedException e) {
+                msgID = CRuntimeMsg.CT_INTERRUPTED;
+                ex = e;
+            } catch (InvocationTargetException e) {
+                msgID = CRuntimeMsg.CT_INVOCATION_TARGET;
+                ex = e;
+            } finally {
+                if (msgID != null) {
+                    Object[] msgArgs = {@@DialogName@@DefaultController.class, "setListblockStates", ex};
+                    Message msg = MessageFactory.getInstance().getMessage(msgID, msgArgs);
+                    MessageLogDispatcher.getInstance().log(msg, null);
+                    throw new GenovaClientFrameworkException(ex, msg);
+                }
+            } 
+        } else {
+            task.setListblockStates();
+        }
+    }
+
+ 
+
+@//
+@//
+
+    /**
+     * Internal use.
+     * Invokes the Print hook method on the specified node, and returns
+     * the result.
+     * @return the result of invoking the hook.
+     */
+    public ECheckResult callHookCheckPrint(String roleName) {
+@section callHookCheckPrint
+@//
+        return ECheckResult.DEFAULT;
+    }
+
+        
+
+
+@//
+@//
+
+    /**
+     * <strong>The use of this method is discouraged. Use
+     * callHookCheck save instead.</strong>
+     * Invokes the check save hook for the specified role. If no such
+     * role exists, the returned value is <code>true</code>, else the roles
+     * hook check save is returned.
+     * 
+     * @param roleName the name of the role
+     * @return the result of invoking the hook.
+     */   
+    public boolean callCheckSaveHook(String roleName) {
+@section callCheckSaveHook
+@//        
+        return true;
+    }
+
+
+    /**
+     * Internal use.
+     * Invokes the Save hook method on the specified node, and returns
+     * the result.
+     * @return the result of invoking the hook.
+     */
+    public ECheckResult callHookCheckSave(String roleName) {
+@section callHookCheckSave
+@//
+        return ECheckResult.DEFAULT;
+    }
+@//
+@//
+
+    /**
+     * <strong>The use of this method is discouraged. Use
+     * callHookCheck find instead.</strong>
+     * Invokes the check find hook for the specified role. If no such
+     * role exists, the returned value is <code>true</code>, else the roles
+     * hook check find is returned.
+     * 
+     * @param roleName the name of the role
+     * @return the result of invoking the hook.
+     */   
+    public boolean callCheckFindHook(String roleName) {
+@section callCheckFindHook
+@//
+        return true;
+    }    
+
+
+    /**
+     * Internal use.
+     * Invokes the Find hook method on the specified node, and returns
+     * the result.
+     * @return the result of invoking the hook.
+     */
+    public ECheckResult callHookCheckFind(String roleName) {
+@section callHookCheckFind
+@//
+        return ECheckResult.DEFAULT;
+    }    
+@//
+@//
+
+    /**
+     * <strong>The use of this method is discouraged. Use
+     * callHookCheck close instead.</strong>
+     * Invokes the check close hook for the specified role. If no such
+     * role exists, the returned value is <code>true</code>, else the roles
+     * hook check close is returned.
+     * 
+     * @param roleName the name of the role
+     * @return the result of invoking the hook.
+     */   
+    public boolean callCheckCloseHook(String roleName) {
+@section callCheckCloseHook
+@//
+        return true;
+    }  
+
+
+    /**
+     * Internal use.
+     * Invokes the Close hook method on the specified node, and returns
+     * the result.
+     * @return the result of invoking the hook.
+     */
+    public ECheckResult callHookCheckClose(String roleName) {
+@section callHookCheckClose
+@//
+        return ECheckResult.DEFAULT;
+    }  
+@//
+@//
+
+    /**
+     * <strong>The use of this method is discouraged. Use
+     * callHookCheck delete instead.</strong>
+     * Invokes the check delete hook for the specified role. If no such
+     * role exists, the returned value is <code>true</code>, else the roles
+     * hook check delete is returned.
+     * 
+     * @param roleName the name of the role
+     * @return the result of invoking the hook.
+     */   
+    public boolean callCheckDeleteHook(String roleName) {
+@section callCheckDeleteHook
+@//
+        return true;
+    }    
+
+
+    /**
+     * Internal use.
+     * Invokes the Delete hook method on the specified node, and returns
+     * the result.
+     * @return the result of invoking the hook.
+     */
+    public ECheckResult callHookCheckDelete(String roleName) {
+@section callHookCheckDelete
+@//
+        return ECheckResult.DEFAULT;
+    }
+@//
+@//
+
+    /**
+     * <strong>The use of this method is discouraged. Use
+     * callHookCheck clear instead.</strong>
+     * Invokes the check clear hook for the specified role. If no such
+     * role exists, the returned value is <code>true</code>, else the roles
+     * hook check clear is returned.
+     * 
+     * @param roleName the name of the role
+     * @return the result of invoking the hook.
+     */   
+    public boolean callCheckClearHook(String roleName) {
+@section callCheckClearHook
+@//
+        return true;
+    }   
+
+
+    /**
+     * Internal use.
+     * Invokes the Clear hook method on the specified node, and returns
+     * the result.
+     * @return the result of invoking the hook.
+     */
+    public ECheckResult callHookCheckClear(String roleName) {
+@section callHookCheckClear
+@//
+        return ECheckResult.DEFAULT;
+    } 
+@//
+@//
+
+    /**
+     * <strong>The use of this method is discouraged. Use
+     * callHookCheck change instead.</strong>
+     * Invokes the check change hook for the specified role. If no such
+     * role exists, the returned value is <code>true</code>, else the roles
+     * hook check change is returned.
+     * 
+     * @param roleName the name of the role
+     * @return the result of invoking the hook.
+     */   
+    public boolean callCheckChangeHook(String roleName) {
+@section callCheckChangeHook
+@//
+        return true;
+    } 
+
+
+    /**
+     * Internal use.
+     * Invokes the Change hook method on the specified node, and returns
+     * the result.
+     * @return the result of invoking the hook.
+     */
+    public ECheckResult callHookCheckChange(String roleName) {
+@section callHookCheckChange
+@//
+        return ECheckResult.DEFAULT;
+    }   
+@//
+@//
+    /**
+     * <strong>The use of this method is discouraged. Use
+     * callHookCheckRowSelect(String, int int) instead.</strong>
+     * Invokes the check row select for the specified role, and returns the
+     * result.
+     * @param roleName the name of the role.
+     * @param currentSelectionIndex the index of the currently selected row.
+     * @param newSelectionIndex the index of the new selected row.
+     * @return the result of invoking hook check row select on the 
+     *         specified role.
+     */
+    public boolean callCheckRowSelectHook(String roleName, int currentSelectionIndex, int newSelectionIndex) {
+@section callCheckRowSelectHook
+@//
+        return true;
+    }
+@//
+@//
+    /**
+     * Internal use.
+     * <p>Invokes the hook for the specified role.
+     * @param oldSelection the current selection
+     * @param newSelection the new selection.
+     * @return the ECheckResult 
+     */
+    public ECheckResult callHookCheckRowSelect
+            (String roleName, int oldSelection, int newSelection) {
+@section callHookCheckRowSelect
+@//
+        return ECheckResult.DEFAULT;
+    }        
+@//
+@//
+    public boolean checkPrint() {
+        boolean retVal = true;
+@section rootCheckPrint
+        return hookCheckPrint(retVal);
+    }
+@//
+@//
+    /**
+     * Hook method, override in subclass!
+     * This method is invoked as part of the print action. The parameter
+     * is the result of checkPrint. 
+     * <p>Since a print action involves an obtain that will potentially
+     * alter the state of the dialog, this hook gives the application
+     * programmer the chance to abort the print action, or verify that 
+     * print action should continue even if the dialog is changed (in this
+     * case the obtain will alter the state).
+     * @param checkPrintResult if <code>false</code> one of the checkPrint on 
+     * the object selection roots failed.
+     * @return <code>true</code> if print action should continue, otherwise 
+     *         <code>false</code>
+     */
+    protected boolean hookCheckPrint(boolean checkPrintResult) {
+        return checkPrintResult;
+    }
+@//
+@//
+    public boolean checkClose() {
+        boolean retVal = true;
+        getView().toFront();
+        try {
+            getView().setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+            // can't select the view...
+        }        
+@section rootCheckClose
+        if (!retVal) {
+            if (getView().isIcon()) {
+                try {
+                    getView().setIcon(false);
+                } catch (java.beans.PropertyVetoException e) {
+                    // Can't restore the view.
+                }
+            }
+            Object[] args = {getView().getTitle()};
+            Message msg = MessageFactory.getInstance().getMessage(CRuntimeMsg.CC_CHECK_CLOSE_MSG, args);
+            MessageReply reply = Application.getMessageDispatcher(getWindow(), getApplication()).dispatch(msg);
+            retVal = MessageReplyType.REPLY_OK.equals(reply);
+        }
+        return retVal;
+    }
+@//
+@//
+    public boolean checkClear(String roleName) {
+@section rootCheckClear
+        return true;
+    }
+    
+
+
+
+    /**
+     * Gets a proxy object holding the state for the specified object.
+     * @param o the object that should be proxied
+     * @param roleName the role name of the proxied object
+     * @return a proxy object for <code>o</code>
+     */
+    public DomainObjectProxy getProxy(Object o, String roleName) {
+        return domainProxy.getProxy(o, roleName);
+    }
+
+    /**
+     * Gets a new proxy object holding the state for the specified object.
+     * @param o the object that should be proxied
+     * @param roleName the role name of the proxied object
+     * @return a proxy object for <code>o</code>
+     */
+    public DomainObjectProxy getNewProxy(Object o, String roleName) {
+        return domainProxy.getNewProxy(o, roleName);
+    }
+
+    public GenovaDialogFrame getView() {
+        return view;
+    }
+ 
+    /** 
+     * Brings the dialog to front. 
+     */
+    public void toFront() {
+        if (view.isDialog()) {
+            Runnable task = new Runnable() {
+                public void run() {
+                    DialogBoxTool.showDialog(view.getDialog());
+                }
+            };
+            if (SwingUtilities.isEventDispatchThread()) {
+                GenovaWorker.enqueueTask(this, task);
+            } else {
+                task.run();
+            }        
+        } else {
+            Runnable task = new Runnable() {
+                public void run() {
+                    view.toFront();
+                    JInternalFrame frame = (JInternalFrame) view;
+                    try {
+                        frame.setSelected(true);
+                    } catch (PropertyVetoException e) {
+                        // Not much to do...
+                    }
+                }
+            };
+            if (!SwingUtilities.isEventDispatchThread()) {
+                SwingUtilities.invokeLater(task);
+            } else {
+                task.run();
+            }
+        }
+    }
+
+    /**
+     * Brings the dialog to the back
+     */
+    public void toBack() {
+        view.toBack();
+    }
+    @//
+    @//    
+    public void setEnabledComponent(Component component, boolean enable) {
+            setEnabledComponent(component, enable, true);
+    }
+    @//
+    @//
+    public void setEnabledComponent(Component component, boolean enable, boolean delay) {
+        view.setEnabledComponent(component, enable, delay);
+    }
+    @//
+    @//
+    public void setEnabledComponent(String name, boolean enable) {
+        Component component = view.fromNameToComponent(name);
+        if (component != null) {
+            setEnabledComponent(component, enable);
+        }
+    }
+    @//
+    @//
+    public void setVisibleComponent(Component component, boolean visible) {
+       setVisibleComponent(component, visible, true);
+    }
+    @//                
+    @//    
+    public void setVisibleComponent(Component component, boolean visible, boolean delay) {
+        view.setVisibleComponent(component, visible, delay);
+    }
+    @//    
+    @//
+    public void setVisibleComponent(String name, boolean visible) {
+        Component component = view.fromNameToComponent(name);
+        if (component != null) {
+            setVisibleComponent(component, visible);
+        }
+    }
+
+
+    @//
+    @//
+    public boolean isChanged(String osAttributeName) 
+            throws GenovaClientException {
+        ObjectSelectionNode node = getObjectSelectionNode(TypeTool
+                .getRoleNamePrefix(osAttributeName));
+        if (node != null) {
+            return node.isChanged(osAttributeName);
+        } else {
+            throw new GenovaClientException("No such role: " 
+                    + osAttributeName);
+        }
+    }
+    @//
+    @//
+    /**
+     * Updates the specified field from the object selection, and 
+     * displays the new value. 
+     * @param objSelAttr the name of the attribute (as in the object selection)
+     * @param value the (domain) object with the acutal value to display
+     */
+    public void display(String objSelAttr, Object value) {
+        display(objSelAttr, value, true);
+    }
+
+    /**
+     * Updates the specified field from the object selection, and 
+     * displays the new value. 
+     * @param objSelAttr the name of the attribute (as in the object selection)
+     * @param value the (domain) object with the acutal value to display
+     * @param resetState Set to false to avoid resetting the attribute state.
+     */
+    public void display(String objSelAttr, Object value, boolean resetState) {
+        ObjectSelectionNode node = getObjectSelectionNode(TypeTool
+                .getRoleNamePrefix(objSelAttr));
+        if (node != null) {
+            node.osDisplay(value, objSelAttr, resetState);
+        } else {
+            String msgID = CRuntimeMsg.CF_NO_SUCH_ROLE;
+            Object[] msgArgs = {getClass().getName()
+                                 + ".display(String, value, boolean)",
+                                objSelAttr };
+            Message msg = MessageFactory.getInstance().getMessage(msgID, msgArgs);
+            MessageLogDispatcher.getInstance().log(msg, null);
+            throw new GenovaClientException(msg);
+        }
+    }
+
+    /**
+     * Obtains a field value from the dialog.
+     * @param objSelAttr the name (as in the object selection) 
+     *     of the attribute to obtain
+     * @return A String with the formatted value.
+     */ 
+    public String obtain(String objSelAttr) {
+        ObjectSelectionNode node = getObjectSelectionNode(TypeTool
+                .getRoleNamePrefix(objSelAttr));
+        String retVal = null;
+
+        if (node != null) {
+            retVal = node.obtain(objSelAttr);
+        } else {
+            String msgID = CRuntimeMsg.CF_NO_SUCH_ROLE;
+            Object[] msgArgs = {getClass().getName()
+                                + ".obtain(String)", objSelAttr };
+            Message msg = MessageFactory.getInstance().getMessage(msgID, msgArgs);
+            MessageLogDispatcher.getInstance().log(msg, null);
+            throw new GenovaClientException(msg);
+        }
+@//
+        return retVal;
+    }
+
+@//
+@//
+    /** 
+     * Links two UI components data. The components are selected based
+     * on object selections described by parameters obj1 and obj2, in
+     * a format objsel.attr. If the selection 1 is changed to a given
+     * value, found in obj1list, then it will display the object found in the map to the obj2 
+     * field.
+     * @param obj1 
+     * @param obj2 
+     * @param obj1list 
+     * @param obj2list 
+     */
+    public void linkFields(String obj1, String obj2, Map obj1list, Map obj2list) {
+        LinkField link = new LinkField(this);
+@section linkFields
+        if(!link.isComplete()) {
+            if(false) {
+                obj1list.getClass();
+                obj2list.getClass();
+            }
+            throw new RuntimeException("ERROR: Failed to link "+obj1+" and "+obj2);
+
+        }
+    }
+
+    /** 
+     * @param linkList 
+     * @param id
+     * @deprecated expressions are handeled by the ComponentLink class.
+     */
+    public void updateLinks(List linkList, String id) {
+        if(linkList == null) {
+            return;
+        }
+        for(Iterator i = linkList.iterator();i.hasNext();) {
+            LinkField link = (LinkField)i.next();
+
+            if(id.equals(link.getId1())) {
+                link.update1();
+            } else if(id.equals(link.getId2())) {
+                link.update2();
+            }
+        }
+    }
+
+    /** 
+     * Get the name of the dialog
+     *
+     * @return the dialog name 
+     */
+    public String getDialogName() {
+        return "@@DialogName@@";
+    }
+
+    public void setAccessPolicy() {
+        // Override in subclass.
+    }
+
+    /** Dummy method, to be extended in subclass.
+     * Return true if the given field should be visible in the context 
+     * @param fieldname the field name
+     * @param context the context
+     * @return <code>true</code> if field should be visible.
+     */
+    public boolean shallBeVisible(String fieldname, int context) {
+        if(false) {
+            fieldname.getClass();
+            context++;
+        }
+        return true;
+    }
+
+    /** Dummy method, to be extended in subclass.
+     * Return true if the given field should be enabled in the context 
+     * @param fieldname the field name
+     * @param context the context
+     * @return <code>true</code> if field should be enabled.
+     */
+    public boolean shallBeEnabled(String fieldname, int context) {
+        if(false) {
+            fieldname.getClass();
+            context++;
+        }
+        return true;
+    }
+
+        /** 
+         * Internal use
+         * @param eventData 
+         */
+    public void genovaDataEvent(GenovaDataEvent eventData) {
+        if(false) {
+            eventData.getClass();
+        }
+    }
+@//
+    /**
+     * Center the dialog on edt
+     * @see #center()
+     */
+    private void centerEDT() {
+        Runnable task = new Runnable() {
+            public void run() {
+                center();
+            }
+        };
+        edt(task, "center");
+    }
+@//
+    /** Sentrerer dialog i MDI */
+    public void center() {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            centerEDT();
+            return;
+        }
+        int xsize = getWindow().getWidth();
+        int ysize = getWindow().getHeight();
+        int pxsize = application.getApplicationWindow().getWidth();
+        int pysize = application.getApplicationWindow().getHeight();
+        int posx = pxsize / 2 - xsize / 2;
+        int posy = pysize / 2 - ysize / 2;
+        if(posx < 0) {
+           posx = 0;
+        }
+        if(posy < 0) {
+           posy = 0;
+        }
+        getWindow().setLocation(posx, posy);
+    }
+@//
+    /**
+     * Sets the dialog position
+     */
+    protected void setDialogLocation() {
+        int xorigo = application.getApplicationWindow().getX();
+        int yorigo = application.getApplicationWindow().getY();
+        java.awt.Insets insets = application.getApplicationWindow().getInsets();
+        yorigo += insets.top;
+        if (application.getApplicationMenuBar() != null) {
+            yorigo += application.getApplicationMenuBar().getHeight();
+        }
+        if (application.getApplicationToolBar() != null) {
+            yorigo += application.getApplicationToolBar().getHeight();
+        }
+        xorigo += insets.left;
+        getWindow().setLocation(xorigo, yorigo);
+    }                   
+@//
+    /**
+     * Dispose dialog on edt.
+     */
+    private void disposeDialogEDT() {
+        Runnable task = new Runnable() {
+            public void run() {
+                disposeDialog();
+            }
+        };
+        edt(task, "disposeDialog");
+    }
+        @//
+    /* Removes the current dialog */
+    public void disposeDialog() {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            disposeDialogEDT();
+            return;
+        }
+@section CleanupAcceleratorEvent
+        if (getWindow() instanceof JInternalFrame) {
+            JInternalFrame fView = (JInternalFrame) getWindow();
+            fView.dispose();
+        } else if (getWindow() instanceof JDialog) {
+            JDialog dView = (JDialog) getWindow();
+            dView.dispose();
+        }
+    }
+        @//
+
+
+     /** 
+      * Forawards call to view's genovaAccelerator(KeyEvent) 
+      * @param event 
+      * @return <code>true</code> if accelerator is found.
+      */
+     public boolean genovaAccelerator(KeyEvent event) {
+         return view.genovaAccelerator(event);
+     }
+
+//      private void setCurrent() {
+@section setCurrent
+
+//      }
+
+@//
+
+@section initdialog
+
+@section initdialogrt
+
+@section initdialogend
+
+@section InitSearch
+
+@section InitSearchEnd
+
+
+@section MethodDeclaration
+
+@section ActionMethods
+
+@section HookMethodsSuper
+
+@section TableAccessMethods
+
+@section convert
+    /**
+     * Initialize dialog components, set up initial application context.
+     * @param to the object to assign the value
+     * @param field the attribute
+     * @param value String representation of assign value
+     */
+    void reflectAssign(Object to, String field, String value) {
+       try {
+           boolean useMethods = @(hasParameter UseAccessorMethods?true:false)@;
+           boolean convertValue = false;
+           String fieldClassName = null;
+
+           if(!useMethods) {
+               Field copyToField = to.getClass().getField(field);
+               Class copyToFieldType = copyToField.getType();
+
+               
+               convertValue =
+                   (copyToFieldType.getSuperclass() ==  GenovaEnumerator.class);
+               if(convertValue) {
+                   fieldClassName = getClassNameC(copyToFieldType);
+               }
+
+           } else {
+               String capAttribute = 
+                   field.substring(0,1).toUpperCase()+
+                   field.substring(1);
+               
+//               Class toClass = to.getClass();
+               
+               Method copyFromGetMethod = 
+                   to.getClass().getMethod("get"+capAttribute, null);
+               
+               Class returnType = copyFromGetMethod.getReturnType();
+
+               convertValue =
+                   (returnType.getSuperclass() == GenovaEnumerator.class);
+
+               if(convertValue) {
+                   fieldClassName = getClassNameC(returnType);
+               }
+               
+           }
+
+           if(convertValue && value != null) {
+
+               value = String.valueOf(applicationEnums.toValue(fieldClassName, value));
+           }
+               
+           TypeTool.reflectAssign@(hasParameter UseAccessorMethods?Method:)@(to, field, value);
+       }
+       catch(Exception e) {
+           view.exceptionHandler(e);
+       }
+    }
+
+    String convertToString(Object o, String classname) {
+        return convertToString(o, classname, true);
+    }
+
+    String convertToString(Object o, String classname, boolean ignoreZero) {
+        
+        if(o == null) {
+            return "";
+        }
+
+        if(o.getClass().getSuperclass() == GenovaEnumerator.class) {
+            int value = ((GenovaEnumerator)o).currentValue;
+            
+            return applicationEnums.toName(classname, value);
+        }
+        return TypeTool.convertToString(o, ignoreZero);
+    }
+
+    String convertToString(int i, String classname, boolean ignoreZero) {
+        if(false) {
+            classname.getClass();
+        }
+        return TypeTool.convertToString(i, ignoreZero);
+    }
+    String convertToString(int i, String classname) {
+        if(false) {
+            classname.getClass();
+        }
+        return TypeTool.convertToString(i, true);
+    }
+
+    String convertToString(boolean b, String classname, boolean ignoreZero) {
+        if(false) {
+            classname.getClass();
+        }
+        return TypeTool.convertToString(b, ignoreZero);
+    }
+
+    String convertToString(boolean b, String classname) {
+        if(false) {
+            classname.getClass();
+        }
+        return TypeTool.convertToString(b, true);
+    }
+
+    String convertToString(char c, String classname, boolean ignoreZero) {
+        if(false) {
+            classname.getClass();
+        }
+        return TypeTool.convertToString(c, ignoreZero);
+    }
+    String convertToString(char c, String classname) {
+        if(false) {
+            classname.getClass();
+        }
+        return TypeTool.convertToString(c, true);
+    }
+
+    String convertToString(float f, String classname, boolean ignoreZero) {
+        if(false) {
+            classname.getClass();
+        }
+        return TypeTool.convertToString(f, ignoreZero);
+    }
+    String convertToString(float f, String classname) {
+        if(false) {
+            classname.getClass();
+        }
+        return TypeTool.convertToString(f, true);
+    }    
+
+    String convertToString(double d, String classname, boolean ignoreZero) {
+        if(false) {
+            classname.getClass();
+        }
+        return TypeTool.convertToString(d, ignoreZero);
+    }
+
+    String convertToString(double d, String classname) {
+        if(false) {
+            classname.getClass();
+        }
+        return TypeTool.convertToString(d, true);
+    }
+
+    String convertToString(long l, String classname, boolean ignoreZero) {
+        if(false) {
+            classname.getClass();
+        }
+        return TypeTool.convertToString(l, ignoreZero);
+    }
+
+    String convertToString(long l, String classname) {
+        if(false) {
+            classname.getClass();
+        }
+        return TypeTool.convertToString(l, true);
+    }
+
+
+    String getAttributeClassName(Object owner, String field) {
+        if(owner == null) {
+            return null;
+        }
+        try {
+            Field f = owner.getClass().getField(field);
+            String name = f.getType().getName();
+            
+            int lastDot = name.lastIndexOf('.');
+            if(lastDot == -1) {
+                return name;
+            }
+            return name.substring(lastDot+1);
+        } catch(NoSuchFieldException e) {
+            Object[] args = {this.getClass(), field, owner.getClass(), e.getMessage()};
+            Message msg = MessageFactory.getInstance().getMessage(CRuntimeMsg.CF_UNABLE_TO_ACCESS_FIELD_OR_METHOD, args);
+            MessageLogDispatcher.getInstance().log(msg, null);
+            return null;
+        }    
+    }
+    
+
+
+    String getClassNameC(Class x) {
+        String name = x.getName();
+
+        int lastDot = name.lastIndexOf('.');
+        if(lastDot == -1) {
+            return name;
+        }
+        return name.substring(lastDot+1);
+    }
+    String getClassName(Object ob) {
+        
+        if(ob == null) {
+            return null;
+        }
+        
+        return getClassNameC(ob.getClass());
+    }
+
+    String getClassName(Object ob, String fieldname) {
+        try {
+            if(ob == null) {
+                return null;
+            }
+            Class ownerClass = ob.getClass();
+            Field f = ownerClass.getField(fieldname);
+
+            String name = f.getType().getName();
+            
+            int lastDot = name.lastIndexOf('.');
+            if(lastDot == -1) {
+                return name;
+            }
+            return name.substring(lastDot+1);
+            
+        }
+        catch(Exception e) {
+            return null;
+        }
+        
+    }
+
+    String getClassName(int i) {
+        if(false) { i++; }
+        return null;
+    }
+
+    String getClassName(boolean i) {
+        if(false) { i = !i; }
+        return null;
+    }
+
+    String getClassName(char i) {
+        if(false) { i++; }
+        return null;
+    }
+
+    String getClassName(byte i) {
+        if(false) { i++; }
+        return null;
+    }
+
+    String getClassName(float i) {
+        if(false) { i++; }
+        return null;
+    }
+
+    String getClassName(double i) {
+        if(false) { i++; }
+        return null;
+    }
+
+    String getClassName(long i) {
+        if(false) { i++; }
+        return null;
+    }
+
+    /**
+     * Hook method, override in subclass
+     * @param objectToDisplay the domain object about to be displayed.
+     * @param roleName the role name of the domain object
+     * @return <code>true</code> if it is ok to proceed with display.
+     */
+    public boolean hookBeforeDisplay(Object objectToDisplay, String roleName) {
+        return true;
+    }
+
+@section hookAfterObtain
+  
+
+@section ActionMethodImpl
+
+    /* Here we can generate code which don't belong anywhere due to missing
+     * sections or whatever. It will not be called by any method. 
+     * @deprecated
+     */
+    void trashDepartment() {
+        String s = null; 
+        boolean b = false; if(false) { b = !b; s.getClass();}
+
+@section setShownEnd
+@section setShownFieldEnd
+@section isShownFieldEnd
+@section isShownFieldEnd
+@section setShown
+@section isShown
+@section setShownField
+@section isShownField
+
+
+    }
+
+} // End of controller Class 
+
+
+
+@file_noreplace @@GetParameter DialogFileDir@@/@@DialogNameLower@@/@@DialogName@@Controller.java
+// ---------------------------------------------------------------------
+// @@GeneratedWith@@
+// ---------------------------------------------------------------------
+@//
+package @@GetParameter DialogClassPackage@@.@@DialogNameLower@@;
+@//
+import no.genova.client.support.ApplicationMethods;
+@//
+/** Skeleton class of @@DialogName@@. This class will only be
+ * generated once. Add all user spesific code here. (This should be
+ * overriding of event methods). */
+public class @@DialogName@@Controller extends @@DialogName@@DefaultController {
+@//
+    /** Internal use. Use window open event defined in genova to add
+     * code to dialog startup.
+     * @param m The application methods.
+     */
+    public @@DialogName@@Controller(ApplicationMethods m) {
+        super(m);
+    }
+
+
+    /**
+     * This method is invoked <em>after</em> the dialog is 
+     * fully realized and drawn on screen, so that you
+     * migth modify fields, set values etc.
+     * <p><em>Note</em>This method is called from the EDT, thus
+     * if you need to do some time consuming task, you should set up
+     * a dedicated thread and let the gui carry on (you might want to block
+     * the dialog though...). 
+     * <p>The pattern below show how to both set up a dedicated thread for 
+     * the (possibly) time consuming task, and how to get back to the EDT for
+     * updating the dialog window.:
+     * <code>
+     * // SET UP NEW THREAD CODE
+     * Runnable longTask = new Runnable() {
+     *          public void run() {
+     *              final Object someObject = LINES WITH TIME CONSUMING CODE...
+     *              
+     *              // DISPLAY CODE - GET BACK TO EDT
+     *              SwingUtilities.invokeLater(new Runnable() {
+     *                  public void run() {
+     *                      // GUI CODE
+     *                      display(someObject); 
+     *                  }
+     *              });
+     *          }
+     *     };
+     * 
+     * // INIT THREAD
+     * Thread longTimeThread = new Thread(longTask, "thread name");
+     * longTimeThread.setPriority(Thread.NORM_PRIORITY);
+     *
+     * // START THREAD
+     * longTimeThread.start();
+     * 
+     * </code>
+     */
+    @Override
+    public void setAccessPolicy() {
+        // Add own implementation.
+    }
+
+
+}
+
+
+
+@file @@GetParameter DialogFileDir@@/@@DialogNameLower@@/@@DialogName@@Const.java
+// ---------------------------------------------------------------------
+// @@GeneratedWith@@
+// ---------------------------------------------------------------------
+
+package @@GetParameter DialogClassPackage@@.@@DialogNameLower@@;
+@//
+@//
+/**
+ * Interface declaring string constants used in the @@DialogName@@.
+ */
+public interface @@DialogName@@Const {
+
+@section ConstRole
+
+@//
+@//
+    /**
+     * Name constants for all dialog objects in @@DialogName@@ except
+     * data items.
+     */
+    public static interface $$parameterDefined DialogConstObjectName?@@GetParameter DialogConstObjectName@@:DialogObject$$ {
+@//
+@//
+        // WindowBlock
+@section ConstCompWindowBlock
+
+@//
+@//
+        // SimpleBlock
+@section ConstCompSimpleBlock
+
+@//
+@//
+        // MenuBar
+@section ConstCompMenuBar
+
+@//
+@//
+        // Menu
+@section ConstCompMenu
+
+@//
+@//
+        // MenuItem
+@section ConstCompMenuItem
+
+@//
+@//
+        // ToolBar
+@section ConstCompToolBar
+
+
+
+@//
+@//
+        // Notebook
+@section ConstCompNoteBook
+@section ConstCompNotePage
+
+@//
+@//
+        // ListBlock
+@section ConstCompListBlock
+
+
+@//
+@//
+        // Button
+@section ConstCompButton
+
+@//
+@//
+        // Label
+@section ConstCompLabel
+
+@//
+@//
+        // Text
+@section ConstCompText
+
+@//
+@//
+        // ImageBox
+@section ConstCompImageBox
+    }
+
+   
+
+}

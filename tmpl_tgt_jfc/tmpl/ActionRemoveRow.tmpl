@@ -1,0 +1,89 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@createSection ActionRemoveRow@@TargetName@@ ActionMethodImpl
+@createSection HookActionRemoveRow@@TargetName@@ HookMethodsSuper
+
+@section MethodDeclaration rt
+            actionRemoveRow@@TargetName@@(); 
+
+@section ActionRemoveRow@@TargetName@@
+@if @(emptySection)@
+    @//
+    @//
+    /**
+     * Removes the selected row from the @@TargetName@@ list block.
+     */
+    protected void actionRemoveRow@@TargetName@@() {
+    @//
+        String msgID = null;
+        Exception ex = null;
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                public void run() {
+                    try {
+@//
+                        int selectedLine = listblockMethods@@TargetName@@.getSelectedLine();
+                        if (selectedLine >= 0) {
+                            listblockMethods@@TargetName@@.purgeLine(selectedLine);
+                        }
+                    } catch (RuntimeException e) {
+                        if (hookActionRemoveRow@@TargetName@@Exception(e)) {
+                            throw e;
+                        }
+                    }
+                }
+            });
+        } catch (InterruptedException e) {
+            msgID = CRuntimeMsg.CT_INTERRUPTED;
+            ex = e;
+        } catch (InvocationTargetException e) {
+            Throwable t = e.getCause();
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException)t;
+            } else {
+                msgID = CRuntimeMsg.CT_INVOCATION_TARGET;
+                if (t instanceof Exception) {
+                    ex = (Exception)t;
+                } else {
+                    ex = e;
+                }
+            }
+        } finally {
+            if (msgID != null) {
+               Object[] msgArgs = {this.getClass(), "actionClear@@TargetName@@", ex};
+               Message msg = MessageFactory.getInstance().getMessage(msgID, msgArgs);
+               MessageLogDispatcher.getInstance().log(msg, null);
+               throw new GenovaClientFrameworkException(ex, msg);
+            }
+        } 
+
+    }
+    @//
+@endif
+        
+        
+@section HookActionRemoveRow@@TargetName@@
+@if @(emptySection)@
+@//
+@//    
+    /**
+     * Hook method, called if the action resulted in a RuntimeException. 
+     * Override in subclass.
+     * @param e the catched exception 
+     * @return <code>false</code> the hook has handeled the exception, and no further action is needed.
+     */
+    public boolean hookActionRemoveRow@@TargetName@@Exception(RuntimeException e) {
+        return true;
+    }
+@endif

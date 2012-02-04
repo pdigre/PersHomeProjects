@@ -1,0 +1,3581 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@createSection @@Name@@TableModel BasicMethods
+@createSection @@Name@@TableModelSelectEnd BasicMethods
+@createSection @@Name@@TableModelSelect @@Name@@TableModelSelectEnd 
+@createSection @@Name@@GetTableValueEnd BasicMethods
+@createSection @@Name@@GetTableValue @@Name@@GetTableValueEnd
+@createSection @@Name@@SetTableValueEnd BasicMethods
+@createSection @@Name@@SetTableValueSwitchBody @@Name@@SetTableValueEnd 
+@createSection @@Name@@SetTableValueSwitchStart @@Name@@SetTableValueSwitchBody
+@createSection @@Name@@SetTableValueDeclarations @@Name@@SetTableValueSwitchStart
+@createSection @@Name@@SetTableValue @@Name@@SetTableValueDeclarations
+
+@createSection @@Name@@GetColumnNameEnd BasicMethods
+@createSection @@Name@@GetColumnName @@Name@@GetColumnNameEnd
+@createSection @@Name@@CellEditableEnd BasicMethods
+@createSection @@Name@@CellEditable @@Name@@CellEditableEnd
+@createSection @@Name@@TableModelEnd BasicMethods
+
+@createSection @@Name@@ListblockEnable BasicMethods
+
+@createSection @@Name@@setDatatypeEnd BasicMethods
+@createSection @@Name@@setDatatype @@Name@@setDatatypeEnd
+
+@createSection listblockCollectClass@@Name@@End MethodDeclaration
+@createSection listblockCollectClass@@Name@@Between listblockCollectClass@@Name@@End
+@createSection listblockCollectClass@@Name@@ listblockCollectClass@@Name@@Between
+
+@createSection @@Name@@ListblockEditCellEnd listblockCollectClass@@Name@@End
+@createSection @@Name@@ListblockEditCellDoc @@Name@@ListblockEditCellEnd 
+@createSection @@Name@@ListblockEditCell @@Name@@ListblockEditCellDoc
+
+@createSection @@Name@@HTMLTableEnd listblockCollectClass@@Name@@End
+@createSection @@Name@@HTMLTable @@Name@@HTMLTableEnd
+
+@createSection @@Name@@ListblockSelectColumnEnd listblockCollectClass@@Name@@End
+@createSection @@Name@@ListblockSelectColumn @@Name@@ListblockSelectColumnEnd
+
+@createSection @@Name@@ListblockLineCopyEnd listblockCollectClass@@Name@@End
+@createSection @@Name@@ListblockLineCopy @@Name@@ListblockLineCopyEnd
+
+@createSection sort@@Name@@End listblockCollectClass@@Name@@End
+@createSection sort@@Name@@ sort@@Name@@End 
+
+@createSection usersort@@Name@@End sort@@Name@@
+@createSection usersort@@Name@@ usersort@@Name@@End 
+
+@createSection sortWithName@@Name@@End listblockCollectClass@@Name@@End
+@createSection sortWithName@@Name@@Doc sortWithName@@Name@@End
+@createSection sortWithName@@Name@@ sortWithName@@Name@@Doc
+
+@createSection sortWithNameOrder@@Name@@End listblockCollectClass@@Name@@End
+@createSection sortWithNameOrder@@Name@@Doc sortWithNameOrder@@Name@@End
+@createSection sortWithNameOrder@@Name@@ sortWithNameOrder@@Name@@Doc
+
+
+@createSection @@Name@@ListblockInsertBodyEnd listblockCollectClass@@Name@@End
+@createSection @@Name@@ListblockInsertBody @@Name@@ListblockInsertBodyEnd
+@createSection @@Name@@ListblockInsertHeaderEnd @@Name@@ListblockInsertBody
+@createSection @@Name@@ListblockInsertHeader @@Name@@ListblockInsertHeaderEnd
+@createSection @@Name@@ListblockInsertTopDoc @@Name@@ListblockInsertHeader
+@createSection @@Name@@ListblockInsertTop @@Name@@ListblockInsertTopDoc
+
+@createSection @@Name@@ListblockInsertBlankBodyEnd listblockCollectClass@@Name@@End
+@createSection @@Name@@ListblockInsertBlankBody @@Name@@ListblockInsertBlankBodyEnd
+@createSection @@Name@@ListblockInsertBlankTop @@Name@@ListblockInsertBlankBody
+
+@createSection @@Name@@ListblockInsertBlankAtBodyEnd listblockCollectClass@@Name@@End
+@createSection @@Name@@ListblockInsertBlankAtBody @@Name@@ListblockInsertBlankAtBodyEnd
+@createSection @@Name@@ListblockInsertBlankAtTop @@Name@@ListblockInsertBlankAtBody
+
+@createSection @@Name@@ListblockInsertAtBodyEnd listblockCollectClass@@Name@@End
+@createSection @@Name@@ListblockInsertAtBody @@Name@@ListblockInsertAtBodyEnd
+@createSection @@Name@@ListblockInsertAtHeaderEnd @@Name@@ListblockInsertAtBody
+@createSection @@Name@@ListblockInsertAtHeader @@Name@@ListblockInsertAtHeaderEnd
+@createSection @@Name@@ListblockInsertAtTopDoc @@Name@@ListblockInsertAtHeader
+@createSection @@Name@@ListblockInsertAtTop @@Name@@ListblockInsertAtTopDoc
+
+@createSection @@Name@@ListblockReplaceAtBodyEnd listblockCollectClass@@Name@@End
+@createSection @@Name@@ListblockReplaceAtBody @@Name@@ListblockReplaceAtBodyEnd
+@createSection @@Name@@ListblockReplaceAtHeaderEnd @@Name@@ListblockReplaceAtBody
+@createSection @@Name@@ListblockReplaceAtHeader @@Name@@ListblockReplaceAtHeaderEnd
+@createSection @@Name@@ListblockReplaceAtTopDoc @@Name@@ListblockReplaceAtHeader
+@createSection @@Name@@ListblockReplaceAtTop @@Name@@ListblockReplaceAtTopDoc
+
+@createSection @@Name@@ListblockLineInsert listblockCollectClass@@Name@@End
+@createSection @@Name@@ListblockLineReplace listblockCollectClass@@Name@@End
+
+@createSection @@Name@@ListblockClear listblockCollectClass@@Name@@End
+@createSection @@Name@@ListblockDelete listblockCollectClass@@Name@@End
+@createSection @@Name@@ListblockMove listblockCollectClass@@Name@@End
+
+
+@createSection @@Name@@ListblockClearStatusBody listblockCollectClass@@Name@@End
+@createSection @@Name@@ListblockClearStatus @@Name@@ListblockClearStatusBody
+
+@createSection @@Name@@ListblockSignalStopEditingEnd listblockCollectClass@@Name@@End
+@createSection @@Name@@ListblockSignalStopEditing @@Name@@ListblockSignalStopEditingEnd
+
+@createSection @@Name@@ListblockGetLines listblockCollectClass@@Name@@End
+
+@createSection @@Name@@ListblockObtainDisplayedLine listblockCollectClass@@Name@@End
+
+@createSection @@Name@@ListblockLineClassController MethodDeclaration
+
+@createFile @@GetParameter DialogFileDir@@/@@DialogNameLower@@/LineListblock@@Name@@.java
+
+@createSection @@Name@@ListblockLineClassEnd @@GetParameter DialogFileDir@@/@@DialogNameLower@@/LineListblock@@Name@@.javaSection
+
+
+@createSection @@Name@@ListblockLineNode @@Name@@ListblockLineClassEnd
+@createSection @@Name@@ListblockLineClass @@Name@@ListblockLineNode
+
+@createSection @@Name@@ListblockDisableFieldEnd @@Name@@ListblockLineClassEnd
+@createSection @@Name@@ListblockDisableField @@Name@@ListblockDisableFieldEnd
+
+@createSection @@Name@@ListblockDisableFieldOSEnd @@Name@@ListblockLineClassEnd
+@createSection @@Name@@ListblockDisableFieldOSDoc @@Name@@ListblockDisableFieldOSEnd
+@createSection @@Name@@ListblockDisableFieldOS @@Name@@ListblockDisableFieldOSDoc
+
+@createSection @@Name@@FromCellToListblockEnd @@Name@@ListblockLineNode
+@createSection @@Name@@FromCellToListblock @@Name@@FromCellToListblockEnd
+
+@createSection @@Name@@FromListblockToCellEnd @@Name@@ListblockLineNode
+@createSection @@Name@@FromListblockToCell @@Name@@FromListblockToCellEnd
+
+@createSection @@Name@@ListblockLineResetEnd @@Name@@ListblockLineNode
+@createSection @@Name@@ListblockLineReset @@Name@@ListblockLineResetEnd
+
+@createSection @@Name@@ListblockLinePreviousStateEnd @@Name@@ListblockLineNode
+@createSection @@Name@@ListblockLinePreviousState @@Name@@ListblockLinePreviousStateEnd
+
+@createSection @@Name@@ListblockLineHasPStateEnd @@Name@@ListblockLineNode
+@createSection @@Name@@ListblockLineHasPState @@Name@@ListblockLineHasPStateEnd
+
+@createSection @@Name@@ListblockLineEditCellEnd @@Name@@ListblockLineNode
+@createSection @@Name@@ListblockLineEditCellDoc @@Name@@ListblockLineEditCellEnd
+@createSection @@Name@@ListblockLineEditCell @@Name@@ListblockLineEditCellDoc
+
+@createSection @@Name@@ListblockLineEditCellOSEnd @@Name@@ListblockLineNode
+@createSection @@Name@@ListblockLineEditCellOSDoc @@Name@@ListblockLineEditCellOSEnd
+@createSection @@Name@@ListblockLineEditCellOS @@Name@@ListblockLineEditCellOSDoc
+
+@createSection @@Name@@ListBlockAddObjectEnd @@Name@@ListblockLineNode
+@createSection @@Name@@ListBlockAddObject @@Name@@ListBlockAddObjectEnd
+
+@createSection @@Name@@ListBlockGetObjectEnd @@Name@@ListBlockAddObject
+@createSection @@Name@@ListBlockGetObject @@Name@@ListBlockGetObjectEnd
+
+@createSection @@Name@@ListBlockEqualsEnd @@Name@@ListBlockAddObject
+@createSection @@Name@@ListBlockEquals @@Name@@ListBlockEqualsEnd
+
+@createSection SetupInit@@Name@@End SetupInit
+@createSection SetupInit@@Name@@Start SetupInit@@Name@@End
+
+
+@createSection @@Name@@SetupHeaderEnd SetupInit@@Name@@End
+@createSection @@Name@@SetupHeader @@Name@@SetupHeaderEnd
+@createSection @@Name@@SetupEnd @@Name@@SetupHeader
+@createSection @@Name@@SetupNearEnd @@Name@@SetupEnd
+@createSection @@Name@@Setup @@Name@@SetupNearEnd
+
+@createSection Compare@@Name@@End listblockCollectClass@@Name@@End
+@createSection Compare@@Name@@ Compare@@Name@@End
+
+@createSection CellEditor@@Name@@End SetupInit
+@createSection CellEditor@@Name@@Start CellEditor@@Name@@End
+
+@section CellEditor@@Name@@Start
+// ABABAB
+// Dette er starten {
+    private void init@@Name@@CellEditors() {
+        TableColumnModel columnModel = 
+                @@Name@@_table.getColumnModel();
+        int colIndex;
+        TableColumn column;
+        
+
+@section CellEditor@@Name@@End
+         // Method might not do anything - silence code checkers.
+        if (false && (columnModel == null 
+                      || colIndex == -1
+                      || column == null)) {
+            colIndex++;
+        }                 
+             
+    }
+
+@section controllerdecl
+    @//
+    /* Her kommer generert kode for Listblock:controllerdecl*/
+    @//
+    HashMap tabListFromNodeName@@Name@@ = tabListFromNodeName@@ParentName@@;
+    HashMap tabListFromComponent@@Name@@ = tabListFromComponent@@ParentName@@;
+
+@section BlockerClass
+    int listblock@@Name@@ = 0;
+
+/** Increases blocking count for the listblock @@Name@@. Internal use only. */
+    void increaseListblock@@Name@@() {
+        debug(++listblock@@Name@@, "U:listblock@@Name@@");
+    }
+  
+/** Decreases blocking count for the listblock @@Name@@. Internal use only.  */
+    void decreaseListblock@@Name@@() {
+        debug(--listblock@@Name@@, "U:listblock@@Name@@");
+    }
+/** Returns true if listblock is blocking events. Internal use only.
+ * @return True if listblock is blocking events.
+ */
+    boolean isBlockedListblock@@Name@@() {
+        return listblock@@Name@@ == 0;
+    }
+
+    int listblockValueChanged@@Name@@ = 0;     
+
+/** Internal use. */
+    void increaseListblockVC@@Name@@() {
+        debug(++listblockValueChanged@@Name@@, "U:listblockValueChanged@@Name@@");
+    }
+  
+/** Internal use */
+    void decreaseListblockVC@@Name@@() {
+        debug(--listblockValueChanged@@Name@@, "U:listblockValueChanged@@Name@@");
+    }
+/** Internal use
+ * @return Internal use.
+ */
+    boolean isBlockedListblockVC@@Name@@() {
+        return listblockValueChanged@@Name@@ == 0;
+    }
+
+@createSection ClearBlockEnd@@Name@@@@DialogName@@ ClearBlock
+@createSection ClearBlockStart@@Name@@@@DialogName@@ ClearBlockEnd@@Name@@@@DialogName@@
+
+@section ClearBlockStart@@Name@@@@DialogName@@
+@//
+    /**
+     * Clears the listblock @@Name@@, both edit fields and 
+     * lines are cleared.
+     */
+    public void clear@@Name@@() {
+        controller.listblockMethods@@Name@@.purgeAllLines();
+
+ @section ClearBlockEnd@@Name@@@@DialogName@@
+    }
+
+@section ClearBlockStart@@ParentName@@@@DialogName@@
+        clear@@Name@@(); 
+
+
+@section ConstCompListBlock
+@//
+        /** The ListBlock @@Name@@ component */
+        String $$hasParameter DialogConstUppercase?@@NameUpper@@:@@Name@@$$ = "@@Name@@";
+
+
+
+@section Declaration
+    @//
+    /* Her kommer generert kode for Listblock:Declaration*/
+    @//
+    // View
+    JPopupMenu activePopupMenu@@Name@@ = null;
+    JPanel @@Name@@ = new JPanel();
+    @@Name@@Model @@Name@@theModel = null;
+    GenovaTable @@Name@@_table = null;
+    JScrollPane @@Name@@_pane = null;
+    Color defaultBackground@@Name@@ = null;
+    Color defaultSelectedBackground@@Name@@ = null;
+    boolean hasCellSelectionColor@@Name@@ = false;
+    Vector @@Name@@_headers = new Vector();
+
+    boolean @@Name@@HeadersClicked[];
+    @//
+    int @@Name@@blockStopEditing = 0;
+    @//
+    /** Used to keep track of values used in auto count when parsing the 
+     * columns. If they are invis, then no columns is added... 
+     */
+    Vector @@Name@@_indexes = new Vector();
+    @//
+    GenovaTable @@Name@@RowHeader;
+    ToolTipHeader  @@Name@@TableHeader;
+    DefaultTableCellRenderer @@Name@@TableHeaderRenderer;
+    DefaultTableModel @@Name@@HeaderModel;
+    @//    
+    @//
+    /**
+     * Internal use. 
+     * Sets the header properties for the listblock
+     * @param c the header component.
+     * @param table the listblock
+     * @param value value of header
+     * @param isSelected flag indicating the selected state
+     * @param hasFocus flag indicating focus
+     * @param row the row number
+     * @param column the column number
+     * @return the header
+     */
+    JComponent setHeaderProps@@Name@@(JComponent c, JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column){
+        @//
+        Border raised = BorderFactory.createBevelBorder(BevelBorder.RAISED);
+        Border lowered = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
+        //        Border normal = BorderFactory.createEmptyBorder();
+        @//
+
+        if(false) { 
+            row++; column++; hasFocus = !hasFocus; 
+            isSelected = !isSelected; table.getClass();
+            value.getClass();
+            /* Silence eclipse */ 
+        }
+        @(hasFont?RepositoryProxy.setFont(c,"@@FontName@@");:)@
+        c.setForeground(RepositoryProxy.getColorField("@@StyleForegroundColor@@"));
+        c.setBackground(RepositoryProxy.getColorField("@@StyleBackgroundColor@@"));
+
+        if(@@Name@@HeadersClicked[column]) {                        
+            c.setBorder(lowered);
+        }else {
+            c.setBorder(raised);
+        }
+        return c;
+    }
+    @//
+    /** Internal use. Sets the listblock properties.
+     * @param c the component 
+     * @param data the data
+     * @param table the table
+     * @param value the value
+     * @param isSelected the isSelected property
+     * @param hasFocus the hasFocus property
+     * @param row the row number
+     * @param column the column number
+     * @return the component.
+     */
+    Component setTableProps@@Name@@(Component c, LineListblock@@Name@@ data, JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column){                              
+        RepositoryProxy.setFont(c, "ListblockFont");
+        Color deletedColor = RepositoryProxy.getColorField("ListblockLineDeletedColor");
+        Color newColor = RepositoryProxy.getColorField("ListblockLineNewColor");
+        Color changedColor = RepositoryProxy.getColorField("ListblockLineChangedColor");
+        @//
+        if(value instanceof JCheckBox) {
+            ((JComponent)value).setBackground(table.getBackground());
+        }
+
+        if(!hasCellSelectionColor@@Name@@) {
+            if(isSelected) {
+                c.setBackground(defaultSelectedBackground@@Name@@);
+            } else {
+                c.setBackground(defaultBackground@@Name@@);
+            }
+            hasFocus = false;
+        }
+
+        @//
+        if(data.isDeleted()) {
+            c.setForeground(deletedColor);
+        }else if(data.isNew()) {
+            if(isSelected && !hasFocus && !(c instanceof JComboBox)) {
+                c.setForeground(Color.white);
+            }else {
+                c.setForeground(newColor);
+            }
+        }else if(data.isChanged()) {
+            if(isSelected && !hasFocus && !(c instanceof JComboBox)) {
+                c.setForeground(Color.white);
+            }else {
+                c.setForeground(changedColor);
+            }
+        }else {
+            if(isSelected && !hasFocus && !(c instanceof JComboBox)) {
+                c.setForeground(Color.white);
+            }else {
+                if(hasFocus && c instanceof JComboBox) {
+                    c.setForeground(Color.blue);
+                }else {
+                    c.setForeground(Color.black);
+                }
+            }
+        }
+        return c;
+    }
+    @//
+    /** The @@Name@@_widths vector */
+    protected Vector @@Name@@_widths = new Vector();
+@section @@Name@@ListblockLineClassController rt
+    @//
+    /* Her kommer generert kode for Listblock:ListblockLineClassController*/
+    @//
+    /** RT information about the listblock */
+    protected NodeInfoList @@Name@@NodeInfo = new NodeInfoList();
+    @//
+@section @@Name@@ListblockLineClass rt
+@begin
+// ---------------------------------------------------------------------
+// @@GeneratedWith@@
+// ---------------------------------------------------------------------
+    @//
+    /* Her kommer generert kode for Listblock:ListblockLineClass*/
+    @//
+    @//
+package @@GetParameter DialogClassPackage@@.@@DialogNameLower@@;
+@//
+import java.util.Date;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Collection;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
+import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+import javax.swing.SwingConstants;
+import javax.swing.JComponent;
+import java.util.Enumeration;
+import java.io.Serializable;
+import javax.swing.event.AncestorListener;
+import javax.swing.event.AncestorEvent;
+@//
+@@JavaImports@@
+@//
+/**
+ * The following imports are known to be used. To avoid potentially
+ * errors due to lack of imports no.genova.client.support.*; 
+ * is added last.
+ */ 
+import no.genova.client.support.ListblockLine;
+import no.genova.client.component.GenovaComboBox;
+import no.genova.client.support.*;
+@//
+import no.genova.domain.DomainUtil;
+import no.genova.domain.DomainProxy;
+import no.genova.domain.DomainObjectProxy;
+@//
+import no.genova.exception.GenovaClientException;
+@//
+import no.genova.message.CRuntimeMsg;
+import no.genova.message.Message;
+@//
+/*
+ * The following imports are known to be used. To avoid potentially
+ * errors due to lack of imports no.genova.support.*; 
+ * is added last.
+ */ 
+import no.genova.support.TypeTool;
+import no.genova.support.Numeric;
+import no.genova.domain.DomainUtil;
+import no.genova.support.*;
+@//
+/** Class for holding one line of information for the listblock
+ * @@Name@@.
+ *
+ * <p><strong>State handling in listblock</strong></p> A listblock
+ * line has three different states new, deleted and changed. If a
+ * line has gotten a given state, it will keep that state until
+ * the state is cleared or become reset. The transitions from 'no'
+ * state are:
+ *
+ * <ul>
+ * <li>new : A listblock line is flagged as new after it has been inserted into the listblock.
+ * <li>changed: A listblock line is edited by the user.
+ * <li>deleted: Call to delete listblock method.
+ * </ul>
+
+ * Upon startup of a dialog, after filling its content, normal use
+ * would be to perform forceClean() to zero all state.
+ *
+ * <p><strong>Undo support</strong></p>
+ *
+ * A listblock line has one level of undo. When the method reset()
+ * is called the 'current' data will be copied to the 'old'. In
+ * each line there are getters for both the current data and the
+ * old data. To restore the previous state of a listblock line, use the method
+ * previousState().
+ *
+ */
+@SuppressWarnings("all")
+public class LineListblock@@Name@@ implements ListblockLine {
+    HashMap cellObjects = new HashMap();
+@//
+    // key = roleName, value = object
+    private Map roleNameToObject = new HashMap();
+@//
+
+    /**
+     * Returns the object used for editing at a given column. The
+     * object currently available for getting like this would be
+     * the checkboxes used for editing and displaying booleans.
+     * @return The editor object of null if none on that column number.
+     * @param column The column number to get the editor for, zero if none.
+     */
+    public Object getCellObject(int column) {
+        column = ((Integer)controller.view.@@Name@@_indexes.elementAt(column)).intValue();
+        return cellObjects.get(new Integer(column));
+    }
+@//
+    /** Internal use */
+    class CheckItemListener implements ItemListener {
+        /** Internal use.
+         * @param e Internal use.
+         */
+        public void itemStateChanged(ItemEvent e) { 
+            /* Silence code checkers */
+            if(false) {e.getClass(); }
+        }
+    }
+@//
+    /** Internal use */
+    final LineListblock@@Name@@ pointerToListblockLine = this;
+@//
+    @@DialogName@@DefaultController controller;
+@//
+    DomainProxy domainProxy;
+    private boolean ischanged;
+    private boolean isnew;
+    private boolean isdeleted;
+    private boolean isdisabled;
+@//
+    private boolean oldIschanged;
+    private boolean oldIsnew;
+    private boolean oldIsdeleted;
+@//
+    int lineNumber;
+@//
+    /** Do not use this constructor! Use insert methods on the
+     *     variable listblockMethods@@Name@@! 
+     * @param c Internal use.
+     */
+    LineListblock@@Name@@(@@DialogName@@DefaultController c) {
+        controller = c;
+        domainProxy = new DomainProxy(@(hasParameter UseAccessorMethods?true:false)@, controller.applicationEnums);
+    }
+@//
+    /**
+     * Returns true if the line in the listblock @@Name@@ is deleted 
+     * See documentation about state on class LineListblock@@Name@@.
+     * @return True if deleted, false if not.
+     */
+    public boolean isDeleted() {
+        return isdeleted;
+    }
+@//
+    /**
+     * Returns true if the line in the listblock @@Name@@ is disabled 
+     * See documentation about state on class LineListblock@@Name@@.
+     * @return True if disabled, false if not.
+     */
+    public boolean isDisabled() {
+       return isdisabled;
+    }
+@//
+    /** Returns true if the line in the listblock @@Name@@ is new.
+     * @return Ture if new, false if not.
+     */
+    public boolean isNew() {
+        return isnew;
+    }
+@//
+    /**
+     * Returns true if the line in the listblock @@Name@@ is changed 
+     * See documentation about state on class LineListblock@@Name@@.
+     * @return True if changed, false if not.
+     */
+    public boolean isChanged() {
+        return ischanged;
+    }
+@//
+    /** 
+     * Returns true if the line in the listblock @@Name@@ was
+     * deleted last time reset was called.
+     * See documentation about state on class LineListblock@@Name@@.
+     * @return True if deleted, false if not.
+     */
+    public boolean oldIsDeleted() {
+        return oldIsdeleted;
+    }
+@//
+    /**
+     * Returns true if the line in the listblock @@Name@@ had the status
+     * new last time reset was called.
+     * @return True if new, false if not.
+     */
+    public boolean oldIsNew() {
+        return oldIsnew;
+    }
+@//
+    /**
+     * Returns true if the line in the listblock @@Name@@ was
+     * deleted last time reset was called. 
+     * See documentation about state on class LineListblock@@Name@@.
+     * @return True if it was changed, false if not.
+     */
+    public boolean oldIsChanged() {
+        return oldIschanged;
+    }
+@//
+    /** The line number of this list block. Internal use only.
+     * @return The line number in the listblock.
+     */
+    public int getLineNumber() {
+        return lineNumber;
+    }
+@//
+    /** Internal use.
+     * @param n Internal useage.
+     */
+    void setLineNumber(int n) {
+        lineNumber = n;
+    }
+@//
+    /** Marks line as new and removes changed and deleted flags. 
+     * See documentation about state on class LineListblock@@Name@@.
+     */
+    public void forceMarkAsNew() {
+        ischanged = false;
+        isnew = true;
+        isdeleted = false;
+    }
+@//
+    /** Clears new, changed and deleted flags. 
+     * See documentation about state on class LineListblock@@Name@@.
+     */
+    public void forceClean() {
+        ischanged = false;
+        isnew = false;
+        isdeleted = false;
+    }
+@//
+    /** Marks line as new unless it already has been marked as
+     * changed or deleted. 
+     * See documentation about state on class LineListblock@@Name@@.
+     */
+    public void markAsNew() {
+        if(ischanged || isdeleted) {
+            return;
+        }
+        ischanged = false;
+        isnew = true;
+        isdeleted = false;
+    }
+@//
+    /** Marks the line as changed and clears new and deleted flags. 
+     * See documentation about state on class LineListblock@@Name@@.
+     */
+    public void forceMarkAsChanged() {
+        ischanged = true;
+        isnew = false;
+        isdeleted = false;
+    }
+@//
+    /** Marks line as changed unless it already has been marked as
+     * new or deleted. 
+     * See documentation about state on class LineListblock@@Name@@.
+     */
+    public void markAsChanged() {
+        if(isdeleted || isnew) {
+            return;
+        }
+        ischanged = true;
+        isdeleted = false;
+    }
+    
+    /** 
+     * Copies state flags from the given listblock line to this
+     * listblock line. Both old and new state are copied.
+     * See documentation about state on class LineListblock@@Name@@.
+     * @param src The listblockline to copy state flags from.
+     */
+    public void copyStateFlags(LineListblock@@Name@@ src) {
+        ischanged = src.ischanged;
+        isnew = src.isnew;
+        isdeleted = src.isdeleted;
+        isdisabled = src.isdisabled;
+        oldIschanged = src.oldIschanged;
+        oldIsnew = src.oldIsnew;
+        oldIsdeleted = src.oldIsdeleted;
+    }
+@//
+    /** Sets a listblock line as disabled/enabled for editing.
+     * @param setting True hvis disabled.
+     **/
+    public void setDisabled(boolean setting) {
+        isdisabled = setting;
+    }
+    
+    /** Marks line as deleted. */
+    public void markAsDeleted() {
+        ischanged = false;
+        isnew = false;
+        isdeleted = true;
+    }
+    
+    /** Marks line as deleted */
+    public void forceMarkAsDeleted() {
+        ischanged = false;
+        isnew = false;
+        isdeleted = true;
+    }
+    
+    public boolean contains(Object domainObject) {
+        return roleNameToObject.containsValue(domainObject);
+    }
+@//
+    public void setSelected(boolean select) {
+        List currentSelection = new ArrayList();
+        getListblock().clearEditFields();
+        if (getListblock().getSelectedLinesObject() != null) {
+            currentSelection.addAll(getListblock().getSelectedLinesObject());
+        }
+        if (!select) {
+            currentSelection.remove(this);
+        } else {
+            currentSelection.add(this);
+        }
+        ListblockLine displayLine = select ? this : null;
+        int[] selectedLines = new int[currentSelection.size()];
+        if (currentSelection.size() > 0) {
+
+            int lastSelectedLine = Integer.MAX_VALUE;
+            for (int i = 0; i < currentSelection.size(); i++) {
+                ListblockLine line = (ListblockLine) currentSelection.get(i);
+                selectedLines[i] = line.getLineNumber();
+                if (!select && line.getLineNumber() < lastSelectedLine) {
+                    lastSelectedLine = line.getLineNumber();
+                    displayLine = line;
+                }
+            }
+        }
+        getListblock().setSelectedLines(selectedLines);
+        
+        if (displayLine != null) {
+            displayLine.displayInEditField();
+        }
+    }
+@//
+    public boolean isSelected() {
+        List selectedLines = getListblock().getSelectedLinesObject();
+        return selectedLines != null ? selectedLines.contains(this) : false;
+    }
+
+
+@createSection Obtain@@Name@@End @@Name@@ListblockLineHasPState
+@createSection Obtain@@Name@@Start Obtain@@Name@@End
+@section Obtain@@Name@@Start
+@//
+    public Object obtain(String identifier) {
+        if (identifier.indexOf(".") == -1) {
+            return getDisplayedObject(identifier);
+        } else {
+            int colNumber = controller.listblockMethods@@Name@@
+                    .getColumnIndex(identifier);
+            return controller.view.@@Name@@_table
+                    .getValueAt(getLineNumber(), colNumber);
+        }
+    }
+@//
+    public ListblockLine obtain() {
+        
+@section Obtain@@Name@@End
+         return this;
+    }               
+            
+        
+
+        
+
+
+@createSection GetObject@@Name@@End @@Name@@ListblockLineHasPState
+@createSection GetObject@@Name@@Start GetObject@@Name@@End
+@section GetObject@@Name@@Start
+@//
+@//
+    /**
+     * Returns the <em>roleName</em> object held by this line.
+     * If the object does not exist a new object is created. Invoking
+     * this method has the same effect as invoking {@link #getObject(String, boolean)}.
+     * @param roleName the role name of the object to return
+     * @return the object held by this line.
+     * @deprecated use {@link #getObject(String, boolean)} 
+     */
+    public Object getObject(String roleName) {
+        if (controller.listblockMethods@@Name@@
+                .getRoleNamesInUse().contains(roleName)) {
+            return getObject(roleName, true);
+        } else {
+            return roleNameToObject.get(roleName);
+        }
+    }
+@//
+@//
+    public Object getObject(String roleName, boolean createIfNull) {
+@section GetObject@@Name@@End
+        Object o = roleNameToObject.get(roleName);
+        if (o == null && createIfNull) {
+            AbstractNode node = (AbstractNode) controller
+                    .getObjectSelectionNode(roleName);
+            if (node != null) {
+                o = node.getEmptyDomainObject();
+                roleNameToObject.put(roleName, o);
+            }
+        }
+        
+        return o;        
+    }
+
+
+@createSection InsertObject@@Name@@End @@Name@@ListblockLineHasPState
+@createSection InsertObject@@Name@@Start InsertObject@@Name@@End
+@section InsertObject@@Name@@Start
+@//
+    public void insertObject(String roleName, Object obj) {
+        roleNameToObject.put(roleName, obj);
+        
+@section InsertObject@@Name@@End
+    }
+
+@createSection SetValueAt@@Name@@End @@Name@@ListblockLineHasPState
+@createSection SetValueAt@@Name@@Start SetValueAt@@Name@@End
+
+@section SetValueAt@@Name@@Start
+@//
+    /**
+     * Internal use. 
+     * Sets the value for a specified column.
+     */
+    void setValueAt(int col, Object value) {
+        switch (col) {
+
+@section SetValueAt@@Name@@End
+        }
+    }
+
+
+@section @@Name@@ListblockLineHasPState
+
+    public boolean hasPreviousState() {
+       return true 
+
+@section @@Name@@ListblockLineHasPStateEnd
+;
+    }
+
+@section @@Name@@ListblockLineHasPStateEnd
+
+@section @@Name@@ListblockLinePreviousState
+
+        public void previousState() {
+            controller.view.block.increaseListblock@@Name@@();
+            boolean isDis = isdisabled;
+
+            isdisabled = false;
+@section @@Name@@ListblockLinePreviousStateEnd
+
+            ischanged = oldIschanged;
+            isnew = oldIsnew;
+            isdeleted = oldIsdeleted;
+            
+            fromListblockLineToCells(false);
+            controller.view.@@Name@@theModel.fireTableDataChanged();
+            fromCellsToListblockLine();
+            
+            isdisabled = isDis;
+            controller.view.block.decreaseListblock@@Name@@();
+        }
+
+@section @@Name@@ListblockLineReset
+
+        public void reset() {
+
+@section @@Name@@ListblockLineResetEnd
+            oldIschanged = ischanged;
+            ischanged = false;
+            oldIsnew = isnew;
+            isnew = false;
+            oldIsdeleted = isdeleted;
+            isdeleted = false;
+        }
+        
+
+@section @@Name@@ListblockLineEditCell
+    /** Edits cell in the given listblock line, where the object is
+     *  'type' and column is 'fieldName'. The type object is not modified,
+     *  and only used to decide which field is to be edited in the
+     *  listblock. Valid type and fieldName combinations are:
+     *  <ul>
+@section @@Name@@ListblockLineEditCellDoc
+     *  </ul>
+     * @deprecated Use editFieldOS insted.
+     * @param type The object selection to use
+     * @param fieldName The field name to use.
+     */    
+    public void editField(Object type, String fieldName) {
+        controller.view.block.increaseListblock@@Name@@();
+        if(false) {
+            /* Needed */
+        }
+@section @@Name@@ListblockLineEditCellEnd
+@begin
+            controller.view.block.decreaseListblock@@Name@@();
+        }
+
+@section @@Name@@ListblockLineEditCellOS
+
+    /** Edits cell in the given listblock line, where the object is
+     *  'type' (the related object node) and column is 'fieldName'
+     *  (named in Genova). The type object is not modified, and only
+     *  used to decide which field is to be edited in the
+     *  listblock. The valid combinations of type and fieldName are: *
+     *  <ul>
+@section @@Name@@ListblockLineEditCellOSDoc
+     * </ul>
+     * @param type The object selection node to use.
+     * @param fieldName The fieldname to use.
+     */
+    public void editFieldOS(Object type, String fieldName) {
+        controller.view.block.increaseListblock@@Name@@();
+        if (false) {
+            /* NEEDED */
+        }
+@section @@Name@@ListblockLineEditCellOSEnd
+            controller.view.block.decreaseListblock@@Name@@();
+        }
+
+
+        /** Internal use */
+        void fromCellsToListblockLine() {
+            for(int i=0;i<controller.view.@@Name@@_table.getColumnCount();i++) {
+                fromCellToListblockLine(i);
+            }
+        }
+
+        public void refresh() {
+            controller.view.block.increaseListblock@@Name@@();
+            fromListblockLineToCells(false);
+            int[] selected = controller.listblockMethods@@Name@@.getSelectedLines();
+            controller.view.@@Name@@theModel.fireTableDataChanged();
+            controller.listblockMethods@@Name@@.setSelectedLines(selected);
+            controller.view.block.decreaseListblock@@Name@@();
+        }
+
+        /** Internal use. 
+         *  @param defaultInsert internal use.
+         */
+        void fromListblockLineToCells(boolean defaultInsert) {
+            for(int i= 0; i < controller.view
+                    .@@Name@@_table.getColumnCount();i++) {
+                fromListblockLineToCell(i, defaultInsert);
+            }
+        }
+
+@section @@Name@@FromCellToListblock
+@if @(!anyRootAttributesPresent)@
+
+        @@ClassName@@ new@@NodeName@@ = new @@ClassName@@();
+@endif        
+
+        /** Internal use. 
+         * @param column Internal use.
+         */
+
+
+        void fromCellToListblockLine(int column) {
+            DomainObjectProxy objectProxy = domainProxy.getProxy(new@@NodeName@@, "@@NodeName@@");
+
+@section @@Name@@FromCellToListblockEnd
+        }
+
+@section @@Name@@FromListblockToCell
+    /** 
+     * Internal use.
+     * @param column Internal use.
+     * @param defaultInsert Internal use.
+     */
+    void fromListblockLineToCell(int column, boolean defaultInsert) {
+        // int correctedCol = ((Integer)controller.view.@@Name@@_indexes.elementAt(column)).intValue();
+
+@section @@Name@@FromListblockToCellEnd
+        }
+
+
+@section @@Name@@ListblockLineClassEnd rt
+@begin
+   
+
+
+@section @@Name@@ListblockDisableField rt
+
+    public void setDisabledField(Object owner, String field, boolean setting) {
+
+@section @@Name@@ListblockDisableFieldEnd rt
+        if(owner == null) {
+            throw new Error("No owner in setDisabledField.");
+        }
+        if(field == null || field.equals("")) {
+            throw new Error("No name given to setDisabledField.");
+        } 
+        throw new Error("Class "+owner.getClass().toString()+" and field "+field+" isn't valid in setDisabledField for the listblock '@@Name@@'\n");
+    }
+
+@section @@Name@@ListblockDisableFieldOS rt
+
+    /** Disables/enables a given field in the listblock line
+     *  represented by the object selection node object owner. The
+     *  field name is the field name given in Genova. Legal
+     *  combinations of owner and field are: <ul>
+@section @@Name@@ListblockDisableFieldOSDoc
+        </ul>
+     * @param owner The object selection to use
+     * @param field The field name 
+     * @param setting True if the field should be disabled, false if not.
+     */
+    public void setDisabledFieldOS(Object owner, String field, boolean setting) {
+
+@section @@Name@@ListblockDisableFieldOSEnd rt
+        if(owner == null) {
+            throw new Error("No owner in setDisabledField.");
+        }
+        if(field == null || field.equals("")) {
+            throw new Error("No name given to setDisabledField.");
+        } 
+        throw new Error("Class "+owner.getClass().toString()+" and field "+field+" isn't valid in setDisabledField for the listblock '@@Name@@'\n");
+    }
+
+}  /* End of listblock line for @@Name@@ */
+
+@section SetupInit@@ParentName@@Start
+        init@@Name@@();
+
+
+@section SetupInit@@Name@@Start
+    @//
+    /** Initializes the @@Name@@ container */
+    private void init@@Name@@() {
+
+ 
+
+
+
+@section SetupInit@@Name@@End
+@if @(hasParameter InlineEdit)@
+        init@@Name@@CellEditors();
+@endif
+    }
+
+
+@section @@Name@@SetupHeader
+        @//
+        /* Her kommer generert kode for Listblock:@@Name@@SetupHeader*/
+        @//
+        List headerToolTipStrings = new LinkedList();
+        $$AttributeExistsDefaultToolTip?@@Name@@TableHeader.setToolTipText("@@DefaultToolTip@@");:$$
+
+@section @@Name@@SetupHeaderEnd
+        @//
+        /* Her kommer generert kode for Listblock:@@Name@@SetupHeaderEnd*/
+        @//
+        @@Name@@TableHeader.setToolTipStrings(headerToolTipStrings);
+
+@section @@Name@@Setup
+        @//
+        /* Her kommer generert kode for Listblock:@@Name@@Setup*/
+        @//
+        @@Name@@theModel = new @@Name@@Model(controller);
+@if @(!hasParameter InlineEdit)@
+        @@Name@@_table = new GenovaTable(@@Name@@theModel, "@@Name@@", controller.listblockMethods@@Name@@) {
+            /** Internal use.
+             * @param row Internal use.
+             * @param column Internal use.
+             * @return Internal use.
+             */
+            public TableCellEditor getCellEditor(int row, int column) {
+                if(column < 0 || row < 0) {
+                    return null;
+                }
+                LineListblock@@Name@@ line = controller.listblockMethods@@Name@@.getListblockLinePrivate(row);
+                if (line == null) {
+                    return null;
+                }
+                Object ob = line.getCellObject(column);
+
+                if(ob != null && ob instanceof JCheckBox) {
+                    return new DefaultCellEditor((JCheckBox)ob);
+                }
+
+                TableCellEditor t = super.getCellEditor(row, column);
+                if(t instanceof DefaultCellEditor) {
+                    DefaultCellEditor tx = (DefaultCellEditor)t;
+                    Component c = tx.getComponent();
+                    if(c instanceof JTextComponent){
+                        int convertedColumn = ((Integer)@@Name@@_indexes.elementAt(column)).intValue();
+                        // commented out as part of bug fix, 11. 5, 2006
+                        // setDatatype@@Name@@((JTextComponent)((DefaultCellEditor)t).getComponent(),convertedColumn);
+                    } /* else if (c instanceof GenovaComboBox) {
+                        syncComboboxSelection((GenovaComboBox)c, row);
+                    } */
+                }
+                return t;
+            }
+        };
+@endif
+@if @(hasParameter InlineEdit)@
+        @@Name@@_table = new GenovaTable(@@Name@@theModel, "@@Name@@", controller.listblockMethods@@Name@@);
+        @@Name@@_table.setDefaultLineColor(RepositoryProxy.getColorField("@@StyleForegroundColor@@"));
+        @@Name@@_table.setChangedLineColor(RepositoryProxy.getColorField("ListblockLineChangedColor"));      
+@endif
+  
+@if @(!hasParameter InlineEdit)@
+@//
+        @@Name@@_table.addVetoableSelectionListener
+                (new GenovaVetoableSelectionListener() {
+@//
+                    /**
+                     * Helper method. Returns the
+                     * set of Strings containing the
+                     * foreign nodes names to check. The
+                     * contents of the set is decided by the
+                     * listblockMethods@@Name@@'s checkForeignNodes
+                     * method.
+                     */
+                    private Set getForeignNodes() {
+                        Set foreignNodes = null;
+                        if (controller.listblockMethods@@Name@@
+                                .checkForeignNodes()) {
+                            foreignNodes = new HashSet();
+                            foreignNodes.addAll(controller
+                                    .listblockMethods@@Name@@
+                                            .getRoleNamesInUse());
+                            foreignNodes.remove(controller
+                                    .the@@RoleName@@.getRoleName());
+                            foreignNodes.removeAll(controller
+                                    .the@@RoleName@@.getAllChildNames());
+                        }
+                        return foreignNodes;
+                    }
+@//
+                    public void vetoableSelectionChange
+                            (GenovaVetoableSelectionEvent e) {
+                        if (!controller.the@@RoleName@@.checkRowSelection(e.getOldSelection(), e.getNewSelection(), getForeignNodes())) {
+                            e.veto(true);
+                        }
+                    }
+
+                });
+@endif
+        @//
+
+        @@Name@@_table.addMouseListener(mouseProc);
+        defaultBackground@@Name@@ =  @@Name@@_table.getBackground();
+        defaultSelectedBackground@@Name@@ = @@Name@@_table.getSelectionBackground();
+
+
+        @//
+        /* This one activates popup for the table */
+        @@Name@@_table.addKeyListener(new KeyAdapter() {
+                /** 
+                 * Internal use.
+                 * @param evt Internal use.
+                 */
+            public void keyPressed(KeyEvent evt) {
+                JTable table = (JTable)evt.getSource();
+                int row = table.getSelectedRow();
+                int col = table.getSelectedColumn();
+                table.getCellEditor(row, col);
+            }
+            @//
+            /** 
+             * Internal use.
+             * @param evt
+             */
+            public void keyReleased(KeyEvent evt) {
+                JTable table = (JTable)evt.getSource();
+                if (evt.getKeyChar() == ' ') {
+                    int row = table.getSelectedRow();
+                    int col = table.getSelectedColumn();
+                    Object dce = table.getCellEditor(row, col);
+                    if(dce != null && dce instanceof JComponentCellEditor) {
+                        Component comp = ((JComponentCellEditor)dce).getComponent();
+                        if(comp instanceof JComboBox) {
+                            JComboBox cbo = (JComboBox) comp; 
+                            cbo.setVisible(true); 
+                            cbo.requestFocus();
+                            cbo.showPopup();
+                        }
+                    }
+                }
+            }
+        });
+        controller.tabListFromNodeName@@ParentName@@.put("@@Name@@", @@Name@@_table);
+        controller.tabListFromComponent@@ParentName@@.put(@@Name@@_table, "@@Name@@");
+
+@section @@Name@@SetupNearEnd
+        @//
+        /* Her kommer generert kode for Listblock:@@Name@@SetupNearEnd*/
+        @//
+        @@Name@@_table.createDefaultColumnsFromModel();
+        @@Name@@HeadersClicked = new boolean[@@Name@@_table.getColumnCount()];
+        @@Name@@TableHeader = new ToolTipHeader( @@Name@@_table.getTableHeader().getColumnModel());
+        $$showHeader?@@Name@@_table.setTableHeader(@@Name@@TableHeader);:@@Name@@_table.setTableHeader(null);$$
+        @//
+        @@Name@@TableHeaderRenderer = new DefaultTableCellRenderer() {
+            /** Internal use.
+             * @param table Internal use.
+             * @param value Internal use. 
+             * @param isSelected Internal use.
+             * @param hasFocus Internal use.
+             * @param row Internal use.
+             * @param column Internal use.
+             * @return Internal use.
+             */
+            public Component getTableCellRendererComponent(JTable table, Object value, 
+                boolean isSelected, boolean hasFocus, int row, int column) {
+                    JComponent c = (JComponent)super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                    return setHeaderProps@@Name@@(c, table, value, isSelected, hasFocus, row, column);
+                }
+            };
+@if @(AttributeExistsRowHeader)@
+        // RowHeader for listblock @@Name@@:$$
+     
+        @@Name@@HeaderModel = new DefaultTableModel(){
+            /** Internal use. 
+             * @param i Internal use.
+             * @param j Internal use.
+             * @return Internal use.
+             */
+            public boolean isCellEditable(int i, int j){
+                return false;
+            }
+        };
+        @@Name@@HeaderModel.addColumn("RowHeader");
+        @@Name@@RowHeader = new GenovaTable(@@Name@@HeaderModel,"@@Name@@RowHeader");
+        @@Name@@RowHeader.getColumnModel().getColumn(0).setPreferredWidth(30);
+        @@Name@@RowHeader.getColumnModel().getColumn(0).setMaxWidth(30);
+        @@Name@@RowHeader.setRowHeight(@@Name@@_table.getRowHeight());
+        @@Name@@RowHeader.setPreferredScrollableViewportSize(new Dimension(30,(int)@@Name@@_table.getPreferredScrollableViewportSize().getHeight()));
+        @@Name@@RowHeader.getColumnModel().getColumn(0).setCellRenderer(new RowHeaderRenderer(@@Name@@_table));
+        @//
+        @@Name@@_table.addGenovaSelectionListener(listSelectionProc);
+@endif
+
+@createSection ListblockSetup@@Name@@ SetupInit@@Name@@End
+@section ListblockSetup@@Name@@
+        DefaultTableCellRenderer tableCellRendererRIGHT@@Name@@ = new DefaultTableCellRenderer() {
+            /** Internal use.
+             * @param table Internal use.
+             * @param value Internal use.
+             * @param isSelected Internal use.
+             * @param hasFocus Internal use.
+             * @param row Internal use.
+             * @param column Internal use.
+             * @return Internal use.
+             */
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);  
+                LineListblock@@Name@@ data = controller.listblockMethods@@Name@@.getListblockLinePrivate(row);
+                return setTableProps@@Name@@(c, data, table, value, isSelected, hasFocus, row, column);
+            }
+        };
+        @//
+        DefaultTableCellRenderer tableCellRendererLEFT@@Name@@ = new DefaultTableCellRenderer() {
+            /** Internal use.
+             * @param table Internal use.
+             * @param value Internal use.
+             * @param isSelected Internal use.
+             * @param hasFocus Internal use.
+             * @param row Internal use.
+             * @param column Internal use.
+             * @return Internal use.
+             */
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);  
+                LineListblock@@Name@@ data = controller.listblockMethods@@Name@@.getListblockLinePrivate(row);
+                return setTableProps@@Name@@(c, data, table, value, isSelected, hasFocus, row, column);
+            }
+        };
+        @//
+        DefaultTableCellRenderer tableCellRendererCENTER@@Name@@ = new DefaultTableCellRenderer() {
+            /** Internal use.
+             * @param table Internal use.
+             * @param value Internal use.
+             * @param isSelected Internal use.
+             * @param hasFocus Internal use.
+             * @param row Internal use.
+             * @param column Internal use.
+             * @return Internal use.
+             */
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);  
+                LineListblock@@Name@@ data = controller.listblockMethods@@Name@@.getListblockLinePrivate(row);
+                return setTableProps@@Name@@(c, data, table, value, isSelected, hasFocus, row, column);
+            }
+        };
+        @//
+        tableCellRendererLEFT@@Name@@.setHorizontalAlignment(SwingConstants.LEFT);
+        @@Name@@_table.setDefaultRenderer( String.class, tableCellRendererLEFT@@Name@@);
+        tableCellRendererRIGHT@@Name@@.setHorizontalAlignment(SwingConstants.RIGHT);
+        tableCellRendererCENTER@@Name@@.setHorizontalAlignment(SwingConstants.CENTER);
+        @@Name@@_table.setDefaultRenderer( Integer.class, tableCellRendererRIGHT@@Name@@);
+        @@Name@@_table.setDefaultRenderer( Float.class, tableCellRendererRIGHT@@Name@@);
+        @@Name@@_table.setDefaultRenderer( Double.class, tableCellRendererRIGHT@@Name@@);
+        @@Name@@_table.setDefaultRenderer( Short.class, tableCellRendererRIGHT@@Name@@);
+        @@Name@@_table.setDefaultRenderer( Long.class, tableCellRendererRIGHT@@Name@@);
+        //@@Name@@_table.setDefaultRenderer( Boolean.class, tableCellRendererRIGHT@@Name@@);
+        @@Name@@_table.setDefaultRenderer( Character.class, tableCellRendererRIGHT@@Name@@);
+        @//
+
+        @@Name@@TableHeaderRenderer.setHorizontalAlignment(SwingConstants.LEFT);       
+        @@Name@@TableHeader.setReorderingAllowed(false);
+        @//
+        @@Name@@_pane = new JScrollPane(@@Name@@_table);  
+                     modifyScrollPane(@@Name@@_pane);
+        @@Name@@.add(@@Name@@_pane);
+        @@Name@@.setLayout(null);
+        @@ParentName@@.add(@@Name@@);
+        @@Name@@.setLocation(@@XPos@@+@@ParentLeftFrameWidth@@,@@YPos@@+@@ParentTopFrameHeight@@);
+        @@Name@@.setSize(@@Width@@, @@Height@@);
+        
+@if @(!isVisible)@
+        @@Name@@.setVisible(false); 
+@endif
+@if@(!isEnabled)@
+        @@Name@@.setEnabled(false); 
+        disabledComponents.add(@@Name@@);
+@endif
+        @(hasTooltip?@@Name@@.setToolTipText("@@Tooltip@@");:)@
+
+
+        @(hasTooltip?@@Name@@_pane.setToolTipText("@@Tooltip@@");:)@
+        @@Name@@_pane.setLocation(0,0);
+        @@Name@@_pane.setSize(@@Width@@, @@ListHeight@@);
+        @@Name@@_pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        
+        @@Name@@_table.setPreferredScrollableViewportSize(new Dimension(@@Width@@, @@ListHeight@@));
+        @@Name@@_table.setScrollPaneInUse(@@Name@@_pane);
+        
+
+        @@Name@@_pane.getHorizontalScrollBar().getComponent(0).setBackground(RepositoryProxy.getColorField("@@StyleBackgroundColor@@"));
+        @@Name@@_pane.getVerticalScrollBar().getComponent(0).setBackground(RepositoryProxy.getColorField("@@StyleBackgroundColor@@"));
+        @@Name@@_pane.getHorizontalScrollBar().getComponent(1).setBackground(RepositoryProxy.getColorField("@@StyleBackgroundColor@@"));
+        @@Name@@_pane.getVerticalScrollBar().getComponent(1).setBackground(RepositoryProxy.getColorField("@@StyleBackgroundColor@@"));
+
+
+        $$AttributeExistsRowHeader?@@Name@@_pane.setRowHeaderView(@@Name@@RowHeader);:$$
+
+        @(hasBackgroundColor?RepositoryProxy.setBackgroundColor(@@Name@@_pane.getViewport(),"@@StyleBackgroundColor@@");:)@
+        @(hasForegroundColor?RepositoryProxy.setForegroundColor(@@Name@@_pane.getViewport(),"@@StyleForegroundColor@@");:)@
+
+        @//
+        $$isMultipleSelection?@@Name@@_table.getSelectionModel().setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION); :@@Name@@_table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);$$
+        $$hasFocusEvent?@@Name@@_table.addFocusListener(focusProc);:$$
+        $$hasActionEvent?@@Name@@_table.addGenovaSelectionListener(listSelectionProc);:$$
+@if @(!hasActionEvent)@
+        // adds a selection listener that displays the selected line in the edit field.
+        @@Name@@_table.addGenovaSelectionListener(new GenovaSelectionListener() {
+@//
+           public void selectionChanged(GenovaSelectedEvent e) {
+                ListblockLine selected = controller.listblockMethods@@Name@@
+                        .getSelectedLineObject();
+                if (selected != null) {
+                    selected.displayInEditField();
+                } else {
+                    controller.listblockMethods@@Name@@.clearEditFields();
+                }
+            }
+        });
+@endif
+        @//
+     
+@section PopupTrigger
+
+@if @(hasPopupMenu)@
+                @//
+                /* The @@Name@@ popup menu trigger */
+                if (e.getSource() == @@Name@@_table) {
+                    @@PopupMenuName@@_popup.show(@@Name@@_table, e.getX(), e.getY());
+                }
+@endif
+                
+
+@createSection ListblockSetup@@Name@@End SetupInit@@Name@@End
+@section ListblockSetup@@Name@@End
+        //View
+        @(hasBackgroundColor?RepositoryProxy.setBackgroundColor(@@Name@@,"@@StyleBackgroundColor@@");:)@
+        @(hasForegroundColor?RepositoryProxy.setForegroundColor(@@Name@@,"@@StyleForegroundColor@@");:)@
+        @(hasFont?RepositoryProxy.setFont(@@Name@@,"@@FontName@@");:)@
+        for(int i=0; i < @@Name@@theModel.getColumnCount();i++) {
+            TableColumn column = @@Name@@_table.getColumnModel().getColumn(i);
+            column.setPreferredWidth(((Integer)@@Name@@_widths.elementAt(i)).intValue());
+        }
+
+@section ListblockSetup@@Name@@End rt
+        MouseAdapter listMouseListener@@Name@@ = new MouseAdapter() {
+            /** Internal use.
+             * @param e Internal use.
+             */
+            public void mouseClicked(MouseEvent e) {
+                TableColumnModel columnModel = @@Name@@_table.getColumnModel();
+                int viewColumn = columnModel.getColumnIndexAtX(e.getX());
+                int column = @@Name@@_table.convertColumnIndexToModel(viewColumn);
+                if (e.getClickCount() == 1 && column != -1) {
+                    controller.listblockMethods@@Name@@.listblockSortColumnsBy(column);
+                }
+            }
+        };
+        @@Name@@_table.setColumnSelectionAllowed(false);
+        @@Name@@TableHeader.addMouseListener(listMouseListener@@Name@@);
+        @@Name@@TableHeader.addMouseListener(mouseProc);
+        @@Name@@TableHeader.addFocusListener(focusProc);
+
+@section @@Name@@setDatatype
+        @//
+        /* Her kommer generert kode for Listblock:@@Name@@setDatatype*/
+        @//
+        void setDatatype@@Name@@(JTextComponent component,int col) {
+            switch(col) {
+@section @@Name@@setDatatypeEnd
+            @//
+            /* Her kommer generert kode for Listblock:@@Name@@setDatatypeEnd*/
+            @//
+            }
+        }
+
+@section setUpNameComponentMapping
+        nameToComponent.put("@@Name@@", @@Name@@_table);
+        componentToName.put(@@Name@@_table, "@@Name@@");
+
+
+@section listblockCollectClass@@Name@@ rt
+
+    /** 
+     * This class contains the methods that are available for use on
+     * listblocks. You can access its methods in the variable
+     * listblockMethods@@Name@@ declared in the controller class
+     * @@DialogName@@DefaultController. 
+     */
+    public class ListblockMethods@@Name@@ implements Comparator, Listblock {
+        private @@DialogName@@DefaultController controller;
+        private Set roleNamesInUse = new HashSet();
+        int[] lastSelectedLines = null;
+        ListblockLine lastSelectedLine;
+        private Boolean checkForeignNodes;
+@//
+        /** 
+         * Internal use.
+         * @param c Internal use.
+         */
+        ListblockMethods@@Name@@(@@DialogName@@DefaultController c) {
+            controller = c;
+            RoleObject roleObject = addRoleObject(@@ClassName@@.class, 
+                    new RoleObject("@@RoleName@@"));
+            List args = new LinkedList();
+
+@section listblockCollectClass@@Name@@Between rt
+           Class[] params = new Class[args.size()];
+           for (int i = 0; i < args.size(); i++) {
+               params[i] = (Class) args.get(i);
+           }
+           roleObject.addListBlock(this, params);
+           setupSort();
+        }
+
+@//
+        boolean blockEditing = false;
+@//
+        boolean updateWhenManipulated = true;
+@//
+        public void setUpdateWhenManipulated(boolean f) {
+            updateWhenManipulated = f;
+            if(f) {
+                controller.view.@@Name@@theModel.fireTableDataChanged();
+            }
+        }
+@//
+        public void setListblockEditing(boolean f) {
+            blockEditing = !f;
+        }
+@//
+        /**
+         * Calculates and sets the width of the columns to their "best fit".
+         */
+        public void setBestFitColumnWidths() {
+            GenovaTable.setBestFitColumnWidths(
+                    controller.view.@@Name@@_table);
+        }
+@//
+        public int getLastRowLine() {
+            return @@Name@@getRowCount(0)-1;
+        }
+@//
+        public ListblockLine findInList(Object domainObject) {
+            ListblockLine found = null;
+            if (domainObject != null) {
+                for (int i = 0; i <= getLastRowLine() && found == null; i++) {
+                    ListblockLine aLine = getListblockLine(i);
+                    if (aLine.contains(domainObject)) {
+                        found = aLine;
+                    }
+                }
+            }
+           
+            return found;
+        }
+@//
+        public void requestFocus() {
+            controller.view.@@Name@@_table.requestFocus();
+        }
+@//
+        public boolean hasFocus() {
+            return controller.view.@@Name@@_table.hasFocus();
+        }
+@//
+        public void setPopupMenu(String menuName) {
+            view.activePopupMenu@@Name@@ = controller.getPopupMenu(menuName);
+        }
+@//
+        public int size() {
+            return @@Name@@NodeInfo.getVisualRowCount();
+        }
+@//
+        /** 
+         * Creates a new empty listblock line.
+         * @return The listblock line with empty fields.
+         */
+        public LineListblock@@Name@@ createListblockLine() {
+            LineListblock@@Name@@ newLine = 
+                    new LineListblock@@Name@@(controller);        
+            return newLine;
+        } 
+@//
+        public ListblockLine getNewListblockLine() {
+            return createListblockLine();
+        }
+@//
+        /**
+         * Obtains the edit fields, and inserts the obtained objects into
+         * a new list block line.
+         * @return a list block line with objects from the edit fields.
+         */
+        public LineListblock@@Name@@ createListblockLineFromEditFields() {
+            LineListblock@@Name@@ line = createListblockLine();
+            List path = TypeTool.getDefaultList();
+            path.add(the@@RoleName@@);
+            Object @@RoleName@@Obtained = the@@RoleName@@.recursiveObtain(path, true);
+            @@ClassName@@ @@RoleName@@Single = null;
+            if (@@RoleName@@Obtained instanceof Set) {
+                // The set only contains one instance of @@RoleName@@
+                Set @@RoleName@@Set = (Set) @@RoleName@@Obtained;
+                Iterator it = @@RoleName@@Set.iterator();
+                if (it.hasNext()) {
+                    @@RoleName@@Single = (@@ClassName@@) it.next();
+                }
+            } else {
+                @@RoleName@@Single = (@@ClassName@@) @@RoleName@@Obtained;
+            }
+
+            the@@RoleName@@.insertInListblockLine(@@RoleName@@Single, line);
+            return line;
+        }
+@//        
+        public void makeRowVisible(int row) {
+            if (view.@@Name@@_table.getColumnCount() == 0 ||
+                    view.@@Name@@_table.getRowCount() == 0) {
+@//
+                return;
+            }
+            if (row < 0 || row >= view.@@Name@@_table.getRowCount()) {
+                throw new IllegalArgumentException(String.valueOf(row));
+            }
+@//
+            Rectangle visible = view.@@Name@@_table.getVisibleRect();
+            Rectangle cell = view.@@Name@@_table.getCellRect(row, 0, true);
+            if (row == 0) {
+                visible.y = 0;
+                view.@@Name@@_table.scrollRectToVisible(visible);
+            } else if (cell.y < visible.y)  {
+                visible.y = cell.y;
+                view.@@Name@@_table.scrollRectToVisible(visible);
+            } else if (cell.y + cell.height > visible.y + visible.height) {
+                visible.y = cell.y + cell.height - visible.height;
+                view.@@Name@@_table.scrollRectToVisible(visible);
+            }
+@//
+            view.@@Name@@_table.validate();
+        }
+@//
+        public Set getRoleNamesInUse() {
+            return roleNamesInUse;
+        }
+@//
+        public boolean callHooksBeforeInsert(ListblockLine line) {
+            return hookListBlock@@Name@@BeforeInsert(line);
+        }
+@//
+        public void setCheckForeignNodes(Boolean doCheck) {
+            checkForeignNodes = doCheck;
+        }
+@//
+        public boolean checkForeignNodes() {
+            return checkForeignNodes != null ? 
+                checkForeignNodes.booleanValue() : getApplication().checkForeignNodes();
+       }     
+                           
+
+@section listblockCollectClass@@Name@@End rt
+   } // End of collection class for listblock @@Name@@.
+
+    
+     
+
+    /** The controller class for the listblock, and the entry point for
+     * using the listblock @@Name@@. 
+     */
+    public ListblockMethods@@Name@@ listblockMethods@@Name@@ = new ListblockMethods@@Name@@(this);
+    
+
+@section saveListblockState
+                if (pathToTarget.contains(the@@RoleName@@)) {
+                    editFieldLines.add(listblockMethods@@Name@@
+                            .createListblockLineFromEditFields());
+                }
+
+@section HookMethodsSuper
+@// 
+@// 
+   /**
+    * Hook method, override in subclass.
+    * @param line the ListblockLine to be inserted in the listblock.
+    * @return <code>true</code> if the line should be inserted.
+    */
+    public boolean hookListBlock@@Name@@BeforeInsert(ListblockLine line) {
+        return true;
+    }
+    
+
+@section @@Name@@ListblockEditCell
+    /** Edits cell at a given row from the object of type parent with
+     *  column columnName (named in Genova). The parent object is not
+     *  modified, and only used to decide which field is to be edited
+     *  in the listblock. The valid combinations of row, parent are:
+
+     * <ul>
+@section @@Name@@ListblockEditCellDoc
+     * </ul>
+     * This method does not use object selectors to pick which column
+     * to use. 
+     * @param row The row to use.
+     * @param parent The object selection node that represent the object in the listblock.
+     * @param fieldName The field name to use.
+     */
+     public void editField(int row, Object parent, String fieldName) {
+    
+@section @@Name@@ListblockEditCellEnd
+
+     }
+
+@section @@Name@@HTMLTable
+
+
+    public List getAsHTMLTable(int maxRows, boolean incHidden, Set excludedColumns, Map tagoptions) {
+@if @(hasParameter GenerateHTML)@
+        LinkedList answer = new LinkedList();
+        LinkedList answerBuffers = new LinkedList();
+        boolean headersAdded = false;
+        String thExtra = "";
+        String tableExtra = "";
+        String tdExtra = "";
+        String trExtra = "";
+   
+        if(tagoptions != null) {
+            if(tagoptions.containsKey("TH")) {
+                thExtra = (String)tagoptions.get("TH");
+            }
+            if(tagoptions.containsKey("TD")) {
+                tdExtra = (String)tagoptions.get("TD");
+            }
+            if(tagoptions.containsKey("TR")) {
+                trExtra = (String)tagoptions.get("TR");
+            }
+            if(tagoptions.containsKey("TABLE")) {
+                tableExtra = (String)tagoptions.get("TABLE");
+            }
+        }
+
+        int rowCount = 0;
+        StringBuffer buff = new StringBuffer();
+        answerBuffers.add(buff);
+
+        if(excludedColumns == null) {
+            excludedColumns = new java.util.HashSet();
+        }
+        LinkedList headers = new LinkedList();
+       
+        for(int i = 0; i < view.@@Name@@_table.getRowCount();i++) {
+        LineListblock@@Name@@ data = controller.listblockMethods@@Name@@.getListblockLinePrivate(i);
+            if(rowCount++ > maxRows) {
+                rowCount = 0;
+                buff = new StringBuffer();
+                answerBuffers.add(buff);
+            } 
+            buff.append("<TR ");
+            buff.append(trExtra); 
+            buff.append(">");
+@endif
+@section @@Name@@HTMLTableEnd
+@if @(hasParameter GenerateHTML)@
+            buff.append("</TR>");
+            headersAdded = true;
+        }
+
+        StringBuffer headerSegment = new StringBuffer();
+        headerSegment.append("<TR ");
+        headerSegment.append(trExtra); 
+        headerSegment.append(">");
+        for (Iterator i = headers.iterator();i.hasNext();) {
+            String aString = (String)i.next();
+            
+            headerSegment.append("<TH ");
+            headerSegment.append(thExtra);
+            headerSegment.append(">");
+            headerSegment.append(aString);
+            headerSegment.append("</TH>");
+        }
+        headerSegment.append("</TR>");
+
+        for (Iterator i = answerBuffers.iterator();i.hasNext();) {
+        StringBuffer abuf = (StringBuffer)i.next();
+
+        answer.add("<TABLE "+tableExtra+ ">"+headerSegment.toString()+abuf.toString()+"</TABLE>");
+        }
+       
+        return answer;
+    }
+@endif
+@if @(!hasParameter GenerateHTML)@
+        // Genova parameter "GenerateHTML" is not set, so the method is not implemented.
+        return null; 
+    }
+@endif
+
+@section @@Name@@ListblockSelectColumn
+    /** Selects a given row and column in a listblock. Object parent is
+     *  the matching object within the listblock
+     * @param rowindex The row to select.
+     * @param parent The object node to select.
+     * @param fieldName The field name to select.
+     */
+    public void selectColumn(int rowindex, Object parent, String fieldName) {
+        int columnindex = 0;
+
+        if (view.@@Name@@_table.getColumnCount() == 0)
+            return;
+
+        makeRowVisible(rowindex);
+
+@section @@Name@@ListblockSelectColumnEnd
+
+        view.@@Name@@_table.changeSelection(rowindex, columnindex, false, false);
+    }
+
+
+@section @@Name@@TableModel
+    @begin
+    @SetNumber 1 0
+    @//
+    /** Model for listblock @@Name@@. Redirects call to controller, so the
+     * controller may choose to override value. If compiled with rt code
+     * then the value from the model is sent as well.
+     *
+     * The developer should not access the model directly.
+     */
+    class @@Name@@Model extends DefaultTableModel implements TableModelListener {
+        @@DialogName@@DefaultController controller;      
+        @//
+        @@Name@@Model(@@DialogName@@DefaultController controller) {
+            this.controller = controller;
+            addTableModelListener(this);
+        }
+        @//
+
+
+        /** The number of columns (in the list block) 
+         * @return Column count.
+         */
+        public int getColumnCount() {
+           return @@Name@@_headers.size(); 
+        }
+
+
+        /**
+         * Number of rows
+         * @return Row count.
+         */
+        public int getRowCount() {
+            if(controller == null) {
+                return 0;
+            }
+@section @@Name@@TableModel rt
+            if(true && controller.@@Name@@NodeInfo != null) {
+               return controller.@@Name@@getRowCount(controller.@@Name@@NodeInfo.getVisualRowCount());
+            }
+@section @@Name@@TableModel
+            return controller.@@Name@@getRowCount(1);
+        }
+
+
+        /** 
+         * Use this method to catch event for selected.
+         * @param e The table change event.
+         */
+        public void tableChanged(TableModelEvent e) {
+            int col = e.getColumn();
+            if(col == -1 || e.getType() != TableModelEvent.UPDATE) {
+                return;
+            }
+
+            col = ((Integer)@@Name@@_indexes.elementAt(col)).intValue();
+            switch(col) {
+@section @@Name@@TableModelSelectEnd
+            }
+        }
+
+
+
+@section @@Name@@SetTableValue
+    /** 
+     * Internal use.
+     * @param value Internal use.
+     * @param row Internal use.
+     * @param col Internal use.
+     */
+        public void setValueAt(Object value, int row, int col) {
+@if @(hasParameter InlineEdit)@
+            LineListblock@@Name@@ line = controller
+                    .listblockMethods@@Name@@.getListblockLinePrivate(row);
+            if (line != null) {
+                col = ((Integer)@@Name@@_indexes.elementAt(col)).intValue();
+                line.setValueAt(col, value);
+                return;
+            }
+@endif            
+            int origCol = col;
+            @//
+            @@Name@@blockStopEditing++;
+            if(row < @@Name@@_table.getRowCount() && @@Name@@_table.getSelectedRow() != row) {
+                block.increaseListblock@@Name@@();
+                @@Name@@_table.addRowSelectionInterval(row, row);
+                block.decreaseListblock@@Name@@();
+            }
+@section @@Name@@SetTableValue rt
+
+                LineListblock@@Name@@ data = controller.listblockMethods@@Name@@.getListblockLinePrivate(row);
+
+@section @@Name@@SetTableValueSwitchStart
+                col = ((Integer)@@Name@@_indexes.elementAt(col)).intValue();
+                switch(col) {
+
+@section @@Name@@SetTableValueEnd rt
+@begin
+                }
+                data.fromCellToListblockLine(origCol);
+
+@section @@Name@@SetTableValueEnd
+@begin
+                controller.@@Name@@setValueAt(value, row, col);
+                @@Name@@blockStopEditing--;
+            }
+
+
+@section @@Name@@GetTableValue
+    /**
+     * Internal use.
+     * @param row Internal use.
+     * @param col Internal use.
+     * @return Internal use.
+     */
+    public Object getValueAt(int row, int col) {
+            Object retVal = new String("");
+            // int originalCol = col;
+            if(@@Name@@_indexes == null) {
+                return "";
+            }
+            LineListblock@@Name@@ theLine = controller.listblockMethods@@Name@@.getListblockLinePrivate(row);
+            if (theLine == null) {
+                return null; // happens when system triggers a repaint 
+                             // while a server-action is updating the model.
+            }
+            col = ((Integer)@@Name@@_indexes.elementAt(col)).intValue();
+            switch(col) {
+@section @@Name@@GetTableValueEnd
+@begin
+            }
+            return retVal;
+
+        }
+
+@section @@Name@@GetColumnName
+@begin
+
+    /**
+     * Returns column name for given column.
+     * @param col Column to get.
+     * @return Column name, as defined in genova.
+     */
+            public String getColumnName(int col) {
+                if(@@Name@@_indexes == null) {
+                    return "";
+                }
+                String retVal = "";
+                col = ((Integer)@@Name@@_indexes.elementAt(col)).intValue();
+                @//
+                switch(col) {
+
+@section @@Name@@GetColumnNameEnd
+@begin
+                }
+                return retVal;
+            }
+
+@section @@Name@@CellEditable
+    /** Internal use.
+     * @param row Internal use.
+     * @param col Internal use.
+     * @return Internal use.
+     */
+            public boolean isCellEditable(int row, int col) {
+@begin
+@if @(hasParameter InlineEdit)@
+                if (row == -1) {
+                    return false;
+                }
+
+                LineListblock@@Name@@ data = controller
+                        .listblockMethods@@Name@@
+                                .getListblockLinePrivate(row);
+                if (data.isDeleted() || data.isDisabled()) {
+                    return false;
+                }
+
+                boolean editable = false;
+                switch (col) {
+@endif@                
+@if @(!hasParameter InlineEdit)@
+                return false;
+
+@endif
+@section @@Name@@CellEditableEnd
+@begin
+@if @(hasParameter InlineEdit)@
+                default : 
+                    editable = false;
+                    break;
+                }
+
+                return editable;
+            }
+@endif
+@if @(!hasParameter InlineEdit)@
+            }
+@endif
+@section @@Name@@TableModelEnd
+        } // End of class for model
+
+@section @@Name@@ListblockEnable BasicMethods
+        /** Enables or disable listblock @@Name@@.
+         * @param value True disabled the listblock, false enables.
+         */
+        public void setEnabled@@Name@@(boolean value) {
+            @@Name@@.setEnabled(value);
+        }
+        @//
+        /** Hides or displays @@Name@@ 
+         * @param value True it will be shown, false it will be invisible.
+         */
+        public void setShown@@Name@@(boolean value) {
+            @@Name@@.setVisible(value);
+        }
+
+@section @@Name@@ListblockInsertBlankTop rt
+
+    /** Inserts empty line at end of listblock @@Name@@.
+     * @return the inserted listblock line.
+     */
+    public LineListblock@@Name@@ insert() {
+
+@section @@Name@@ListblockInsertBlankBodyEnd rt
+@begin
+        return insert(size());
+
+    }
+
+@section @@Name@@ListblockInsertBlankAtTop rt
+
+    /** Inserts empty line at given line of listblock @@Name@@.
+     * @param line The line number to use.
+     * @return The newly created listblock line.
+     */
+    public LineListblock@@Name@@ insert(int line) {
+        LineListblock@@Name@@ newLine = createListblockLine();
+@section @@Name@@ListblockInsertBlankAtBodyEnd rt
+@begin
+        insertListblockLine(newLine, line);
+        setSelectedLine(newLine);
+        return newLine;
+    }
+ 
+
+
+
+@section @@Name@@ListBlockEquals
+@//
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true; // base case
+        }
+
+        if (o == null || 
+                !(o instanceof LineListblock@@Name@@)) {
+            return false;
+        }
+@//
+        LineListblock@@Name@@ line = 
+            (LineListblock@@Name@@) o;
+
+@section @@Name@@ListBlockEqualsEnd
+@//
+        return true;
+    }
+
+@section @@Name@@ListBlockGetObject rt
+    public Collection getDomainObjects() {
+        List objectList = new ArrayList();
+
+@section @@Name@@ListBlockGetObjectEnd rt
+        return objectList;
+    }
+
+@createSection @@Name@@ListBlockHashCodeEnd @@Name@@ListBlockEquals
+@createSection @@Name@@ListBlockHashCode @@Name@@ListBlockHashCodeEnd
+
+@section @@Name@@ListBlockHashCode
+@//
+    public int hashCode() {
+        int hash = "@@Name@@".hashCode();
+
+@section @@Name@@ListBlockHashCodeEnd
+@//
+        return hash;
+    }
+
+@createSection @@Name@@ListBlockDisplayInEditField @@Name@@ListBlockGetObject
+
+@section @@Name@@ListBlockDisplayInEditField rt
+@//
+    public void displayInEditField() {
+        new ClearTool(controller.roleObjects).clearMembers("@@NodeName@@");
+        Iterator it = roleNameToObject.keySet().iterator();
+        while (it.hasNext()) {
+            String roleName = (String) it.next();
+            ObjectSelectionNode node = controller.getObjectSelectionNode(roleName);
+            Object clean = roleNameToObject.get(roleName);
+            if (clean != null) {
+                  node.display(getDisplayedObject(roleName));
+            }
+        }
+    }
+@//        
+
+@section @@Name@@ListBlockAddObject rt
+    public void addDomainObject(Object domainObject) {
+
+@section @@Name@@ListBlockAddObjectEnd rt
+    }
+   
+    public Listblock getListblock() {
+        return controller.listblockMethods@@Name@@;
+    }
+
+@section @@Name@@ListblockInsertTop rt
+    /** Inserts a set of domain objects into the listblock of name @@Name@@.
+     * @return the created listblock line.
+
+@section @@Name@@ListblockInsertTopDoc
+
+     */
+
+    public LineListblock@@Name@@ insert(
+
+@section @@Name@@ListblockInsertHeaderEnd rt
+@begin
+            ) {
+        return insert(
+@section @@Name@@ListblockInsertBodyEnd rt
+@begin
+                size());
+    }
+@//
+
+
+@section @@Name@@ListblockInsertAtTop rt
+
+    /** Inserts domain objects into the listblock at the specified line.
+     *  @@Name@@.
+     * @param lineNumber line to insert.
+@section @@Name@@ListblockInsertAtTopDoc rt
+     * @return The newly created listblock line.
+     */
+    
+    public LineListblock@@Name@@ insert(
+@section @@Name@@ListblockInsertAtHeaderEnd rt
+@begin
+                int lineNumber) {
+
+        LineListblock@@Name@@ newLine = createListblockLine();
+@section @@Name@@ListblockInsertAtBodyEnd rt
+@begin
+        insertListblockLine(newLine, lineNumber);
+        if(updateWhenManipulated) {
+            view.@@Name@@theModel.fireTableDataChanged();
+            makeRowVisible(lineNumber);
+        }
+        return newLine;
+    }
+@//
+
+
+
+
+@section @@Name@@ListblockLineInsert rt
+
+    /**
+     * Inserts a Listblock line object into the listblock.
+     * @param data The listblock line to insert
+     */
+    public void insertNewListblockLine(ListblockLine data) {
+        insertListblockLine((LineListblock@@Name@@) data);
+    }
+
+    private void insertListblockLineEDT(final LineListblock@@Name@@ data) {
+        Runnable task = new Runnable() {
+            public void run() {
+                insertListblockLine(data);
+            }
+        };
+        edt(task, "insertListblockLine");
+    }
+        
+
+    /** Inserts a Listblock line object into the listblock @@Name@@. 
+     * @param data The listblock line to insert.
+     */
+    public void insertListblockLine(LineListblock@@Name@@ data) {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            insertListblockLineEDT(data);
+            return;
+        }
+        view.block.increaseListblock@@Name@@();
+
+        data.setLineNumber(@@Name@@NodeInfo.size());
+        @@Name@@NodeInfo.addLine(data);
+        data.markAsNew();
+
+        data.fromListblockLineToCells(false);
+        if(updateWhenManipulated) {
+            view.@@Name@@theModel.fireTableDataChanged();       
+        }
+        $$AttributeExistsRowHeader?Vector linenr = new Vector();:$$
+        $$AttributeExistsRowHeader?linenr.add(new Integer(@@Name@@NodeInfo.size()));:$$
+        $$AttributeExistsRowHeader?view.@@Name@@HeaderModel.addRow(linenr);:$$
+        view.block.decreaseListblock@@Name@@();
+
+    } 
+
+    private void insertListblockLineEDT(final LineListblock@@Name@@ data, final int line) {
+        Runnable task = new Runnable() {
+            public void run() {
+                insertListblockLine(data, line);
+            }
+        };
+        edt(task, "insertListblockLine");
+    }
+
+    /** Inserts a Listblock line object into the listblock @@Name@@ at a given line.
+     * @param data The listblock line to insert.
+     * @param line The line number to insert line at.
+     */
+    public void insertListblockLine(LineListblock@@Name@@ data, int line) {
+        view.block.increaseListblock@@Name@@();
+        data.setLineNumber(line);
+        @@Name@@NodeInfo.addLine(data, line);
+        data.markAsNew();
+        data.fromListblockLineToCells(false);
+        if(updateWhenManipulated) {
+            view.@@Name@@theModel.fireTableDataChanged();       
+        }
+        view.block.decreaseListblock@@Name@@();
+        $$AttributeExistsRowHeader?Vector linenr = new Vector();:$$
+        $$AttributeExistsRowHeader?linenr.add(new Integer(@@Name@@NodeInfo.size()));:$$
+        $$AttributeExistsRowHeader?view.@@Name@@HeaderModel.addRow(linenr);:$$
+
+    } 
+
+@//
+    /**
+     * Inserts listblock lines on edt
+     * @param data
+     * @see #insertListblockLines(List)
+     */
+    private void insertListblockLinesEDT(final List data) {
+        Runnable task = new Runnable() {
+            public void run() {
+                insertListblockLines(data);
+            }
+        };
+        edt(task, "insertListblockLines");
+    }
+@//
+    /** Adds a list of listblock line to the listblock @@Name@@ 
+     * @param data List of LineListblock@@Name@@objects.
+     */
+    public void insertListblockLines(List data) {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            insertListblockLinesEDT(data);
+            return;
+        }
+        for(Iterator it = data.iterator(); it.hasNext();) {
+            insertListblockLine((LineListblock@@Name@@)it.next());
+        }
+
+    }
+
+    /** Inserts a Listblock line object into the listblock @@Name@@ at the
+     *  first line in the listblock.
+     * @param data the listblock line.
+     */
+    public void insertListblockLineFirst@@Name@@(LineListblock@@Name@@ data) {
+        insertListblockLine(data,0);
+    }
+
+@section @@Name@@ListblockLineCopy
+    /** Makes a copy of a listblock line - note that the insert and
+     *  replace methods uses this one, so the programmer do not need to
+     * do so.
+     * @param fromLine The source listblock line.
+     * @param toLine The to listblock line.
+     * @deprecated This method is no longer in use, and will be removed, when considered safe to do so.
+     */
+    public void copyListblockLine@@Name@@(LineListblock@@Name@@ fromLine, LineListblock@@Name@@ toLine) {
+       toLine.copyStateFlags(fromLine);
+@section @@Name@@ListblockLineCopyEnd
+
+    }
+
+    /** Replaces a listblock line on position line.
+     * @param data The listblock line to replace.
+     * @param line The line number of the listblock line to replace.
+     */
+    public void replaceListblockLine(LineListblock@@Name@@ data, int line) {
+        view.block.increaseListblock@@Name@@();
+        data.setLineNumber(line);
+        data.markAsChanged();
+        @@Name@@NodeInfo.setLine(data,line);
+        data.fromListblockLineToCells(false);
+
+        if(updateWhenManipulated) {
+            view.@@Name@@theModel.fireTableDataChanged();       
+        }
+        view.block.decreaseListblock@@Name@@();
+    }
+
+@section @@Name@@ListblockReplaceAtTop rt
+
+    
+    /** Inserts a set of domain objects into the listblock of name
+     *  @@Name@@ at a given line.
+     * @param lInEnUmBer The line number to replace.
+@section @@Name@@ListblockReplaceAtTopDoc rt
+     */
+    public void replaceLineListblock(
+@section @@Name@@ListblockReplaceAtHeaderEnd rt
+@begin
+
+                               ,int lInEnUmBer
+                                       ) {
+        view.block.increaseListblock@@Name@@();
+        LineListblock@@Name@@ newLine = getListblockLinePrivate(lInEnUmBer);
+@section @@Name@@ListblockReplaceAtBodyEnd rt
+@begin
+
+        newLine.setLineNumber(lInEnUmBer);
+        newLine.markAsChanged();
+        @@Name@@NodeInfo.setLine(newLine, lInEnUmBer);
+        newLine.fromListblockLineToCells(false);
+        if(updateWhenManipulated) {
+            view.@@Name@@theModel.fireTableDataChanged();
+        }
+        view.block.decreaseListblock@@Name@@();
+
+    }
+@//
+
+@createSection @@Name@@ListblockDelete
+
+    /** Marks a line in listblock @@Name@@ as deleted.
+     * @param line The row to delete.
+     */
+    public void deleteListblockLine(int line) {
+        view.block.increaseListblock@@Name@@();
+        ((LineListblock@@Name@@)@@Name@@NodeInfo.getLine(line)).markAsDeleted();
+        if(updateWhenManipulated) {
+            view.@@Name@@theModel.fireTableDataChanged();
+        }
+        int linesInView=@@Name@@getRowCount(0);
+        
+        if (linesInView > 0){
+            if (line >= linesInView)        
+                setSelectedLine(linesInView -1);
+            else
+                setSelectedLine(line);
+        }
+        view.block.decreaseListblock@@Name@@();
+    }
+
+    /** Marks a set of lines in listblock @@Name@@ as deleted.
+     * @param lines The rows to delete.
+     */
+    public void deleteListblockLine(int lines[]) {
+        view.block.increaseListblock@@Name@@();
+        for(int i=lines.length;i-- > 0;) {
+            ((LineListblock@@Name@@)@@Name@@NodeInfo.getLine(lines[i])).markAsDeleted();
+        }
+        if(updateWhenManipulated) {
+            view.@@Name@@theModel.fireTableDataChanged();
+        }
+        view.block.decreaseListblock@@Name@@();
+    }
+
+@//
+@section @@Name@@ListblockClear rt
+
+    /** Removes all lines from the listblock @@Name@@. */
+    public void purgeAllLines() {
+        view.block.increaseListblock@@Name@@();
+        clearSelectedLines();
+        @@Name@@NodeInfo.clearLines();
+        if(updateWhenManipulated) {
+            view.@@Name@@theModel.fireTableDataChanged(); 
+        }
+        lastSelectedLines = null;
+        view.block.decreaseListblock@@Name@@();
+    }
+
+    private void renumberLines() {
+        Vector v = @@Name@@NodeInfo.allLines();
+        int n = 0;
+        for(Iterator i = v.iterator();i.hasNext();) {
+            LineListblock@@Name@@ line = (LineListblock@@Name@@)i.next();
+            line.setLineNumber(n++);
+        }
+    }
+
+    /** Removes a given set of lines from the listblock @@Name@@.
+     * @param lines The rows to purge.
+     */
+    public void purgeLine(int lines[]) {
+        if(lines == null || lines.length == 0) {
+            return;
+        }
+        view.block.increaseListblock@@Name@@();
+        @@Name@@NodeInfo.clearLines(lines);
+        if(updateWhenManipulated) {
+            view.@@Name@@theModel.fireTableDataChanged(); 
+        }
+        lastSelectedLines = null;
+        renumberLines();
+        view.block.decreaseListblock@@Name@@();
+    }
+
+    /** Removes a given line from the listblock @@Name@@. 
+     *  @param line the line number to remove.
+     */
+    public void purgeLine(int line) {
+        view.block.increaseListblock@@Name@@();
+        @@Name@@NodeInfo.clearLine(line);
+        if(updateWhenManipulated) {
+            view.@@Name@@theModel.fireTableDataChanged(); 
+        }
+
+        lastSelectedLines = null;
+        renumberLines();
+        view.block.decreaseListblock@@Name@@();
+    }
+
+    /** Removes a given list of listblocklines, based on their linenumbers. 
+     * @param lines List of LineListblock@@Name@@ objects to purge.
+     */
+    public void purgeLines(List lines) {
+        if(lines == null) {
+            return;
+        }
+
+        view.block.increaseListblock@@Name@@();
+        int[] delLines = new int[lines.size()];
+
+        int pos = 0;
+        for(Iterator i = lines.iterator();i.hasNext();) {
+             LineListblock@@Name@@ enName = (LineListblock@@Name@@)i.next();
+             
+             delLines[pos++] = enName.getLineNumber();
+        }
+
+        purgeLine(delLines);
+
+        if(updateWhenManipulated) {
+            view.@@Name@@theModel.fireTableDataChanged(); 
+        }
+
+        lastSelectedLines = null;
+        renumberLines();
+        view.block.decreaseListblock@@Name@@();
+    }
+
+@//
+
+@section @@Name@@ListblockMove rt
+    /** Moves a line in the listblock from position <it>from</it> to
+     * <it>to</it>.  
+     * @param from The source row.
+     * @param to The target row.
+     */
+    public void moveLine(int from, int to) {
+        view.block.increaseListblock@@Name@@();
+        @@Name@@NodeInfo.moveElement(from,to);
+        if(updateWhenManipulated) {
+            view.@@Name@@theModel.fireTableDataChanged(); 
+        }
+        renumberLines();
+        view.block.decreaseListblock@@Name@@();
+     }
+
+    /** Moves the lines described in the fromRange array into the
+     * position <it>to</it>. The first line are added to the first
+     * position at to, the second at the second place and so on.
+     * @param fromLines Moes these lines...
+     * @param toLine Target line.
+     */
+    public void moveLine(int fromLines[], int toLine) {
+        view.block.increaseListblock@@Name@@();
+        for(int i=fromLines.length;i-- > 0;) {
+            @@Name@@NodeInfo.moveElement(fromLines[i], toLine);
+        }
+        if(updateWhenManipulated) {
+            view.@@Name@@theModel.fireTableDataChanged(); 
+        }
+        renumberLines();
+        view.block.decreaseListblock@@Name@@();
+    }
+
+@section @@Name@@ListblockClearStatus rt
+
+    /** Marks all lines in the listblock @@Name@@as not new, not changed and not deleted. Also copies data from new to old. 
+     * @deprecated use 
+     */
+    public void reset() {
+        view.block.increaseListblock@@Name@@();
+        for(Enumeration e = @@Name@@NodeInfo.elements();e.hasMoreElements();) {
+            ((LineListblock@@Name@@)e.nextElement()).reset();
+        }
+        if(updateWhenManipulated) {
+            view.@@Name@@theModel.fireTableDataChanged(); 
+        }
+        view.block.decreaseListblock@@Name@@();
+    }
+
+    /** Marks all lines as not deleted, changed or new, without copying of
+        old data */
+    public void forceClean() {
+        view.block.increaseListblock@@Name@@();
+        for(Enumeration e = @@Name@@NodeInfo.elements();e.hasMoreElements();) {
+            ((LineListblock@@Name@@)e.nextElement()).forceClean();
+        }
+        if(updateWhenManipulated) {
+            view.@@Name@@theModel.fireTableDataChanged(); 
+        }
+        view.block.decreaseListblock@@Name@@();
+    }
+
+    /** Mark line in the listblock @@Name@@as not new, not changed and
+     * not deleted. Also copies data from new to old. 
+     * @param line The line to reset.
+     */
+    public void reset(int line) {
+        view.block.increaseListblock@@Name@@();
+        getListblockLinePrivateModel(line).reset();
+        if(updateWhenManipulated) {
+            view.@@Name@@theModel.fireTableDataChanged(); 
+        }
+        view.block.decreaseListblock@@Name@@();
+    }
+
+@section @@Name@@ListblockGetLines rt
+
+     public List getChangedLines() {
+        view.block.increaseListblock@@Name@@();
+        List changed = TypeTool.getDefaultList();
+        List allLines = allLines();
+        if (allLines != null) {
+            Iterator it = allLines.iterator();
+            while (it.hasNext()) {
+                ListblockLine line = (ListblockLine) it.next();
+                if (line.isChanged()) {
+                    changed.add(line);
+                }
+            }
+        }
+        view.block.decreaseListblock@@Name@@();
+
+        return changed.size() == 0 ? null : changed;
+
+    }
+@//
+    public List obtainChangedLines() {
+        List changed = getChangedLines();
+        if (changed != null) {
+            Iterator it = changed.iterator();
+            while (it.hasNext()) {
+                ((ListblockLine) it.next()).obtain();
+            }
+        }
+        return changed;
+    }
+
+        
+    /** Returns a list of lines that has been created sinze initialization or reset.
+     * See method changedLines@@Name@@() for retrieveing changed lines.
+     * @return List of LineListblock@@Name@@objects.
+     */
+    public List insertedLines() {
+        view.block.increaseListblock@@Name@@();
+        if(@@Name@@NodeInfo.size() > 0) {
+            stopEditing();
+        }
+        Vector ret = new Vector();
+
+        for(Enumeration e = @@Name@@NodeInfo.elements();e.hasMoreElements();) {
+            LineListblock@@Name@@ one = ((LineListblock@@Name@@)e.nextElement());
+            if(one.isNew()) {
+                ret.add(one);
+            }
+        }
+        if(ret.size() == 0) {
+            ret = null;
+        }
+        
+        view.block.decreaseListblock@@Name@@();
+        return ret;
+
+    }
+
+ /** Returns a list of lines that has been deleted sinze
+  *  initialization or reset from the listblock with name @@Name@@.
+  *  @return A list of the deleted lines in the listblock. The elements are LineListblock@@Name@@objects.
+  */
+    public List deletedLines() {
+        view.block.increaseListblock@@Name@@();
+
+        if(@@Name@@NodeInfo.size() > 0) {
+            stopEditing();
+        }
+        Vector ret = new Vector();
+
+        for(Enumeration e = @@Name@@NodeInfo.elements();e.hasMoreElements();) {
+            LineListblock@@Name@@ one = ((LineListblock@@Name@@)e.nextElement());
+            if(one.isDeleted()) {
+                ret.add(one);
+            }
+        }
+        if(ret.size() == 0) {
+            ret = null;
+        }
+        
+        view.block.decreaseListblock@@Name@@();
+        return ret;
+    }
+
+/** Returns true if there is any new lines in this listblock 
+ * @return True if new lines are added, false if not.
+ */
+    public boolean hasNewLines() {
+        view.block.increaseListblock@@Name@@();
+
+        if(@@Name@@NodeInfo.size() > 0) {
+            stopEditing();
+        }
+        try {
+            for(Enumeration e = @@Name@@NodeInfo.elements();e.hasMoreElements();) {
+                LineListblock@@Name@@ one = ((LineListblock@@Name@@)e.nextElement());
+                if(one.isNew()) {
+                    return true;
+                }
+            }
+            return false;
+        } finally {
+            view.block.decreaseListblock@@Name@@();
+        }
+    }
+
+/** Returns a list of lines that is new sinze
+ *  initialization or reset from the listblock with name @@Name@@.
+ * @return List of LineListblock@@Name@@ objects.
+ */
+    public List newLines() {
+        view.block.increaseListblock@@Name@@();
+
+        if(@@Name@@NodeInfo.size() > 0) {
+            stopEditing();
+        }
+        LinkedList ret = new LinkedList();
+        
+        for(Enumeration e = @@Name@@NodeInfo.elements();e.hasMoreElements();) {
+            LineListblock@@Name@@ one = ((LineListblock@@Name@@)e.nextElement());
+            if(one.isNew()) {
+                ret.add(one);
+            }
+        }
+        if(ret.size() == 0) {
+            ret = null;
+        }
+        
+        view.block.decreaseListblock@@Name@@();
+        return ret;
+    }
+
+/** Returns a list of lines that hasn't been manipulated sinze
+ *  initialization or reset from the listblock with name
+ *  @@Name@@. (Not new, deleted or changed)
+ * @return List of LineListblock@@Name@@ objects.
+ */
+    public List cleanLines() {
+        view.block.increaseListblock@@Name@@();
+
+        if(@@Name@@NodeInfo.size() > 0) {
+            stopEditing();
+        }
+        Vector ret = new Vector();
+        
+        for(Enumeration e = @@Name@@NodeInfo.elements();e.hasMoreElements();) {
+            LineListblock@@Name@@ one = ((LineListblock@@Name@@)e.nextElement());
+            if(!one.isNew() && !one.isDeleted() && !one.isChanged()) {
+                ret.add(one);
+            }
+        }
+        if(ret.size() == 0) {
+            ret = null;
+        }
+        
+        view.block.decreaseListblock@@Name@@();
+        return ret;
+    }
+
+
+
+    /** Returns all touched lines (new, deleted or changed) in the listblock. 
+     * @return List of LineListblock@@Name@@ objects.
+     */
+
+    public List touchedLines() {
+        view.block.increaseListblock@@Name@@();
+        Vector ret = new Vector();
+
+        if(@@Name@@NodeInfo.size() > 0) {
+            stopEditing();
+        }
+        
+        for(Enumeration e = @@Name@@NodeInfo.elements();e.hasMoreElements();) {
+            LineListblock@@Name@@ one = ((LineListblock@@Name@@)e.nextElement());
+            if(one.isNew() || one.isDeleted() || one.isChanged()) {
+                ret.add(one);
+            }
+        }
+        if(ret.size() == 0) {
+            ret = null;
+        }
+        
+        view.block.decreaseListblock@@Name@@();
+        return ret;
+    }
+
+    /** Returns all lines in the listblock.
+     * @return List of LineListblock@@Name@@ objects.
+     */
+    public List allLines() {
+        List retVal;
+        view.block.increaseListblock@@Name@@();
+        
+        if(@@Name@@NodeInfo.size() > 0) {
+            stopEditing();
+        }
+
+        retVal = @@Name@@NodeInfo.allLines();
+        view.block.decreaseListblock@@Name@@();
+
+        return retVal;
+    }
+    
+
+@section @@Name@@ListblockObtainDisplayedLine rt
+@//
+    /**
+     * Returns one line from the listblock @@Name@@.
+     * @param line The row in the listblock.
+     * @return The listblockline object.
+     */
+    public LineListblock@@Name@@ getListblockLineModel(int line) {
+        LineListblock@@Name@@ retVal;
+        view.block.increaseListblock@@Name@@();
+        stopEditing();
+        retVal = getListblockLinePrivateModel(line);
+        view.block.decreaseListblock@@Name@@();
+        return retVal;
+    }
+@//
+    /**
+     * Returns one line from the listblock @@Name@@.
+     * @param line The row in the listblock.
+     * @return The listblockline object.
+     */
+    public LineListblock@@Name@@ getListblockLine(int line) {
+        LineListblock@@Name@@ retVal;
+        view.block.increaseListblock@@Name@@();
+        stopEditing();
+        retVal = getListblockLinePrivate(line);
+        view.block.decreaseListblock@@Name@@();
+        return retVal;
+    }
+@//
+    public ListblockLine getLine(int rowIndex) {
+        return getListblockLine(rowIndex);
+    }
+   
+@//
+    LineListblock@@Name@@ getListblockLinePrivateModel(int line) {
+        try {
+            return (LineListblock@@Name@@)@@Name@@NodeInfo.getLine(line);
+        }
+        catch(Exception e) {
+            return null;
+        }
+    }
+@//
+    LineListblock@@Name@@ getListblockLinePrivate(int line) {
+        try {
+            return (LineListblock@@Name@@)@@Name@@NodeInfo.getLine(line);
+        }
+        catch(Exception e) {
+            return null;
+        }
+    }
+@//
+   /**
+     * Returns the line number of the specified line if it is
+     * present in the listblock
+     * @param aLine the list block line 
+     * @return the line number of the listblock line, or -1 if it's
+     * not in the lisblock.
+     */
+    public int getLineNumber(ListblockLine aLine) {
+        List allLines = allLines();
+        if (allLines == null) {
+            return -1;
+        }
+        Iterator it = allLines.iterator();
+        while (it.hasNext()) {
+            LineListblock@@Name@@ currLine = (LineListblock@@Name@@) it.next();
+            if (currLine.equals(aLine)) {
+                return currLine.getLineNumber();
+            }
+        }
+        return -1;
+    }
+@//
+   /**
+     * Iterate through NodeInfo and set line numbers.
+     */
+    public void setLineNumbers() {
+        int j = 0;
+        for(Enumeration i = @@Name@@NodeInfo.elements();i.hasMoreElements();) {
+            LineListblock@@Name@@ one = (LineListblock@@Name@@)i.nextElement();
+            one.setLineNumber(j++);
+        }
+    }
+@//
+/** If you want the selection in the listblock to have background color (white) while in the selection, you should call this with true. It defaults to false in the templates. If you want to change this, set the defaultSelectedBackgroundName variable to true;
+    @param x ...
+*/
+    public void setShowSingleSelection(boolean x) {
+        view.hasCellSelectionColor@@Name@@ = x;
+    }
+@//
+    /** Returns the position of selected line in listblock @@Name@@.
+     * @return The row number of the line.
+     */
+    public int getSelectedLine() {
+        if(view.@@Name@@_table == null) {
+            return -1;
+        }
+        return view.@@Name@@_table.getSelectedRow();
+    }
+@//
+    /** Returns a list of indexes of selected lines in listblock @@Name@@.
+     * @return The selected rows.
+     */
+    public int[] getSelectedLines() {
+        return view.@@Name@@_table.getSelectedRows();
+    }
+@//
+    /** Returns listblock line object of selected line in listblock @@Name@@.
+     * @return The selected line object.
+     */
+    public LineListblock@@Name@@ getSelectedLineObject() {
+        view.block.increaseListblock@@Name@@();
+        int pos = view.@@Name@@_table.getSelectedRow();
+        LineListblock@@Name@@ retVal = null;
+        if(pos >= 0) {
+            if(@@Name@@NodeInfo.getVisualRowCount() > 0) {
+
+                stopEditing();
+                retVal = (LineListblock@@Name@@)@@Name@@NodeInfo.getLine(pos);
+            }
+        }
+        view.block.decreaseListblock@@Name@@();
+        return retVal;
+    }
+@//
+    /** Returns a list of listblock line object of selected
+     *  lines in listblock @@Name@@. 
+     * @return A list of objects of type LineListblock@@Name@@ if any matches, null otherwise.
+     */
+    public List getSelectedLinesObject() {
+        view.block.increaseListblock@@Name@@();
+        Vector ret = new Vector();
+        int selected[] = view.@@Name@@_table.getSelectedRows();
+        if(selected.length == 0) {
+            view.block.decreaseListblock@@Name@@();
+            return null;
+        }
+        for(int i=0; i < selected.length; i++) {
+            ret.add(@@Name@@NodeInfo.getLine(selected[i]));
+        }
+        view.block.decreaseListblock@@Name@@();
+        return ret;
+    }
+@//
+    /** Clears selected lines in listblock @@Name@@. If it contains no
+        lines, the call does nothing. */
+    public void clearSelectedLines() {
+        view.block.increaseListblock@@Name@@();
+        lastSelectedLines = null;
+        if(view.@@Name@@_table.getRowCount() > 0) {
+            view.@@Name@@_table.clearSelection();
+        }
+        view.block.decreaseListblock@@Name@@();
+    }
+@//
+    /** Selects line in listblock @@Name@@.
+     * @param line The row to select.
+     */
+    public void setSelectedLine(int line) {
+        view.block.increaseListblock@@Name@@();
+        clearSelectedLines();
+        view.@@Name@@_table.setRowSelectionInterval(line,line);
+        lastSelectedLines = view.@@Name@@_table.getSelectedRows();
+        makeRowVisible(line);
+        view.block.decreaseListblock@@Name@@();
+    }
+@//
+    public void setSelectedLine(ListblockLine aLine) {
+        int lineNumber = getLineNumber(aLine);
+        if (lineNumber > -1) {
+            setSelectedLine(lineNumber);
+        }
+    }
+@//
+    public GenovaTable getTable() {
+        return controller.view.@@Name@@_table;
+    }
+@//
+    /** Selects a set of lines in listblock @@Name@@.
+     * @param lines The rows to select.
+     */
+    public void setSelectedLines(int lines[]) {
+        view.block.increaseListblock@@Name@@();
+        clearSelectedLines();
+        for(int i=0; i < lines.length;i++) {
+            view.@@Name@@_table.addRowSelectionInterval(lines[i],lines[i]);
+        }
+        lastSelectedLines = view.@@Name@@_table.getSelectedRows();
+        view.block.decreaseListblock@@Name@@();
+    }
+@//
+    /**
+     * Recursivly clears the edit fields of this table. First, 
+     * the @@NodeName@@ role and all it's members are cleared. Then
+     * nodes that are not part of the object selection tree starting 
+     * at the @@NodeName@@ node is cleared.
+     */
+    public void clearEditFields() {
+        Set stillToClear = new HashSet();
+        stillToClear.addAll(getRoleNamesInUse());
+        the@@NodeName@@.clear();
+        stillToClear.remove(the@@NodeName@@.getRoleName());
+        ClearTool ct = new ClearTool(roleObjects);
+        ct.clearMembers("@@NodeName@@");
+        stillToClear.removeAll(the@@NodeName@@.getAllChildNames());
+        Iterator it = stillToClear.iterator();
+        while (it.hasNext()) {
+            ct.clear((String) it.next());
+        }
+    }
+        
+
+@createSection getDisplayedObject@@Name@@End @@Name@@ListblockLineHasPState
+@createSection getDisplayedObject@@Name@@Start getDisplayedObject@@Name@@End
+
+@section getDisplayedObject@@Name@@Start 
+    private Object getDisplayedObject(String roleName) {
+                
+
+@section getDisplayedObject@@Name@@End
+        return roleNameToObject.get(roleName);
+    }
+
+@createSection getDisplayedObjectNode@@Name@@ @@Name@@ListblockLineHasPState
+
+@createSection HasColumn@@Name@@End listblockCollectClass@@Name@@End
+@createSection HasColumn@@Name@@Start HasColumn@@Name@@End
+
+@section HasColumn@@Name@@Start
+    /**
+     * Helper method. Check if an attribute is present in a column.
+     */
+     boolean hasColumn(String ident) {
+
+@section HasColumn@@Name@@End
+        return false;
+    }
+
+
+@createSection showHideColumn@@Name@@End listblockCollectClass@@Name@@End
+@createSection showHideColumn@@Name@@Start showHideColumn@@Name@@End
+
+@section showHideColumn@@Name@@Start
+
+@//
+    public void setColumnHeaderValue(String attributeName, String value) {
+        int colIndex = getColumnIndex(attributeName);
+        TableColumn column = getTable().getColumnModel().getColumn(colIndex);
+        column.setHeaderValue(value);
+        getTable().getTableHeader().revalidate();
+        getTable().getTableHeader().repaint();
+    }   
+@//
+    public void hideColumn(String attributeName) {
+        getTable().hideColumn(getColumnIndex(attributeName));
+    }
+@//
+    public void hideColumn(List attributeNames) {
+        Iterator it = attributeNames.iterator();
+        while (it.hasNext()) {
+            Object foo = it.next();
+            if (foo instanceof String) {
+                getTable().hideColumn(getColumnIndex((String) foo));
+            }
+        }
+    }
+@//
+    public void showColumn(String attributeName) {
+        getTable().showColumn(getColumnIndex(attributeName));
+    }
+@//
+    public void showColumn(List attributeNames) {
+        Iterator it = attributeNames.iterator();
+        while (it.hasNext()) {
+            Object foo = it.next();
+            if (foo instanceof String) {
+                showColumn((String) foo);
+            }
+        }
+    }
+@//
+    /**
+     * Returns the column index for the specified attribute name
+     * @param attributeName the name of the column
+     * @return the column index
+     */
+    protected int getColumnIndex(String attributeName) {
+        int colIndex = 0;
+
+@section showHideColumn@@Name@@End
+        // Column not found. log and throw exception
+        Object[] msgArgs = {"@@Name@@", attributeName};
+        Message msg = MessageFactory.getInstance().getMessage(CRuntimeMsg.NO_SUCH_COLUMN, msgArgs);
+        MessageLogDispatcher.getInstance().log(msg, null);
+        throw new GenovaClientException(msg);
+    }
+
+@createSection setupSort@@Name@@End sort@@Name@@
+@createSection setupSort@@Name@@Start setupSort@@Name@@End
+@createSection initialSort@@Name@@ setupSort@@Name@@Start
+
+@section setupSort@@Name@@Start
+@//
+    private List comparatorList;
+@//
+    /**
+     * Builds the list of comparators for the listblock
+     */
+    public void setupSort() {
+        comparatorList = TypeTool.getDefaultList();
+        int column = 0;
+
+@section setupSort@@Name@@End
+        if (comparatorList.size() > 0) {
+            Collections.sort(comparatorList);
+            AbstractAttributeComparator.chainComparators(comparatorList);
+        }
+    }
+
+@section initialSort@@Name@@
+@//
+    /**
+     * Does the initial sorting of the listblock.
+     * The initial sorting is specified as a listblock property in Genova.
+     * @param listblockLines the List of listblockLines to sort.
+     */
+    public void initialSort(List listblockLines) {
+        if (comparatorList == null) {  // Else keep existing user sort
+            setupSort();
+        }
+        if (comparatorList.size() > 0) {
+            Collections.sort(listblockLines, (Comparator) comparatorList.get(0));
+        }
+    }
+@//
+    /**
+     * Reset to the initial sorting of the listblock.
+     */
+    public void resetSort() {
+        setupSort();
+        if (comparatorList.size() > 0) {
+            @@Name@@NodeInfo.sort((Comparator) comparatorList.get(0));
+            setLineNumbers();
+            view.@@Name@@theModel.fireTableDataChanged();
+        }
+    }
+
+@section sort@@Name@@
+@section usersort@@Name@@
+@//
+        void listblockSortColumnsBy(int column) {
+            view.block.increaseListblock@@Name@@();
+            List selectedLines = listblockMethods@@Name@@.getSelectedLinesObject();
+            if (comparatorList != null && comparatorList.size() > 0) {
+                AbstractAttributeComparator firstComp = (AbstractAttributeComparator) comparatorList.get(0);
+                AbstractAttributeComparator columnComp = AbstractAttributeComparator.getComparator(comparatorList, column);
+                if (columnComp != null) {
+                    if (columnComp == firstComp) {
+                        columnComp.toggleDirection();
+                    }
+                    else {
+                        if (comparatorList.remove(columnComp)) {
+                            comparatorList.add(0, columnComp);
+                            columnComp.setDirection(AbstractAttributeComparator.ASCENDING);
+                            AbstractAttributeComparator.chainComparators(comparatorList);
+                        }
+                    }
+                    @@Name@@NodeInfo.sort((Comparator) comparatorList.get(0));
+                    setLineNumbers();
+                    view.@@Name@@theModel.fireTableDataChanged();
+                }
+            }
+            if (selectedLines != null) {
+                Iterator it = selectedLines.iterator();
+                int[] selection = new int[selectedLines.size()];
+                int i = 0;
+                while (it.hasNext()) {
+                    selection[i++] = ((LineListblock@@Name@@) it.next()).getLineNumber();
+                }
+                listblockMethods@@Name@@.setSelectedLines(selection);
+            }
+            view.block.decreaseListblock@@Name@@();
+        }
+@//
+        void listblockSortColumnsBy(int column, boolean doConvert) {
+            view.block.increaseListblock@@Name@@();
+            LineListblock@@Name@@ selected = getSelectedLineObject();
+            switch (column) {
+
+@section usersort@@Name@@End
+            }
+            int convertedCol = doConvert ? ((Integer)controller.view.@@Name@@_indexes.get(column)).intValue() : column;
+            setColumnToUse(convertedCol, null);
+            if(!controller.overrideSortListblock("@@Name@@", @@Name@@NodeInfo, convertedCol, (Boolean)directions.get(new Integer(convertedCol)))) {
+                @@Name@@NodeInfo.sort(this);
+            }
+            if(updateWhenManipulated) {
+                view.@@Name@@theModel.fireTableDataChanged();
+            }
+            setLineNumbers();
+            if(selected != null) {
+                int line = selected.getLineNumber();
+                setSelectedLine(line);
+                makeRowVisible(line);
+            }
+            view.block.decreaseListblock@@Name@@();
+        }
+
+@section sortWithName@@Name@@
+    /** 
+     * Sorts the data in the listblock based on column type. The
+     * column to use are defined by the type and attribute field. The
+     * direction of the sort is inverted for each call to the same
+     * column. Valid combinations of type and attribute are:
+     * <ul>
+@section sortWithName@@Name@@Doc
+     * </ul>
+     * @param type The object selection node to use.
+     * @param attribute The attribute to sort.
+     * @deprecated
+     */
+    public void listblockSortColumn(Object type, String attribute) {
+
+@section sortWithName@@Name@@End
+       
+     }
+
+@section sortWithNameOrder@@Name@@
+ /** 
+  * Sorts the data in the listblock based on column type. The
+  * column to use are defined by the type and attribute field.
+  * column. Valid combinations of type and attribute are:
+  * <ul>
+@section sortWithNameOrder@@Name@@Doc
+
+  * </ul>
+  * @param type The object type to sort.
+  * @param attribute The attribute to sort with.
+  * @param ascending If true, the sort will be done ascending. If not it will be descending.
+  * @deprecated
+  */
+    public void listblockSortColumn(Object type, String attribute, boolean ascending) {
+
+@section sortWithNameOrder@@Name@@End
+       
+     }
+        
+
+@section Compare@@Name@@
+    private int columnToUse = 0;
+    Hashtable directions = new Hashtable();
+
+ /** Sets the column to use in the sort. This method is used by the
+  * sorting methods to signal to the compare method how the sort is
+  * done. Normally you would not call this method directly, but insted
+  * used the listblockSortColumn methods.
+  * @param c The column to use.
+  * @param dir The direction to perform the sort with.
+  */
+    public void setColumnToUse(int c, Boolean dir) {
+        Integer k = new Integer(c);
+        columnToUse = c;
+        
+        Object direction = (Boolean)directions.get(k);
+        
+        if(dir != null) {
+            directions.put(k, dir);
+        } else if(direction == null) {
+            directions.put(k, Boolean.FALSE);
+        }
+        else {
+            if(direction == Boolean.FALSE) {
+                directions.put(k, Boolean.TRUE);
+            }
+            else {
+                directions.put(k, Boolean.FALSE);
+            }
+        }
+    }
+
+ /** Comparator used to sort the columns in the listblock.  Sorting is
+  * done based on the datatypes of the various columns. If you need an
+  * alternative sorting, then you should override this method. (For
+  * instance if you need that sorting of a given column should also
+  * inc. data from other columns.). If you plan to do so, then read
+  * the generated source - good luck :-)
+  *
+  * <p> Sorting of columns are done using one column of a time.
+  * @param o1 Instance of ListblockLine which are compared.
+  * @param o2 Instance of ListblockLine which are compared.
+  * @return As defined by the comparator interrace.
+  */
+    public int compare(Object o1, Object o2) {
+        switch(columnToUse) {
+
+@section Compare@@Name@@End
+        }
+        return 0;
+    } 
+    
+
+   /** Only there to check if a comparator is equal to this one. Not used.
+    * @param o1 Internal use.
+    * @return Internal use.
+    */
+    @Override
+    public boolean equals(Object obj) { 
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof ListblockMethods@@Name@@)) {
+            return false;
+        }
+        ListblockMethods@@Name@@ other = (ListblockMethods@@Name@@) obj;
+        if (!controller.equals(other.controller)) {
+            return false;
+        }
+        if (controller == null) {
+            if (other.controller != null) {
+                return false;
+            }
+        } else if (!controller.equals(other.controller)) {
+            return false;
+        }
+        return true;
+    }
+        
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result
+                + ((controller == null) ? 0 : controller.hashCode());
+        return result;
+    }
+
+@section TableAccessMethods
+    /** The nunber of columns.
+     * @return The number of columns.
+     */
+    public int @@Name@@getColumnCount() {
+        return view.@@Name@@_headers.size();
+    }
+
+    /** This function is called whenever the listblock wants the number of
+     * lines that exist in the model. If code was generated by RT mode. The
+     * number sent in to this function is the number from the underlaying
+     * model, if there exist any. If no model exist, the number 1 will always
+     * be returned for demo purposes only.
+     * <br>
+     * To modify number of lines displayed, return a different number than
+     * the number sent in to the function.
+     * @param rowcount Not in use.
+     * @return The number of visible lines in the dialo.
+     */
+@//
+    public int @@Name@@getRowCount(int rowcount) {
+        if(false) {
+            rowcount++;
+        }
+        return @@Name@@NodeInfo.getVisualRowCount();
+    }
+
+@//     
+    /** Not in use.
+     * @param row number of row
+     * @param col number of column
+     * @param value the value object
+     * @return the value object
+     * @deprecated
+     */
+    public Object @@Name@@getValueAt(int row, int col, Object value) {
+       return value;
+    }
+@//
+    /** Not in use.
+     * @param value the value
+     * @param row number of row
+     * @param col number of column
+     * @deprecated
+     */
+    public void @@Name@@setValueAt(Object value, int row, int col) {
+        if(false) {
+            value.getClass();
+            row++;
+            col++;
+        }
+    }
+
+@section @@Name@@ListblockSignalStopEditing
+    /** Signals that all edit fields should stop editing. This will
+     * copy data beeing edited into the listblock line. */
+    public void stopEditing() {
+        if(view.@@Name@@blockStopEditing > 0) {
+            return;
+        }
+        view.@@Name@@blockStopEditing++;
+        int row = view.@@Name@@_table.getEditingRow();
+        if(row < 0) {
+            return;
+        }
+
+@section @@Name@@ListblockSignalStopEditingEnd
+        view.@@Name@@blockStopEditing--;
+    }
+
+
+@section ListValueChanged
+                if (@@Name@@_table == e.getSource()) {
+                    selectionInListblockTest(@@Name@@_table, @@Name@@_table.getSelectedRows(), e);
+                }$$AttributeExistsRowHeader?else if(!e.getValueIsAdjusting() &&  @@Name@@RowHeader.getSelectionModel() == e.getSource()) {:$$
+                    $$AttributeExistsRowHeader?@@Name@@_table.getSelectionModel().setSelectionInterval(@@Name@@RowHeader.getSelectionModel().getMinSelectionIndex(),@@Name@@RowHeader.getSelectionModel().getMaxSelectionIndex());:$$
+                    $$AttributeExistsRowHeader?selectionInListblockTest(@@Name@@_table,   @@Name@@_table.getSelectedRows(), e);:$$
+                $$AttributeExistsRowHeader?}:$$
+@section mousePressed
+                if(e.getSource() == @@Name@@TableHeader) {
+                    // display column header as "pressed"
+                    TableColumnModel columnModel = @@Name@@_table.getColumnModel();
+                    int viewColumn = columnModel.getColumnIndexAtX(e.getX()); 
+                    int column = @@Name@@_table.convertColumnIndexToModel(viewColumn);
+                    if(column<@@Name@@HeadersClicked.length && column>-1){
+                        @@Name@@HeadersClicked[column] = true;
+                        @@Name@@TableHeader.resizeAndRepaint();
+                    }
+                }
+
+@section mouseReleased
+                // Every column header should be displayed as not pressed.
+                boolean doRepaint@@Name@@ = false;
+                for (int i = 0; i < @@Name@@HeadersClicked.length; i++) {
+                    doRepaint@@Name@@ = doRepaint@@Name@@ || @@Name@@HeadersClicked[i];
+                    @@Name@@HeadersClicked[i] = false;
+                }
+                if (doRepaint@@Name@@) {
+                    @@Name@@TableHeader.resizeAndRepaint();
+                }
+@//                
+
+
+@section RecursiveDisplaySet@@RoleName@@@@DialogName@@
+    /**
+     * Displays a Collection of @@RoleName@@ objects.
+     * Each instance of @@RoleName@@ is inserted in the corresponding
+     * list block (@@Name@@).
+     * @param @@RoleName@@Collection the Collection containing the (domain) objects to display.
+     */
+    public void recursiveDisplay(Collection @@RoleName@@Collection) {
+        controller.listblockMethods@@Name@@.purgeAllLines();
+        Iterator it = @@RoleName@@Collection.iterator();
+        List allLines = TypeTool.getDefaultList();
+        while (it.hasNext()) {
+            @@ClassName@@ @@RoleName@@Object = (@@ClassName@@) it.next();
+            LineListblock@@Name@@ line = controller
+                .listblockMethods@@Name@@
+                    .createListblockLine();
+            insertInListblockLine(@@RoleName@@Object, line);
+            if (controller.listblockMethods@@Name@@
+                    .callHooksBeforeInsert(line)) {
+                allLines.add(line);
+            }
+        }
+        controller.listblockMethods@@Name@@.initialSort(allLines);
+        it = allLines.iterator();
+        while (it.hasNext()) {
+            LineListblock@@Name@@ line = (LineListblock@@Name@@) it.next();
+            controller.listblockMethods@@Name@@
+                    .insertListblockLine(line);
+        }
+        
+        controller.listblockMethods@@Name@@.forceClean();
+    }
+
+
+@section ObtainFromListBlock@@RoleName@@@@DialogName@@
+    /**
+     * Obtains a Set of @@RoleName@@ objects from the @@Name@@ listblock.
+     * Note that roles that are not represented in a coluumn will not
+     * be created (compatible with old version). Other roles will
+     * be created.
+     * @return the obtained set of @@RoleName@@ objects
+     * @deprecated use {@link #obtainSet(boolean)} instead.
+     */
+    public Set obtainSet() {
+        Set @@RoleName@@Set = TypeTool.getDefaultSet();
+        List allLines = controller.listblockMethods@@Name@@.allLines();
+        Iterator it = allLines.iterator();
+        while (it.hasNext()) {
+            LineListblock@@Name@@ line = (LineListblock@@Name@@) it.next();
+            Object o = null;
+            o = line.getObject("@@RoleName@@");
+            if (o != null) {
+                @@RoleName@@Set.add(o);
+            }
+        }
+        return @@RoleName@@Set;
+    }
+        
+
+@//
+@//
+    /**
+     * Obtains a Set of @@RoleName@@ objects from the @@Name@@ listblock. The
+     * parameter controlls wheter objects are created when getting them from 
+     * the listblock line or not.
+     * @param createIfNull if <code>true</code> objects are created.
+     * @return the obtained set of @@RoleName@@ objects.
+     * @see ListblockLine#getObject(String, boolean)
+     */
+    public Set obtainSet(boolean createIfNull) {
+        Set @@RoleName@@Set = TypeTool.getDefaultSet();
+        List allLines = controller.listblockMethods@@Name@@.allLines();
+        Iterator it = allLines.iterator();
+        while (it.hasNext()) {
+            LineListblock@@Name@@ line = (LineListblock@@Name@@) it.next();
+            Object o = null;
+            o = line.getObject("@@RoleName@@", createIfNull);
+            if (o != null) {
+                @@RoleName@@Set.add(o);
+            }
+        }
+        return @@RoleName@@Set;
+    }
+    
+@section inListblock@@RoleName@@
+    public boolean inListblock() {
+        return true;
+    }        
+                  
+@createSection EndDoubleClicked@@LogicalName@@ DoubleClicked
+@createSection StartDoubleClicked@@LogicalName@@ EndDoubleClicked@@LogicalName@@
+
+@section StartDoubleClicked@@LogicalName@@
+@if @(hasEvent Double Clicked)@
+        if (e.getSource() == @@Name@@_table) {
+@endif
+
+@section EndDoubleClicked@@LogicalName@@
+@if @(hasEvent Double Clicked)@
+                }
+@endif
+
+@createSection EndFocusGained@@LogicalName@@ FocusActions
+@createSection StartFocusGained@@LogicalName@@ EndFocusGained@@LogicalName@@
+
+@section StartFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+        @@Name@@_table.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+@section EndFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+            }
+        });
+@endif
+
+@createSection EndFocusLost@@LogicalName@@ FocusActions
+@createSection StartFocusLost@@LogicalName@@ EndFocusLost@@LogicalName@@
+
+@section StartFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+        @@Name@@_table.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+
+@section EndFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+            }
+        });
+@endif
+
+
+
+@createSection EndSingleClicked@@LogicalName@@ SingleClicked
+@createSection StartSingleClicked@@LogicalName@@ EndSingleClicked@@LogicalName@@
+
+@section StartSingleClicked@@LogicalName@@
+@if @(hasEvent Header Clicked)@
+        if(e.getSource() == @@Name@@TableHeader) {
+            TableColumnModel columnModel = @@Name@@_table.getColumnModel();
+            int viewColumn = columnModel.getColumnIndexAtX(e.getX()); 
+            int column = @@Name@@_table.convertColumnIndexToModel(viewColumn);        
+@endif
+
+@section EndSingleClicked@@LogicalName@@
+@if @(hasEvent Header Clicked)@
+        }
+@endif
+
+@createSection EndSelectionInListblockTest@@LogicalName@@ selectionInListblockTest
+@createSection StartSelectionInListblockTest@@LogicalName@@ EndSelectionInListblockTest@@LogicalName@@
+
+@section StartSelectionInListblockTest@@LogicalName@@
+        if (source.getRowCount() > 0 && block.isBlockedListblock@@Name@@() && source.equals(@@Name@@_table)) {
+            LineListblock@@Name@@ selectedLine = 
+                controller.listblockMethods@@Name@@.getSelectedLineObject();
+            if (selectedLine != null) {
+                selectedLine.displayInEditField();
+            } else {
+                controller.listblockMethods@@Name@@.clearEditFields();
+            }
+@if @(hasEvent Selected)@
+            controller.listblockMethods@@Name@@.lastSelectedLines = lines;
+@endif
+        
+
+@section EndSelectionInListblockTest@@LogicalName@@
+            
+        }
+@if @(hasEvent Selected)@
+@endif
+
+@event Double Clicked
+@section StartDoubleClicked@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+        controller.@@MethodName@@(new GenovaMouseEventHolder(e));
+@endif
+@endif
+
+@event Got Focus
+@section StartFocusGained@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.@@MethodName@@(new GenovaFocusEventHolder(e));
+@endif
+@endif
+
+@event Lost Focus
+@section StartFocusLost@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.@@MethodName@@(new GenovaFocusEventHolder(e));
+@endif
+@endif
+
+@event Header Clicked
+@section StartSingleClicked@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+        controller.@@MethodName@@(new GenovaHeaderClickedEventHolder(e,column));
+@endif
+@endif
+
+@event Selected
+@section StartSelectionInListblockTest@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+        controller.@@MethodName@@(e);
+@endif
+@endif

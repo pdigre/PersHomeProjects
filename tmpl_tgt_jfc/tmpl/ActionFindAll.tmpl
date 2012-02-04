@@ -1,0 +1,234 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+
+@createSection ActionFindAll@@TargetName@@ ActionMethodImpl
+@createSection HookActionFindAll@@TargetName@@ HookMethodsSuper
+
+@section MethodDeclaration rt
+            actionFindAll@@TargetName@@(); 
+
+@section ActionFindAll@@TargetName@@
+@if @(emptySection)@
+@//
+@//
+    /**
+     * The FindAll @@TargetName@@ JGrape action. This action involves 
+     * the following steps.
+     * <ol>
+     *  <li>The @@TargetName@@'s check method for FindAll is invoked, possibly
+     *      aborting the action.
+     * 
+     * <li>After a recursive obtain, which builds up a minimum tree
+     *     containing only the objects needed by the server to identify the
+     *     target, the hookActionFindAll@@TargetName@@Obtain(ObjectSelection)
+     *     method is invoked, possibly aborting the action.
+     *
+     * <li>Next, hookActionFindAll@@TargetName@@ClientContext() is invoked. 
+     *     If the method returns <code>null</code> a default client 
+     *     context is used.
+     *
+     * <li>The object selection and the client context is used as arguments
+     *     to 
+     *
+     *    <code>
+     *    Application.getServiceProxy()
+     *            .FindAll(ObjectSelection, ClientContext).
+     *    </code>
+     *
+     * <li>If the action is either a save, insert or update action, the
+     *     result from invoking FindAll on the service proxy is merged with
+     *     the client's objects in order to restore the associations that
+     *     where stripped away when performing the recursive obtain.
+     *
+     * <li>Invoke hookActionFindAll@@TargetName@@Display(resultObject), possibly 
+     *     aborting the action.
+     *
+     * <li>Recursively clear the @@TargetName@@ node and the recursivly
+     *     display the result.
+
+     * </ol>
+     */
+    protected void actionFindAll@@TargetName@@() {
+        try {
+@//
+
+
+            if (!the@@TargetName@@.checkFind()) {
+                Message msg = MessageFactory.getInstance().getMessage(CRuntimeMsg.CF_ABORTING_ACTION, "checkFind", "find all", "@@TargetName@@");
+                MessageLogDispatcher.getInstance().log(msg, null);
+                return;
+            }
+
+
+
+
+
+
+@//
+            Message msg = MessageFactory.getInstance().getMessage(CRuntimeMsg.CF_CONTINUING_ACTION, "findAll", "@@TargetName@@");
+            MessageLogDispatcher.getInstance().log(msg, null);
+@//
+
+
+
+            
+            ObjectSelection os = obtainObjectSelection(the@@TargetName@@);
+            os.setTargetMainKey(the@@TargetName@@.getTargetMainKey());
+
+
+@//
+            boolean goAhead = false;
+            try {
+                goAhead = hookActionFindAll@@TargetName@@Obtain(os);
+            } catch (RuntimeException e) { 
+                goAhead = false;
+                throw e;
+
+            } finally {
+                if (!goAhead) {
+                    // rollback from recursive obtain
+                    Object parent = os.getRootObject(the@@TargetName@@
+                            .getRootNode().getRoleName());
+                    if (parent != null) {
+                        AbstractNode top = (AbstractNode) the@@TargetName@@
+                                .getRootNode();
+                        List pathToTarget = the@@TargetName@@.getPathToNode();
+                        top.mergeAssociations(parent, pathToTarget,true); 
+                    }
+                }
+            }
+
+            if (!goAhead) {
+                return;
+            }
+@//
+            ClientContext ctx = hookActionFindAll@@TargetName@@ClientContext();
+            if (ctx == null) {
+                ctx = Application.getClientContext();
+            }
+
+
+@//
+            Collection resultObject = null;
+            try {
+                resultObject = (Collection) Application.getServiceProxy().findAll(os, ctx);
+            } catch (RuntimeException e) {
+                // rollback from recursive obtain
+                Object parent = os.getRootObject(the@@TargetName@@
+                        .getRootNode().getRoleName());
+                if (parent != null) {
+                    AbstractNode top = (AbstractNode) the@@TargetName@@
+                            .getRootNode();
+                    List pathToTarget = the@@TargetName@@.getPathToNode();
+                    top.mergeAssociations(parent, pathToTarget,true); 
+                }
+                throw e;
+            }
+@//
+
+
+
+
+
+
+
+            if (hookActionFindAll@@TargetName@@Display(resultObject)) {
+                new ClearTool(roleObjects).clearRole("@@TargetName@@");
+                resetProxy();
+                if (resultObject != null) {
+                    List path = TypeTool.getDefaultList();
+                    path.add(the@@TargetName@@);                     
+                    the@@TargetName@@.displayOnEDT(resultObject, path, true);
+                } 
+@//
+
+
+
+
+            }
+        
+
+
+               
+@//
+
+        } catch (RuntimeException e) {
+            if (hookActionFindAll@@TargetName@@Exception(e)) {
+                throw e;
+            }
+        } 
+    }
+@endif
+@section HookActionFindAll@@TargetName@@
+@if @(emptySection)@
+@//
+@//    
+    /**
+     * Hook method, called if the action resulted in a RuntimeException.
+     * Override in subclass.
+     *
+     * <p>If the exception is handeled in this hook, the hook should return
+     * <code>false</code>. If the hook returns <code>true</code> the 
+     * exception will be re-thrown from the invoking 
+     * <code>actionFindAll@@TargetName@@()</code> method.
+     * <br>The default return value is <code>true</code>.
+     * @param e the catched exception 
+     * @return <code>false</code> if exception is handeled, 
+     *         <code>true</code> if exception should be re-thrown.
+     */
+    public boolean hookActionFindAll@@TargetName@@Exception(RuntimeException e) {
+        return true;
+    }
+@//
+@//    
+    /**
+     * Hook method, called after the object selection is obtained. The boolean return value
+     * is used by the server action to determine if the action should proceed, true indicating
+     * that it should. The default return value is <code>true</code>.
+     * Override in subclass.
+     * @param objectSelection the obtained object selection.
+     * @return <code>true</code> if action should proceed.
+     */
+    public boolean hookActionFindAll@@TargetName@@Obtain(ObjectSelection objectSelection) {
+        return true;
+    }
+@//
+@//
+    /**
+     * Hook method, called before server action is called. The returned ClientContext is used 
+     * when calling the server. If <code>null</code> is returned, 
+     * the Application.getClientContext() is used.
+     * <p>Override in subclass.
+     * @return the ClientContext that will be used as argument to the server action.
+     */
+    public ClientContext hookActionFindAll@@TargetName@@ClientContext() {
+        return null;
+    }
+@//
+@//    
+    
+    /**
+     * Hook method, called before the found object in @@MethodName@@ is 
+     * displayed. The boolean return value is used to determine if the foundObject
+     * should be displayed (defaults to <code>true</code>.
+     * <p>Override in subclass! 
+     * @param foundObject the object returned from the server action find on target @@TargetName@@
+     * @return <code>true</code> if the object should be displayed.
+     */
+    public boolean hookActionFindAll@@TargetName@@Display(Object foundObject) {
+        return true;
+    }
+      
+@endif
+

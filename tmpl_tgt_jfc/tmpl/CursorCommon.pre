@@ -1,0 +1,1586 @@
+@createFile @@GetParameter DialogFileDir@@/@@DialogNameLower@@/@@Name@@Methods.java
+@createSection standardControllerMethods@@Name@@End @@GetParameter DialogFileDir@@/@@DialogNameLower@@/@@Name@@Methods.javaSection
+@createSection controllerMethods@@Name@@ standardControllerMethods@@Name@@End
+@createSection standardControllerMethods@@Name@@ controllerMethods@@Name@@
+
+@createSection ObtainData@@Name@@End standardControllerMethods@@Name@@End
+@createSection ObtainData@@Name@@ ObtainData@@Name@@End
+
+
+@createSection ObtainDataString@@Name@@End standardControllerMethods@@Name@@End
+@createSection ObtainDataString@@Name@@ ObtainDataString@@Name@@End
+
+@createSection DisplayData@@Name@@End standardControllerMethods@@Name@@End
+@createSection DisplayData@@Name@@ DisplayData@@Name@@End
+
+@createSection isConsistant@@Name@@End standardControllerMethods@@Name@@End
+@createSection isConsistant@@Name@@ isConsistant@@Name@@End
+
+@createSection hasValue@@Name@@End standardControllerMethods@@Name@@End
+@createSection hasValue@@Name@@ hasValue@@Name@@End
+
+@createSection hasOneValue@@Name@@End standardControllerMethods@@Name@@End
+@createSection hasOneValue@@Name@@ hasOneValue@@Name@@End
+
+@createSection hasValueField@@Name@@End standardControllerMethods@@Name@@End
+@createSection hasValueField@@Name@@ hasValueField@@Name@@End
+
+@createSection setStyle@@Name@@End standardControllerMethods@@Name@@End
+@createSection setStyle@@Name@@ setStyle@@Name@@End
+
+@createSection DisplayDataField@@Name@@End standardControllerMethods@@Name@@End
+@createSection DisplayDataField@@Name@@ DisplayDataField@@Name@@End
+
+@createSection setShowZeroFieldDecl@@Name@@ standardControllerMethods@@Name@@End
+
+@createSection setShowZeroField@@Name@@End standardControllerMethods@@Name@@End
+@createSection setShowZeroField@@Name@@ setShowZeroField@@Name@@End
+
+@createSection getShowZeroField@@Name@@End standardControllerMethods@@Name@@End
+@createSection getShowZeroField@@Name@@ getShowZeroField@@Name@@End
+
+
+@createSection ClearData@@Name@@End standardControllerMethods@@Name@@End
+@createSection ClearData@@Name@@ ClearData@@Name@@End
+
+@createSection ClearKeepKeys@@Name@@End standardControllerMethods@@Name@@End
+@createSection ClearKeepKeys@@Name@@ ClearKeepKeys@@Name@@End
+
+@createSection ClearDataField@@Name@@End standardControllerMethods@@Name@@End
+@createSection ClearDataField@@Name@@ ClearDataField@@Name@@End
+
+@createSection setEnabled@@Name@@End standardControllerMethods@@Name@@End
+@createSection setEnabled@@Name@@ setEnabled@@Name@@End
+
+@createSection setEnabledField@@Name@@End standardControllerMethods@@Name@@End
+@createSection setEnabledField@@Name@@ setEnabledField@@Name@@End
+
+@createSection isEnabled@@Name@@End standardControllerMethods@@Name@@End
+@createSection isEnabled@@Name@@ isEnabled@@Name@@End
+
+@createSection isEnabledField@@Name@@End standardControllerMethods@@Name@@End
+@createSection isEnabledField@@Name@@ isEnabledField@@Name@@End
+
+@createSection setShown@@Name@@End standardControllerMethods@@Name@@End
+@createSection setShown@@Name@@ setShown@@Name@@End
+
+@createSection hasFocus@@Name@@End standardControllerMethods@@Name@@End
+@createSection hasFocus@@Name@@ hasFocus@@Name@@End
+
+@createSection setShownField@@Name@@End standardControllerMethods@@Name@@End
+@createSection setShownField@@Name@@ setShownField@@Name@@End
+
+@createSection isShown@@Name@@End standardControllerMethods@@Name@@End
+@createSection isShown@@Name@@ isShown@@Name@@End
+
+@createSection isShownField@@Name@@End standardControllerMethods@@Name@@End
+@createSection isShownField@@Name@@ isShownField@@Name@@End
+
+@createSection setFocusField@@Name@@End standardControllerMethods@@Name@@End
+@createSection setFocusField@@Name@@ setFocusField@@Name@@End
+
+@createSection hasFocusField@@Name@@End standardControllerMethods@@Name@@End
+@createSection hasFocusField@@Name@@ hasFocusField@@Name@@End
+
+@createSection appendData@@Name@@End standardControllerMethods@@Name@@End
+@createSection appendData@@Name@@ appendData@@Name@@End
+
+@createSection ObtainCond@@Name@@End MethodDeclaration
+@createSection ObtainCond@@Name@@ ObtainCond@@Name@@End
+
+@createSection UpdateBackupColumns@@Name@@End MethodDeclaration
+@createSection UpdateBackupColumns@@Name@@ UpdateBackupColumns@@Name@@End
+
+@createSection Reset@@Name@@End standardControllerMethods@@Name@@End
+@createSection Reset@@Name@@ Reset@@Name@@End
+
+@createSection Insert@@Name@@End MethodDeclaration
+@createSection Insert@@Name@@ Insert@@Name@@End
+
+@createSection Update@@Name@@End MethodDeclaration
+@createSection Update@@Name@@ Update@@Name@@End
+
+
+@createSection FindChildren@@Name@@End MethodDeclaration
+@createSection FindChildren@@Name@@ FindChildren@@Name@@End
+
+@createSection SaveChildrenRecursive@@Name@@End MethodDeclaration
+@createSection SaveChildrenRecursive@@Name@@ SaveChildrenRecursive@@Name@@End
+
+@createSection ClearChildrenRecursive@@Name@@End MethodDeclaration
+@createSection ClearChildrenRecursive@@Name@@ ClearChildrenRecursive@@Name@@End
+
+@createSection IsPartOfKey@@Name@@End standardControllerMethods@@Name@@End
+@createSection IsPartOfKey@@Name@@ IsPartOfKey@@Name@@End
+
+
+
+@createSection NodeInfo@@Name@@MethodsisChangedEnd standardControllerMethods@@Name@@End
+@createSection NodeInfo@@Name@@MethodsisChanged NodeInfo@@Name@@MethodsisChangedEnd
+@createSection NodeInfo@@Name@@MethodsisChangedFieldEnd NodeInfo@@Name@@MethodsisChanged
+@createSection NodeInfo@@Name@@MethodsisChangedField NodeInfo@@Name@@MethodsisChangedFieldEnd
+@createSection NodeInfo@@Name@@MethodssetChangedEnd NodeInfo@@Name@@MethodsisChangedField
+@createSection NodeInfo@@Name@@MethodssetChanged NodeInfo@@Name@@MethodssetChangedEnd
+@createSection NodeInfo@@Name@@MethodssetChangedFieldEnd NodeInfo@@Name@@MethodssetChanged
+@createSection NodeInfo@@Name@@MethodssetChangedField NodeInfo@@Name@@MethodssetChangedFieldEnd
+@createSection NodeInfo@@Name@@Variables NodeInfo@@Name@@MethodssetChangedField
+
+@createSection NodeInfo@@Name@@GetChangedFieldsEnd standardControllerMethods@@Name@@End
+@createSection NodeInfo@@Name@@GetChangedFields NodeInfo@@Name@@GetChangedFieldsEnd
+
+@createSection NodeInfo@@Name@@GetChangedKeyFieldsEnd standardControllerMethods@@Name@@End
+@createSection NodeInfo@@Name@@GetChangedKeyFields NodeInfo@@Name@@GetChangedKeyFieldsEnd
+
+@createSection NodeInfo@@Name@@ResetFieldsEnd standardControllerMethods@@Name@@End
+@createSection NodeInfo@@Name@@ResetFields NodeInfo@@Name@@ResetFieldsEnd
+
+@createSection standardControllerMethods@@Name@@@@DialogName@@ standardControllerMethods@@Name@@End 
+
+@createSection RecursiveDisplay@@Name@@End standardControllerMethods@@Name@@End
+@createSection RecursiveDisplay@@Name@@Start RecursiveDisplay@@Name@@End
+
+@createSection RecursiveDisplaySet@@Name@@@@DialogName@@ standardControllerMethods@@Name@@End
+
+@createSection RecursiveObtainObject@@Name@@ standardControllerMethods@@Name@@End
+
+@createSection RecursiveObtain@@Name@@@@DialogName@@End standardControllerMethods@@Name@@End
+@createSection RecursiveObtain@@Name@@@@DialogName@@ParentEnd RecursiveObtain@@Name@@@@DialogName@@End
+@createSection RecursiveObtain@@Name@@@@DialogName@@ParentStart RecursiveObtain@@Name@@@@DialogName@@ParentEnd
+@createSection RecursiveObtain@@Name@@@@DialogName@@Start RecursiveObtain@@Name@@@@DialogName@@ParentStart
+
+@createSection ObtainFromListBlock@@Name@@@@DialogName@@ RecursiveObtain@@Name@@@@DialogName@@Start
+
+@createSection inListblock@@Name@@ standardControllerMethods@@Name@@End
+
+
+@createSection setAssociation@@Name@@End standardControllerMethods@@Name@@End 
+@createSection setAssociation@@Name@@ setAssociation@@Name@@End
+
+
+@section setAssociation@@Name@@
+    public void setAssociation(Object self, String associationRoleName, 
+            Object association) {
+@//
+        @@ClassName@@ member = (@@ClassName@@) self;
+
+@if @(isNavigableToParent)@
+        if ("@@ParentName@@".equals(associationRoleName)) {
+  @if @(isParentMany)@
+            Set parent = TypeTool.getDefaultSet();
+            parent.add(association);
+  @endif
+
+  @if @(!isParentMany)@
+            @@ParentClassName@@ parent = (@@ParentClassName@@) association;
+  @endif
+
+  @if @(hasParameter UseAccessorMethods)@
+            member.@@SetAssociationParentRoleName@@(parent);
+  @endif
+
+  @if @(!hasParameter UseAccessorMethods)@
+            member.@@AssociationParentRoleName@@ = parent;
+  @endif
+            return;
+        }
+@endif
+
+@section setAssociation@@Name@@End
+        // Might be generated empty - silence compiler warnings
+        if (member != null) {
+            member = null;
+        }
+    }
+
+@createSection IsNavigableToParent@@Name@@ standardControllerMethods@@Name@@End
+@section IsNavigableToParent@@Name@@
+    public boolean isNavigableToParent() {
+        return $$isNavigableToParent?true:false$$;
+    }
+
+@createSection SaveAssociations@@Name@@@@DialogName@@End standardControllerMethods@@Name@@End
+@createSection SaveAssociations@@Name@@@@DialogName@@Start SaveAssociations@@Name@@@@DialogName@@End
+
+@section SaveAssociations@@Name@@@@DialogName@@Start
+@//
+@//
+    private void saveAssociations(@@ClassName@@ parentObject) {
+        
+@section SaveAssociations@@Name@@@@DialogName@@End
+
+        // might be generated empty, silience any warnings...
+        int foo = 0;
+        foo++;
+    }
+
+@if @(isSectionDefined SaveAssociations@@ParentName@@@@DialogName@@Start)@
+@if @(!isRoot)@
+  @if @(!isUprelated)@
+    @section SaveAssociations@@ParentName@@@@DialogName@@Start
+    @if @(hasParameter UseAccessorMethods)@
+        saveAssociation("@@Name@@", parentObject, parentObject.@@GetAssociationRoleName@@());
+    @endif
+    @if @(!hasParameter UseAccessorMethods)@
+        saveAssociation("@@Name@@", parentObject, parentObject.@@AssociationRoleName@@));
+    @endif
+  @endif
+@endif
+@endif     
+         
+
+@createSection RemoveAssociations@@Name@@@@DialogName@@End standardControllerMethods@@Name@@End
+@createSection RemoveAssociations@@Name@@@@DialogName@@Start RemoveAssociations@@Name@@@@DialogName@@End
+ 
+@section RemoveAssociations@@Name@@@@DialogName@@Start
+@//
+@//
+    private void removeAssociations(@@ClassName@@ parentObject) {
+        
+@section RemoveAssociations@@Name@@@@DialogName@@End
+        // might be generated empty, silence any warnings...
+        int foo = 0;
+        foo++;
+    }
+
+@if @(isSectionDefined RemoveAssociations@@ParentName@@@@DialogName@@Start)@
+@if @(!isRoot)@
+  @if @(!isUprelated)@
+@section RemoveAssociations@@ParentName@@@@DialogName@@Start
+    @if @(hasParameter UseAccessorMethods)@
+        parentObject.@@SetAssociationRoleName@@(null);
+    @endif
+    @if @(!hasParameter UseAccessorMethods)@
+        parentObject.@@AssociationRoleName@@ = null;
+    @endif
+  @endif
+@endif
+@endif  
+       
+
+@section RecursiveDisplay@@Name@@Start
+@//
+    /** 
+     * Recursivly displays the object representing the @@Name@@-role.
+     * First, the object is displayed, then, each child is displayed. 
+     *
+     * @param some@@Name@@ the (domain) object to display.
+     */
+    public void recursiveDisplay(@@ClassName@@ some@@Name@@) {
+        if (callHookBeforeDisplay(some@@Name@@, "@@Name@@")) {
+            if (some@@Name@@ == null) {
+                return; // nothing more to display!
+            }
+            display(some@@Name@@);
+        }
+
+      
+@section RecursiveDisplay@@Name@@End
+    }
+
+@section RecursiveDisplaySet@@Name@@@@DialogName@@
+
+@createSection DisplayOnPathToTarget@@Name@@@@DialogName@@End standardControllerMethods@@Name@@@@DialogName@@
+@createSection DisplayOnPathToTarget@@Name@@@@DialogName@@Parent DisplayOnPathToTarget@@Name@@@@DialogName@@End
+@createSection DisplayOnPathToTarget@@Name@@@@DialogName@@Start DisplayOnPathToTarget@@Name@@@@DialogName@@Parent
+
+
+@section DisplayOnPathToTarget@@Name@@@@DialogName@@Start
+    @//
+    /**
+     * Displays domain objects which lies above the target in the object selection.
+     * @param @@Name@@Collection the collection of domain objects to display
+     * @param pathToTarget a list of nodes representing the path to the target
+     * @param findAll if <code>true</code> displaying is done as part of 
+     *      a find all action.
+     */
+    public void displayAboveTarget(Collection @@Name@@Collection, List pathToTarget, boolean findAll) {
+        if (pathToTarget.size() == 1 && pathToTarget.get(0) == this) {
+            if (!findAll && @@Name@@Collection instanceof List) {
+                Iterator it = @@Name@@Collection.iterator();
+                if (it.hasNext()) {
+                    @@ClassName@@ @@Name@@single = (@@ClassName@@) it.next();
+                    recursiveDisplay(@@Name@@single);
+                }
+            } else { 
+                recursiveDisplay(@@Name@@Collection);
+            }
+        } else {
+            Iterator it = @@Name@@Collection.iterator();
+            if (it.hasNext()) {
+                @@ClassName@@ @@Name@@single = (@@ClassName@@) it.next();
+                displayAboveTarget(@@Name@@single, pathToTarget, findAll);
+            }
+        }
+    }
+@//
+    /**
+     * Displays domain object which lies above the target in the object selection.
+     * @param @@Name@@Object the domain object to display
+     * @param pathToTarget a list of nodes representing the path to the target
+     * @param findAll if <code>true</code> the display is a result of a find 
+     * all action. CursorCommon.pre
+     */
+    public void displayAboveTarget(@@ClassName@@ @@Name@@Object, List pathToTarget, boolean findAll) {
+        if (pathToTarget.size() == 1 && pathToTarget.get(0) == this) {
+            recursiveDisplay(@@Name@@Object);
+        } else {
+            pathToTarget.remove(this);
+            display(@@Name@@Object);
+                        
+
+@section DisplayOnPathToTarget@@Name@@@@DialogName@@End
+        }
+    }
+
+@if @(isSectionDefined DisplayOnPathToTarget@@ParentName@@@@DialogName@@Parent)@
+@if @(!isRoot)@
+@section DisplayOnPathToTarget@@ParentName@@@@DialogName@@Parent
+            boolean @@Name@@upRelated = $$isUprelated?true:false$$;
+            if (@@Name@@upRelated || pathToTarget.contains(controller.the@@Name@@)) {
+                Object child = null;
+                if (@@ParentName@@Object != null) {
+  @if @(hasParameter UseAccessorMethods)@
+                    child = @@ParentName@@Object.@@GetAssociationRoleName@@();
+  @endif
+  @if @(!hasParameter UseAccessorMethods)@
+                    child = @@ParentName@@Object.@@AssociationRoleName@@;
+  @endif
+                }
+                if (child instanceof @@ClassName@@) {
+                    @@ClassName@@ child@@ClassName@@ = (@@ClassName@@) child;
+                    controller.the@@Name@@.displayAboveTarget
+                            (child@@ClassName@@, pathToTarget, findAll);
+                } else if (child instanceof Collection) {
+                    Collection childCollection = (Collection) child;
+                    controller.the@@Name@@.displayAboveTarget
+                            (childCollection, pathToTarget, findAll);
+                }
+            }
+@endif
+@endif            
+     
+
+@section RecursiveObtainObject@@Name@@
+@//
+    /**
+     * Recursive obtains this node
+     * @param pathToTarget the path to the target node
+     * @param singleObtain a boolean used to flag if more-related should be
+     *        obtained as many or just the one (defaults to true)
+     * @return the obtained object
+     */
+    public Object recursiveObtainObject(List pathToTarget, boolean singleObtain) {
+        return (Object) recursiveObtain(pathToTarget, singleObtain);
+    }
+@//
+    public Object recursiveObtainObject(List pathToTarget) {
+        return (Object) recursiveObtain(pathToTarget, true);
+    }
+
+            
+@createSection RecursiveMerge@@Name@@@@DialogName@@End standardControllerMethods@@Name@@@@DialogName@@
+@createSection RecursiveMerge@@Name@@@@DialogName@@PathMergeEnd RecursiveMerge@@Name@@@@DialogName@@End
+@createSection RecursiveMerge@@Name@@@@DialogName@@BaseCaseEnd RecursiveMerge@@Name@@@@DialogName@@PathMergeEnd
+@createSection RecursiveMerge@@Name@@@@DialogName@@Start RecursiveMerge@@Name@@@@DialogName@@BaseCaseEnd
+
+@section RecursiveMerge@@Name@@@@DialogName@@Start
+@//
+@//     
+    public void mergeAssociations(Object domainObject, List pathToTarget, boolean error) {
+        mergeAssociations((@@ClassName@@) domainObject, pathToTarget,error);
+    }
+@//
+@//
+    /**
+     * Internal use.
+     * Merges the association on the specified parent object
+     * @param parentObject the parent object
+     * @param pathToTarget the list representing path to target
+     */
+    protected void mergeAssociations(@@ClassName@@ parentObject, List pathToTarget,boolean error) {
+        pathToTarget.remove(this);
+@//        
+        if (pathToTarget.size() <= 1) {      
+            Object targetNode = pathToTarget.size() > 0 ? pathToTarget.get(0) : null;
+@section RecursiveMerge@@Name@@@@DialogName@@BaseCaseEnd
+            return;
+        }
+@//
+        // Since pathToTarget is destroyed on the way, keep a reference
+        // to the node next in line.
+        Object nextOnPath = pathToTarget.get(0);
+@//
+        // Merge next node on path befor other children (depth first)
+        
+        
+@section RecursiveMerge@@Name@@@@DialogName@@PathMergeEnd   
+@//     
+       // Replace children not on path with stored children.
+        
+@section RecursiveMerge@@Name@@@@DialogName@@End
+   }
+
+
+@section NodeInfo@@Name@@GetChangedKeyFields
+@//
+    public Set getChangedKeyFields() {
+        Set changedFields = new HashSet();
+        Object component = null;
+@//         
+@section NodeInfo@@Name@@GetChangedKeyFieldsEnd
+@//
+        return changedFields;
+    }
+
+@section NodeInfo@@Name@@GetChangedFields
+@//
+    public Set getChangedFields() {
+        Set changedFields = new HashSet();
+        Object component = null;
+@//        
+
+@section NodeInfo@@Name@@GetChangedFieldsEnd
+@//
+        return changedFields;
+    }
+
+@section NodeInfo@@Name@@ResetFields
+@//
+    public void resetFields() {
+        Object component = null;
+@//
+
+@section NodeInfo@@Name@@ResetFieldsEnd
+    }
+
+
+@section NodeInfo@@Name@@Variables rt
+@begin
+    private @@ClassName@@ old@@Name@@ = new @@ClassName@@();
+    private boolean isMarkedChanged = false;
+
+    @//
+    @//
+    /** Sets the old version of the object selection node.
+     * NOTE: The object is not copied, it is referenced.
+     * @param inst The new object to be used as the old. 
+     * 
+     */
+    public void setOld(@@ClassName@@ inst) {
+        old@@Name@@ = inst;
+    }
+    @//
+    @//
+   /** 
+    * Returns the old object. The object is not copied.
+    * @return The object.
+    */
+    public @@ClassName@@ getOld() {
+        return old@@Name@@;
+    }
+    @//
+    @//
+    /**
+     * Returns the string representing the main key attribute of this role.
+     * @return the main key
+     */
+    public String getTargetMainKey() {
+        return "@@MainKey@@";
+    }
+
+@section NodeInfo@@Name@@MethodsisChanged rt
+@begin
+    @//
+    @//
+    /** 
+     * Returns whether @@Name@@ has changed state since last call on
+     * reset@@Name@@().  It will both parse the current state of the
+     * block and compare with the dialogattributes of tmp@@Name@@.  
+     * @param tmp@@Name@@ The object to compare with.
+     * @return <code>true</code> if changed, <code>false</code> if not.
+     * @deprecated use ObjectSelection#getState()
+     */
+    public boolean isChanged(@@ClassName@@ tmp@@Name@@) {
+        if(isMarkedChanged) return true;
+        
+@section NodeInfo@@Name@@MethodsisChangedEnd rt
+@begin
+    if(false) {
+        tmp@@Name@@.getClass();
+    }
+
+        return isMarkedChanged;
+    }
+
+@section NodeInfo@@Name@@MethodsisChangedField rt
+@begin
+    /** 
+     * Returns whether @@Name@@ has changed state since last 
+     * call on reset@@Name@@().<br>
+     * It will both parse the current state of the block
+     * and compare with the dialogattribute named in input String s.
+     * @param s The attribute to check.
+     * @param tmp@@Name@@ The object to compare with.
+     * @return True if changed, false if not.
+     * @deprecated use ObjectSelectionNode#isChanged(String)
+     */
+    public boolean isChanged(String s, @@ClassName@@ tmp@@Name@@) {
+        s = TypeTool.stripRoleNamePrefix(s, getRoleName());
+        boolean bChanged = false;
+        if(isMarkedChanged) return true;
+        
+@section NodeInfo@@Name@@MethodsisChangedFieldEnd rt
+@begin
+         return bChanged;
+     }
+
+@section NodeInfo@@Name@@MethodssetChanged rt
+@begin
+    public void setChanged(boolean b) {
+        isMarkedChanged = b;
+
+@section NodeInfo@@Name@@MethodssetChangedEnd rt
+@begin
+     }
+
+@section NodeInfo@@Name@@MethodssetChangedField rt
+@begin
+    public void setChanged (boolean b, String s) {
+        s = TypeTool.stripRoleNamePrefix(s, getRoleName());        
+
+@section NodeInfo@@Name@@MethodssetChangedFieldEnd rt
+@begin
+     }
+
+@section ObtainCond@@Name@@ rt
+
+
+@section ObtainCond@@Name@@End rt
+
+
+@section currentReferences rt
+    /** This is the entry point for the object selection node with name @@Name@@. Use methods found in this class - do not access view directly! */
+    public @@Name@@Methods the@@Name@@;
+
+
+@section initdialogrt rt
+       the@@Name@@ = new @@Name@@Methods(view, this, applicationEnums);
+@if @(!isRoot)@
+       the@@Name@@.setParentNode(the@@ParentName@@);
+@endif
+
+       RoleObject roleObject@@Name@@ = addRoleObject(@@ClassName@@.class, new RoleObject("@@Name@@"));
+       roleObject@@Name@@.setNode(the@@Name@@);
+       roleObject@@Name@@.addSimpleBlock(the@@Name@@);
+
+@section rtsetup rt
+
+
+@section setEnabled@@Name@@ rt
+@begin
+    public void setEnabled(boolean b) {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            setEnabledOnEDT(b);
+            return;
+        }
+              
+@section setEnabled@@Name@@End rt
+@begin
+    }
+
+@section setEnabledField@@Name@@ rt
+@begin
+    public void setEnabled(boolean b, String s) {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            setEnabledOnEDT(b, s);
+            return;
+        }
+        s = TypeTool.stripRoleNamePrefix(s, getRoleName());
+              
+@section setEnabledField@@Name@@End rt
+@begin
+    }
+
+@section setFocusField@@Name@@ rt
+@begin
+    public void setFocus(String s) {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            setFocusOnEDT(s);
+            return;
+        }
+        s = TypeTool.stripRoleNamePrefix(s, getRoleName());
+              
+@section setFocusField@@Name@@End rt
+@begin
+    }
+
+@section setShown@@Name@@ rt
+@begin
+    public void setShown(boolean b) {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            setShownOnEDT(b);
+            return;
+        }
+@section setShown@@Name@@End rt
+@begin
+    }
+
+@section setShownField@@Name@@ rt
+@begin
+    public void setShown(boolean b, String s) {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            setShownOnEDT(b, s);
+            return;
+        }
+        s = TypeTool.stripRoleNamePrefix(s, getRoleName());
+              
+@section setShownField@@Name@@End rt
+@begin
+    }
+
+@section isEnabled@@Name@@ rt
+@begin
+    public boolean isEnabled() {
+        boolean b = false;
+@section isEnabled@@Name@@End rt
+@begin
+       return b;
+    }
+
+@section isEnabledField@@Name@@ rt
+@begin
+    public boolean isEnabled(String s) {
+        s = TypeTool.stripRoleNamePrefix(s, getRoleName());
+        boolean b = false;
+              
+@section isEnabledField@@Name@@End rt
+@begin
+       return b;
+    }
+
+@section hasFocusField@@Name@@ rt
+@begin
+    public boolean hasFocus(String s) {
+        s = TypeTool.stripRoleNamePrefix(s, getRoleName());
+        boolean b = false;
+              
+@section hasFocusField@@Name@@End rt
+@begin
+        return b;
+    }
+
+@section isShown@@Name@@ rt
+@begin
+    public boolean isShown() {
+        boolean b = false;
+              
+@section isShown@@Name@@End rt
+@begin
+        return b;
+    }
+
+@section isShownField@@Name@@ rt
+@begin
+    public boolean isShown(String s) {
+        s = TypeTool.stripRoleNamePrefix(s, getRoleName());
+        boolean b = false;
+              
+@section isShownField@@Name@@End rt
+@begin
+       return b;
+    }
+
+@//
+  
+
+
+@section ObtainDataString@@Name@@ rt
+@begin
+
+    public String obtain(String attr) {
+        attr = TypeTool.stripRoleNamePrefix(attr, getRoleName());
+
+@section ObtainDataString@@Name@@End rt
+@begin
+@// 
+       return null; // field not found!
+    }
+@//
+
+@section ObtainData@@Name@@ rt
+@begin
+    /**
+     * Returns an object representing the relatiion @@Name@@ from the
+     * dialog. This method does exactly the same as {@link #obtain()}, and
+     * differs only in the return type, specified in the interface.
+     * @return Object of @@ClassName@@ with attributes from the OS.
+     */
+    public Object obtainAsObject() {
+        return obtain();
+    }    
+
+    public Object getEmptyDomainObject() {
+        return new @@ClassName@@();
+    }
+        
+        
+
+    public Class getRepresentingClass() {
+        return @@ClassName@@.class;
+    }
+    
+
+
+    /** 
+     * Returns an object representing the relation @@Name@@ from the
+     * dialog. If @@Name@@ is displayed in the dialog, 
+     * the @@Name@@ domain object is used, else a new @@Name@@ object 
+     * is created. Attributes present in the dialog are then 
+     * copied into the @@Name@@ object. 
+     * 
+     * <p>Before returning, the controller's hookAfterObtain@@Name@@ method 
+     * is invoked, giving the application programmer 
+     * the possibility to manipulate or replace the object.
+     * 
+     * @return Object of @@ClassName@@ updated from the dialog.
+     */
+    public @@ClassName@@ obtain() {
+        if (objectProxy == null) {
+            @@ClassName@@ tmp@@Name@@ = new @@ClassName@@();
+            objectProxy = controller
+                    .getProxy(tmp@@Name@@, "@@Name@@");
+        }
+
+@section ObtainData@@Name@@End rt
+@begin
+@//
+       @@ClassName@@ obtainedObject = (@@ClassName@@) objectProxy.getObject();
+       @@ClassName@@ manipulated = controller.hookAfterObtain@@Name@@(obtainedObject);
+       if (manipulated != null) {
+           obtainedObject = manipulated;
+       }
+       return obtainedObject;
+    }
+@//
+
+@section appendData@@Name@@ rt
+@begin
+
+    @Override
+    public void append(@@ClassName@@ tmp@@Name@@, String s) {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            appendOnEDT(tmp@@Name@@, s);
+            return;
+        }
+        s = TypeTool.stripRoleNamePrefix(s, getRoleName());
+        view.noFocusException++;
+        if(tmp@@Name@@ == null) {
+            tmp@@Name@@= new @@ClassName@@();
+        }
+
+@section appendData@@Name@@End rt
+@begin
+        view.noFocusException--;
+    }
+
+
+@createSection createCopy@@Name@@End standardControllerMethods@@Name@@End
+@createSection createCopy@@Name@@ createCopy@@Name@@End
+@section createCopy@@Name@@ 
+@begin 
+@//
+    /**
+     * Internal use.
+     * Creates a shallow copy of the specified instance.
+     * @param fromObject the object to copy from
+     * @return a new, copied instance
+     */
+    public @@ClassName@@ createObjectCopy(@@ClassName@@ fromObject) {
+        @@ClassName@@ retVal = new @@ClassName@@();
+
+@section createCopy@@Name@@End
+        return retVal;
+    }
+
+
+
+
+@section DisplayData@@Name@@ rt
+@begin
+@//
+   /**
+    * Updates data of this object selection node in the dialog, and sets
+    * the state to CLEAN.
+    *
+    * @param domainObject Attributes are copied from this object.
+    */
+    public void display(Object domainObject) {
+        if (domainObject instanceof @@ClassName@@) {
+            display((@@ClassName@@) domainObject);
+        }
+    }
+@//
+   /**
+    * Updates data of the @@ClassName@@ node in the dialog, and sets
+    * the state to CLEAN.
+    *
+    * @param tmp@@Name@@ Attributes are copied from this object.
+    */
+    public void display(@@ClassName@@ tmp@@Name@@) {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            displayOnEDT(tmp@@Name@@);
+            return;
+        }
+        if (tmp@@Name@@ == null) {
+            tmp@@Name@@= new @@ClassName@@();
+        }
+        controller.resetProxy();
+        objectProxy = controller.getNewProxy(tmp@@Name@@, "@@Name@@");
+        boolean resetState = true;
+
+@section DisplayData@@Name@@End rt
+@begin
+        setState(ObjectSelectionNode.CLEAN, false);
+    }
+
+@section isConsistant@@Name@@ rt
+@begin
+    public boolean isConsistant() {
+
+@section isConsistant@@Name@@End rt 
+@begin
+        return true;
+     }    
+
+@section hasOneValue@@Name@@ rt
+@begin
+    public boolean hasOneValue() {
+
+@section hasOneValue@@Name@@End rt
+@begin
+       return false;
+    }
+
+@section hasValue@@Name@@ rt
+@begin
+@//
+    public boolean hasValue() {
+
+@section hasValue@@Name@@End rt
+@begin
+       return true;
+    }
+
+@section hasValueField@@Name@@ rt
+@begin    
+@//
+    public boolean hasValue(String field) {
+        field = TypeTool.stripRoleNamePrefix(field, getRoleName());
+
+@section hasValueField@@Name@@End rt
+@begin
+       return true;
+    }
+
+@section setStyle@@Name@@ rt
+@begin
+@//
+    public void setStyle(Color foreground, Color background) {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            setStyleOnEDT(foreground, background);
+            return;
+        }
+
+@section setStyle@@Name@@End rt
+@begin
+    }
+
+@section setShowZeroField@@Name@@ rt
+@begin
+    /**
+     * @param s the name of the attribute
+     * @param val the setShowZero property
+     * @deprecated - use display rules to set this display rule.
+     */
+    public void setShowZero(String s, boolean val) {
+        s = TypeTool.stripRoleNamePrefix(s, getRoleName());
+       val = !val;
+@section setShowZeroField@@Name@@End rt
+@begin
+        /* Might be generated empty */
+        if(false) {
+            if(val) {
+                s.getClass();
+            }
+        }
+    }
+
+@createSection DisplayDataString@@Name@@End DisplayDataField@@Name@@
+@createSection DisplayDataString@@Name@@ DisplayDataString@@Name@@End
+
+@section DisplayDataString@@Name@@
+    public void osDisplay(Object value, String attribute, 
+            boolean resetState) {
+        if (value instanceof @@ClassName@@) {
+            display(((@@ClassName@@) value), attribute, resetState);
+        } else {
+            display(attribute, value, resetState);
+        }
+    }
+@//
+    /**
+     * Updates data of given attriubte in object selection in the dialog.
+     *
+     * @param attributeName Name of attribute to update.
+     * @param value The new value.
+     */
+    public void display(String attributeName, Object value) {
+        display(attributeName, value, true);
+    }
+@//
+    /**
+     * Updates data of given attriubte in object selection in the dialog.
+     *
+     * @param attributeName Name of attribute to update.
+     * @param value The new value.
+     * @param resetState Set to false to avoid resetting the attribute state.
+     */
+    public void display(String attributeName, Object value, boolean resetState) {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            displayOnEDT(attributeName, value, resetState);
+            return;
+        }
+        view.noFocusException++;
+        attributeName = TypeTool
+                .stripRoleNamePrefix(attributeName, getRoleName());
+@section DisplayDataString@@Name@@End
+        view.noFocusException--;
+    }
+
+
+@section DisplayDataField@@Name@@ rt
+@begin
+@//
+    /**
+     * Updates data of given attriubte in object selection in the dialog.
+     *
+     * @param tmp@@Name@@ Attributes are copied from this object.
+     * @param s The attribute to set.
+     */
+    public void display(@@ClassName@@ tmp@@Name@@, String s) {
+        display(tmp@@Name@@, s, true);
+    }
+@//
+    @Override
+    public void display(@@ClassName@@ tmp@@Name@@, String attributeName, boolean resetState) {
+        if (!SwingUtilities.isEventDispatchThread()){
+            displayOnEDT(tmp@@Name@@, attributeName, resetState);
+            return;
+        }
+        attributeName = TypeTool
+                .stripRoleNamePrefix(attributeName, getRoleName());
+       if (tmp@@Name@@ != null) {
+           Object value = null;
+
+@section DisplayDataField@@Name@@End rt
+@begin
+           display(attributeName, value, resetState);
+       }
+    }
+
+@section ClearKeepKeys@@Name@@ rt
+    /** 
+      * Clears all fields exept the fields representing part of 
+      * the objects key.
+      */ 
+    public void clearKeepKeys() {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            clearKeepKeysOnEDT();
+            return;
+        }
+@//
+        view.noFocusException++;
+
+@section ClearKeepKeys@@Name@@End rt
+        view.noFocusException--;
+    }
+
+@section ClearData@@Name@@ rt
+@begin
+    public void clear() {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            clearOnEDT();
+            return;
+        }
+        view.noFocusException++;
+
+
+@section ClearData@@Name@@End rt
+@begin
+        nullProxy();
+        setState(ObjectSelectionNode.CLEARED, false);
+        view.noFocusException--;
+    }
+
+@section ClearDataField@@Name@@ rt
+@begin
+
+    public void clear(String s) {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            clearOnEDT(s);
+            return;
+        }
+        view.noFocusException++;
+        s = TypeTool.stripRoleNamePrefix(s, getRoleName());
+
+
+@section ClearDataField@@Name@@End rt
+@begin
+        view.noFocusException--;
+    }
+
+
+@section Reset@@Name@@ rt
+@begin
+    /** Resets current state of relation @@Name@@ in the dialog. Sets changed to false and sets old object to be the current object. 
+     * @return Reference to the object that was the new object, that now is the old. 
+     */
+    public @@ClassName@@ reset() {
+        setOld(obtain());
+        setChanged(false);
+
+@section Reset@@Name@@End rt
+@begin
+        return getOld();
+     }
+
+@section standardControllerMethods@@Name@@ 
+@begin
+// ---------------------------------------------------------------------
+// @@GeneratedWith@@
+// ---------------------------------------------------------------------
+package @@GetParameter DialogClassPackage@@.@@DialogNameLower@@;
+import no.genova.domain.GenovaEnums;
+import no.genova.client.support.ObjectSelectionNode;
+import no.genova.client.support.AbstractNode;
+import no.genova.client.support.GenovaDialogController;
+import no.genova.client.support.ListblockLine;
+@//
+import no.genova.support.TypeTool;
+@//
+import no.genova.domain.DomainUtil;
+import no.genova.domain.DomainProxy;
+import no.genova.domain.DomainObjectProxy;
+import no.genova.client.event.GenovaValueState;
+@//
+import no.genova.exception.GenovaClientException;
+@//
+import java.util.Collection;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.Iterator;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.HashMap;
+@//
+import java.io.Serializable;
+import java.awt.Color;
+import java.lang.reflect.Method;
+@//
+import javax.swing.SwingUtilities;
+
+
+@@JavaImports@@
+
+/** 
+ * Access methods for @@Name@@. Use variable the@@Name@@ to access
+ * methods in this class.
+ * <p><strong>State handling</strong></p>
+ *
+ * When calling reset() the current object selection state will be
+ * copied to the old object state. This object is accessible
+ * through getOld(). Upon displaying data to the structure, the
+ * old value is also updated. If old data and new data differes
+ * the isChanged method will return true.
+ */
+@SuppressWarnings("all")
+public class @@Name@@Methods extends AbstractNode<@@ClassName@@> {
+@//
+    @@DialogName@@View view;
+
+    GenovaEnums genovaEnums;
+    @@DialogName@@DefaultController controller;
+    ObjectSelectionNode parentNode;
+    List childNodes = new ArrayList();
+    @@Name@@Methods(@@DialogName@@View view, @@DialogName@@DefaultController controller, GenovaEnums genovaEnums) {
+        this.view = view;
+        this.genovaEnums = genovaEnums;
+        this.controller = controller;
+    }
+@//
+    public ObjectSelectionNode getParentNode() {
+        return parentNode;
+    }
+
+@//
+    public void setParentNode(ObjectSelectionNode parentNode) {
+        this.parentNode = parentNode;
+        parentNode.addChild(this);
+    }
+@//
+@//
+    public ObjectSelectionNode getRootNode() {
+        ObjectSelectionNode parent = getParentNode();
+        if (parent == null) return this;
+@//
+        while (parent.getParentNode() != null) {
+            parent = parent.getParentNode();
+        }
+@//
+        return parent;
+    }
+@//
+@//
+    public List getChildren() {
+        return childNodes;
+    }
+
+    public String getRoleName() {
+        return "@@Name@@";
+    }
+
+@//
+@//
+    public void addChild(ObjectSelectionNode child) {
+        childNodes.add(child);
+    }
+
+    public boolean callHookBeforeDisplay(Object objectToDisplay, String roleName) {
+       return controller.hookBeforeDisplay(objectToDisplay, roleName);
+    }
+@//
+@//
+    public boolean callCheckSaveHook() {
+        return controller.callCheckSaveHook("@@Name@@");
+    }
+@//
+@//
+    public boolean callCheckDeleteHook() {
+        return controller.callCheckDeleteHook("@@Name@@");
+    }
+@//
+@//
+    public boolean callCheckCloseHook() {
+        return controller.callCheckCloseHook("@@Name@@");
+    }
+@//
+@//
+    public boolean callCheckClearHook() {
+        return controller.callCheckClearHook("@@Name@@");
+    }
+@//
+@//
+    public boolean callCheckFindHook() {
+        return controller.callCheckFindHook("@@Name@@");
+    }
+@//
+@//
+    public boolean callCheckChangeHook() {
+        return controller.callCheckChangeHook("@@Name@@");
+    }
+@//
+@//
+    public boolean callCheckRowSelectHook(int currentSelectionIndex, int newSelectionIndex) {
+        return controller.callCheckRowSelectHook("@@Name@@", currentSelectionIndex, newSelectionIndex);
+    }
+@//
+@//
+    public GenovaDialogController getController() {
+        return controller;
+    }
+@//
+@//
+
+
+@section standardControllerMethods@@Name@@End
+@begin
+}
+
+M4_CallHook(Print)
+
+
+M4_CallHook(Save)
+
+@section callCheckSaveHook
+@//
+        if (M4_ConstRoleName(@@Name@@).equals(roleName)) {
+            return hookCheckSave@@Name@@();
+        }
+
+M4_CallHook(Find)
+
+@section callCheckFindHook
+        if (M4_ConstRoleName(@@Name@@).equals(roleName)) {
+            return hookCheckFind@@Name@@();
+        }
+
+M4_CallHook(Close)
+
+@section callCheckCloseHook
+        if (M4_ConstRoleName(@@Name@@).equals(roleName)) {
+            return hookCheckClose@@Name@@();
+        }
+
+M4_CallHook(Delete)
+
+@section callCheckDeleteHook
+        if (M4_ConstRoleName(@@Name@@).equals(roleName)) {
+            return hookCheckDelete@@Name@@();
+        }
+
+M4_CallHook(Clear)
+
+@section callCheckClearHook
+        if (M4_ConstRoleName(@@Name@@).equals(roleName)) {
+            return hookCheckClear@@Name@@();
+        }
+
+M4_CallHook(Change)
+
+@section callCheckChangeHook
+        if (M4_ConstRoleName(@@Name@@).equals(roleName)) {
+            return hookCheckChange@@Name@@();
+        }
+
+@section callHookCheckRowSelect
+@//
+        if (M4_ConstRoleName(@@Name@@).equals(roleName)) {
+            return hook@@Name@@CheckRowSelect(oldSelection, newSelection);
+        }        
+
+@section callCheckRowSelectHook
+        if (M4_ConstRoleName(@@Name@@).equals(roleName)) {
+            return hookCheckRowSelect@@Name@@(currentSelectionIndex, newSelectionIndex);
+        }
+
+@section HookMethodsSuper
+M4_CheckHook(Save)
+@//
+@//
+    /**
+     * <strong>The use of this method is discouraged. Override
+     * hook@@Name@@CheckSave instead.</strong>
+     * Hook method, called as part of "check save" on 
+     * @@Name@@. Override in subclass!
+     * The return value have the following semantics:
+     * <ul>
+     * <li><code>true</code> continue with check save
+     * <li><code>false</code> abort check save and continue with save action.
+     * <li><code>throw exception</code> abort check save, interpret
+     *     message and recover.
+     * </ul>
+     * @return <code>true</code> if check save should continue to check nodes; 
+     *         <code>false</code> if check save should finish cheking and
+     *         continue with save action.
+     * @see #hook@@Name@@CheckSave()
+     */
+    public boolean hookCheckSave@@Name@@() {
+        return true;
+    }
+
+M4_CheckHook(Find)
+@//
+@//
+    /**
+     * <strong>The use of this method is discouraged. Override
+     * hook@@Name@@CheckFind instead.</strong>
+     * Hook method, called as part of "check find" on @@Name@@. Override in subclass!
+     * The return value have the following semantics:
+     * <ul>
+     * <li><code>true</code> continue with check find
+     * <li><code>false</code> abort check find and continue with find action.
+     * <li><code>throw exception</code> abort check find, interpret
+     *     message and recover.
+     * </ul>
+     * @return <code>true</code> if check find should continue to check nodes; 
+     *         <code>false</code> if check find should finish cheking and
+     *         continue with find action.
+     * @see #hook@@Name@@CheckFind()
+     */
+    public boolean hookCheckFind@@Name@@() {
+        return true;
+    }
+
+M4_CheckHook(Close)
+@//
+@//
+    /**
+     * <strong>The use of this method is discouraged. Override
+     * hook@@Name@@CheckClose instead.</strong>
+     * Hook method, called as part of "check close" on @@Name@@. Override in subclass!
+     * The return value have the following semantics:
+     * <ul>
+     * <li><code>true</code> continue with check close
+     * <li><code>false</code> abort check close and continue with close action.
+     * <li><code>throw exception</code> abort check close, interpret
+     *     message and recover.
+     * </ul>
+     * @return <code>true</code> if check close should continue to check nodes; 
+     *         <code>false</code> if check close should finish cheking and
+     *         continue with close action.
+     * @see #hook@@Name@@CheckClose()
+     */
+    public boolean hookCheckClose@@Name@@() {
+        return true;
+    }
+
+M4_CheckHook(Delete)
+
+@//
+@//
+    /**
+     * <strong>The use of this method is discouraged. Override
+     * hook@@Name@@CheckDelete instead.</strong>
+     * Hook method, called as part of "check delete" on @@Name@@. Override in subclass!
+     * The return value have the following semantics:
+     * <ul>
+     * <li><code>true</code> continue with check delete
+     * <li><code>false</code> abort check delete and continue with delete action.
+     * <li><code>throw exception</code> abort check delete, interpret
+     *     message and recover.
+     * </ul>
+     * @return <code>true</code> if check delete should continue to check nodes; 
+     *         <code>false</code> if check delete should finish cheking and
+     *         continue with delete action.
+     * @see #hook@@Name@@CheckDelete()
+     */
+    public boolean hookCheckDelete@@Name@@() {
+        return true;
+    }
+
+M4_CheckHook(Print)
+@//
+@//
+    /**
+     * <strong>The use of this method is discouraged. Override
+     * hook@@Name@@CheckPrint instead.</strong>
+     * Hook method, called as part of "check print" on @@Name@@. Override in subclass!
+     * The return value have the following semantics:
+     * <ul>
+     * <li><code>true</code> continue with check print
+     * <li><code>false</code> abort check print and continue with print action.
+     * <li><code>throw exception</code> abort check print, interpret
+     *     message and recover.
+     * </ul>
+     * @return <code>true</code> if check print should continue to check nodes; 
+     *         <code>false</code> if check print should finish cheking and
+     *         continue with print action.
+     * @see #hook@@Name@@CheckPrint()
+     */
+    public boolean hookCheckPrint@@Name@@() {
+        return true;
+    }
+
+M4_CheckHook(Clear)
+
+
+@//
+@//
+    /**
+     * <strong>The use of this method is discouraged. Override
+     * hook@@Name@@CheckClear instead.</strong>
+     * Hook method, called as part of "check clear" on @@Name@@. Override in subclass!
+     * The return value have the following semantics:
+     * <ul>
+     * <li><code>true</code> continue with check clear
+     * <li><code>false</code> abort check clear and continue with clear action.
+     * <li><code>throw exception</code> abort check clear, interpret
+     *     message and recover.
+     * </ul>
+     * @return <code>true</code> if check clear should continue to check nodes; 
+     *         <code>false</code> if check clear should finish cheking and
+     *         continue with clear action.
+     * @see #hook@@Name@@CheckClear()
+     */
+    public boolean hookCheckClear@@Name@@() {
+        return true;
+    }
+
+M4_CheckHook(Change)
+@//
+@//
+    /**
+     * <strong>The use of this method is discouraged. Override
+     * hook@@Name@@CheckChange instead.</strong>
+     * Hook method, called as part of "check change" on @@Name@@. Override in subclass!
+     * The return value have the following semantics:
+     * <ul>
+     * <li><code>true</code> continue with check change
+     * <li><code>false</code> abort check change and continue with change action.
+     * <li><code>throw exception</code> abort check change, interpret
+     *     message and recover.
+     * </ul>
+     * @return <code>true</code> if check change should continue to check nodes; 
+     *         <code>false</code> if check change should finish cheking and
+     *         continue with change action.
+     * @see #hook@@Name@@CheckChange()
+     */
+    public boolean hookCheckChange@@Name@@() {
+        return true;
+    }
+
+    /**
+     * Hook method, invoked as part of "check row select" on @@Name@@.
+     * Override in subclass! 
+     * <p>The return value must be one of the following:
+     *
+     * <ul>
+     *   <li><code>ECheckResult.DEFAULT</code> - continue with check
+     *   <li><code>ECheckResult.UNCHANGED</code> - @@Name@@ and children 
+     *       are unchanged
+     *   <li><code>ECheckResult.CONTINUE</code> - @@Name@@ is unchanged, 
+     *       check children
+     *   <li><code>ECheckResult.CHANGED</code> - @@Name@@ is changed
+     * </ul>
+     *
+     * If an exception is thrown, the ongoing action is aborted. 
+     *
+     * @param oldSelection the current selected line
+     * @param newSelection the line about to be selected
+     * @return a ECheckResult 
+     */
+     public ECheckResult hook@@Name@@CheckRowSelect
+                (int oldSelection, int newSelection) {
+        return hookCheckRowSelect@@Name@@(oldSelection, newSelection) ? 
+                ECheckResult.DEFAULT : ECheckResult.UNCHANGED;
+     }
+
+@//
+@//
+    /** 
+     * <strong>The use of this method is discouraged. Override
+     * hook@@Name@@CheckRowSelect instead.</strong>
+     * Hook method, called as part of "check row selection" on @@Name@@. Override in subclass!
+     * The return value have the following semantics:
+     * <ul>
+     * <li><code>true</code> continue with check row selection
+     * <li><code>false</code> abort check row selection and continue with row selection.
+     * <li><code>throw exception</code> abort row selection, interpret
+     *     message and recover.
+     * </ul>
+     * @param currentSelection the currently selected row. 
+     * @param newSelection the row the user wish to select.
+     * @return <code>true</code> if check change should continue to check nodes; 
+     *         <code>false</code> if check change should finish cheking and
+     *         continue with change action.
+     * @see #hook@@Name@@CheckRowSelect(int, int)
+     */
+
+    public boolean hookCheckRowSelect@@Name@@(int currentSelection, 
+            int newSelection) {
+        return true;
+    }
+@//
+@//
+    
+
+
+@//
+
+@section ClearChildrenRecursive@@Name@@ rt
+
+@section ClearChildrenRecursive@@Name@@End rt
+
+@section Insert@@Name@@ rt
+
+@section Insert@@Name@@End rt
+
+@section SaveChildrenRecursive@@Name@@ rt
+
+@section SaveChildrenRecursive@@Name@@End rt
+
+@section Update@@Name@@ rt
+
+@section Update@@Name@@End rt
+
+@section MethodDeclaration rt
+
+@section UpdateBackupColumns@@Name@@ rt
+
+@section UpdateBackupColumns@@Name@@End rt 
+
+
+@section setCurrent rt
+
+@section IsPartOfKey@@Name@@
+    /**
+     * Returns true if the specified parameter is part of this role's 
+     * key.
+     * @param attributeName the name of the attribute
+     * @return <code>true</code> if part of key
+     */
+    private boolean isPartOfKey(String attributeName) {
+        attributeName = TypeTool
+                .stripRoleNamePrefix(attributeName, getRoleName());
+
+@section IsPartOfKey@@Name@@End
+        return false;
+   }  
+
+@createSection InsertInListblockLine@@Name@@End standardControllerMethods@@Name@@End
+@createSection InsertInListblockLine@@Name@@Start InsertInListblockLine@@Name@@End
+
+@section InsertInListblockLine@@Name@@Start
+    /**
+     * Inserts the specified instance in the specified listblock line.
+     * @param obj the object to insert
+     * @param line the line to insert in.
+     */
+    public void insertInListblockLine(@@ClassName@@ obj, ListblockLine line) {
+        if (obj == null) {
+            return;
+        }
+        line.insertObject("@@Name@@", obj);
+@section InsertInListblockLine@@Name@@End
+    }
+  
+@section GetObjectSelectionNodeStart
+        if ("@@Name@@".equals(roleName)) {
+            return the@@Name@@;
+        }
+  
+@section hookAfterObtain
+@//
+    /**
+     * Hook method, invoked after the obtaining the @@Name@@ object.
+     * The returned @@Name@@ object is the object that will be used as
+     * the return value of the obtain method.
+     * Returning <code>null</code> from this method is ignored, the
+     * effect being as if this method had not been invoked.
+     * @param domainObject the obtained domain object.
+     * @return the domain object.
+     */
+    public @@ClassName@@ hookAfterObtain@@Name@@(@@ClassName@@ domainObject) {
+        // override in subclass!
+        return domainObject;
+    }
+
+@createSection ConstRole@@Name@@End ConstRole
+@createSection ConstRole@@Name@@ ConstRole@@Name@@End
+
+@section ConstRole@@Name@@
+@//
+@//
+    /**
+     * Constants used in the dialog from the object selection     
+     * node @@Name@@.
+     */
+    public static interface @@Name@@ {
+@//
+        /** The role name */
+        String M4_OSRoleName = "@@Name@@";
+
+@section ConstRole@@Name@@End
+    }
+

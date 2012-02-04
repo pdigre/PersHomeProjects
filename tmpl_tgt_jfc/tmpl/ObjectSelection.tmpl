@@ -1,0 +1,322 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@createSection DisplayHelperMethods MethodDeclaration
+
+@section DisplayHelperMethods
+@//
+@//
+   public List getRoleObjects(Object anObject) {
+        return getRoleObjects(DomainUtil.getDomainClass(anObject));
+   }
+@//
+@//
+   /**
+    * Returns a list of role objects representing the specified class.
+    * @param objectClass the class object
+    * @return a list of role objects.
+    */
+   public List getRoleObjects(Class objectClass) {
+       List roleObjectList = new LinkedList();
+       Set roleObjectSet = null;
+       Class domainClass = objectClass;
+
+       while (roleObjectSet == null && domainClass != null) {
+           roleObjectSet = (Set) roleObjects.get(domainClass);
+           domainClass = DomainUtil.getDomainSuperClass(domainClass);
+       }
+
+       if (roleObjectSet != null) {
+           roleObjectList.addAll(roleObjectSet);
+       } else {
+           // log failure.
+           Message msg = MessageFactory.getInstance().getMessage(CRuntimeMsg.CF_GET_ROLES_FAILED,
+                         this.getClass(), objectClass);
+           MessageLogDispatcher.getInstance().log(msg, null);
+       }
+
+       return roleObjectList;
+ }
+@//
+@//
+   public Map getRoleObjects() {
+        return roleObjects;
+   }
+
+@//
+@//
+
+@createSection BuildRoleObjectsEnd DisplayHelperMethods
+@createSection BuildRoleObjects BuildRoleObjectsEnd
+
+@section BuildRoleObjects
+@//
+@//
+    // default (package) visibility
+    Map roleObjects = new HashMap(); /* key = class
+                                             * value = Set of role objects
+                                             */
+
+    private RoleObject addRoleObject(Class theObjectClass,
+                                     RoleObject roleObject) {
+        Set roleObjectsSet = (Set) roleObjects.get(theObjectClass);
+        if (roleObjectsSet == null) {
+            roleObjectsSet = new HashSet();
+            roleObjects.put(theObjectClass, roleObjectsSet);
+        }
+        if (roleObjectsSet.contains(roleObject)) {
+            Iterator it = roleObjectsSet.iterator();
+            boolean found = false;
+            while (it.hasNext() && !found) {
+                RoleObject ro = (RoleObject) it.next();
+                if (roleObject.equals(ro)) {
+                    roleObject = ro;
+                    found = true;
+                }
+            }
+        } else {
+            roleObjectsSet.add(roleObject);
+        }
+        return roleObject;
+     }
+
+    private void createRoleObjects() {
+
+
+@section BuildRoleObjectsEnd
+   }
+
+
+@createSection ObtainMethods MethodDeclaration
+
+@createSection ObtainRootsEnd MethodDeclaration
+@createSection ObtainRoots ObtainRootsEnd
+
+@section ObtainRoots
+
+    /**
+     * Obtains all nodes from the dialog.
+     * <p>If this method is invoked on another thread than EDT, the
+     * invoking thread is paused, and the obtain is performed on
+     * the EDT. After the obtain, the invoking thread reads the result and
+     * returns.
+     *
+     * @return an ObjectSelection with all the dialog's roots
+     */
+    public ObjectSelection obtainObjectSelection() {
+
+        class Task implements Runnable {
+            ObjectSelection objectSelection;
+@//
+            public void run() {
+                doTask();
+            }
+@//
+            public void doTask() {
+                objectSelection =
+                        new ObjectSelection(null, null, null,
+                                            getServerApplicationName(),
+                                            "@@Name@@");
+                Map obtainedRoots = new HashMap();
+@section ObtainRootsEnd
+@//
+                Iterator entries = obtainedRoots.entrySet().iterator();
+                while (entries.hasNext()) {
+                    Map.Entry entry = (Map.Entry) entries.next();
+                    String entryRole = (String) entry.getKey();
+                    ObjectSelection entryOS = (ObjectSelection) entry.getValue();
+                    List entryRoots = entryOS.getRootObjects(entryRole);
+                    objectSelection.putRootObjects(entryRole, entryRoots);
+                }
+@//
+            }
+        }
+@//
+        Task task = new Task();
+@//
+        if (!SwingUtilities.isEventDispatchThread()) {
+            String msgID = null;
+            Exception ex = null;
+            try {
+                SwingUtilities.invokeAndWait(task);
+            } catch (InterruptedException e) {
+                msgID = CRuntimeMsg.CT_INTERRUPTED;
+                ex = e;
+            } catch (InvocationTargetException e) {
+                msgID = CRuntimeMsg.CT_INVOCATION_TARGET;
+                ex = e;
+            } finally {
+                if (msgID != null) {
+                    Object[] msgArgs = {this.getClass(),
+                            "obtainObjectSelection", ex};
+                   Message msg = MessageFactory.getInstance().getMessage(msgID, msgArgs);
+                   MessageLogDispatcher.getInstance().log(msg, null);
+                   throw new GenovaClientFrameworkException(ex, msg);
+                }
+            }
+        } else {
+            task.doTask();
+        }
+@//
+        return task.objectSelection;
+    }
+@//
+@//
+
+
+
+@section ObtainMethods
+
+    /**
+     * Obtains the specified node from the dialog, and
+     * inits an ObjectSelection object.
+     * <p>If this method is invoked on another thread than EDT, the
+     * invoking thread is paused, and the obtain is performed on
+     * the EDT. After the obtain, the invoking thread reads the result and
+     * returns.
+     * @param targetNode the target node to obtain
+     * @return the object selection containing the obtained object
+     */
+    public ObjectSelection obtainObjectSelection(
+            final AbstractNode targetNode) {
+        return obtainObjectSelection(targetNode, false);
+    }
+
+    /**
+     * Obtains the specified node from the dialog, and
+     * inits an ObjectSelection object.
+     * <p>If this method is invoked on another thread than EDT, the
+     * invoking thread is paused, and the obtain is performed on
+     * the EDT. After the obtain, the invoking thread reads the result and
+     * returns.
+     * @param targetNode the target node to obtain
+     * @param greedyObtain if <code>true</code>, do greedy obtain instad of normal obtain
+     * @return the object selection containing the obtained object
+     */
+    private ObjectSelection obtainObjectSelection(
+            final AbstractNode targetNode,
+            final boolean greedyObtain) {
+        class Task implements Runnable {
+            ObjectSelection objectSelection;
+@//
+            public void run() {
+                doTask();
+            }
+
+            public void doTask() {
+                ObjectSelectionNode rootNode = targetNode.getRootNode();
+                List pathToTarget = targetNode.getPathToNode();
+                Object rootObject = null;
+                if (greedyObtain) {
+                    if (rootNode.inListblock()) {
+                        rootObject = rootNode.obtainSet(false);
+                    } else {
+                        rootObject = rootNode.greedyObtain();
+                    }
+                } else {
+                    rootObject = rootNode
+                        .recursiveObtainObject(pathToTarget);
+                }
+                List obtainedRoot = TypeTool.getDefaultList();
+                if (rootObject != null) {
+                    if (rootObject instanceof Collection) {
+                        obtainedRoot.addAll((Collection) rootObject);
+                    } else {
+                        obtainedRoot.add(rootObject);
+                    }
+                }
+                String rootName = rootNode.getRoleName();
+                String targetRoleName = targetNode.getRoleName();
+                objectSelection = new ObjectSelection(rootName,
+                        targetRoleName, getServerApplicationName(), "@@Name@@");
+                objectSelection.putRootObjects(rootName, obtainedRoot);
+            }
+        }
+@//
+        Task task = new Task();
+        if (!SwingUtilities.isEventDispatchThread()) {
+            String msgID = null;
+            Exception ex = null;
+            try {
+                SwingUtilities.invokeAndWait(task);
+            } catch (InterruptedException e) {
+                msgID = CRuntimeMsg.CT_INTERRUPTED;
+                ex = e;
+            } catch (InvocationTargetException e) {
+                msgID = CRuntimeMsg.CT_INVOCATION_TARGET;
+                ex = e;
+            } finally {
+                if (msgID != null) {
+                    Object[] msgArgs = {this.getClass(),
+                            "obtainObjectSelection, target: " +
+                            targetNode != null ? targetNode.getRoleName(): "null", ex};
+                    Message msg = MessageFactory.getInstance().getMessage(msgID, msgArgs);
+                    MessageLogDispatcher.getInstance().log(msg, null);
+                    throw new GenovaClientFrameworkException(ex, msg);
+                }
+            }
+        } else {
+            task.doTask();
+        }
+@//
+        return task.objectSelection;
+    }
+@//
+@//
+@createSection GetObjectSelectionNodeEnd MethodDeclaration
+@createSection GetObjectSelectionNodeStart GetObjectSelectionNodeEnd
+@section GetObjectSelectionNodeStart
+    public ObjectSelectionNode getObjectSelectionNode(String roleName) {
+
+@section GetObjectSelectionNodeEnd
+        /* no match! */
+        return null;
+    }
+
+
+@createSection ClearObjectSelectionEnd MethodDeclaration
+@createSection ClearObjectSelectionStart ClearObjectSelectionEnd
+
+@section ClearObjectSelectionStart
+@//
+@//
+    public void clearObjectSelection() {
+        ClearTool clearTool = new ClearTool(roleObjects);
+
+@section ClearObjectSelectionEnd
+    }
+
+
+@createSection CheckClearObjectSelectionEnd MethodDeclaration
+@createSection CheckClearObjectSelectionStart CheckClearObjectSelectionEnd
+
+@section CheckClearObjectSelectionStart
+@//
+@//
+    private boolean checkClearObjectSelection() {
+        boolean ok = true;
+@section CheckClearObjectSelectionEnd
+        if (!ok) {
+            Message msg = MessageFactory.getInstance().getMessage(CRuntimeMsg.CC_CHECK_CLEAR_MSG);
+            MessageReply reply = Application.getMessageDispatcher(getWindow(), getApplication()).dispatch(msg);
+            ok = MessageReplyType.REPLY_OK.equals(reply);
+        }
+
+        return ok;
+    }
+
+
+
+@//
+@//
+

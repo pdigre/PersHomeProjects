@@ -1,0 +1,209 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@createSection setShown@@Name@@ setShown@@NodeName@@End
+@createSection setShownField@@Name@@ setShownField@@NodeName@@End
+@createSection isShown@@Name@@ isShownField@@NodeName@@End
+@createSection isShownField@@Name@@ isShownField@@NodeName@@End
+
+@section Declaration
+    @//
+    /** The @@Name@@ note page */
+    protected JPanel @@Name@@ = new JPanel();
+@section controllerdecl
+    @//
+    /* Her kommer generert kode for NotePage:controllerdecl*/
+    @//
+    HashMap tabListFromNodeName@@Name@@ = new HashMap();
+    HashMap tabListFromComponent@@Name@@ = new HashMap();
+
+@section SetupInit@@ParentName@@Start
+        init@@Name@@(); 
+        
+@createSection SetupInit@@Name@@End SetupInit
+@createSection SetupInit@@Name@@Start SetupInit@@Name@@End
+
+@section SetupInit@@Name@@Start
+    @//
+    /** Initializes the @@Name@@ note page */
+    private void init@@Name@@() {
+        controller.tabListFromNodeName@@ParentName@@.put("@@Name@@", @@Name@@);
+        controller.tabListFromComponent@@ParentName@@.put(@@Name@@, "@@Name@@");
+        @//
+        @IncNumber 3 1
+        controller.notebookOwner.put(new Integer(@@GetNumber 3@@), @@ParentName@@);
+        @//
+    //     controller.newTabFoucsGroup.get(@@Name@@));
+        @//
+        @@ParentName@@.addTab("@@Title@@",null,@@Name@@);
+        @@ParentName@@.setSelectedIndex(@@GetNumber 2@@);
+        @@Name@@.setFocusCycleRoot(true);
+        @@Name@@.setLocation(@@XPos@@+@@ParentLeftFrameWidth@@,@@YPos@@+@@ParentTopFrameHeight@@);
+        @@Name@@.setSize(@@Width@@, @@Height@@);
+@if @(hasShownHiddenEvent)@
+        addShownHidden@@Name@@();
+@endif
+        RepositoryProxy.setBorder(@@Name@@,1,"@@Title@@");
+        @(hasBackgroundColor?RepositoryProxy.setBackgroundColor(@@Name@@,"@@StyleBackgroundColor@@");:)@
+        @(hasForegroundColor?RepositoryProxy.setForegroundColor(@@Name@@,"@@StyleForegroundColor@@");:)@
+        @(hasFont?RepositoryProxy.setFont(@@Name@@,"@@FontName@@");:)@
+        @@Name@@.setLayout(null);
+        @@ParentName@@NotePages.add("@@Name@@");
+        @IncNumber 2 1
+
+@section SetupInit@@Name@@End
+    }
+
+@createSection Hide@@Name@@ SetupInit@@ParentName@@End 
+
+@section Hide@@Name@@
+@if @(isFirstInGroup)@
+        @@ParentName@@Manager = new GenovaTabPaneManager(@@ParentName@@);
+@endif    
+        addNotePage(@@Name@@, @@ParentName@@Manager);    
+@if @(!isVisible)@
+        @@ParentName@@Manager.hideTab(@@Name@@);
+@endif        
+                   
+
+@createSection SetShownHidden@@LogicalName@@End SetShownHidden
+@createSection SetShownHidden@@LogicalName@@Start SetShownHidden@@LogicalName@@End 
+
+
+@section SetShownHidden@@Name@@Start
+@if @(hasShownHiddenEvent)@
+    private void addShownHidden@@Name@@() {
+        @@Name@@.addComponentListener(new ComponentAdapter() {
+
+
+@createSection compHidden@@LogicalName@@End SetShownHidden@@LogicalName@@End
+@createSection compHidden@@LogicalName@@Start compHidden@@LogicalName@@End
+@createSection compShown@@LogicalName@@End compHidden@@LogicalName@@Start
+@createSection compShown@@LogicalName@@Start compShown@@LogicalName@@End
+
+@if @(hasEvent Shown)@
+  @section compShown@@LogicalName@@Start
+            public void componentShown(ComponentEvent e) {
+
+  @section compShown@@LogicalName@@End
+            }
+@endif
+
+@if @(hasEvent Hidden)@
+  @section compHidden@@LogicalName@@Start
+
+            public void componentHidden(ComponentEvent e) {
+
+@section compHidden@@LogicalName@@End
+            }       
+@endif
+ 
+@section SetShownHidden@@Name@@End            
+        });
+    }
+@endif
+
+@section setUpNameComponentMapping
+        nameToComponent.put("@@Name@@", @@Name@@);
+        componentToName.put(@@Name@@, "@@Name@@");
+
+
+@section ConstCompNotePage
+@//
+        /** The NotePage @@Name@@ component */
+        String $$hasParameter DialogConstUppercase?@@NameUpper@@:@@Name@@$$ = "@@Name@@";
+
+
+@createSection ClearBlockEnd@@Name@@@@DialogName@@ ClearBlock
+@createSection ClearBlockStart@@Name@@@@DialogName@@ ClearBlockEnd@@Name@@@@DialogName@@
+
+
+@section ClearBlockStart@@Name@@@@DialogName@@
+@//
+    /**
+     * Clears the @@Name@@ 
+     */
+    public void clear@@Name@@() {
+
+@section ClearBlockEnd@@Name@@@@DialogName@@
+    }
+
+@section ClearBlockStart@@ParentName@@@@DialogName@@
+        clear@@Name@@(); 
+
+@createSection EndFocusGained@@LogicalName@@ FocusActions
+@createSection StartFocusGained@@LogicalName@@ EndFocusGained@@LogicalName@@
+
+@section StartFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+        @@Name@@.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+@section EndFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+            }
+        });
+@endif
+
+@createSection EndFocusLost@@LogicalName@@ FocusActions
+@createSection StartFocusLost@@LogicalName@@ EndFocusLost@@LogicalName@@
+
+@section StartFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+        @@Name@@.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+
+@section EndFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+            }
+        });
+@endif
+
+
+
+@event Got Focus
+@section StartFocusGained@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.@@MethodName@@(new GenovaFocusEventHolder(e));
+@endif
+@endif    
+
+@event Lost Focus
+@section StartFocusLost@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.@@MethodName@@(new GenovaFocusEventHolder(e));
+@endif
+@endif
+
+@event Shown
+@section compShown@@LogicalName@@Start
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.@@MethodName@@(new GenovaEvent(e));
+@endif
+@endif
+
+@event Hidden
+@section compHidden@@LogicalName@@Start
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.@@MethodName@@(new GenovaEvent(e));
+@endif
+@endif

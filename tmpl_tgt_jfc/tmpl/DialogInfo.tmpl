@@ -1,0 +1,167 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@section otherImportsDialog rt
+
+@@JavaImports@@
+
+@section otherImportsController rt
+
+@@JavaImports@@
+
+
+@section DialogStartDeclaration
+
+
+@section AddDebugWindow
+@if @(hasParameter GenerateDebug)@
+@if @(!isApplicationWindow)@
+        newMenuItem = debugMenu.addGenovaItem("@@DialogName@@");
+        newMenuItem.addActionListener(new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                createDialog("@(DialogName)@");
+            }
+        });
+@//
+@endif
+@endif
+
+@section SetupDialogController
+@if @(isApplicationWindow)@
+        applicationController = createDialog("@@DialogName@@", false);
+        applicationController.init();
+        InputMap appInputMap = desktop.getRootPane().getInputMap(
+                desktop.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        InputMap inputMap = applicationController.getView().getRootPane()
+                .getInputMap(JInternalFrame.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap appActionMap = desktop.getRootPane().getActionMap();
+        ActionMap actionMap = applicationController.getView()
+                .getRootPane().getActionMap();
+
+        KeyStroke[] keyStroke = inputMap.allKeys();
+        if (keyStroke != null) {
+            for (int i = 0; i < keyStroke.length; i++) {
+                KeyStroke stroke = keyStroke[i];
+                Object key = inputMap.get(stroke);
+                Action action = actionMap.get(key);
+                appInputMap.put(stroke, key);
+                appActionMap.put(key, action);
+            }
+        }
+@endif
+
+@section controllerdecl
+
+
+@section viewinit
+    boolean started = false; 
+    @@DialogName@@View view;
+    /** The vector with the tool bar elements */
+    protected Vector toolBarVector = null;
+
+@section initdialog
+    /**  
+     * Internal use.
+     * Inits the dialog.
+     */
+    public void initWithoutFrame() {
+
+       if (!(started)) {
+          view = new @@DialogName@@View(this, applicationEnums);
+          view.initOuterPanel();
+          toolBarVector = view.toolBarElements;
+       }
+       started = true;
+
+//       view.setVisible(true);
+//       if (getWindow() instanceof JInternalFrame) {
+//           setAccessPolicy();
+//       }
+    }
+
+    /** 
+     * Internal use.
+     * Inits the dialog.
+     */
+    public void init() {
+       if (!(started)) {
+           view = new @@DialogName@@View(this, applicationEnums);  
+           view.init();
+           toolBarVector = view.toolBarElements;
+       }
+       started = true;
+@if @(!isApplicationWindow)@
+       getWindow().setFocusTraversalPolicy(
+               new CustomTraversalPolicy(this, tabSequence));
+@endif
+       
+       
+@section initdialogrt rt
+//       view.setVisible(true);
+//       if (getWindow() instanceof JInternalFrame) {
+//           setAccessPolicy();
+//       }
+@section initdialogend
+
+    }
+
+    /** 
+     * Returns the window compoent of this dialog. If it is a dialog box, the
+     * dialog box is returned (an instance of JDialog), otherwise the internal frame is returned.
+     * @return the window component representing this dialog.
+     */
+    public Container getWindow() {
+        if (view.isDialog()) {
+            return view.getDialog();
+        } else {
+            return view;
+        }
+    }
+
+    /**
+     * Internal use. 
+     * Checks if this is the application window or not.
+     * @return <code>true</code> if this is the application window.
+     */
+    protected boolean isApplicationWindow() {
+        return $$isApplicationWindow?true:false$$;
+    }
+
+    /** 
+     * Gets the outer panel of this dialog
+     * @return the outer panel
+     */
+    public JPanel getOuterPanel() {
+        return view.getOuterPanel();
+    }
+
+   
+    /**
+     * Returns the tool bar elements.
+     * @return the tool bar elements.
+     */
+    public Vector getToolBarElements() {
+        return toolBarVector;
+    }
+
+
+@section setCurrent rt
+
+
+@end
+
+
+
+
+@section convert rt
+@//

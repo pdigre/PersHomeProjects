@@ -1,0 +1,39 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@createSection enumerationToValue@@Name@@End enumerationToValue
+@createSection enumerationToValue@@Name@@ enumerationToValue@@Name@@End
+@createSection enumerationToName@@Name@@End enumerationToName
+@createSection enumerationToName@@Name@@ enumerationToName@@Name@@End
+@createSection enumerationAllForOne@@Name@@End enumerationAllForOne
+@createSection enumerationAllForOne@@Name@@ enumerationAllForOne@@Name@@End
+
+@section enumerationToValue@@Name@@
+        if(name.equals("@@Name@@")) {
+
+@section enumerationToValue@@Name@@End
+        }
+
+@section enumerationToName@@Name@@
+        if(name.equals("@@Name@@")) {
+
+@section enumerationToName@@Name@@End
+        }
+
+@section enumerationAllForOne@@Name@@
+        if(name.equals("@@Name@@")) {
+            @@Name@@ n;
+
+@section enumerationAllForOne@@Name@@End
+            return all;
+        }

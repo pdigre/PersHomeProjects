@@ -1,0 +1,102 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@createSection ActionInsertRow@@TargetName@@ ActionMethodImpl
+@createSection HookActionInsertRow@@TargetName@@ HookMethodsSuper
+
+@section MethodDeclaration rt
+            actionInsertRow@@TargetName@@(); 
+
+@section ActionInsertRow@@TargetName@@
+@if @(emptySection)@
+    @//
+    @//
+    /**
+     * Inserts a line in the @@TargetName@@ list block.
+     * First, the @@TargetName@@'s edit fields are obtained, then a
+     * listblock line is created and inserted at the end of 
+     * the @@TargetName@@ list block.
+     */
+    protected void actionInsertRow@@TargetName@@() {
+    @//
+        String msgID = null;
+        Exception ex = null;
+        final GenovaDialogController thisController = this;
+    @// 
+        try {   
+            SwingUtilities.invokeAndWait(new Runnable() {
+                public void run() {
+                    try {
+@//           
+                        LineListblock@@TargetName@@ theLine = 
+                            listblockMethods@@TargetName@@
+                                .createListblockLineFromEditFields();
+                        theLine.forceMarkAsChanged();
+                        int selectedLine = listblockMethods@@TargetName@@
+                            .getSelectedLine();
+                        if (selectedLine < 0) {
+                            listblockMethods@@TargetName@@
+                                .insertListblockLine(theLine);
+                        } else {
+                            listblockMethods@@TargetName@@
+                                .replaceListblockLine(theLine, selectedLine);
+                            listblockMethods@@TargetName@@.setSelectedLine(theLine);
+                        }   
+                    } catch (RuntimeException e) {
+                        if (hookActionInsertRow@@TargetName@@Exception(e)) {
+                            throw e;
+                        }
+                    }
+                }
+            });
+        } catch (InterruptedException e) {
+            msgID = CRuntimeMsg.CT_INTERRUPTED;
+            ex = e;
+        } catch (InvocationTargetException e) {
+            Throwable t = e.getCause();
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException)t;
+            } else {
+                msgID = CRuntimeMsg.CT_INVOCATION_TARGET;
+                if (t instanceof Exception) {
+                    ex = (Exception)t;
+                } else {
+                    ex = e;
+                }
+            }
+        } finally {
+            if (msgID != null) {
+               Object[] msgArgs = {this.getClass(), "actionClear@@TargetName@@", ex};
+               Message msg = MessageFactory.getInstance().getMessage(msgID, msgArgs);
+               MessageLogDispatcher.getInstance().log(msg, null);
+               throw new GenovaClientFrameworkException(ex, msg);
+            }
+        } 
+    }
+    @//
+@endif
+        
+@section HookActionInsertRow@@TargetName@@
+@if @(emptySection)@
+@//
+@//    
+    /**
+     * Hook method, called if the action resulted in a RuntimeException. 
+     * Override in subclass.
+     * @param e the catched exception 
+     * @return <code>false</code> the hook has handeled the exception, and no further action is needed.
+     */
+    public boolean hookActionInsertRow@@TargetName@@Exception(RuntimeException e) {
+        return true;
+    }
+@endif

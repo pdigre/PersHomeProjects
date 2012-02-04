@@ -1,0 +1,47 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@section Declaration
+    @//
+    /** The @@NodeName@@_@@Name@@ radio button */
+    protected JRadioButton @@NodeName@@_@@Name@@ = new GenovaRadioButton("@@EnumDescription@@");
+    final Object objectVersionOf@@NodeName@@@@Name@@ = @@NodeName@@_@@Name@@;
+    final int numberOfChars@@NodeName@@@@Name@@ = 0;
+
+@section SetupInit@@NodeName@@@@ParentName@@Start
+        @//
+        @@NodeName@@_@@ParentName@@.add(@@NodeName@@_@@Name@@);
+        @@NodeName@@_@@ParentName@@_Group.add(@@NodeName@@_@@Name@@);
+        @(hasBackgroundColor?RepositoryProxy.setBackgroundColor(@@NodeName@@_@@Name@@,"@@StyleBackgroundColor@@");:)@
+        @(hasForegroundColor?RepositoryProxy.setForegroundColor(@@NodeName@@_@@Name@@,"@@StyleForegroundColor@@");:)@
+        @(hasFont?RepositoryProxy.setFont(@@NodeName@@_@@Name@@,"@@FontName@@");:)@
+        @@NodeName@@_@@Name@@.setActionCommand("@@EnumDescription@@");
+        $$hasFocusEvent?@@NodeName@@_@@Name@@.addFocusListener(focusProc);:$$
+        controller.radioGroupList@@NodeName@@_@@ParentName@@.add(@@NodeName@@_@@Name@@);
+@section setShowZeroFieldDecl@@NodeName@@ rt
+    @//
+    boolean zero@@NodeName@@@@Name@@ = false;
+
+@section ObtainData@@NodeName@@ rt
+        else if(view.@@NodeName@@_@@Name@@.isSelected()) {
+           objectProxy.setAttribute("@@ParentName@@", "@@EnumDescription@@");
+        }
+
+@section DisplayDataString@@NodeName@@
+@begin
+            if (tmp@@NodeName@@@@ParentName@@.equals("@@EnumDescription@@")) {
+                view.@@NodeName@@_@@Name@@.setSelected(true);
+            } else {
+                view.@@NodeName@@_@@Name@@.setSelected(false);
+            }
+

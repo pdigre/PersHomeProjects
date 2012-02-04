@@ -1,0 +1,95 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@section MethodDeclaration
+@if @(hasMethodName)@
+    /** 
+     * Generated event-action method, invoked from the framework.
+     * This method is normally invoked on the EDT, and creates invokes 
+     * <code>@@MethodName@@()</code> asynchronous on a dedicated thread.
+     * 
+     *  <p><strong>Normally, developers should not invoke this method - use 
+     * <code>@@MethodName@@()</code> instead.</strong>
+     * 
+     * <p>The dedicated thread is scheduled for execution by a Genova Worker
+     * instance. The instance "belongs" to this dialog and will be created
+     * if necessary. 
+     *
+     * 
+     * @param e Contains nested swing event. 
+     * @exception RuntimeException Thrown exceptions are handled if of type
+     * GenovaException.
+     */ 
+    public void @@MethodName@@(final GenovaEventHolder e) throws RuntimeException { 
+@if @(anyServerActions)@
+        // Noe på server
+@endif
+        Runnable task = new Runnable() {
+                public void run() {
+                    blockDialog();
+                    boolean setLastEx = true;
+                    try {
+                        if (hook@@MethodName@@Before(e)) {
+                            setLastEx = false;
+                            @@MethodName@@();
+                        } else {
+                            setLastEx = false;
+                        }
+                        hook@@MethodName@@After(e);
+                    } catch (RuntimeException ex) {
+                        setLastEx = dialogExceptionHandler(ex) && setLastEx;
+                        if (setLastEx) {
+                            application.setLastException(ex);
+                        }
+                    } finally {
+                        unblockDialog();
+                    }
+                } 
+            };
+        GenovaWorker.enqueueTask(this, task);
+    }
+
+    /** 
+     * Standard method, performing various actions. Invoked from the
+     * <code>@@MethodName@@(GenovaEventHolder)</code>. Override this
+     * method if you want to performe some additional tasks. 
+     *
+     *
+     * @exception RuntimeException Thrown exceptions are handled if of type
+     * GenovaException.
+     */ 
+    public void @@MethodName@@() throws RuntimeException { 
+@@ActionTemplate@@
+    }
+@endif
+
+@section HookMethodsSuper
+@if @(hasMethodName)@
+    /**
+     * Hook method. Override in subclass.
+     * @param e the event that triggered this method.
+     * @return true if the rest of the actions are to be execuded.
+     */
+    public boolean hook@@MethodName@@Before(GenovaEventHolder e) {
+        return true;
+    }
+
+    /**
+     * 
+     * Hook method. Override in subclass.
+     * @param e the event that triggered this method.
+     */
+    public void hook@@MethodName@@After(GenovaEventHolder e) {
+        // empty method overridden in subclass
+    }
+@endif

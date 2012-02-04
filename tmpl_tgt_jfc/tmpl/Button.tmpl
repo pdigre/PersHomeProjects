@@ -1,0 +1,207 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@section Declaration
+    @//
+    /* Her kommer generert kode for Button:Declaration*/
+    @//    
+    JButton @@Name@@;
+    @//
+
+@section SetupInit@@ParentName@@Start
+        init@@Name@@();
+
+
+@section SetupInit
+    @//
+    /** Initializes the @@Name@@ button */
+    private void init@@Name@@() {
+        @//
+        /* Her kommer generert kode for Button:Setup*/
+        @//
+        ImageIcon image@@Name@@ = null;
+        $$useImage?image@@Name@@ = RepositoryProxy.getImageField("@@ImageName@@");:$$
+        if (image@@Name@@ != null) {
+            @@Name@@ = new GenovaButton(image@@Name@@);
+        }
+        else {
+            @@Name@@ = new GenovaButton("@@Title@@");
+        }
+        @@ParentName@@.add(@@Name@@);
+        @@Name@@.setLocation(@@XPos@@+@@ParentLeftFrameWidth@@,@@YPos@@+@@ParentTopFrameHeight@@);
+        @@Name@@.setSize(@@Width@@, @@Height@@);
+        @@Name@@.setMargin(new Insets(0,0,0,0));
+        
+@if @(!isVisible)@
+        @@Name@@.setVisible(false); 
+@endif
+@if@(!isEnabled)@
+        @@Name@@.setEnabled(false); 
+        disabledComponents.add(@@Name@@);
+@endif
+        @(hasTooltip?@@Name@@.setToolTipText("@@Tooltip@@");:)@
+
+
+@if @(hasMnemonic)@
+        @@Name@@.setMnemonic('@@Mnemonic@@');
+        registerMnemonic(@@Name@@.getMnemonic());
+        addToMnemonicButtons(@@Name@@);
+@endif
+        @(hasBackgroundColor?RepositoryProxy.setBackgroundColor(@@Name@@,"@@StyleBackgroundColor@@");:)@
+        @(hasForegroundColor?RepositoryProxy.setForegroundColor(@@Name@@,"@@StyleForegroundColor@@");:)@
+        @(hasFont?RepositoryProxy.setFont(@@Name@@,"@@FontName@@");:)@
+        @(useImage?RepositoryProxy.setImage(@@Name@@,@(hasImage?"@@ImageName@@":"NO_IMAGE")@);:)@
+        @(hasActionEvent?@@Name@@.addActionListener(actionProc);:)@
+        @//
+        controller.tabListFromNodeName@@ParentName@@.put("@@Name@@", @@Name@@);
+        controller.tabListFromComponent@@ParentName@@.put(@@Name@@, "@@Name@@");
+    }
+
+
+@section ConstCompButton
+@//
+        /** The Button @@Name@@ component */
+        String $$hasParameter DialogConstUppercase?@@NameUpper@@:@@Name@@$$ = "@@Name@@";
+
+
+@section setUpNameComponentMapping
+        nameToComponent.put("@@Name@@", @@Name@@);
+        componentToName.put(@@Name@@, "@@Name@@");
+
+@section MethodDeclaration
+@begin
+    @//
+    /* Her kommer generert kode for Button:MethodDeclaration*/
+    @//
+    /** Set enable/disable for button @@Name@@ 
+     * @param b true for enabled, false for not 
+     */
+    public void setEnabled@@Name@@(boolean b) {
+        view.@@Name@@.setEnabled(b);
+    }
+    @//
+    /**
+     * Shows or hides @@Name@@ depending on the parameter.
+     * @param b <code>true</code> to show, <code>false</code> to hide.
+     */
+    public void setShown@@Name@@(boolean b) {
+        view.@@Name@@.setVisible(b);
+    }
+    @//
+
+    /**
+     * Attemts to transfer input focus to @@Name@@
+     */
+    public void setFocus@@Name@@() {
+        view.@@Name@@.requestFocusInWindow();
+    }
+    @//
+    /**
+     * Check if @@Name@@ is enabled.
+     * @return <code>true</code> if @@Name@@ is enabled.
+     */
+    public boolean isEnabled@@Name@@() {
+        return view.@@Name@@.isEnabled();
+    }
+    @//
+    /**
+     * Check if @@Name@@ is the focus owner.
+     * @return <code>true</code> if @@Name@@ is the focus owner.
+     */
+    public boolean hasFocus@@Name@@() {
+        return view.@@Name@@.isFocusOwner();
+    }
+    @//
+    /**
+     * Check if @@Name@@ is visible. Note that this does 
+     * not imply that @@Name@@ is actually showing, only that it can be 
+     * drawn on the screen.
+     * @return <code>true</code> if @@Name@@ is visible.
+     */
+    public boolean isShown@@Name@@() {
+        return view.@@Name@@.isVisible();
+    }
+
+@createSection EndFocusGained@@LogicalName@@ FocusActions
+@createSection StartFocusGained@@LogicalName@@ EndFocusGained@@LogicalName@@
+
+@section StartFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+        @@Name@@.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+@section EndFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+            }
+        });
+@endif
+
+@createSection EndFocusLost@@LogicalName@@ FocusActions
+@createSection StartFocusLost@@LogicalName@@ EndFocusLost@@LogicalName@@
+
+@section StartFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+        @@Name@@.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+
+@section EndFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+            }
+        });
+@endif
+
+
+@createSection EndActionPerformed@@LogicalName@@ ActionPerformed
+@createSection StartActionPerformed@@LogicalName@@ EndActionPerformed@@LogicalName@@
+@section StartActionPerformed@@LogicalName@@
+@if @(hasEvent Clicked)@
+                    @//
+                    /* Her kommer generert kode for Button ActionPerformed*/
+                    @//
+                    if (e.getSource() == @@Name@@) {
+
+@endif
+
+@section EndActionPerformed@@LogicalName@@
+@if @(hasEvent Clicked)@
+                    }
+@endif
+
+@event Got Focus
+@section StartFocusGained@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.$$MethodName$$(new GenovaFocusEventHolder(e));
+@endif
+@endif
+
+@event Lost Focus
+@section StartFocusLost@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.$$MethodName$$(new GenovaFocusEventHolder(e));
+@endif
+@endif
+
+@event Clicked
+@section StartActionPerformed@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                        controller.$$MethodName$$(new GenovaActionEventHolder(e));
+@endif
+@endif

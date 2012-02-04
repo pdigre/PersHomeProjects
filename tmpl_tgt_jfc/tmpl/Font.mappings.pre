@@ -1,0 +1,17 @@
+FIXED_MEDIUM_13 = Monospaced
+HELVETICA_BOLD_12 = SansSerif
+HELVETICA_BOLD_14 = SansSerif
+HELEVETICA_BOLD_20 = SansSerif
+HELVETICA_MEDIUM_12 = SansSerif
+LUCIDA_MEDIUM_12 = SansSerif
+FO_MS_SAN_SERIF_8 = Arial
+ARIAL_MEDIUM_10 = Arial
+ARIAL_MEDIUM_12 = Arial
+WinDefaultMSSansSerifMedium8 = Microsoft Sans Serif
+WinDefaultMSSansSerifBold8 = Microsoft Sans Serif
+Arial10 = Arial
+ArialBold10 = Arial
+Arial8 = Arial
+ArialBold8 = Arial
+StandardFontJava = Arial
+StandardFontJavaBold = Arial

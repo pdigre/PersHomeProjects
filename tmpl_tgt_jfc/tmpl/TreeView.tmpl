@@ -1,0 +1,42 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@section Declaration
+
+   protected JScrollPane @@Name@@_scroll = new JScrollPane();
+   protected DefaultMutableTreeNode @@Name@@ = 
+             new DefaultMutableTreeNode("@@Title@@");
+   protected JTree @@Name@@_tree = new JTree(@@Name@@);
+
+@section controllerdecl
+   HashMap tabListFromNodeName@@Name@@ = tabListFromNodeName@@ParentName@@;
+   HashMap tabListFromComponent@@Name@@ = tabListFromComponent@@ParentName@@;
+
+@section Setup
+        @@Name@@_scroll.setLocation(@@XPos@@+@@ParentLeftFrameWidth@@,@@YPos@@+@@ParentTopFrameHeight@@); 
+        @@Name@@_scroll.setSize(@@Width@@,@@Height@@);
+        
+@if @(!isVisible)@
+        @@Name@@_scroll.setVisible(false); 
+@endif
+@if@(!isEnabled)@
+        @@Name@@_scroll.setEnabled(false); 
+        disabledComponents.add(@@Name@@_scroll);
+@endif
+        @(hasTooltip?@@Name@@_scroll.setToolTipText("@@Tooltip@@");:)@
+
+
+        @@ParentName@@.add(@@Name@@_scroll);
+        @@Name@@_tree.getSelectionModel().setSelectionMode
+                (TreeSelectionModel.SINGLE_TREE_SELECTION);
+        @@Name@@_scroll.getViewport().add(@@Name@@_tree);

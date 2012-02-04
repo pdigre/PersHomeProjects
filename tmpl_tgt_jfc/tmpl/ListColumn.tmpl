@@ -1,0 +1,913 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@createSection @@NodeName@@@@ParentName@@DoCopyInInsertEnd @@ParentName@@ListblockInsertBody
+@createSection @@NodeName@@@@ParentName@@DoCopyInInsert @@NodeName@@@@ParentName@@DoCopyInInsertEnd
+
+@createSection @@NodeName@@@@ParentName@@DoCopyInInsertAtEnd @@ParentName@@ListblockInsertAtBody
+@createSection @@NodeName@@@@ParentName@@DoCopyInInsertAt @@NodeName@@@@ParentName@@DoCopyInInsertAtEnd
+
+@createSection @@NodeName@@@@ParentName@@ListblockSignalStopEditBody @@ParentName@@ListblockSignalStopEditingEnd
+
+@createSection @@NodeName@@ListblockNew @@ParentName@@ListblockLineNode
+
+@createSection @@NodeName@@ListblockOld @@ParentName@@ListblockLineNode
+
+@createSection @@NodeName@@ListblockSet @@ParentName@@ListblockLineNode
+
+@section @@ParentName@@TableModelSelect
+      case @@GetNumber 1@@: 
+    if(objectVersionOf@@NodeName@@@@Name@@ instanceof JComboBox && controller.view.block.isBlockedListblock@@ParentName@@()) {
+        controller.view.block.increaseListblock@@ParentName@@();
+        selectedInCombobox((GenovaComboBox)objectVersionOf@@NodeName@@@@Name@@, null);
+        controller.view.block.decreaseListblock@@ParentName@@();
+    }
+@//
+    break;
+
+
+
+@section usersort@@ParentName@@
+            case @@GetNumber 1@@: 
+                doConvert=@@isSortable?true:false@@;
+                break;
+
+@section ListblockSetup@@ParentName@@
+       $$AttributeExistsHORIZONTAL_ALIGNMENT?@@ParentName@@@@NodeName@@@@Name@@Column.setCellRenderer(tableCellRenderer@@HORIZONTAL_ALIGNMENT@@@@ParentName@@);:$$ 
+
+
+@section Declaration
+    @//
+    /* Her kommer generert kode for ListColumn:Declaration*/
+    @//
+    TableColumn @@ParentName@@@@NodeName@@@@Name@@Column;
+@section @@ParentName@@Setup
+        @//
+        /* Her kommer generert kode for ListColumn:@@ParentName@@Setup*/
+        @//
+@if @(!isColumnHidden)@
+        @@ParentName@@_headers.addElement("@@ColumnTitle@@");
+        @@ParentName@@_widths.addElement(new Integer(@@ColumnWidth@@));
+        @@ParentName@@_indexes.add(new Integer(@@GetNumber 1@@));
+@endif
+
+@section @@ParentName@@SetupEnd
+        @//
+        /* Her kommer generert kode for ListColumn:@@ParentName@@SetupEnd*/
+        @//
+@if @(!isColumnHidden)@
+        @@ParentName@@@@NodeName@@@@Name@@Column = @@ParentName@@_table.getColumnModel().getColumn(@@ParentName@@_indexes.indexOf(new Integer(@@GetNumber 1@@)));
+        @@ParentName@@@@NodeName@@@@Name@@Column.setHeaderRenderer(@@ParentName@@TableHeaderRenderer);
+@if @(isComboBox)@
+        @@ParentName@@@@NodeName@@@@Name@@Column.setCellEditor(new DefaultCellEditor(@@NodeName@@_@@Name@@));
+        RepositoryProxy.setFont(@@NodeName@@_@@Name@@, "ListblockFontJava");
+        
+        @@ParentName@@@@NodeName@@@@Name@@Column.setCellRenderer(
+                new GenovaTableCellRenderer(RepositoryProxy.getDocument(
+                        @(GenovaDataType==10?7:$$GenovaDataType$$)@, @(isUpperCase?1:@(isLowerCase?-1:0)@)@,
+                        controller.getApplication().getEnums(),
+                        null,
+                        FormatHelper.getDisplayrule(@(GenovaDataType==10?7:$$GenovaDataType$$)@,
+                                "@@DisplayRule@@", @@LengthInput@@,
+                                @@LengthStored@@, @@Decimals@@),
+                        @@LengthInput@@, @@blankWhenZero?true:false@@), @(OutputJustification==Left?JTextField.LEFT:@(OutputJustification==Right?JTextField.RIGHT:JTextField.CENTER)@)@));
+        ((GenovaTableCellRenderer)(@@ParentName@@@@NodeName@@@@Name@@Column.getCellRenderer())).setToolTipText(@(hasTooltip?"@@Tooltip@@":@(hasLabelTooltip?"@@LabelTooltip@@":"@@ParentTooltip@@")@)@);
+       
+
+@endif
+@if @(isTextArea)@
+        {
+            JTextField field = new JTextField();
+            @@ParentName@@@@NodeName@@@@Name@@Column.setCellEditor(new DefaultCellEditor(field));
+            field.setHorizontalAlignment(@(InputJustification==Left?JTextField.LEFT:@(InputJustification==Right?JTextField.RIGHT:JTextField.CENTER)@)@);
+        
+        @@ParentName@@@@NodeName@@@@Name@@Column.setCellRenderer(
+                new GenovaTableCellRenderer(RepositoryProxy.getDocument(
+                        @(GenovaDataType==10?7:$$GenovaDataType$$)@, @(isUpperCase?1:@(isLowerCase?-1:0)@)@,
+                        controller.getApplication().getEnums(),
+                        null,
+                        FormatHelper.getDisplayrule(@(GenovaDataType==10?7:$$GenovaDataType$$)@,
+                                "@@DisplayRule@@", @@LengthInput@@,
+                                @@LengthStored@@, @@Decimals@@),
+                        @@LengthInput@@, @@blankWhenZero?true:false@@), @(OutputJustification==Left?JTextField.LEFT:@(OutputJustification==Right?JTextField.RIGHT:JTextField.CENTER)@)@));
+        ((GenovaTableCellRenderer)(@@ParentName@@@@NodeName@@@@Name@@Column.getCellRenderer())).setToolTipText(@(hasTooltip?"@@Tooltip@@":@(hasLabelTooltip?"@@LabelTooltip@@":"@@ParentTooltip@@")@)@);
+       
+
+        }
+@endif
+@if @(isRadioGroup)@
+        {
+            JTextField field = new JTextField();
+            @@ParentName@@@@NodeName@@@@Name@@Column.setCellEditor(new DefaultCellEditor(field));
+            field.setHorizontalAlignment(@(InputJustification==Left?JTextField.LEFT:@(InputJustification==Right?JTextField.RIGHT:JTextField.CENTER)@)@);
+         
+        @@ParentName@@@@NodeName@@@@Name@@Column.setCellRenderer(
+                new GenovaTableCellRenderer(RepositoryProxy.getDocument(
+                        @(GenovaDataType==10?7:$$GenovaDataType$$)@, @(isUpperCase?1:@(isLowerCase?-1:0)@)@,
+                        controller.getApplication().getEnums(),
+                        null,
+                        FormatHelper.getDisplayrule(@(GenovaDataType==10?7:$$GenovaDataType$$)@,
+                                "@@DisplayRule@@", @@LengthInput@@,
+                                @@LengthStored@@, @@Decimals@@),
+                        @@LengthInput@@, @@blankWhenZero?true:false@@), @(OutputJustification==Left?JTextField.LEFT:@(OutputJustification==Right?JTextField.RIGHT:JTextField.CENTER)@)@));
+        ((GenovaTableCellRenderer)(@@ParentName@@@@NodeName@@@@Name@@Column.getCellRenderer())).setToolTipText(@(hasTooltip?"@@Tooltip@@":@(hasLabelTooltip?"@@LabelTooltip@@":"@@ParentTooltip@@")@)@);
+       
+
+        }
+@endif
+@if @(!isCheckButton)@
+@if @(!isComboBox)@
+@if @(!isTextArea)@
+@if @(!isRadioGroup)@
+        {
+            JTextField field = new JTextField();
+            @@ParentName@@@@NodeName@@@@Name@@Column.setCellEditor(new DefaultCellEditor(field));
+            field.setHorizontalAlignment(@(InputJustification==Left?JTextField.LEFT:@(InputJustification==Right?JTextField.RIGHT:JTextField.CENTER)@)@);
+        }
+      
+        @@ParentName@@@@NodeName@@@@Name@@Column.setCellRenderer(
+                new GenovaTableCellRenderer(RepositoryProxy.getDocument(
+                        @(GenovaDataType==10?7:$$GenovaDataType$$)@, @(isUpperCase?1:@(isLowerCase?-1:0)@)@,
+                        controller.getApplication().getEnums(),
+                        null,
+                        FormatHelper.getDisplayrule(@(GenovaDataType==10?7:$$GenovaDataType$$)@,
+                                "@@DisplayRule@@", @@LengthInput@@,
+                                @@LengthStored@@, @@Decimals@@),
+                        @@LengthInput@@, @@blankWhenZero?true:false@@), @(OutputJustification==Left?JTextField.LEFT:@(OutputJustification==Right?JTextField.RIGHT:JTextField.CENTER)@)@));
+        ((GenovaTableCellRenderer)(@@ParentName@@@@NodeName@@@@Name@@Column.getCellRenderer())).setToolTipText(@(hasTooltip?"@@Tooltip@@":@(hasLabelTooltip?"@@LabelTooltip@@":"@@ParentTooltip@@")@)@);
+       
+
+@endif
+@endif
+@endif
+@endif
+@endif
+                    RepositoryProxy.setFont(@@NodeName@@_@@Name@@, "ListblockFont");
+
+@section @@ParentName@@GetColumnName
+@begin
+                    @//
+                    /* Her kommer generert kode for ListColumn:@@ParentName@@GetColumnName*/
+                    @//
+                    case @@GetNumber 1@@: 
+                        retVal = (String)@@ParentName@@_headers.elementAt(@@ParentName@@_indexes.indexOf(new Integer(@@GetNumber 1@@)));
+                        break;
+
+@section @@ParentName@@GetTableValue rt
+                @//
+                /* Her kommer generert kode for ListColumn:@@ParentName@@GetTableValue rt*/
+                @//
+                case @@GetNumber 1@@: 
+                    retVal = theLine.cellValueColumn@@GetNumber 1@@;
+                    if (retVal == null) {
+                        retVal = getNullValueForCell("@@LogicalName@@");
+                    }
+                break;
+
+@section @@ParentName@@ListblockLineNode rt
+// Controller
+@//
+         /** Object used for the editor/value of the cell. */
+         Object cellValueColumn@@GetNumber 1@@ = new String("");
+          
+         /** Set if this cell in the lisblock line should not be editable */
+         boolean cellNotEditable@@GetNumber 1@@ = false;
+
+         /** Old value for this node in the listblock */
+         String oldValue@@NodeName@@@@Name@@;
+
+@if @(isFirstInNode)@
+         @@ClassName@@ new@@NodeName@@;
+         @@ClassName@@ old@@NodeName@@;
+@endif
+
+
+@section @@NodeName@@ListblockSet rt
+@begin
+@if @(isFirstInNode)@
+    /** 
+     * Sets current object of @@NodeName@@ in this listblock line. 
+     * After chaning the data you need to in this listblock line you would 
+     * probably want to refresh the UI using the refresh() method.
+     * @param p@@NodeName@@ The object to set. Attributes are copied.
+     */
+    public void set@@NodeName@@ (@@ClassName@@ p@@NodeName@@) {
+        if (p@@NodeName@@ == null && new@@NodeName@@ != null) {
+            domainProxy.removeProxy(domainProxy.getProxy(
+                    new@@NodeName@@, 
+                    "@@NodeName@@")); 
+            new@@NodeName@@ = null;
+        } else if (p@@NodeName@@ != null) {
+            new@@NodeName@@ = p@@NodeName@@;
+            domainProxy.getNewProxy(
+                    new@@NodeName@@, 
+                    "@@NodeName@@"); 
+        }
+        roleNameToObject.put("@@NodeName@@", new@@NodeName@@);
+    }
+@endif
+
+@section getDisplayedObject@@ParentName@@Start
+@if @(isFirstInNode)@
+        if ("@@NodeName@@".equals(roleName)) {
+            return getDisplayed@@NodeName@@();
+        }
+@endif
+
+@createSection getDisplayedObjectNode@@NodeName@@End getDisplayedObjectNode@@ParentName@@
+@createSection getDisplayedObjectNode@@NodeName@@Start getDisplayedObjectNode@@NodeName@@End
+
+
+
+
+@section getDisplayedObjectNode@@NodeName@@Start
+@if @(isFirstInNode)@
+@//
+@//
+    /**
+     * Gets the @@NodeName@@ instance from this listblock line. The
+     * instance is updated with the displayed cell values before returning.
+     * @return the displayed object
+     */
+    protected @@ClassName@@ getDisplayed@@NodeName@@() {
+        @@ClassName@@ single@@NodeName@@ = (@@ClassName@@) roleNameToObject.get("@@NodeName@@");
+        if (single@@NodeName@@ == null) {
+            return null;
+        }
+        DomainObjectProxy proxy = controller.getProxy(single@@NodeName@@, "@@NodeName@@");
+        int rowNumber = getLineNumber();
+        int colNumber;
+        Object value;
+@endif
+@if @(!isColumnHidden)@
+        @//
+        colNumber = controller.listblockMethods@@ParentName@@.getColumnIndex("@@LogicalName@@");
+        value = controller.view.@@ParentName@@_table.getValueAt(rowNumber, colNumber);
+        proxy.setAttribute("@@Name@@", value);
+@endif
+        
+
+
+@section getDisplayedObjectNode@@NodeName@@End
+@if @(isFirstInNode)@
+@//
+        return (@@ClassName@@) proxy.getObject();
+    }
+@endif
+
+        
+        
+
+
+
+@section @@NodeName@@ListblockNew rt
+@begin
+@if @(isFirstInNode)@
+@//
+@//
+    /**
+     * Returns the @@NodeName@@ object held by this line. 
+     * If the object does not exist, a new object is created. 
+     * @return the object held by this line
+     * @deprecated use {@link #get@@NodeName@@(boolean)} instead
+     */
+    public @@ClassName@@ get@@NodeName@@() {
+        return get@@NodeName@@(true);
+    }
+@//
+@//
+    /**
+     * Returns the @@NodeName@@ object held by this line.
+     * If <code>createIfNull</code> is true, and the line does
+     * not hold a reference to the object, a new instance is 
+     * created using the default constructor. <em>Please note</em> 
+     * that the created object does not have any relations set - which migth
+     * lead to unwanted "line is changed" messages when the line is selected and then
+     * unselected. 
+     *
+     * @param createIfNull flag indicating if missing object should be created.
+     * @return the @@NodeName@@ instance displayed by this line
+     */
+    public @@ClassName@@ get@@NodeName@@(boolean createIfNull) {
+        @@ClassName@@ a@@NodeName@@ = (@@ClassName@@) roleNameToObject.get("@@NodeName@@");
+        if (a@@NodeName@@ == null && createIfNull) {
+            a@@NodeName@@ = new @@ClassName@@();
+            roleNameToObject.put("@@NodeName@@", a@@NodeName@@);
+        }
+        return a@@NodeName@@;
+     }
+
+@//
+@//
+@endif
+
+@section @@NodeName@@ListblockOld rt
+@if @(isFirstInNode)@
+    /** 
+     * Returns the @@NodeName@@ registered as marked with latest reset() call
+     * @return The 'old' object.
+     */
+    public @@ClassName@@ getOld@@NodeName@@() {
+        return (@@ClassName@@) domainProxy.getProxy(new@@NodeName@@, "@@NodeName@@").getCleanVersionOfObject();
+    }
+@endif
+
+@section @@ParentName@@ListblockInsertTop rt
+@(isFirstInNode? * @param p@@NodeName@@ the @@NodeName@@ domain object :)@
+
+
+@section @@ParentName@@ListblockReplaceAtTop rt
+@(isFirstInNode? * @param p@@NodeName@@ the @@NodeName@@ domain object :)@
+
+@section @@ParentName@@ListblockInsertAtTop rt
+@(isFirstInNode? * @param p@@NodeName@@ the @@NodeName@@ domain object :)@
+
+@section @@ParentName@@ListblockInsertHeader rt
+@begin
+
+@if @(isFirstInNode)@
+            @(isFirstInGroup?:,)@@@ClassName@@ p@@NodeName@@
+@endif
+
+@section @@NodeName@@@@ParentName@@DoCopyInInsert
+@if @(isFirstInNode)@
+                p@@NodeName@@,
+@endif
+
+@section @@NodeName@@@@ParentName@@DoCopyInInsertAt
+@if @(isFirstInNode)@
+        newLine.set@@NodeName@@(p@@NodeName@@); 
+@endif        
+
+@section @@ParentName@@ListblockInsertAtHeader rt
+@if @(isFirstInNode)@
+                @@ClassName@@ p@@NodeName@@,
+@endif
+
+
+@section @@ParentName@@ListblockReplaceAtHeader rt
+@(isFirstInGroup?  : @(isFirstInNode? , : )@ )@
+@(isFirstInNode?         @@ClassName@@ p@@NodeName@@:)@
+
+@section @@ParentName@@ListblockReplaceAtBody rt
+@(isFirstInNode?         newLine.set@@NodeName@@ ( p@@NodeName@@ );:)@
+
+@section @@ParentName@@ListBlockGetObject rt
+@if @(isFirstInNode)@
+        objectList.add(get@@NodeName@@(false));
+@endif
+
+@section @@ParentName@@ListBlockEquals
+@if @(isFirstInNode)@
+@if @(isInOsStructure)@
+        if (get@@NodeName@@(false) != null && 
+                !get@@NodeName@@(false).equals(
+                        line.get@@NodeName@@(false))) {
+            return false;
+        }
+@endif
+@endif
+
+@section @@ParentName@@ListBlockHashCode
+@if @(isFirstInNode)@
+        if (get@@NodeName@@(false) != null) {
+            hash += get@@NodeName@@(false).hashCode();
+        }
+@endif
+
+@section @@ParentName@@ListBlockAddObject rt
+@if @(isFirstInNode)@
+        if (domainObject instanceof @@ClassName@@) {
+            set@@NodeName@@((@@ClassName@@) domainObject);
+        }
+@endif
+
+@section @@ParentName@@CellEditable
+@if @(hasParameter InlineEdit)@
+                case @@GetNumber 1@@:
+                    editable = $$isEditable?true:false$$;
+                    break;
+
+@endif
+@if @(!hasParameter InlineEdit)@
+@endif
+@section @@ParentName@@SetTableValueDeclarations
+                @//
+
+//                @(isFirstInNode?@@ClassName@@ tmp@@NodeName@@;:)@
+
+@section @@ParentName@@SetTableValueSwitchBody rt
+                    @//
+                    /* Her kommer generert kode for ListColumn:@@ParentName@@SetTableValueSwitchBody rt*/
+                    @//
+                    case @@GetNumber 1@@: 
+                        data.cellValueColumn@@GetNumber 1@@ = value;
+                        data.fromCellToListblockLine(origCol);
+                        @//
+                            if(objectVersionOf@@NodeName@@@@Name@@ instanceof JCheckBox) {
+                                @//
+                                if(value ==  null){
+                                    if(data.old@@NodeName@@ == null) {
+                                        data.markAsChanged();
+                                    }
+                                } else {
+                                    Boolean valueToTest = (Boolean)value;
+                                    Boolean oldValueTest = null;
+                                    if(data.old@@NodeName@@ != null) {
+                                        Object objectold = TypeTool.convert(data.old@@NodeName@@.@@GetName@@);
+                                        oldValueTest = (Boolean)objectold;
+                                    }
+                                    @//
+                                    if(oldValueTest == null || !valueToTest.equals(oldValueTest)) {
+                                        data.markAsChanged();
+                                    }
+                                }
+                            } else if(value instanceof JComboBox) {
+                                JComboBox box = (JComboBox)value;
+                                String oldValueTest;
+                                String valueToTest = null;
+                                @//
+                                if(data.old@@NodeName@@ == null) {
+                                    data.markAsChanged();
+                                }else {
+                                    if(box.isEditable()) {
+                                        valueToTest = (String)box.getEditor().getItem();
+                                    }else {
+                                        valueToTest = (String)box.getSelectedItem();
+                                    }
+                                    oldValueTest = controller.convertToString(data.old@@NodeName@@.@@GetName@@, TypeTool.getAttributeClassName@(hasParameter UseAccessorMethods?Method:)@(data.old@@NodeName@@,"@@Name@@"));
+                                    @//
+                                    if(!valueToTest.equals(oldValueTest)) {
+                                        data.markAsChanged();
+                                    }
+                                }
+                            }else {
+                                String oldValueTest;
+                                @//
+                                if(data.old@@NodeName@@ != null) {
+                                    oldValueTest = controller.convertToString(data.old@@NodeName@@.@@GetName@@, TypeTool.getAttributeClassName@(hasParameter UseAccessorMethods?Method:)@(data.old@@NodeName@@,"@@Name@@")).toString();
+                                } else {
+                                    oldValueTest = "";
+                                }
+                                if(value  != null){   
+                                    if(!((String)value).equals(oldValueTest)) {
+                                        data.markAsChanged();
+                                    }
+                                }
+                            }
+                            @//
+                            //                 tmp@@NodeName@@ = data.get@@NodeName@@();               
+                            //                 controller.reflectAssign(tmp@@NodeName@@, controller.getClassName(tmp@@NodeName@@.@@Name@@), "@@Name@@", svalue);
+                            //                 tmp@@NodeName@@.@@Name@@ = TypeTool.convert(svalue,tmp@@NodeName@@.@@GetName@@);
+                            //                 data.set@@NodeName@@(tmp@@NodeName@@);
+                            @//
+                            /* Do a value changed test for textfield here */
+                            if(objectVersionOf@@NodeName@@@@Name@@ instanceof JTextField && block.isBlockedListblockVC@@ParentName@@()) {
+                                block.increaseListblockVC@@ParentName@@();
+                                @//
+                                final Object eventObject = controller.view.@@NodeName@@_@@Name@@;
+                                ((JTextField)eventObject).setText((String)value);
+                                @//
+                                String jall = data.oldValue@@NodeName@@@@Name@@;
+                                data.oldValue@@NodeName@@@@Name@@ = (String)value;
+                                valueChangedTextField(@@NodeName@@_@@Name@@, (String)value, jall, null);
+                                block.decreaseListblockVC@@ParentName@@();
+                            }
+                            /* And A selected for ComboBox! */
+                            if(objectVersionOf@@NodeName@@@@Name@@ instanceof JComboBox) {
+                                controller.view.block.increaseListblock@@ParentName@@();
+                                ((GenovaComboBox)objectVersionOf@@NodeName@@@@Name@@).setSelectedItem(value);
+                                selectedInCombobox((GenovaComboBox)objectVersionOf@@NodeName@@@@Name@@, null);
+                                controller.view.block.decreaseListblock@@ParentName@@();
+                            }
+                            @//
+                            break;
+//                        }
+
+@section @@ParentName@@ListblockEditCell
+    $$isColumnHidden?* <li> Object of type @@ClassName@@ with fieldName "@@Name@@".:$$
+
+@section @@ParentName@@ListblockEditCellDoc
+
+         if(parent instanceof @@ClassName@@ && fieldName.equals("@@Name@@")) {
+             view.@@ParentName@@_table.editCellAt(row, view.@@ParentName@@_indexes.indexOf(new Integer(@@GetNumber 1@@)));
+         }
+
+
+@section @@ParentName@@HTMLTable
+@if @(hasParameter GenerateHTML)@
+
+           if($$isColumnHidden?incHidden && :$$!excludedColumns.contains("@@LogicalName@@")) {
+                if(!headersAdded) {
+                    headers.add("@@ColumnTitle@@");
+                }
+
+
+                buff.append("<TD ");
+                buff.append(tdExtra);
+                buff.append(">");
+                String foo = controller.convertToString(data.new@@NodeName@@.@@GetName@@, controller.getAttributeClassName(data.new@@NodeName@@,"@@Name@@"));
+                // foo kan settes som en parameter dersom ja eller nei ikke faller i smak
+                if(foo != null) {
+                    if(foo.equals("false")) {
+                        foo="nei";
+                    }
+                    else if(foo.equals("true")){
+                        foo="ja";
+                    }
+
+                }
+                
+                buff.append(foo);
+                buff.append("</TD>");
+       
+            }
+@endif
+
+@section @@ParentName@@ListblockSelectColumn
+
+         if(parent.equals(controller.the@@NodeName@@) && fieldName.equals("@@Name@@")) {
+             columnindex = view.@@ParentName@@_indexes.indexOf(new Integer(@@GetNumber 1@@));
+         }
+
+
+@section @@ParentName@@ListblockLineEditCell
+    $$isColumnHidden?* <li> Object of type @@ClassName@@ with fieldName "@@Name@@".:$$
+
+@section @@ParentName@@ListblockLineEditCellDoc
+             else if(type instanceof @@ClassName@@ && fieldName.equals("@@Name@@")) {
+                 controller.view.@@ParentName@@_table.editCellAt(lineNumber, controller.view.@@ParentName@@_indexes.indexOf(new Integer(@@GetNumber 1@@)));   
+             }
+
+@section @@ParentName@@ListblockLineEditCellOS
+    $$isColumnHidden?* <li> Objectselection  the@@ClassName@@ with fieldName "@@Name@@".:$$
+
+@section @@ParentName@@ListblockLineEditCellOSDoc
+             else if(type == controller.the@@NodeName@@ && fieldName.equals("@@Name@@")) {
+                 controller.view.@@ParentName@@_table.editCellAt(lineNumber, controller.view.@@ParentName@@_indexes.indexOf(new Integer(@@GetNumber 1@@)));   
+             }
+
+
+@section @@NodeName@@@@ParentName@@ListblockSignalStopEditBody
+
+@if @(!isColumnHidden)@
+@if @(hasListHiddenEditFields)@
+      view.@@ParentName@@_indexes.indexOf(new Integer(@@GetNumber 1@@));
+      
+      if(view.@@ParentName@@_indexes.indexOf(new Integer(@@GetNumber 1@@)) == view.@@ParentName@@_table.getEditingColumn()) {
+      
+          Object editor = view.@@ParentName@@_table.getCellEditor(row, view.@@ParentName@@_indexes.indexOf(new Integer(@@GetNumber 1@@)));
+          
+          // Denne tok jeg ut:  && ((DefaultCellEditor)editor).getComponent().hasFocus()
+          if(editor instanceof DefaultCellEditor) {
+              DefaultCellEditor dceTmp = (DefaultCellEditor)editor;
+              
+              if(dceTmp.getCellEditorValue() != null) {
+                  try {
+                      dceTmp.stopCellEditing();
+                  }
+                  catch(Throwable t) {/* IGNORED*/}
+              }
+          }
+          // Denne tok jeg ut: && ((JComponentCellEditor)editor).getComponent().hasFocus()
+          else if(editor instanceof JComponentCellEditor) {
+              if(((JComponentCellEditor)editor).getComponent() != null) {
+                  try {
+                      ((JComponentCellEditor)editor).stopCellEditing();
+                  }
+                  catch(Throwable t) {/* IGNORED*/}
+              }
+              
+          }
+      }
+@endif
+@endif
+
+@section @@ParentName@@ListblockLineReset
+@(isFirstInNode?            old@@NodeName@@ = new @@ClassName@@ ();:)@
+            TypeTool.reflectCopy@(hasParameter UseAccessorMethods?Method:)@(new@@NodeName@@, "@@Name@@",old@@NodeName@@);
+
+
+@section @@ParentName@@ListblockLineHasPState
+@(isFirstInNode?             && old@@NodeName@@ != null:)@
+
+
+@section @@ParentName@@ListblockLinePreviousState
+            TypeTool.reflectCopy@(hasParameter UseAccessorMethods?Method:)@(old@@NodeName@@, "@@Name@@",new@@NodeName@@);
+
+@section @@ParentName@@setDatatype
+                @//
+                /* Her kommer generert kode for ListColumn:@@ParentName@@setDatatype*/
+                @//
+                case @@GetNumber 1@@:
+                    RepositoryProxy.setDatatype(@@GenovaDataType@@, component, @(isUpperCase?1:@(isLowerCase?-1:0)@)@, controller.getApplication().getEnums(), @(GenovaDataType==10?@@EnumerationName@@.class:null)@,
+                                    FormatHelper.getDisplayrule(@@GenovaDataType@@,"@@DisplayRule@@",@@LengthInput@@,@@LengthStored@@,@@Decimals@@),@@LengthInput@@,@@blankWhenZero?true:false@@);
+                    return;
+
+@section @@ParentName@@FromListblockToCell
+        // Column match
+        if(controller.view.@@ParentName@@_indexes.indexOf(new Integer(@@GetNumber 1@@)) == column) {
+            if (new@@NodeName@@ == null) {
+                cellValueColumn@@GetNumber 1@@ = null;
+            } else {
+                Object convert = TypeTool.toObject(new@@NodeName@@.$$hasParameter UseAccessorMethods?@@GetName@@:@@Name@@$$);
+                Object assignValue = null;
+
+                if(TypeTool.isEnumerator@(hasParameter UseAccessorMethods?Method:)@(new@@NodeName@@,"@@Name@@")) {
+                    assignValue = controller.convertToString(new@@NodeName@@.@@GetName@@, TypeTool.getAttributeClassName@(hasParameter UseAccessorMethods?Method:)@(new@@NodeName@@,"@@Name@@"));
+                } else {
+                    assignValue = convert;
+                }
+                cellValueColumn@@GetNumber 1@@ = assignValue;
+            }
+            return;
+        }
+
+@section @@ParentName@@FromCellToListblock
+    /** Column Match ? */
+    if(controller.view.@@ParentName@@_indexes.indexOf(new Integer(@@GetNumber 1@@)) == column) {
+        Object workValue = null;
+        // Object convert = TypeTool.convert(new@@NodeName@@.@@GetName@@);
+
+        if(cellValueColumn@@GetNumber 1@@ instanceof JComboBox) {
+            workValue = ((JComboBox)cellValueColumn@@GetNumber 1@@).getSelectedItem();
+        }
+        else if(cellValueColumn@@GetNumber 1@@ instanceof JCheckBox) {
+            workValue = new Boolean(((JCheckBox)cellValueColumn@@GetNumber 1@@).isSelected());
+        }
+        else {
+            workValue = cellValueColumn@@GetNumber 1@@;
+        }
+
+        /* Convert the Genova enumerator from a text string to the 
+         * int value as a string */
+        if(TypeTool.isEnumerator@(hasParameter UseAccessorMethods?Method:)@(new@@NodeName@@,"@@Name@@")) {
+            String enumName = TypeTool.getAttributeClassName@(hasParameter UseAccessorMethods?Method:)@(new@@NodeName@@,"@@Name@@");
+            if(enumName == null) {
+                System.out.println("Failed to name class for @@ClassName@@.@@GetName@@.");
+                workValue = "";
+            }
+            else {
+                if(workValue != null) {
+                    int intVal = controller.applicationEnums.toValue(enumName, (String)workValue);
+                    workValue = ""+intVal;
+                }
+            }
+        }
+        if(workValue != null) {
+            objectProxy = domainProxy.getProxy(new@@NodeName@@, "@@NodeName@@");
+            objectProxy.setAttribute("@@Name@@", workValue.toString());
+        }
+        fromListblockLineToCell(column, false);
+    }
+
+@section @@ParentName@@ListblockLineClass
+@if @(hasListHiddenEditFields)@
+    /** 
+     * Inserts element into ComboxField. 
+     * Note that this method is generated for all attributes, 
+     * regardless if it is a Combobox. 
+     * Though if their owner isn't a combobox, it has no effect 
+     * @param the@@ClassName@@ the name of the class
+     */
+     void combobox@@NodeName@@@@Name@@AddItem(@@ClassName@@ the@@ClassName@@) {
+           ((JComboBox)cellValueColumn@@GetNumber 1@@).addItem(controller.convertToString(the@@ClassName@@.@@GetName@@, TypeTool.getAttributeClassName@(hasParameter UseAccessorMethods?Method:)@(the@@ClassName@@,"@@Name@@")));
+        }
+
+    /** 
+     * Removes all elements from ComboxField. 
+     * Note that this method is generated for all attributes, 
+     * regardless if it is a Combobox. 
+     * Though if their owner isn't a combobox, it has no effect 
+     */
+     void combobox@@NodeName@@@@Name@@RemoveAllItems() {
+        ((JComboBox)cellValueColumn@@GetNumber 1@@).removeAllItems();
+     }
+
+    /** 
+     * Returns item count of ComboxField. 
+     * Note that this method is generated for all attributes, 
+     * regardless if it is a Combobox. 
+     * Though if their owner isn't a combobox, it has no effect 
+     * @return the item count.
+     */
+     int combobox@@NodeName@@@@Name@@GetItemCount() {
+        return ((JComboBox)cellValueColumn@@GetNumber 1@@).getItemCount();
+     }
+@endif
+
+@section @@ParentName@@ListblockDisableField rt
+        if(owner instanceof @@ClassName@@ && field.equals("@@Name@@")) {
+            cellNotEditable@@GetNumber 1@@ = setting;
+            return;
+        }
+
+@section @@ParentName@@ListblockDisableFieldOS rt
+    $$isColumnHidden?* <li> Objectselection  the@@ClassName@@ with field "@@Name@@".:$$
+
+@section @@ParentName@@ListblockDisableFieldOSDoc rt
+
+        if(owner.equals(controller.the@@NodeName@@) && field.equals("@@Name@@")) {
+            cellNotEditable@@GetNumber 1@@ = setting;
+            return;
+        }
+
+
+@section @@ParentName@@ListblockLineCopy
+
+@(isFirstInNode?        toLine.set@@NodeName@@ ( :)@
+@(isFirstInNode?                                   new @@ClassName@@ ():)@
+@(isFirstInNode?                               ); :)@
+
+        TypeTool.reflectCopy@(hasParameter UseAccessorMethods?Method:)@(fromLine.new@@NodeName@@, "@@Name@@",toLine.new@@NodeName@@);
+        
+    
+@section Compare@@ParentName@@
+           case @@GetNumber 1@@:
+              if(directions.get(new Integer(@@GetNumber 1@@)) == Boolean.FALSE) {
+                 return TypeTool.compareTo(((LineListblock@@ParentName@@)o1).new@@NodeName@@.@@GetName@@,((LineListblock@@ParentName@@)o2).new@@NodeName@@.@@GetName@@);
+              }
+
+              return TypeTool.compareTo(((LineListblock@@ParentName@@)o2).new@@NodeName@@.@@GetName@@,((LineListblock@@ParentName@@)o1).new@@NodeName@@.@@GetName@@);
+
+@section sortWithName@@ParentName@@
+$$isColumnHidden?* <li> Object of type @@ClassName@@ with attribute "@@Name@@".:$$
+
+@section sortWithName@@ParentName@@Doc
+    if(type instanceof @@ClassName@@ && attribute.equals("@@Name@@")) {
+        listblockSortColumnsBy(@@GetNumber 1@@, false);
+        return;
+    }
+
+@section sortWithName@@ParentName@@
+$$isColumnHidden?* <li> Object of type @@ClassName@@ with attribute "@@Name@@".:$$
+
+
+@section sortWithNameOrder@@ParentName@@Doc
+    if(type instanceof @@ClassName@@ && attribute.equals("@@Name@@")) {
+        if(ascending) {
+            setColumnToUse(@@GetNumber 1@@, Boolean.TRUE);
+        } else {
+            setColumnToUse(@@GetNumber 1@@, Boolean.FALSE);
+        }
+        listblockSortColumnsBy(@@GetNumber 1@@, false);
+        return;
+    }
+
+
+@section SetValueAt@@ParentName@@Start
+        case  @@GetNumber 1@@:
+            if (TypeTool.differ(value, cellValueColumn@@GetNumber 1@@)) {
+                markAsChanged();
+                cellValueColumn@@GetNumber 1@@ = value;
+            }            
+            break;
+
+@section Obtain@@ParentName@@Start
+@if @(isFirstInNode)@
+        obtain("@@RoleName@@");
+@endif
+       
+@IncNumber 1 1
+
+
+
+
+@section @@ParentName@@SetupHeader
+        @//
+        /* Her kommer generert kode for ListColumn:@@ParentName@@SetupHeader*/
+        @// 
+@if @(!isColumnHidden)@
+        headerToolTipStrings.add($$AttributeExistsHeaderToolTip?"@@HeaderToolTip@@":@(hasLabelTooltip?"@@LabelTooltip@@":@(hasTooltip?"@@Tooltip@@":"@@ParentTooltip@@")@)@$$);
+@endif
+
+@section listblockCollectClass@@ParentName@@ rt
+@if @(isFirstInNode)@
+               args.add(@@ClassName@@.class);
+               roleNamesInUse.add("@@RoleName@@");
+@endif
+
+
+
+@section InsertObject@@ParentName@@Start
+@if @(isFirstInNode)@
+        if (obj instanceof @@ClassName@@ && "@@RoleName@@".equals(roleName)) {
+            set@@RoleName@@((@@ClassName@@) obj);
+        }
+@endif
+
+@section HasColumn@@ParentName@@Start
+@if @(!isColumnHidden)@
+        if ("@@RoleName@@.@@Name@@".equals(ident)) {
+            return true;
+        }
+@endif 
+
+
+@section GetObject@@ParentName@@Start
+@if @(isFirstInNode)@
+        if ("@@RoleName@@".equals(roleName)) {
+            return get@@RoleName@@(createIfNull);
+        }
+@endif
+
+@section showHideColumn@@ParentName@@Start
+@if @(!isColumnHidden)@
+        if ("@@RoleName@@.@@Name@@".equals(attributeName)) {
+            return colIndex;
+        }
+        colIndex++;
+@endif
+
+@section setupSort@@ParentName@@Start
+@if @(!SortDirection==0)@
+
+@//
+        class Comparator_@@RoleName@@_@@Name@@ extends AbstractAttributeComparator {
+@//
+            Comparator_@@RoleName@@_@@Name@@(int column) {
+                super("@@RoleName@@.@@Name@@", column, @@SortPriority@@@(SortDirection==0?+1000:)@, @@SortDirection@@);
+            }
+@//
+            public int compare(Object o1, Object o2) {
+                LineListblock@@ParentName@@ lineOne = (LineListblock@@ParentName@@) o1;
+                LineListblock@@ParentName@@ lineTwo = (LineListblock@@ParentName@@) o2;
+                @@ClassName@@ obj1 = lineOne.get@@RoleName@@(false);
+                @@ClassName@@ obj2 = lineTwo.get@@RoleName@@(false);
+        
+@//
+@if @(hasParameter UseAccessorMethods)@
+                Object val1 = obj1 != null ? TypeTool.toObject(obj1.@@GetName@@) : null;
+                Object val2 = obj2 != null ? TypeTool.toObject(obj2.@@GetName@@) : null;
+                int result = TypeTool.compareTo(val1, val2);
+@endif
+@if @(!hasParameter UseAccessorMethods)@
+                Object val1 = obj1 != null ? TypeTool.toObject(obj1.@@Name@@) : null;
+                Object val2 = obj2 != null ? TypeTool.toObject(obj2.@@Name@@) : null;
+                int result = TypeTool.compareTo(val1, val2);
+@endif
+                if (getDirection() == DESCENDING) {
+                    result *= -1;
+                }
+                if (result == 0 && getNextComparator() != null) {
+                    result = getNextComparator().compare(o1, o2);
+                }
+                return result;
+            }
+        }
+        comparatorList.add(new Comparator_@@RoleName@@_@@Name@@(@(isColumnHidden?-1:column)@));
+
+@endif
+@if @(SortDirection==0)@
+@if @(isSortable)@
+
+@//
+        class Comparator_@@RoleName@@_@@Name@@ extends AbstractAttributeComparator {
+@//
+            Comparator_@@RoleName@@_@@Name@@(int column) {
+                super("@@RoleName@@.@@Name@@", column, @@SortPriority@@@(SortDirection==0?+1000:)@, @@SortDirection@@);
+            }
+@//
+            public int compare(Object o1, Object o2) {
+                LineListblock@@ParentName@@ lineOne = (LineListblock@@ParentName@@) o1;
+                LineListblock@@ParentName@@ lineTwo = (LineListblock@@ParentName@@) o2;
+                @@ClassName@@ obj1 = lineOne.get@@RoleName@@(false);
+                @@ClassName@@ obj2 = lineTwo.get@@RoleName@@(false);
+        
+@//
+@if @(hasParameter UseAccessorMethods)@
+                Object val1 = obj1 != null ? TypeTool.toObject(obj1.@@GetName@@) : null;
+                Object val2 = obj2 != null ? TypeTool.toObject(obj2.@@GetName@@) : null;
+                int result = TypeTool.compareTo(val1, val2);
+@endif
+@if @(!hasParameter UseAccessorMethods)@
+                Object val1 = obj1 != null ? TypeTool.toObject(obj1.@@Name@@) : null;
+                Object val2 = obj2 != null ? TypeTool.toObject(obj2.@@Name@@) : null;
+                int result = TypeTool.compareTo(val1, val2);
+@endif
+                if (getDirection() == DESCENDING) {
+                    result *= -1;
+                }
+                if (result == 0 && getNextComparator() != null) {
+                    result = getNextComparator().compare(o1, o2);
+                }
+                return result;
+            }
+        }
+        comparatorList.add(new Comparator_@@RoleName@@_@@Name@@(@(isColumnHidden?-1:column)@));
+
+@endif
+@endif
+@if @(!isColumnHidden)@
+        ++column;
+@endif

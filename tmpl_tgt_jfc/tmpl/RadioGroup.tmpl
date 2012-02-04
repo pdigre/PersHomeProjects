@@ -1,0 +1,280 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@section controllerdecl
+    @//
+    HashMap tabListFromNodeName@@NodeName@@_@@Name@@ = tabListFromNodeName@@ParentName@@;
+    HashMap tabListFromComponent@@NodeName@@_@@Name@@ = tabListFromComponent@@ParentName@@;
+    LinkedList radioGroupList@@NodeName@@_@@Name@@ = new LinkedList();
+@section setShowZeroFieldDecl@@NodeName@@ rt
+    @//
+    boolean zero@@NodeName@@@@Name@@ = false;
+
+
+
+@section SetupInit@@ParentName@@Start
+        init@@NodeName@@_@@Name@@();
+
+
+@createSection SetupInit@@NodeName@@@@Name@@End SetupInit
+@createSection SetupInit@@NodeName@@@@Name@@Start SetupInit@@NodeName@@@@Name@@End
+
+@section SetupInit@@NodeName@@@@Name@@Start
+    @//
+    /** Initializes the @@NodeName@@_@@Name@@ radio group */
+    private void init@@NodeName@@_@@Name@@() {
+        @//
+        @@ParentName@@.add(@@NodeName@@_@@Name@@);
+        @@NodeName@@_@@Name@@.setLocation(@@XPos@@+@@ParentLeftFrameWidth@@,@@YPos@@+@@ParentTopFrameHeight@@);
+        { // limit scope of width and height declarations.
+            int width = @@Width@@;
+            int height = @@Height@@;
+            @@NodeName@@_@@Name@@.setSize(width, height);
+            if (width == 0 && height == 0) {
+                @@NodeName@@_@@Name@@.setFocusable(false);
+            }
+        } // end limit scope
+        
+@if @(!isVisible)@
+        @@NodeName@@_@@Name@@.setVisible(false); 
+@endif
+@if@(!isEnabled)@
+        @@NodeName@@_@@Name@@.setEnabled(false); 
+        disabledComponents.add(@@NodeName@@_@@Name@@);
+@endif
+        @(hasTooltip?@@NodeName@@_@@Name@@.setToolTipText("@@Tooltip@@");:)@
+
+
+        RepositoryProxy.setBorder(@@NodeName@@_@@Name@@,@@FrameCode@@,"@@Title@@", @@TopFrameHeight@@);
+        @(hasBackgroundColor?RepositoryProxy.setBackgroundColor(@@NodeName@@_@@Name@@,"@@StyleBackgroundColor@@");:)@
+        @(hasForegroundColor?RepositoryProxy.setForegroundColor(@@NodeName@@_@@Name@@,"@@StyleForegroundColor@@");:)@
+        @(hasFont?RepositoryProxy.setFont(@@NodeName@@_@@Name@@,"@@FontName@@");:)@
+        $$hasPopupMenu?@@NodeName@@_@@Name@@.addMouseListener(mouseProc);:$$
+        $$hasActionEvent?@@NodeName@@_@@Name@@_Group.addActionListener(actionProc);:$$
+
+        controller.tabListFromNodeName@@ParentName@@.put("@@LogicalName@@", @@NodeName@@_@@Name@@);
+        controller.tabListFromComponent@@ParentName@@.put(@@NodeName@@_@@Name@@, "@@LogicalName@@");
+        controller.radioGroupsG.put(@@NodeName@@_@@Name@@, controller.radioGroupList@@NodeName@@_@@Name@@);
+
+@section SetupInit@@NodeName@@@@Name@@End
+    }
+
+
+@section Declaration
+    @//
+    /** The @@NodeName@@_@@Name@@ button group */
+    protected GenovaButtonGroup @@NodeName@@_@@Name@@_Group = new GenovaButtonGroup(); /*  ' */
+    String oldValue@@NodeName@@@@Name@@;
+    @//
+    final int numberOfChars@@NodeName@@@@Name@@ = @@LengthInput@@;
+    @//
+    /** The JPanel where the radio group reside */
+    protected JPanel @@NodeName@@_@@Name@@ = new JPanel(new GridLayout($$isHorizontal? : @@NumberOfValues@@, 1 $$));
+    final Object objectVersionOf@@NodeName@@@@Name@@ = @@NodeName@@_@@Name@@;
+@section Setup
+
+@section Expression
+@if @(hasExpression)@
+@//
+        // Generated expressions-code
+        ComponentLink.link(@@ExpressionAsProgramName@@, @@NodeName@@_@@Name@@
+                , "@@Name@@", controller, "@@NodeName@@");
+@endif
+@if @(!hasExpression)@
+@if @(hasNextEquivalentName)@
+        // Generated expressions-code for linked data items.
+        ComponentLink.link(@@NodeName@@_@@Name@@, @@NextEquivalentName@@
+                , "@@Name@@", controller, "@@NodeName@@");
+
+@endif
+@endif
+
+
+@section NodeInfo@@NodeName@@GetChangedKeyFields
+        if (isPartOfKey("@@Name@@")) {
+            component = controller.view.fromNameToComponent("@@LogicalName@@");
+            if (component instanceof GenovaValueState) {
+                if (((GenovaValueState) component).isChanged()) {
+                    changedFields.add("@@Name@@");
+                }
+            }
+        }
+
+@section NodeInfo@@NodeName@@GetChangedFields
+        component = controller.view.fromNameToComponent("@@LogicalName@@");
+        if (component instanceof GenovaValueState) {
+            if (((GenovaValueState) component).isChanged()) {
+                changedFields.add("@@Name@@");
+            }
+        }
+@section NodeInfo@@NodeName@@ResetFields
+        component = controller.view.fromNameToComponent("@@LogicalName@@");
+        if (component instanceof GenovaValueState) {
+            ((GenovaValueState) component).resetState();
+        }
+
+
+@section ConstRole@@NodeName@@
+@//
+        /** The @@Name@@ data field */        
+        String $$hasParameter DialogConstUppercase?@@NameUpper@@:@@Name@@$$ = "@@LogicalName@@";
+
+
+@section ObtainData@@NodeName@@ rt
+        if (view.@@NodeName@@_@@Name@@_Group.isClear()) {
+            objectProxy.setAttribute("@@Name@@", null);
+        }
+
+@section ObtainDataString@@NodeName@@
+        if ("@@Name@@".equals(attr)) {
+            if (view.@@NodeName@@_@@Name@@_Group.getSelection() != null) {
+                return view.@@NodeName@@_@@Name@@_Group.getSelection().getActionCommand();
+            } else {
+                return null;
+            }
+        }
+
+@section setUpNameComponentMapping
+        nameToComponent.put("@@LogicalName@@", @@NodeName@@_@@Name@@_Group.asComponent());
+        componentToName.put(@@NodeName@@_@@Name@@_Group, "@@LogicalName@@");
+
+@section PopupTrigger
+                @//
+                /* Her kommer generert kode for RadioGroup:PopupTrigger*/
+                @//
+                $$hasPopupMenu?if (e.getSource() == @@NodeName@@_@@Name@@):$$
+                $$hasPopupMenu?@@PopupMenuName@@_popup.show(e.getComponent(),e.getX(),e.getY());:$$
+
+
+@section DisplayDataString@@NodeName@@
+@begin
+         if ("@@Name@@".equals(attributeName)) {
+            Object oldInitValue = view.@@NodeName@@_@@Name@@_Group.getInitialValue();
+            String tmp@@NodeName@@@@Name@@ = controller.convertToString(value, controller.getClassName(value), zero@@NodeName@@@@Name@@);
+
+@end
+            if (!resetState) {
+                view.@@NodeName@@_@@Name@@_Group.setInitialValue(oldInitValue);
+            }
+        }
+@//
+
+@section DisplayData@@NodeName@@
+@begin
+        display("@@Name@@", TypeTool.toObject(tmp@@NodeName@@.@@GetName@@), resetState);
+
+@section ClearData@@NodeName@@ rt
+        view.@@NodeName@@_@@Name@@_Group.clear();
+
+@section ClearDataField@@NodeName@@ rt
+        if ("@@Name@@".equals(s)) {
+            view.@@NodeName@@_@@Name@@_Group.clear();
+            return;
+        }
+
+
+@createSection EndFocusGained@@LogicalName@@ FocusActions
+@createSection StartFocusGained@@LogicalName@@ EndFocusGained@@LogicalName@@
+
+@section StartFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+        @@NodeName@@_@@Name@@_Group.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+@section EndFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+            }
+        });
+@endif
+
+@createSection EndFocusLost@@LogicalName@@ FocusActions
+@createSection StartFocusLost@@LogicalName@@ EndFocusLost@@LogicalName@@
+
+@section StartFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+        @@NodeName@@_@@Name@@_Group.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+
+@section EndFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+            }
+        });
+@endif
+
+
+@createSection EndValueChangedRadioGroup@@LogicalName@@ ValueChanged
+@createSection ValueChangedRadioGroup@@LogicalName@@ EndValueChangedRadioGroup@@LogicalName@@
+
+@section ValueChangedRadioGroup@@LogicalName@@
+@if @(hasEvent Value Changed)@
+        @@NodeName@@_@@Name@@_Group.addValueChangedListener(new GenovaValueChangedListener() {
+            public void valueChanged(GenovaValueChangedEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+@section EndValueChangedRadioGroup@@LogicalName@@
+@if @(hasEvent Value Changed)@
+            }
+        });
+@endif
+
+@createSection EndSelectedRadioGroup@@LogicalName@@ ActionPerformed
+@createSection StartSelectedRadioGroup@@LogicalName@@ EndSelectedRadioGroup@@LogicalName@@
+
+@section StartSelectedRadioGroup@@LogicalName@@ 
+@if @(hasEvent Selected)@
+                    if (e.getSource() == @@NodeName@@_@@Name@@_Group) {        
+@endif
+
+@section EndSelectedRadioGroup@@LogicalName@@
+@if @(hasEvent Selected)@
+                    }
+@endif
+
+@event Selected
+@section StartSelectedRadioGroup@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                        controller.@@MethodName@@(new GenovaActionEventHolder(e));
+@endif
+@endif
+       
+@event Value Changed
+@section ValueChangedRadioGroup@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.@@MethodName@@(e);
+@endif
+@endif
+
+@event Got Focus
+@section StartFocusGained@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.@@MethodName@@(new GenovaFocusEventHolder(e));
+@endif
+@endif    
+
+@event Lost Focus
+@section StartFocusLost@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.@@MethodName@@(new GenovaFocusEventHolder(e));
+@endif
+@endif
+

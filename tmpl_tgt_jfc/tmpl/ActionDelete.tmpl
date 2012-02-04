@@ -1,0 +1,245 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+
+@createSection ActionDelete@@TargetName@@ ActionMethodImpl
+@createSection HookActionDelete@@TargetName@@ HookMethodsSuper
+
+@section MethodDeclaration rt
+            actionDelete@@TargetName@@(); 
+
+@section ActionDelete@@TargetName@@
+@if @(emptySection)@
+@//
+@//
+    /**
+     * The Delete @@TargetName@@ JGrape action. This action involves 
+     * the following steps.
+     * <ol>
+     *  <li>The @@TargetName@@'s check method for Delete is invoked, possibly
+     *      aborting the action.
+     * 
+     * <li>After a recursive obtain, which builds up a minimum tree
+     *     containing only the objects needed by the server to identify the
+     *     target, the hookActionDelete@@TargetName@@Obtain(ObjectSelection)
+     *     method is invoked, possibly aborting the action.
+     *
+     * <li>Next, hookActionDelete@@TargetName@@ClientContext() is invoked. 
+     *     If the method returns <code>null</code> a default client 
+     *     context is used.
+     *
+     * <li>The object selection and the client context is used as arguments
+     *     to 
+     *
+     *    <code>
+     *    Application.getServiceProxy()
+     *            .Delete(ObjectSelection, ClientContext).
+     *    </code>
+     *
+     * <li>If the action is either a save, insert or update action, the
+     *     result from invoking Delete on the service proxy is merged with
+     *     the client's objects in order to restore the associations that
+     *     where stripped away when performing the recursive obtain.
+     *
+     * <li>Invoke hookActionDelete@@TargetName@@Display(resultObject), possibly 
+     *     aborting the action.
+     *
+     * <li>Recursively clear the @@TargetName@@ node and the recursivly
+     *     display the result.
+
+     * </ol>
+     */
+    protected void actionDelete@@TargetName@@() {
+        try {
+@//
+
+
+
+            if (!the@@TargetName@@.checkDelete()) {
+                Message msg = MessageFactory.getInstance().getMessage(CRuntimeMsg.CF_ABORTING_ACTION, "checkDelete", "delete", "@@TargetName@@");
+                MessageLogDispatcher.getInstance().log(msg, null);
+                return;
+            }
+
+
+
+
+
+@//
+            Message msg = MessageFactory.getInstance().getMessage(CRuntimeMsg.CF_CONTINUING_ACTION, "delete", "@@TargetName@@");
+            MessageLogDispatcher.getInstance().log(msg, null);
+@//
+
+
+
+            
+            ObjectSelection os = obtainObjectSelection(the@@TargetName@@);
+            os.setTargetMainKey(the@@TargetName@@.getTargetMainKey());
+
+
+@//
+            boolean goAhead = false;
+            try {
+                goAhead = hookActionDelete@@TargetName@@Obtain(os);
+            } catch (RuntimeException e) { 
+                goAhead = false;
+                throw e;
+
+            } finally {
+                if (!goAhead) {
+                    // rollback from recursive obtain
+                    Object parent = os.getRootObject(the@@TargetName@@
+                            .getRootNode().getRoleName());
+                    if (parent != null) {
+                        AbstractNode top = (AbstractNode) the@@TargetName@@
+                                .getRootNode();
+                        List pathToTarget = the@@TargetName@@.getPathToNode();
+                        top.mergeAssociations(parent, pathToTarget,true); 
+                    }
+                }
+            }
+
+            if (!goAhead) {
+                return;
+            }
+@//
+            ClientContext ctx = hookActionDelete@@TargetName@@ClientContext();
+            if (ctx == null) {
+                ctx = Application.getClientContext();
+            }
+
+
+@//
+            Collection resultObject = null;
+            try {
+                resultObject = (Collection) Application.getServiceProxy().delete(os, ctx);
+            } catch (RuntimeException e) {
+                // rollback from recursive obtain
+                Object parent = os.getRootObject(the@@TargetName@@
+                        .getRootNode().getRoleName());
+                if (parent != null) {
+                    AbstractNode top = (AbstractNode) the@@TargetName@@
+                            .getRootNode();
+                    List pathToTarget = the@@TargetName@@.getPathToNode();
+                    top.mergeAssociations(parent, pathToTarget,true); 
+                }
+                throw e;
+            }
+@//
+
+
+
+
+            Object root = os.getRootObject(the@@TargetName@@.getRootNode().getRoleName());
+            the@@TargetName@@.removeFromParent(root);
+
+            if (resultObject != null) {
+                AbstractNode top = (AbstractNode) the@@TargetName@@.getRootNode();
+                List pathToTarget = the@@TargetName@@.getPathToNode();
+                if (resultObject.iterator().hasNext()) {
+                    Object first = resultObject.iterator().next();
+                    top.mergeAssociations(first, pathToTarget,false);
+                }
+            }
+
+
+
+            if (hookActionDelete@@TargetName@@Display(resultObject)) {
+                new ClearTool(roleObjects).clear("@@TargetName@@");
+                resetProxy();
+                if (resultObject != null) {
+
+                     
+                    the@@TargetName@@.getRootNode().displayOnEDT(resultObject, the@@TargetName@@.getPathToNode(), false);
+                } 
+@//
+
+
+
+
+            }
+        
+
+
+               
+@//
+
+        } catch (RuntimeException e) {
+            if (hookActionDelete@@TargetName@@Exception(e)) {
+                throw e;
+            }
+        } 
+    }
+@endif
+@section HookActionDelete@@TargetName@@
+@if @(emptySection)@
+@//
+@//    
+    /**
+     * Hook method, called if the action resulted in a RuntimeException.
+     * Override in subclass.
+     *
+     * <p>If the exception is handeled in this hook, the hook should return
+     * <code>false</code>. If the hook returns <code>true</code> the 
+     * exception will be re-thrown from the invoking 
+     * <code>actionDelete@@TargetName@@()</code> method.
+     * <br>The default return value is <code>true</code>.
+     * @param e the catched exception 
+     * @return <code>false</code> if exception is handeled, 
+     *         <code>true</code> if exception should be re-thrown.
+     */
+    public boolean hookActionDelete@@TargetName@@Exception(RuntimeException e) {
+        return true;
+    }
+@//
+@//    
+    /**
+     * Hook method, called after the object selection is obtained. The boolean return value
+     * is used by the server action to determine if the action should proceed, true indicating
+     * that it should. The default return value is <code>true</code>.
+     * Override in subclass.
+     * @param objectSelection the obtained object selection.
+     * @return <code>true</code> if action should proceed.
+     */
+    public boolean hookActionDelete@@TargetName@@Obtain(ObjectSelection objectSelection) {
+        return true;
+    }
+@//
+@//
+    /**
+     * Hook method, called before server action is called. The returned ClientContext is used 
+     * when calling the server. If <code>null</code> is returned, 
+     * the Application.getClientContext() is used.
+     * <p>Override in subclass.
+     * @return the ClientContext that will be used as argument to the server action.
+     */
+    public ClientContext hookActionDelete@@TargetName@@ClientContext() {
+        return null;
+    }
+@//
+@//    
+    
+    /**
+     * Hook method, called before the found object in @@MethodName@@ is 
+     * displayed. The boolean return value is used to determine if the foundObject
+     * should be displayed (defaults to <code>true</code>.
+     * <p>Override in subclass! 
+     * @param foundObject the object returned from the server action find on target @@TargetName@@
+     * @return <code>true</code> if the object should be displayed.
+     */
+    public boolean hookActionDelete@@TargetName@@Display(Object foundObject) {
+        return true;
+    }
+      
+@endif
+

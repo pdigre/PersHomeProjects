@@ -1,0 +1,102 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+
+@createSection ActionEnabledfalse@@TargetName@@ ActionMethodImpl
+@createSection HookActionEnabledfalse@@TargetName@@ HookMethodsSuper
+
+@section MethodDeclaration rt
+            actionDisable@@TargetName@@();
+@section ActionEnabledfalse@@TargetName@@
+@if @(emptySection)@
+    @//
+    @//
+    /**
+     * Disables the @@TargetName@@ @(isTargetDialog?dialog:@(isTargetDataItem?data item:component)@)@.
+     */
+    protected void actionDisable@@TargetName@@() {
+        String msgID = null;
+        Exception ex = null;
+    @//
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                public void run() {
+                    try {
+@if @(isTargetDialog)@
+                        /* Target is a dialog, possible another one than this */
+                        GenovaDialogController gc = application.getDialog("@@TargetName@@");
+                        if(gc != null) {
+                            boolean isShowAction = false;
+                            if (isShowAction && gc.getWindow() instanceof JDialog) {
+                                gc.toFront();
+                            } else {
+                               gc.setEnabledComponent(gc.getWindow(), false, false);
+                            }
+                        }
+@endif
+@if @(!isTargetDialog)@
+                        /* Target is a component */
+                        view.setEnabledComponent(view.@(isTargetDataItem?@@TargetNodeName@@_:)@@@TargetName@@, false, false); 
+@endif        
+                    } catch (RuntimeException e) {
+                        if (hookActionDisable@@TargetName@@Exception(e)) {
+                            throw e;
+                        }
+                    }
+                }
+            });
+        } catch (InterruptedException e) {
+            msgID = CRuntimeMsg.CT_INTERRUPTED;
+            ex = e;
+        } catch (InvocationTargetException e) {
+            Throwable t = e.getCause();
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException)t;
+            } else {
+                msgID = CRuntimeMsg.CT_INVOCATION_TARGET;
+                if (t instanceof Exception) {
+                    ex = (Exception)t;
+                } else {
+                    ex = e;
+                }
+            }
+        } finally {
+            if (msgID != null) {
+               Object[] msgArgs = {this.getClass(), "actionDisable@@TargetName@@", ex};
+               Message msg = MessageFactory.getInstance().getMessage(msgID, msgArgs);
+               MessageLogDispatcher.getInstance().log(msg, null);
+               throw new GenovaClientFrameworkException(ex, msg);
+            }
+        }            
+
+    }
+    @//
+@endif
+    
+@section HookActionEnabledfalse@@TargetName@@ HookMethodsSuper
+@if @(emptySection)@
+@//
+@//    
+    /**
+     * Hook method, called if the action resulted in a RuntimeException. 
+     * Override in subclass.
+     * @param e the catched exception 
+     * @return <code>false</code> the exception is handeled, and no further action is needed.
+     */
+    public boolean hookActionDisable@@TargetName@@Exception(RuntimeException e) {
+        return true;
+    }
+@endif
+
+    
+  

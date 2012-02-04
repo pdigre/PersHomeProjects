@@ -1,0 +1,427 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+
+@section ConstRole@@NodeName@@
+@//
+        /** The @@Name@@ data field */        
+        String $$hasParameter DialogConstUppercase?@@NameUpper@@:@@Name@@$$ = "@@LogicalName@@";
+
+
+@section Declaration
+    $$isTextHidden?GenovaPasswordField:GenovaTextField$$ @@NodeName@@_@@Name@@ = new $$isTextHidden?GenovaPasswordField:GenovaTextField$$("");
+    final Object objectVersionOf@@NodeName@@@@Name@@ = @@NodeName@@_@@Name@@;
+    String oldValue@@NodeName@@@@Name@@;
+    
+@section SetupInit@@ParentName@@Start
+        init@@NodeName@@_@@Name@@();
+    
+@section SetupInit
+    @//
+    /** Initializes the @@NodeName@@.@@Name@@ text component */
+    private void init@@NodeName@@_@@Name@@() {
+        @@NodeName@@_@@Name@@.setName("@@LogicalName@@");
+@if @(!hasListHiddenEditFields)@
+        @@ParentName@@.add(@@NodeName@@_@@Name@@);
+        @@NodeName@@_@@Name@@.setLocation(@@XPos@@+@@ParentLeftFrameWidth@@,@@YPos@@+@@ParentTopFrameHeight@@);
+        { // limit scope of width and height declarations.
+            int width = @@Width@@;
+            int height = @@Height@@;
+            @@NodeName@@_@@Name@@.setSize(width, height);
+            if (width == 0 && height == 0) {
+                @@NodeName@@_@@Name@@.setFocusable(false);
+            }
+        } // end limit scope
+@endif
+        @//
+        controller.tabListFromNodeName@@ParentName@@.put("@@LogicalName@@", @@NodeName@@_@@Name@@);
+        controller.tabListFromComponent@@ParentName@@.put(@@NodeName@@_@@Name@@, "@@LogicalName@@");
+        @//
+        $$AttributeExistsHORIZONTAL_ALIGNMENT?@@NodeName@@_@@Name@@.setHorizontalAlignment(HorizontalAlign_@@HORIZONTAL_ALIGNMENT@@);:$$
+           //   @@NodeName@@_@@Name@@.setEditable(true);
+        @@NodeName@@_@@Name@@.setEditable($$isEditable?true:false$$);
+        @//
+        //@@NodeName@@_@@Name@@.setVisible($$hasListHiddenEditFields?true:false$$ || @@isVisible?true:false@@);
+        //$$isEnabled?:@@NodeName@@_@@Name@@.setEnabled(false);$$
+        
+@if @(!isVisible)@
+        @@NodeName@@_@@Name@@.setVisible(false); 
+@endif
+@if@(!isEnabled)@
+        @@NodeName@@_@@Name@@.setEnabled(false); 
+        disabledComponents.add(@@NodeName@@_@@Name@@);
+@endif
+        @(hasTooltip?@@NodeName@@_@@Name@@.setToolTipText("@@Tooltip@@");:)@
+
+
+        
+        @@NodeName@@_@@Name@@.setInputJustification(@(InputJustification==Left?JTextField.LEFT:@(InputJustification==Right?JTextField.RIGHT:JTextField.CENTER)@)@);
+        @@NodeName@@_@@Name@@.setOutputJustification(@(OutputJustification==Left?JTextField.LEFT:@(OutputJustification==Right?JTextField.RIGHT:JTextField.CENTER)@)@);
+        @@NodeName@@_@@Name@@.setHorizontalAlignment(@(OutputJustification==Left?JTextField.LEFT:@(OutputJustification==Right?JTextField.RIGHT:JTextField.CENTER)@)@);
+
+        @@NodeName@@_@@Name@@.setSelectAllOnFocus(@(selectAllOnFocus?true:false)@);
+
+        RepositoryProxy.setDatatype(@@GenovaDataType@@, @@NodeName@@_@@Name@@, @(isUpperCase?1:@(isLowerCase?-1:0)@)@, controller.getApplication().getEnums(), @(GenovaDataType==10?@@EnumerationName@@.class:null)@, 
+              FormatHelper.getDisplayrule(@@GenovaDataType@@,"@@DisplayRule@@",@@LengthInput@@,@@LengthStored@@,@@Decimals@@),@@LengthInput@@,@@blankWhenZero?true:false@@);
+        @(hasBackgroundColor?RepositoryProxy.setBackgroundColor(@@NodeName@@_@@Name@@,"@@StyleBackgroundColor@@");:)@
+        @(hasForegroundColor?RepositoryProxy.setForegroundColor(@@NodeName@@_@@Name@@,"@@StyleForegroundColor@@");:)@
+        @(hasFont?RepositoryProxy.setFont(@@NodeName@@_@@Name@@,"@@FontName@@");:)@
+        @(hasFrame?:RepositoryProxy.setBorder(@@NodeName@@_@@Name@@,@@FrameCode@@,"");)@
+        @//
+        $$hasKeyEvent?@@NodeName@@_@@Name@@.addKeyListener(keyProc);:// No Listener$$
+        @//
+        $$hasPopupMenu?@@NodeName@@_@@Name@@.addMouseListener(mouseProc);:$$
+    }
+
+@section Expression
+@if @(hasExpression)@
+@//
+        // Generated expressions-code
+        ComponentLink.link(@@ExpressionAsProgramName@@, @@NodeName@@_@@Name@@
+                , "@@Name@@", controller, "@@NodeName@@");
+@endif
+@if @(!hasExpression)@
+@if @(hasNextEquivalentName)@
+        // Generated expressions-code for linked data items.
+        ComponentLink.link(@@NodeName@@_@@Name@@, @@NextEquivalentName@@
+                , "@@Name@@", controller, "@@NodeName@@");
+
+@endif
+@endif
+
+
+@section PopupTrigger
+                $$hasPopupMenu?if (e.getSource() == @@NodeName@@_@@Name@@):$$
+                $$hasPopupMenu?@@PopupMenuName@@_popup.show(e.getComponent(),e.getX(),e.getY());:$$
+@section NodeInfo@@NodeName@@Variables rt
+@begin
+    boolean isMarkedChanged@@Name@@ = false;
+
+
+@section NodeInfo@@NodeName@@GetChangedKeyFields
+        if (isPartOfKey("@@Name@@")) {
+            component = controller.view.fromNameToComponent("@@LogicalName@@");
+            if (component instanceof GenovaValueState) {
+                if (((GenovaValueState) component).isChanged()) {
+                    changedFields.add("@@Name@@");
+                }
+            }
+        }
+
+@section NodeInfo@@NodeName@@GetChangedFields
+        component = controller.view.fromNameToComponent("@@LogicalName@@");
+        if (component instanceof GenovaValueState) {
+            if (((GenovaValueState) component).isChanged()) {
+                changedFields.add("@@Name@@");
+            }
+        }
+@section NodeInfo@@NodeName@@ResetFields
+        component = controller.view.fromNameToComponent("@@LogicalName@@");
+        if (component instanceof GenovaValueState) {
+            ((GenovaValueState) component).resetState();
+        }
+
+
+
+@if @(isSectionDefined CellEditor@@ParentName@@Start)@
+@if @(isEditable)@
+@section CellEditor@@ParentName@@Start
+        if (controller.listblockMethods@@ParentName@@.
+                hasColumn("@@RoleName@@.@@Name@@")) {         
+            colIndex = controller.listblockMethods@@ParentName@@
+                    .getColumnIndex("@@RoleName@@.@@Name@@"); 
+            column = columnModel.getColumn(colIndex);
+            column.setCellEditor(new no.genova.client.component.GDefaultCellEditor
+                     (@@NodeName@@_@@Name@@));
+           if ((Object) @@NodeName@@_@@Name@@ instanceof JCheckBox) {
+               @@NodeName@@_@@Name@@.setHorizontalAlignment(SwingConstants.CENTER);
+           }
+        }
+@endif
+@endif
+        
+
+@section NodeInfo@@NodeName@@MethodsisChanged rt
+@begin
+    if (isMarkedChanged@@Name@@) isMarkedChanged = true;
+    if (old@@NodeName@@ != null) {
+        if (!TypeTool.equals(tmp@@NodeName@@.@@GetName@@, old@@NodeName@@.@@GetName@@)) {
+            isMarkedChanged = true;
+            isMarkedChanged@@Name@@ = true;
+        }
+    }
+@section NodeInfo@@NodeName@@MethodsisChangedField rt
+@begin
+    if (s.equals("@@Name@@")) {
+        if (isMarkedChanged@@Name@@) bChanged = true;
+        if (tmp@@NodeName@@ != null && old@@NodeName@@ != null) {
+        if (!TypeTool.equals(tmp@@NodeName@@.@@GetName@@, old@@NodeName@@.@@GetName@@)) {
+            bChanged = true;
+            isMarkedChanged@@Name@@ = true;
+            }
+        }
+    }    
+@section NodeInfo@@NodeName@@MethodssetChanged rt
+@begin
+    isMarkedChanged@@Name@@ = b;
+@section NodeInfo@@NodeName@@MethodssetChangedField rt
+@begin
+    if (s.equals("@@Name@@")) {
+        isMarkedChanged@@Name@@ = b;
+    }    
+@section ObtainData@@NodeName@@ rt
+@begin
+        objectProxy.setAttribute
+            ("@@AttributeName@@", view.@@NodeName@@_@@Name@@.getValue());
+
+
+@section ObtainDataString@@NodeName@@ rt
+        if ("@@Name@@".equals(attr)) {
+            return view.@@NodeName@@_@@Name@@.format();
+        }
+
+@section setUpNameComponentMapping
+        nameToComponent.put("@@LogicalName@@", @@NodeName@@_@@Name@@);
+        componentToName.put(@@NodeName@@_@@Name@@, "@@LogicalName@@");
+
+
+
+
+@section setShowZeroField@@NodeName@@ rt
+    if(s.equals("@@Name@@")) {
+        zero@@NodeName@@@@Name@@ = val;
+    }
+@section setShowZeroFieldDecl@@NodeName@@ rt
+    boolean zero@@NodeName@@@@Name@@ = false;
+
+@section DisplayDataField@@NodeName@@ rt
+@begin
+            if (attributeName.equals("@@Name@@")) {
+                value = TypeTool.toObject(tmp@@NodeName@@.@@GetName@@);
+            }
+
+@section DisplayDataString@@NodeName@@
+        if ("@@Name@@".equals(attributeName)) {
+            Object valueObject = null;
+            if (value instanceof String) {
+                valueObject = view.@@NodeName@@_@@Name@@.parse((String) value);
+            } else {
+                valueObject = value;
+            }
+            if (resetState) {
+                view.@@NodeName@@_@@Name@@.setInitialValue(valueObject);
+            }
+            view.@@NodeName@@_@@Name@@.setValue(valueObject);
+            view.@@NodeName@@_@@Name@@.setCaretPosition(0);
+        }
+            
+
+@section DisplayData@@NodeName@@ rt
+@begin
+        display("@@Name@@", TypeTool.toObject(tmp@@NodeName@@.@@GetName@@), resetState);
+
+@section ClearData@@NodeName@@ rt
+@begin
+    view.@@NodeName@@_@@Name@@.setInitialValue(null);
+    view.oldValue@@NodeName@@@@Name@@ = "";
+    view.@@NodeName@@_@@Name@@.setValue(null);
+    view.@@NodeName@@_@@Name@@.resetState();
+
+
+@section ClearDataField@@NodeName@@ rt
+@begin
+    if (s.equals("@@Name@@")) {
+        view.oldValue@@NodeName@@@@Name@@ = "";
+        view.@@NodeName@@_@@Name@@.setInitialValue(null);
+        view.@@NodeName@@_@@Name@@.setValue(null);
+        view.@@NodeName@@_@@Name@@.resetState();
+    }
+
+@section setEnabled@@NodeName@@ rt
+@begin
+    view.@@NodeName@@_@@Name@@.setEnabled(b);
+@section setEnabledField@@NodeName@@ rt
+@begin
+    if (s.equals("@@Name@@")) {
+        view.@@NodeName@@_@@Name@@.setEnabled(b);
+    }
+@section setShown@@NodeName@@ rt
+@begin
+    view.@@NodeName@@_@@Name@@.setVisible(b);
+
+@section setShownField@@NodeName@@ rt
+@begin
+    if (s.equals("@@Name@@")) {
+        view.@@NodeName@@_@@Name@@.setVisible(b);
+    }
+@section setFocusField@@NodeName@@ rt
+@begin
+    if (s.equals("@@Name@@")) {
+        view.@@NodeName@@_@@Name@@.requestFocusInWindow();
+    }
+@section isEnabled@@NodeName@@ rt
+@begin
+    if (view.@@NodeName@@_@@Name@@.isEnabled()) b=true;
+
+@section isEnabledField@@NodeName@@ rt
+@begin
+    if (s.equals("@@Name@@")) {
+        if (view.@@NodeName@@_@@Name@@.isEnabled()) b=true;
+    }
+
+@section isShown@@NodeName@@ rt
+@begin
+    if (view.@@NodeName@@_@@Name@@.isEnabled()) b=true;
+
+@section isShownField@@NodeName@@ rt
+@begin
+    if (s.equals("@@Name@@")) {
+        if (view.@@NodeName@@_@@Name@@.hasFocus()) b=true;
+    }
+
+@section hasFocusField@@NodeName@@ rt
+@begin
+    if (view.@@NodeName@@_@@Name@@.hasFocus()) b=true;
+
+@section UpdateBackupColumns@@NodeName@@ rt
+
+@section ClearBlockStart@@ParentName@@@@DialogName@@
+        @@NodeName@@_@@Name@@.setInitialValue(null);
+        @@NodeName@@_@@Name@@.setValue(null);
+
+@section Setup
+
+@section isConsistant@@NodeName@@ rt
+    if(!TypeTool.isConsistant(view.@@NodeName@@_@@Name@@.getText(), old@@NodeName@@.@@GetName@@)) {
+        return false;
+    }
+
+@section hasOneValue@@NodeName@@ rt
+    if(view.@@NodeName@@_@@Name@@.getText() != null && view.@@NodeName@@_@@Name@@.getText().trim().length() > 0) {
+        return true;
+    }
+
+
+@section hasValue@@NodeName@@ rt
+    if(view.@@NodeName@@_@@Name@@.getText() == null || view.@@NodeName@@_@@Name@@.getText().length() == 0) {
+        return false;
+    }
+
+@section setStyle@@NodeName@@ rt
+    view.@@NodeName@@_@@Name@@.setForeground(foreground);
+    view.@@NodeName@@_@@Name@@.setBackground(background);
+
+
+@section hasValueField@@NodeName@@ rt
+    if(field.equals("@@Name@@") && (view.@@NodeName@@_@@Name@@.getText() == null || view.@@NodeName@@_@@Name@@.getText().length() == 0)) {
+        return false;
+    }
+
+
+@createSection ValueChangedTextFieldEnd@@LogicalName@@ ValueChanged
+@createSection ValueChangedTextFieldStart@@LogicalName@@ ValueChangedTextFieldEnd@@LogicalName@@
+
+@section ValueChangedTextFieldStart@@LogicalName@@
+@if @(hasEvent Value Changed)@
+        @@NodeName@@_@@Name@@.addValueChangedListener(new GenovaValueChangedListener() {
+            public void valueChanged(GenovaValueChangedEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+@section ValueChangedTextFieldEnd@@LogicalName@@
+@if @(hasEvent Value Changed)@
+            }
+        });
+@endif        
+
+
+@createSection EndKeyTyped@@LogicalName@@ KeyTyped
+@createSection StartKeyTyped@@LogicalName@@ EndKeyTyped@@LogicalName@@
+
+@section StartKeyTyped@@LogicalName@@
+@if @(hasEvent Character Changed)@
+    if (e.getSource() == @@NodeName@@_@@Name@@) {
+@endif
+
+@section EndKeyTyped@@LogicalName@@
+@if @(hasEvent Character Changed)@
+    }
+@endif
+
+@createSection EndFocusGained@@LogicalName@@ FocusActions
+@createSection StartFocusGained@@LogicalName@@ EndFocusGained@@LogicalName@@
+
+@section StartFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+        @@NodeName@@_@@Name@@.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+@section EndFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+            }
+        });
+@endif
+
+@createSection EndFocusLost@@LogicalName@@ FocusActions
+@createSection StartFocusLost@@LogicalName@@ EndFocusLost@@LogicalName@@
+
+@section StartFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+        @@NodeName@@_@@Name@@.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+
+@section EndFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+            }
+        });
+@endif
+
+
+
+@event Got Focus
+@section StartFocusGained@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.@@MethodName@@(new GenovaFocusEventHolder(e));
+@endif
+@endif    
+
+@event Lost Focus
+@section StartFocusLost@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.@@MethodName@@(new GenovaFocusEventHolder(e));
+@endif
+@endif
+
+@event Character Changed
+@section StartKeyTyped@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+        controller.@@MethodName@@(new GenovaKeyEventHolder(e));
+@endif
+@endif
+
+@event Value Changed
+@section ValueChangedTextFieldStart@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.@@MethodName@@(e);
+@endif
+@endif
+

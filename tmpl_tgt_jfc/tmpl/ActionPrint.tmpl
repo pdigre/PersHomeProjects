@@ -1,0 +1,174 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+
+@createSection ActionPrint@@TargetName@@ ActionMethodImpl
+@createSection HookActionPrint@@TargetName@@ HookMethodsSuper
+
+@section MethodDeclaration rt
+            actionPrint@@TargetName@@(); 
+
+@section ActionPrint@@TargetName@@
+@if @(emptySection)@
+@//
+@//
+    /**
+     * The Print @@TargetName@@ JGrape action. This action involves 
+     * the following steps.
+     * <ol>
+     *  <li>The @@TargetName@@'s check method for Print is invoked, possibly
+     *      aborting the action.
+     * 
+     * <li>After a recursive obtain, which builds up a minimum tree
+     *     containing only the objects needed by the server to identify the
+     *     target, the hookActionPrint@@TargetName@@Obtain(ObjectSelection)
+     *     method is invoked, possibly aborting the action.
+     *
+     * <li>Next, hookActionPrint@@TargetName@@ClientContext() is invoked. 
+     *     If the method returns <code>null</code> a default client 
+     *     context is used.
+     *
+     * <li>The object selection and the client context is used as arguments
+     *     to 
+     *
+     *    <code>
+     *    Application.getServiceProxy()
+     *            .Print(ObjectSelection, ClientContext).
+     *    </code>
+     *
+     * <li>If the action is either a save, insert or update action, the
+     *     result from invoking Print on the service proxy is merged with
+     *     the client's objects in order to restore the associations that
+     *     where stripped away when performing the recursive obtain.
+     *
+     * <li>Invoke hookActionPrint@@TargetName@@Display(resultObject), possibly 
+     *     aborting the action.
+     *
+     * <li>Recursively clear the @@TargetName@@ node and the recursivly
+     *     display the result.
+
+     * </ol>
+     */
+    protected void actionPrint@@TargetName@@() {
+        try {
+@//
+
+
+
+
+
+
+
+           if (!checkPrint()) {
+               Message msg = MessageFactory.getInstance().getMessage(CRuntimeMsg.CF_ABORTING_ACTION, "checkPrint", "print", "@@TargetName@@");
+               MessageLogDispatcher.getInstance().log(msg, null);
+               return;
+           }
+
+@//
+            Message msg = MessageFactory.getInstance().getMessage(CRuntimeMsg.CF_CONTINUING_ACTION, "print", "@@TargetName@@");
+            MessageLogDispatcher.getInstance().log(msg, null);
+@//
+
+
+
+
+            ObjectSelection os = obtainObjectSelection();
+
+
+@//
+            boolean goAhead = false;
+            try {
+                goAhead = hookActionPrint@@TargetName@@Obtain(os);
+            } catch (RuntimeException e) { 
+                goAhead = false;
+                throw e;
+
+            }
+
+            if (!goAhead) {
+                return;
+            }
+@//
+            ClientContext ctx = hookActionPrint@@TargetName@@ClientContext();
+            if (ctx == null) {
+                ctx = Application.getClientContext();
+            }
+
+
+@//          
+           Message convMsg = MessageFactory.getInstance().getMessage(CRuntimeMsg.CF_CONVERT_TO_DOCUMENT);
+           MessageLogDispatcher.getInstance().log(convMsg, null);
+           org.w3c.dom.Document document = Application.getXmlConverter().convert(os, ctx);
+           Message printMsg = MessageFactory.getInstance().getMessage(CRuntimeMsg.CF_INVOKING_PRINT, "@@TargetName@@");
+           MessageLogDispatcher.getInstance().log(printMsg, null);
+           Application.getPrintService().print(new PrintContext("@@TargetName@@", document));
+
+        } catch (RuntimeException e) {
+            if (hookActionPrint@@TargetName@@Exception(e)) {
+                throw e;
+            }
+        } 
+    }
+@endif
+@section HookActionPrint@@TargetName@@
+@if @(emptySection)@
+@//
+@//    
+    /**
+     * Hook method, called if the action resulted in a RuntimeException.
+     * Override in subclass.
+     *
+     * <p>If the exception is handeled in this hook, the hook should return
+     * <code>false</code>. If the hook returns <code>true</code> the 
+     * exception will be re-thrown from the invoking 
+     * <code>actionPrint@@TargetName@@()</code> method.
+     * <br>The default return value is <code>true</code>.
+     * @param e the catched exception 
+     * @return <code>false</code> if exception is handeled, 
+     *         <code>true</code> if exception should be re-thrown.
+     */
+    public boolean hookActionPrint@@TargetName@@Exception(RuntimeException e) {
+        return true;
+    }
+@//
+@//    
+    /**
+     * Hook method, called after the object selection is obtained. The boolean return value
+     * is used by the server action to determine if the action should proceed, true indicating
+     * that it should. The default return value is <code>true</code>.
+     * Override in subclass.
+     * @param objectSelection the obtained object selection.
+     * @return <code>true</code> if action should proceed.
+     */
+    public boolean hookActionPrint@@TargetName@@Obtain(ObjectSelection objectSelection) {
+        return true;
+    }
+@//
+@//
+    /**
+     * Hook method, called before server action is called. The returned ClientContext is used 
+     * when calling the server. If <code>null</code> is returned, 
+     * the Application.getClientContext() is used.
+     * <p>Override in subclass.
+     * @return the ClientContext that will be used as argument to the server action.
+     */
+    public ClientContext hookActionPrint@@TargetName@@ClientContext() {
+        return null;
+    }
+@//
+@//    
+
+      
+@endif
+

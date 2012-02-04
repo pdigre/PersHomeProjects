@@ -1,0 +1,223 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@section Declaration
+   JSlider @@NodeName@@_@@Name@@ = new JSlider();
+   final Object objectVersjonOf@@NodeName@@@@Name@@ = @@NodeName@@_@@Name@@;
+
+@section Setup
+        @@ParentName@@.add(@@NodeName@@_@@Name@@);
+        @@NodeName@@_@@Name@@.setLocation(@@XPos@@+@@ParentLeftFrameWidth@@,@@YPos@@+@@ParentTopFrameHeight@@);
+        @@NodeName@@_@@Name@@.setSize(@@Width@@, @@Height@@);
+        @@NodeName@@_@@Name@@.setMaximum((int) @@MaximumValue@@);
+        @@NodeName@@_@@Name@@.setMinimum((int) @@MinimumValue@@);
+        
+@if @(!isVisible)@
+        @@NodeName@@_@@Name@@.setVisible(false); 
+@endif
+@if@(!isEnabled)@
+        @@NodeName@@_@@Name@@.setEnabled(false); 
+        disabledComponents.add(@@NodeName@@_@@Name@@);
+@endif
+        @(hasTooltip?@@NodeName@@_@@Name@@.setToolTipText("@@Tooltip@@");:)@
+
+        
+   //   @@NodeName@@_@@Name@@.setMajorTickSpacing(@@Increment@@);
+
+        $$hasKeyEvent?@@NodeName@@_@@Name@@.addKeyListener(keyProc);:$$
+        $$hasActionEvent?@@NodeName@@_@@Name@@.addChangeListener(changeProc);:$$
+        $$hasPopupMenu?@@NodeName@@_@@Name@@.addMouseListener(mouseProc);:$$
+@section PopupTrigger
+   $$hasPopupMenu?if (e.getSource() == @@NodeName@@_@@Name@@):$$
+   $$hasPopupMenu?@@PopupMenuName@@_popup.show(e.getComponent(),e.getX(),e.getY());:$$
+
+
+@section setUpNameComponentMapping
+        nameToComponent.put("@@LogicalName@@", @@NodeName@@_@@Name@@);
+        componentToName.put(@@NodeName@@_@@Name@@, "@@LogicalName@@");
+
+
+
+
+@section NodeInfo@@NodeName@@Variables rt
+@begin
+       boolean isMarkedChanged@@Name@@ = false;
+
+@section NodeInfo@@NodeName@@MethodsisChanged rt
+@begin
+        if (isMarkedChanged@@Name@@) isMarkedChanged = true;
+        if (tmp@@NodeName@@ != null && old@@NodeName@@ != null) {
+            if (!TypeTool.equals(tmp@@NodeName@@.@@GetName@@, old@@NodeName@@.@@GetName@@)) {
+                isMarkedChanged = true;
+                isMarkedChanged@@Name@@ = true;
+            }
+        }
+@section NodeInfo@@NodeName@@MethodsisChangedField rt
+@begin
+        if (s.equals("@@Name@@")) {
+            if (isMarkedChanged@@Name@@) bChanged = true;
+            if (tmp@@NodeName@@ != null && old@@NodeName@@ != null) {
+            // Her må vi sammenligne på en annen måte enn = ( for strings) ???
+            if (!TypeTool.equals(tmp@@NodeName@@.@@GetName@@, old@@NodeName@@.@@GetName@@)) {
+                bChanged = true;
+                isMarkedChanged@@Name@@ = true;
+                }
+            }
+        }    
+
+@section NodeInfo@@NodeName@@MethodssetChanged rt
+@begin
+        isMarkedChanged@@Name@@ = b;
+
+@section NodeInfo@@NodeName@@MethodssetChangedField rt
+@begin
+        if (s.equals("@@Name@@")) {
+            isMarkedChanged@@Name@@ = b;
+        }    
+
+@section ObtainData@@NodeName@@ rt
+@begin
+      // controller.reflectAssign(tmp@@NodeName@@, "@@Name@@", String.valueOf(view.@@NodeName@@_@@Name@@.getValue()));
+      objectProxy.setAttribute("@@Name@@", new Integer(view.@@NodeName@@_@@Name@@.getValue()));
+
+@section DisplayDataField@@NodeName@@ rt
+@begin
+            if (attributeName.equals("@@Name@@")) {
+                value = TypeTool.toObject(tmp@@NodeName@@.@@GetName@@);
+            }
+
+@section DisplayData@@NodeName@@ rt
+@begin
+        display("@@Name@@", TypeTool.toObject(tmp@@NodeName@@.@@GetName@@), resetState);
+
+@section ClearData@@NodeName@@ rt
+@begin
+    view.@@NodeName@@_@@Name@@.setValue(view.@@NodeName@@_@@Name@@.getMinimum());
+
+@section ClearDataField@@NodeName@@ rt
+@begin
+    if (s.equals("@@Name@@")) {
+        view.@@NodeName@@_@@Name@@.setValue(view.@@NodeName@@_@@Name@@.getMinimum());
+    }
+
+@section setEnabled@@NodeName@@ rt
+@begin
+    view.@@NodeName@@_@@Name@@.setEnabled(b);
+
+@section setEnabledField@@NodeName@@ rt
+@begin
+        if (s.equals("@@Name@@")) {
+            view.@@NodeName@@_@@Name@@.setEnabled(b);
+        }
+
+@section setShown@@NodeName@@ rt
+@begin
+    view.@@NodeName@@_@@Name@@.setVisible(b);
+
+@section setShownField@@NodeName@@ rt
+@begin
+        if (s.equals("@@Name@@")) {
+            view.@@NodeName@@_@@Name@@.setVisible(b);
+        }
+
+@section setFocusField@@NodeName@@ rt
+@begin
+        if (s.equals("@@Name@@")) {
+            view.@@NodeName@@_@@Name@@.requestFocus();
+        }
+
+@section isEnabled@@NodeName@@ rt
+@begin
+    if (view.@@NodeName@@_@@Name@@.isEnabled()) b=true;
+
+@section isEnabledField@@NodeName@@ rt
+@begin
+        if (s.equals("@@Name@@")) {
+            if (view.@@NodeName@@_@@Name@@.isEnabled()) b=true;
+        }
+
+@section isShown@@NodeName@@ rt
+@begin
+    if (view.@@NodeName@@_@@Name@@.isEnabled()) b=true;
+
+@section isShownField@@NodeName@@ rt
+@begin
+        if (s.equals("@@Name@@")) {
+            if (view.@@NodeName@@_@@Name@@.hasFocus()) b=true;
+        }
+
+@section hasFocusField@@NodeName@@ rt
+@begin
+    if (view.@@NodeName@@_@@Name@@.hasFocus()) b=true;
+
+@createSection EndFocusGained@@LogicalName@@ FocusActions
+@createSection StartFocusGained@@LogicalName@@ EndFocusGained@@LogicalName@@
+
+@section StartFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+        @@NodeName@@_@@Name@@.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+@section EndFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+            }
+        });
+@endif
+
+@createSection EndFocusLost@@LogicalName@@ FocusActions
+@createSection StartFocusLost@@LogicalName@@ EndFocusLost@@LogicalName@@
+
+@section StartFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+        @@NodeName@@_@@Name@@.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+
+@section EndFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+            }
+        });
+@endif
+
+
+@event Value Changed
+@section KeyPressed
+   if (e.getSource() == @@NodeName@@_@@Name@@) {
+      $$hasMethodName?@@MethodName@@(new GenovaKeyEventHolder(e));:$$
+   }
+
+@event Got Focus
+@section StartFocusGained@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.@@MethodName@@(new GenovaFocusEventHolder(e));
+@endif
+@endif    
+
+@event Lost Focus
+@section StartFocusLost@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.@@MethodName@@(new GenovaFocusEventHolder(e));
+@endif
+@endif
+
+@event Selected
+@section StateChanged
+   if (e.getSource() == @@NodeName@@_@@Name@@) {
+      $$hasMethodName?@@MethodName@@(new GenovaChangeEventHolder(e));:$$
+   }

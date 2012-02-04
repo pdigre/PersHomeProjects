@@ -1,0 +1,109 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@section Declaration
+    @//
+    /* Her kommer generert kode fra Menu:Declaration*/
+    @//
+@if @(MenuType==0)@
+    GenovaMenu @@Name@@ = new GenovaMenu("@@Title@@", GenovaMenu.CUSTOM_MENU, "@@Name@@");
+@endif
+
+@if @(MenuType==1)@
+    GenovaMenu @@Name@@ = new GenovaFileMenu("@@Title@@");
+@endif
+
+@if @(MenuType==2)@ 
+    GenovaMenu @@Name@@ = new GenovaEditMenu("@@Title@@");
+@endif
+
+@if @(MenuType==3)@ 
+    GenovaMenu @@Name@@ = new GenovaViewMenu("@@Title@@");
+@endif
+
+@if @(MenuType==4)@ 
+    GenovaMenu @@Name@@;
+@endif
+
+@if @(MenuType==5)@ 
+    GenovaMenu @@Name@@ = new GenovaHelpMenu("@@Title@@");
+@endif
+    JPopupMenu @@Name@@_popup = new JPopupMenu("@@Title@@");
+  
+
+
+@section SetupInit@@ParentName@@Start
+
+        init@@Name@@();
+
+@createSection SetupInit@@Name@@End SetupInit
+@createSection SetupInit@@Name@@Start SetupInit@@Name@@End
+
+@section SetupInit@@Name@@Start
+    @//
+    /** Initializes the @@Name@@ menu */
+    private void init@@Name@@() {
+        @//
+        /* Menu:Setup*/
+        @//
+@if @(MenuType==4)@ 
+    @@Name@@ = new GenovaWindowMenu("@@Title@@", getController().getApplication()
+                .getGenovaDesktopPane());
+@endif        
+@if @(hasMnemonic)@
+        @@Name@@.setMnemonic(Character.toUpperCase('@@Mnemonic@@'));
+@endif
+
+@if @(isParentMenuBar)@
+        @@ParentName@@.addGenovaMenu(@@Name@@);
+@endif
+@if @(isParentMenu)@
+        @@ParentName@@.addGenovaItem(@@Name@@);
+@endif
+
+        @(hasBackgroundColor?RepositoryProxy.setBackgroundColor(@@Name@@,"@@StyleBackgroundColor@@");:)@
+        @(hasForegroundColor?RepositoryProxy.setForegroundColor(@@Name@@,"@@StyleForegroundColor@@");:)@
+        @(hasFont?RepositoryProxy.setFont(@@Name@@,"@@FontName@@");:)@
+        
+@if @(!isVisible)@
+        @@Name@@.setVisible(false); 
+@endif
+@if@(!isEnabled)@
+        @@Name@@.setEnabled(false); 
+        disabledComponents.add(@@Name@@);
+@endif
+        @(hasTooltip?@@Name@@.setToolTipText("@@Tooltip@@");:)@
+
+
+
+@section SetupInit@@Name@@End
+    }
+
+@section getPopupMenu
+    if(menuName.equals("@@Name@@")) {
+        return view.@@Name@@_popup;
+    }
+
+@section setUpNameComponentMapping
+        nameToComponent.put("@@Name@@", @@Name@@);
+        componentToName.put(@@Name@@, "@@Name@@");
+
+
+@section ConstCompMenu
+@//
+        /** The Menu @@Name@@ component */
+        String $$hasParameter DialogConstUppercase?@@NameUpper@@:@@Name@@$$ = "@@Name@@";
+
+
+
+

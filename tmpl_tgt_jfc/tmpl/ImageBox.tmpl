@@ -1,0 +1,52 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@section Declaration
+    @//
+    /* Her kommer generert kode for ImageBox:Declaration*/
+    @//    
+    JLabel @@Name@@ = new JLabel(RepositoryProxy.getImageField("@@ImageName@@"));
+    @//
+
+@section SetupInit@@ParentName@@Start
+        init@@Name@@();
+
+@section SetupInit
+    @//
+    /** Initializes the @@Name@@ image box */
+    private void init@@Name@@() {
+        @@ParentName@@.add(@@Name@@);
+        @@Name@@.setLocation(@@XPos@@+@@ParentLeftFrameWidth@@,@@YPos@@+@@ParentTopFrameHeight@@);
+        @@Name@@.setSize(@@Width@@, @@Height@@);
+        
+@if @(!isVisible)@
+        @@Name@@.setVisible(false); 
+@endif
+@if@(!isEnabled)@
+        @@Name@@.setEnabled(false); 
+        disabledComponents.add(@@Name@@);
+@endif
+        @(hasTooltip?@@Name@@.setToolTipText("@@Tooltip@@");:)@
+
+
+        @(hasBackgroundColor?RepositoryProxy.setBackgroundColor(@@Name@@,"@@StyleBackgroundColor@@");:)@
+        @(hasForegroundColor?RepositoryProxy.setForegroundColor(@@Name@@,"@@StyleForegroundColor@@");:)@
+        @(hasFont?RepositoryProxy.setFont(@@Name@@,"@@FontName@@");:)@
+    }
+
+
+@section ConstCompImageBox
+@//
+        /** The ImageBox @@Name@@ component */
+        String $$hasParameter DialogConstUppercase?@@NameUpper@@:@@Name@@$$ = "@@Name@@";
+

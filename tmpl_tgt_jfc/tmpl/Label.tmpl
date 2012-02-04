@@ -1,0 +1,75 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@section Declaration
+    @//
+    /** The @@Name@@ label */
+    protected JLabel @@Name@@Label = new JLabel("@@Title@@");
+
+@section SetupInit@@ParentName@@Start
+        init@@Name@@Label();
+
+
+@section SetupInit
+    /**
+     * Initializes the @@Name@@ label */
+    private void init@@Name@@Label() {
+        @@ParentName@@.add(@@Name@@Label);
+        @@Name@@Label.setLocation(@@XPos@@+@@ParentLeftFrameWidth@@,@@YPos@@+@@ParentTopFrameHeight@@); 
+        @@Name@@Label.setSize(@@Width@@, @@Height@@);
+        
+@if @(!isVisible)@
+        @@Name@@Label.setVisible(false); 
+@endif
+@if@(!isEnabled)@
+        @@Name@@Label.setEnabled(false); 
+        disabledComponents.add(@@Name@@Label);
+@endif
+        @(hasTooltip?@@Name@@Label.setToolTipText("@@Tooltip@@");:)@
+
+        
+        @(hasBackgroundColor?RepositoryProxy.setBackgroundColor(@@Name@@Label,"@@StyleBackgroundColor@@");:)@
+        @(hasForegroundColor?RepositoryProxy.setForegroundColor(@@Name@@Label,"@@StyleForegroundColor@@");:)@
+        @(hasFont?RepositoryProxy.setFont(@@Name@@Label,"@@FontName@@");:)@
+    }
+@section setShown@@ParentName@@ rt
+@begin
+    view.@@Name@@Label.setVisible(b);
+
+@section setShownField@@ParentName@@ rt
+@begin
+        if (s.equals("@@Name@@")) {
+            view.@@Name@@Label.setVisible(b);
+        }
+
+@section isShown@@ParentName@@ rt
+@begin
+    if (view.@@Name@@Label.isEnabled()) b=true;
+
+@section isShownField@@ParentName@@ rt
+@begin
+        if (s.equals("@@Name@@")) {
+            if (view.@@Name@@Label.hasFocus()) b=true;
+        }
+
+@section setUpNameComponentMapping
+        nameToComponent.put("@@Name@@", @@Name@@Label);
+        componentToName.put(@@Name@@Label, "@@Name@@");
+        
+
+@section ConstCompLabel
+@//
+        /** The Label @@Name@@ component */
+        String $$hasParameter DialogConstUppercase?@@NameUpper@@:@@Name@@$$ = "@@Name@@";
+
+ 

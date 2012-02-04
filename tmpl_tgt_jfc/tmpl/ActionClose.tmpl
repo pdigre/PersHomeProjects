@@ -1,0 +1,97 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@createSection ActionClose@@TargetName@@ ActionMethodImpl
+@createSection HookActionClose@@TargetName@@ HookMethodsSuper
+
+@section MethodDeclaration rt
+            actionClose@@TargetName@@(); 
+
+@section ActionClose@@TargetName@@
+@if @(emptySection)@
+    @//
+    @//
+    /**
+     * Invokes check close on the @@TargetName@@ dialog, and closes the
+     * @@TargetName@@ dialog if checkClose returned <code>true</code>
+     */
+    protected void actionClose@@TargetName@@() {
+    @//    
+        String msgID = null;
+        Exception ex = null;
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                public void run() {
+                    GenovaDialogController gdc = 
+                            application.getDialog("@@TargetName@@");
+                    try {
+@//           
+                        // close a dialog window if checkClose returns true
+                        if (gdc != null && gdc.checkClose()) {
+                            gdc.disposeDialog();
+                        }
+                    } catch (GenovaBaseException e) {
+                        if (hookActionClose@@TargetName@@Exception(e)) {
+                            throw e;
+                        }
+                    } catch (RuntimeException e) {
+                        if (hookActionClose@@TargetName@@Exception(e)) {
+                            if (gdc != null) {
+                                gdc.disposeDialog();
+                            }
+                            throw e;
+                        }
+                    }
+                }
+            });
+        } catch (InterruptedException e) {
+            msgID = CRuntimeMsg.CT_INTERRUPTED;
+            ex = e;
+        } catch (InvocationTargetException e) {
+            Throwable t = e.getCause();
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException)t;
+            } else {
+                msgID = CRuntimeMsg.CT_INVOCATION_TARGET;
+                if (t instanceof Exception) {
+                    ex = (Exception)t;
+                } else {
+                    ex = e;
+                }
+            }
+        } finally {
+            if (msgID != null) {
+               Object[] msgArgs = {this.getClass(), "actionClose@@TargetName@@", ex};
+               Message msg = MessageFactory.getInstance().getMessage(msgID, msgArgs);
+               MessageLogDispatcher.getInstance().log(msg, null);
+               throw new GenovaClientFrameworkException(ex, msg);
+            }
+        } 
+    }
+    @//
+@endif
+        
+@section HookActionClose@@TargetName@@
+@if @(emptySection)@
+@//
+@//    
+    /**
+     * Hook method, called if the action resulted in a RuntimeException. 
+     * Override in subclass.
+     * @param e the catched exception 
+     * @return <code>false</code> the hook has handeled the exception, and no further action is needed.
+     */
+    public boolean hookActionClose@@TargetName@@Exception(RuntimeException e) {
+        return true;
+    }
+@endif

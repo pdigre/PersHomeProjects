@@ -1,0 +1,89 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@createSection ActionExit@@TargetName@@ ActionMethodImpl
+@createSection HookActionExit@@TargetName@@ HookMethodsSuper
+
+@section MethodDeclaration rt
+            actionExit@@TargetName@@(); 
+
+@section ActionExit@@TargetName@@
+@if @(emptySection)@
+    @//
+    @//
+    /**
+     * Quits the application. Open dialogs that have a WMClose event defined 
+     * will close gracefully. If all dialogs where closed, the action
+     * continues to exit the application.
+     * 
+     * @see ApplicationMethods#actionExit()
+     */
+    protected void actionExit@@TargetName@@() {
+        String msgID = null;
+        Exception ex = null;
+@//
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                public void run() {
+                    try {
+@//
+                        application.actionExit();
+@//
+                    } catch (RuntimeException e) {
+                        if (hookActionExit@@TargetName@@Exception(e)) {
+                            throw e;
+                        }
+                    }
+                }
+            });
+        } catch (InterruptedException e) {
+            msgID = CRuntimeMsg.CT_INTERRUPTED;
+            ex = e;
+        } catch (InvocationTargetException e) {
+            Throwable t = e.getCause();
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException)t;
+            } else {
+                msgID = CRuntimeMsg.CT_INVOCATION_TARGET;
+                if (t instanceof Exception) {
+                    ex = (Exception)t;
+                } else {
+                    ex = e;
+                }
+            }
+        } finally {
+            if (msgID != null) {
+               Object[] msgArgs = {this.getClass(), "actionClose@@TargetName@@", ex};
+               Message msg = MessageFactory.getInstance().getMessage(msgID, msgArgs);
+               MessageLogDispatcher.getInstance().log(msg, null);
+               throw new GenovaClientFrameworkException(ex, msg);
+            }
+        } 
+    }
+    @//
+@endif
+
+@section HookActionExit@@TargetName@@
+@if @(emptySection)@
+@//
+@//    
+    /**
+     * Hook method, called if the action resulted in a RuntimeException. 
+     * Override in subclass.
+     * @param e the catched exception 
+     * @return <code>false</code> the hook has handeled the exception, and no further action is needed.
+     */
+    public boolean hookActionExit@@TargetName@@Exception(RuntimeException e) {
+        return true;
+    }
+@endif

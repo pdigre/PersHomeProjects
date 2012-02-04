@@ -1,0 +1,59 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@section Declaration
+    @//
+    /** The @@Name@@ text component */
+    protected JLabel @@Name@@Text = new JLabel("<html>@@TextLf@@</html>");
+@section SetupInit@@ParentName@@Start
+        init@@Name@@();
+
+@section SetupInit
+    @//
+    /** Initializes the @@Name@@ text component */
+    private void init@@Name@@() {
+        @@ParentName@@.add(@@Name@@Text);
+        @@Name@@Text.setLocation(@@XPos@@+@@ParentLeftFrameWidth@@,@@YPos@@+@@ParentTopFrameHeight@@);
+        @@Name@@Text.setSize(@@Width@@, @@Height@@);
+        @@Name@@Text.setEnabled(@@isEnabled?true:false@@);
+        @(hasBackgroundColor?RepositoryProxy.setBackgroundColor(@@Name@@Text,"@@StyleBackgroundColor@@");:)@
+        @(hasForegroundColor?RepositoryProxy.setForegroundColor(@@Name@@Text,"@@StyleForegroundColor@@");:)@
+        @(hasFont?RepositoryProxy.setFont(@@Name@@Text,"@@FontName@@");:)@
+    }
+@section setShown@@ParentName@@ rt
+@begin
+    view.@@Name@@Text.setVisible(b);
+
+@section setShownField@@ParentName@@ rt
+@begin
+        if (s.equals("@@Name@@")) {
+            view.@@Name@@Text.setVisible(b);
+        }
+
+@section isShown@@ParentName@@ rt
+@begin
+    if (view.@@Name@@Text.isEnabled()) b=true;
+
+@section isShownField@@ParentName@@ rt
+@begin
+        if (s.equals("@@Name@@")) {
+            if (view.@@Name@@Text.hasFocus()) b=true;
+        }
+
+
+@section ConstCompText
+@//
+        /** The Text @@Name@@ component */
+        String $$hasParameter DialogConstUppercase?@@NameUpper@@:@@Name@@$$ = "@@Name@@";
+
+ 

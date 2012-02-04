@@ -1,0 +1,435 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+
+@section ConstRole@@NodeName@@
+@//
+        /** The @@Name@@ data field */        
+        String $$hasParameter DialogConstUppercase?@@NameUpper@@:@@Name@@$$ = "@@LogicalName@@";
+
+
+
+@section Declaration
+    @//
+    /** The @@Name@@ check box */
+    protected GenovaCheckBox @@NodeName@@_@@Name@@ = new GenovaCheckBox($$hasListHiddenEditFields?:"@@Title@@"$$);
+    final Object objectVersionOf@@NodeName@@@@Name@@ = @@NodeName@@_@@Name@@;
+    final int numberOfChars@@NodeName@@@@Name@@ = 0;
+    @//
+    int blockSelectedionEvent@@NodeName@@@@Name@@ = 0;
+    @//
+    void countUpBlocKSelectionEvent@@NodeName@@@@Name@@() {
+        blockSelectedionEvent@@NodeName@@@@Name@@++;
+    }
+    void countDownBlocKSelectionEvent@@NodeName@@@@Name@@() {
+        blockSelectedionEvent@@NodeName@@@@Name@@--;
+    }
+    @//
+    String oldValue@@NodeName@@@@Name@@;
+
+@section SetupInit@@ParentName@@Start
+        init@@NodeName@@_@@Name@@();
+
+@section SetupInit
+    @//
+    /** Initializes the @@NodeName@@_@@Name@@ check button */
+    private void init@@NodeName@@_@@Name@@() {
+        controller.tabListFromNodeName@@ParentName@@.put("@@LogicalName@@", @@NodeName@@_@@Name@@);
+        controller.tabListFromComponent@@ParentName@@.put(@@NodeName@@_@@Name@@, "@@LogicalName@@");
+        @//
+@if @(!hasListHiddenEditFields)@
+        @@ParentName@@.add(@@NodeName@@_@@Name@@);
+        @@NodeName@@_@@Name@@.setLocation(@@XPos@@+@@ParentLeftFrameWidth@@,@@YPos@@+@@ParentTopFrameHeight@@);
+        { // limit scope of width and height declarations.
+            int width = @@Width@@;
+            int height = @@Height@@;
+            @@NodeName@@_@@Name@@.setSize(width, height);
+            if (width == 0 && height == 0) {
+                @@NodeName@@_@@Name@@.setFocusable(false);
+            }
+        } // end limit scope
+@endif
+        @(hasBackgroundColor?RepositoryProxy.setBackgroundColor(@@NodeName@@_@@Name@@,"@@StyleBackgroundColor@@");:)@
+        @(hasForegroundColor?RepositoryProxy.setForegroundColor(@@NodeName@@_@@Name@@,"@@StyleForegroundColor@@");:)@
+        @(hasFont?RepositoryProxy.setFont(@@NodeName@@_@@Name@@,"@@FontName@@");:)@
+        
+@if @(!isVisible)@
+        @@NodeName@@_@@Name@@.setVisible(false); 
+@endif
+@if@(!isEnabled)@
+        @@NodeName@@_@@Name@@.setEnabled(false); 
+        disabledComponents.add(@@NodeName@@_@@Name@@);
+@endif
+        @(hasTooltip?@@NodeName@@_@@Name@@.setToolTipText("@@Tooltip@@");:)@
+
+
+        @//
+        @(hasActionEvent?@@NodeName@@_@@Name@@.addActionListener(actionProc);:)@
+        @(hasPopupMenu?@@NodeName@@_@@Name@@.addMouseListener(mouseProc);:)@
+        @//
+        if(@(hasActionEvent?true:false)@) {
+            @@NodeName@@_@@Name@@.addItemListener(itemProc);
+        }
+    }
+
+
+
+@section Expression
+@section Expression
+@if @(hasExpression)@
+@//
+        // Generated expressions-code
+        ComponentLink.link(@@ExpressionAsProgramName@@, @@NodeName@@_@@Name@@
+                , "@@Name@@", controller, "@@NodeName@@");
+@endif
+@if @(!hasExpression)@
+@if @(hasNextEquivalentName)@
+        // Generated expressions-code for linked data items.
+        ComponentLink.link(@@NodeName@@_@@Name@@, @@NextEquivalentName@@
+                , "@@Name@@", controller, "@@NodeName@@");
+
+@endif
+@endif
+
+
+@section PopupTrigger
+   $$hasPopupMenu?if (e.getSource() == @@NodeName@@_@@Name@@):$$
+   $$hasPopupMenu?@@PopupMenuName@@_popup.show(e.getComponent(),e.getX(),e.getY());:$$
+
+
+
+@section NodeInfo@@NodeName@@Variables rt
+@begin
+       boolean isMarkedChanged@@Name@@ = false;
+
+@section setUpNameComponentMapping
+        nameToComponent.put("@@LogicalName@@", @@NodeName@@_@@Name@@);
+        componentToName.put(@@NodeName@@_@@Name@@, "@@LogicalName@@");
+
+
+
+
+@section NodeInfo@@NodeName@@MethodsisChanged rt
+@begin
+        if (isMarkedChanged@@Name@@) isMarkedChanged = true;
+        if (tmp@@NodeName@@ != null && old@@NodeName@@ != null) {
+            if (!TypeTool.equals(tmp@@NodeName@@.@@GetName@@, old@@NodeName@@.@@GetName@@)) {
+             isMarkedChanged = true;
+             isMarkedChanged@@Name@@ = true;
+            }
+        }
+@section NodeInfo@@NodeName@@MethodsisChangedField rt
+@begin
+        if (s.equals("@@Name@@")) {
+            if (isMarkedChanged@@Name@@) bChanged = true;
+            if (tmp@@NodeName@@ != null && old@@NodeName@@ != null) {
+            // Her må vi sammenligne på en annen måte enn = ( for strings) ???
+            if (!TypeTool.equals(tmp@@NodeName@@.@@GetName@@, old@@NodeName@@.@@GetName@@)) {
+                bChanged = true;
+                isMarkedChanged@@Name@@ = true;
+                }
+            }
+        }    
+
+
+@section ClearBlockStart@@ParentName@@@@DialogName@@
+        @@NodeName@@_@@Name@@.setSelected(false);
+
+@section NodeInfo@@NodeName@@MethodssetChanged rt
+@begin
+         isMarkedChanged@@Name@@ = b;
+
+@section NodeInfo@@NodeName@@MethodssetChangedField rt
+@begin
+        if (s.equals("@@Name@@")) {
+                isMarkedChanged@@Name@@ = b;
+        }    
+
+
+
+@section NodeInfo@@NodeName@@GetChangedKeyFields
+        if (isPartOfKey("@@Name@@")) {
+            component = controller.view.fromNameToComponent("@@LogicalName@@");
+            if (component instanceof GenovaValueState) {
+                if (((GenovaValueState) component).isChanged()) {
+                    changedFields.add("@@Name@@");
+                }
+            }
+        }
+
+@section NodeInfo@@NodeName@@GetChangedFields
+        component = controller.view.fromNameToComponent("@@LogicalName@@");
+        if (component instanceof GenovaValueState) {
+            if (((GenovaValueState) component).isChanged()) {
+                changedFields.add("@@Name@@");
+            }
+        }
+@section NodeInfo@@NodeName@@ResetFields
+        component = controller.view.fromNameToComponent("@@LogicalName@@");
+        if (component instanceof GenovaValueState) {
+            ((GenovaValueState) component).resetState();
+        }
+
+
+
+@if @(isSectionDefined CellEditor@@ParentName@@Start)@
+@if @(isEditable)@
+@section CellEditor@@ParentName@@Start
+        if (controller.listblockMethods@@ParentName@@.
+                hasColumn("@@RoleName@@.@@Name@@")) {         
+            colIndex = controller.listblockMethods@@ParentName@@
+                    .getColumnIndex("@@RoleName@@.@@Name@@"); 
+            column = columnModel.getColumn(colIndex);
+            column.setCellEditor(new no.genova.client.component.GDefaultCellEditor
+                     (@@NodeName@@_@@Name@@));
+           if ((Object) @@NodeName@@_@@Name@@ instanceof JCheckBox) {
+               @@NodeName@@_@@Name@@.setHorizontalAlignment(SwingConstants.CENTER);
+           }
+        }
+@endif
+@endif
+
+
+@section ObtainData@@NodeName@@ rt
+@begin
+   @//
+    /* Her kommer generert kode for CheckButton:ObtainData*/
+    @//
+//        tmp@@NodeName@@.@@Name@@=TypeTool.convert(view.@@NodeName@@_@@Name@@.getText(), tmp@@NodeName@@.@@Name@@);
+    // controller.reflectAssign(tmp@@NodeName@@, "@@Name@@", TypeTool.convertToString(view.@@NodeName@@_@@Name@@.isSelected())); /* Check Button */
+    objectProxy.setAttribute("@@Name@@", new Boolean(view.@@NodeName@@_@@Name@@.isSelected()));
+
+@section ObtainDataString@@NodeName@@ rt
+    if ("@@Name@@".equals(attr)) {
+        return view.@@NodeName@@_@@Name@@.isSelected() ? "true" : "false";
+    }
+
+@section setShowZeroFieldDecl@@NodeName@@ rt
+    boolean zero@@NodeName@@@@Name@@ = false;
+
+@section DisplayDataField@@NodeName@@ rt
+@begin
+            if (attributeName.equals("@@Name@@")) {
+                value = TypeTool.toObject(tmp@@NodeName@@.@@GetName@@);
+            }
+
+@section DisplayDataString@@NodeName@@ rt
+        if ("@@Name@@".equals(attributeName)) {
+            view.countUpBlocKSelectionEvent@@NodeName@@@@Name@@();
+            if (resetState) {
+                view.@@NodeName@@_@@Name@@.setInitialValue(value);
+            }
+            if (value != null) {
+                view.@@NodeName@@_@@Name@@.setSelected(((Boolean) value).booleanValue());
+            } else {
+                view.@@NodeName@@_@@Name@@.setSelected(false);
+            }
+            view.oldValue@@NodeName@@@@Name@@ = TypeTool.convertToString(value);
+            view.countDownBlocKSelectionEvent@@NodeName@@@@Name@@();
+        }
+
+@section DisplayData@@NodeName@@ rt
+@begin
+        display("@@Name@@", TypeTool.toObject(tmp@@NodeName@@.@@GetName@@), resetState);
+
+@section ClearData@@NodeName@@ rt
+@begin
+    view.countUpBlocKSelectionEvent@@NodeName@@@@Name@@();
+    view.@@NodeName@@_@@Name@@.setSelected(false) ;
+    view.oldValue@@NodeName@@@@Name@@ = TypeTool.convertToString(false);
+    view.countDownBlocKSelectionEvent@@NodeName@@@@Name@@();
+@section ClearDataField@@NodeName@@ rt
+@begin
+    if (s.equals("@@Name@@")) {
+        view.countUpBlocKSelectionEvent@@NodeName@@@@Name@@();
+        view.@@NodeName@@_@@Name@@.setSelected(false) ;
+        view.oldValue@@NodeName@@@@Name@@ = TypeTool.convertToString(false);
+        view.countDownBlocKSelectionEvent@@NodeName@@@@Name@@();
+    }
+
+@section setEnabled@@NodeName@@ rt
+@begin
+    view.@@NodeName@@_@@Name@@.setEnabled(b);
+
+@section setEnabledField@@NodeName@@ rt
+@begin
+        if (s.equals("@@Name@@")) {
+            view.@@NodeName@@_@@Name@@.setEnabled(b);
+        }
+
+@section setShown@@NodeName@@ rt
+@begin
+    view.@@NodeName@@_@@Name@@.setVisible(b);
+
+@section setShownField@@NodeName@@ rt
+@begin
+        if (s.equals("@@Name@@")) {
+            view.@@NodeName@@_@@Name@@.setVisible(b);
+        }
+
+@section setFocusField@@NodeName@@ rt
+@begin
+        if (s.equals("@@Name@@")) {
+            view.@@NodeName@@_@@Name@@.requestFocus();
+        }
+
+@section isEnabled@@NodeName@@ rt
+@begin
+    if (view.@@NodeName@@_@@Name@@.isEnabled()) b=true;
+
+@section isEnabledField@@NodeName@@ rt
+@begin
+        if (s.equals("@@Name@@")) {
+            if (view.@@NodeName@@_@@Name@@.isEnabled()) b=true;
+        }
+
+@section isShown@@NodeName@@ rt
+@begin
+    if (view.@@NodeName@@_@@Name@@.isEnabled()) b=true;
+
+@section isShownField@@NodeName@@ rt
+@begin
+        if (s.equals("@@Name@@")) {
+            if (view.@@NodeName@@_@@Name@@.hasFocus()) b=true;
+        }
+
+@section hasFocusField@@NodeName@@ rt
+@begin
+    if (view.@@NodeName@@_@@Name@@.hasFocus()) b=true;
+
+@section FocusLost
+                    @//
+                    /* Her kommer generert kode for CheckButton:FocusLost*/
+                    @//
+                    oldValue@@NodeName@@@@Name@@ = valueChangedTestCheckButton(@@NodeName@@_@@Name@@, TypeTool.convertToString(@@NodeName@@_@@Name@@.isSelected()), oldValue@@NodeName@@@@Name@@, e);
+
+@section ItemStateChanged
+                    @//
+                    /* Her kommer generert kode for CheckButton:FocusLost*/
+                    @//
+                    if((e.getStateChange() == ItemEvent.SELECTED ||
+                        e.getStateChange() == ItemEvent.DESELECTED) && 
+                        e.getSource() == @@NodeName@@_@@Name@@) {
+                            selectedInCheckButton((JComponent)e.getSource(), (JComponent)e.getSource(), e);
+                    }
+
+
+@createSection EndSelectedTestCheckButton@@LogicalName@@ SelectedTestCheckButton
+@createSection StartSelectedTestCheckButton@@LogicalName@@ EndSelectedTestCheckButton@@LogicalName@@
+
+@section StartSelectedTestCheckButton@@LogicalName@@
+@if @(hasEvent Selected)@
+                if(theButton == @@NodeName@@_@@Name@@  && blockSelectedionEvent@@NodeName@@@@Name@@ == 0) {
+@endif
+
+@section EndSelectedTestCheckButton@@LogicalName@@
+@if @(hasEvent Selected)@
+                }
+@endif
+
+@createSection EndFocusGained@@LogicalName@@ FocusActions
+@createSection StartFocusGained@@LogicalName@@ EndFocusGained@@LogicalName@@
+
+@section StartFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+        @@NodeName@@_@@Name@@.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+@section EndFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+            }
+        });
+@endif
+
+@createSection EndFocusLost@@LogicalName@@ FocusActions
+@createSection StartFocusLost@@LogicalName@@ EndFocusLost@@LogicalName@@
+
+@section StartFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+        @@NodeName@@_@@Name@@.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+
+@section EndFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+            }
+        });
+@endif
+
+
+
+@createSection EndValueChangedTestCheckButton@@LogicalName@@ ValueChanged
+@createSection StartValueChangedTestCheckButton@@LogicalName@@ EndValueChangedTestCheckButton@@LogicalName@@
+
+@section StartValueChangedTestCheckButton@@LogicalName@@
+@if @(hasEvent Value Changed)@
+        @@NodeName@@_@@Name@@.addValueChangedListener(new GenovaValueChangedListener() {
+            public void valueChanged(GenovaValueChangedEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+@section EndValueChangedTestCheckButton@@LogicalName@@
+@if @(hasEvent Value Changed)@
+            }
+        });
+@endif
+
+
+@event Value Changed
+@section StartValueChangedTestCheckButton@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+             controller.@@MethodName@@(e);
+@endif
+@endif
+
+@event Clicked
+@section StartActionPerformed@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+      controller.@@MethodName@@(new GenovaMouseEventHolder(e));
+@endif
+@endif
+
+@event Lost Focus
+@section StartFocusLost@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.@@MethodName@@(new GenovaFocusEventHolder(e));
+@endif
+@endif
+
+
+@event Got Focus
+@section StartFocusGained@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.@@MethodName@@(new GenovaFocusEventHolder(e));
+@endif
+@endif
+
+
+@event Selected
+@section StartSelectedTestCheckButton@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                    controller.@@MethodName@@(new GenovaItemEventHolder(e));
+@endif
+@endif
+
+
+

@@ -1,0 +1,677 @@
+changequote([[,]])dnl
+define(m_name,[[@@NodeName@@_@@Name@@]])dnl
+define(m4setLocation,[[setLocation(@@XPos@@+@@ParentLeftFrameWidth@@,@@YPos@@+@@ParentTopFrameHeight@@)]])dnl
+
+define(M4_ServerAction,[[
+@createSection Action$1@@TargetName@@ ActionMethodImpl
+@createSection HookAction$1@@TargetName@@ HookMethodsSuper
+
+@section MethodDeclaration rt
+            action$1@@TargetName@@(); 
+
+@section Action$1@@TargetName@@
+@if @(emptySection)@
+@//
+@//
+    /**
+     * The $1 @@TargetName@@ JGrape action. This action involves 
+     * the following steps.
+     * <ol>
+     *  <li>The @@TargetName@@'s check method for $1 is invoked, possibly
+     *      aborting the action.
+     * 
+     * <li>After a recursive obtain, which builds up a minimum tree
+     *     containing only the objects needed by the server to identify the
+     *     target, the hookAction$1@@TargetName@@Obtain(ObjectSelection)
+     *     method is invoked, possibly aborting the action.
+     *
+     * <li>Next, hookAction$1@@TargetName@@ClientContext() is invoked. 
+     *     If the method returns <code>null</code> a default client 
+     *     context is used.
+     *
+     * <li>The object selection and the client context is used as arguments
+     *     to 
+     *
+     *    <code>
+     *    Application.getServiceProxy()
+     *            .$1(ObjectSelection, ClientContext).
+     *    </code>
+     *
+     * <li>If the action is either a save, insert or update action, the
+     *     result from invoking $1 on the service proxy is merged with
+     *     the client's objects in order to restore the associations that
+     *     where stripped away when performing the recursive obtain.
+     *
+     * <li>Invoke hookAction$1@@TargetName@@Display(resultObject), possibly 
+     *     aborting the action.
+     *
+     * <li>Recursively clear the @@TargetName@@ node and the recursivly
+     *     display the result.
+ifelse($1, Find,[[     *
+     * <li>If the target node is a root node, reset other
+     *     associations from the root node.]])
+     * </ol>
+     */
+    protected void action$1@@TargetName@@() {
+        try {
+@//
+ifelse($1, Find, [[
+            if (!the@@TargetName@@.checkFind()) {
+                Message msg = MessageFactory.getInstance().getMessage(CRuntimeMsg.CF_ABORTING_ACTION, "checkFind", "find", "@@TargetName@@");
+                MessageLogDispatcher.getInstance().log(msg, null);
+                return;
+            }]])
+ifelse($1, FindAll, [[
+            if (!the@@TargetName@@.checkFind()) {
+                Message msg = MessageFactory.getInstance().getMessage(CRuntimeMsg.CF_ABORTING_ACTION, "checkFind", "find all", "@@TargetName@@");
+                MessageLogDispatcher.getInstance().log(msg, null);
+                return;
+            }]])
+ifelse($1, Delete, [[
+            if (!the@@TargetName@@.checkDelete()) {
+                Message msg = MessageFactory.getInstance().getMessage(CRuntimeMsg.CF_ABORTING_ACTION, "checkDelete", "delete", "@@TargetName@@");
+                MessageLogDispatcher.getInstance().log(msg, null);
+                return;
+            }]])
+ifelse($1, Save, [[
+            if (!the@@TargetName@@.checkSave()) {
+                Message msg = MessageFactory.getInstance().getMessage(CRuntimeMsg.CF_ABORTING_ACTION, "checkSave", "save", "@@TargetName@@");
+                MessageLogDispatcher.getInstance().log(msg, null);
+                return;
+            }]])
+ifelse($1, Update, [[
+            if (!the@@TargetName@@.checkSave()) {
+                Message msg = MessageFactory.getInstance().getMessage(CRuntimeMsg.CF_ABORTING_ACTION, "checkSave", "update", "@@TargetName@@");
+                MessageLogDispatcher.getInstance().log(msg, null);
+                return;
+            }]])
+ifelse($1, Insert, [[
+            if (!the@@TargetName@@.checkSave()) {
+                Message msg = MessageFactory.getInstance().getMessage(CRuntimeMsg.CF_ABORTING_ACTION, "checkSave", "insert", "@@TargetName@@");
+                MessageLogDispatcher.getInstance().log(msg, null);
+                return;
+            }]])
+ifelse($1, Print, [[
+           if (!checkPrint()) {
+               Message msg = MessageFactory.getInstance().getMessage(CRuntimeMsg.CF_ABORTING_ACTION, "checkPrint", "print", "@@TargetName@@");
+               MessageLogDispatcher.getInstance().log(msg, null);
+               return;
+           }]])
+
+@//
+            Message msg = MessageFactory.getInstance().getMessage(CRuntimeMsg.CF_CONTINUING_ACTION, "$2", "@@TargetName@@");
+            MessageLogDispatcher.getInstance().log(msg, null);
+@//
+ifelse($1, Update,[[            List selectedLines = getListblockStates(the@@TargetName@@.getPathToNode());]])
+ifelse($1, Insert,[[            List selectedLines = getListblockStates(the@@TargetName@@.getPathToNode());]])
+ifelse($1, Save,[[            List selectedLines = getListblockStates(the@@TargetName@@.getPathToNode());]])
+ifelse($1, Print,[[
+            ObjectSelection os = obtainObjectSelection();
+]],[[            
+            ObjectSelection os = obtainObjectSelection(the@@TargetName@@);
+            os.setTargetMainKey(the@@TargetName@@.getTargetMainKey());
+]])
+
+@//
+            boolean goAhead = false;
+            try {
+                goAhead = hookAction$1@@TargetName@@Obtain(os);
+            } catch (RuntimeException e) { 
+                goAhead = false;
+                throw e;
+ifelse($1, Print,[[
+            }
+]],[[
+            } finally {
+                if (!goAhead) {
+                    // rollback from recursive obtain
+                    Object parent = os.getRootObject(the@@TargetName@@
+                            .getRootNode().getRoleName());
+                    if (parent != null) {
+                        AbstractNode top = (AbstractNode) the@@TargetName@@
+                                .getRootNode();
+                        List pathToTarget = the@@TargetName@@.getPathToNode();
+                        top.mergeAssociations(parent, pathToTarget,true); 
+                    }
+                }
+            }
+]])
+            if (!goAhead) {
+                return;
+            }
+@//
+            ClientContext ctx = hookAction$1@@TargetName@@ClientContext();
+            if (ctx == null) {
+                ctx = Application.getClientContext();
+            }
+
+ifelse($1, Print,[[
+@//          
+           Message convMsg = MessageFactory.getInstance().getMessage(CRuntimeMsg.CF_CONVERT_TO_DOCUMENT);
+           MessageLogDispatcher.getInstance().log(convMsg, null);
+           org.w3c.dom.Document document = Application.getXmlConverter().convert(os, ctx);
+           Message printMsg = MessageFactory.getInstance().getMessage(CRuntimeMsg.CF_INVOKING_PRINT, "@@TargetName@@");
+           MessageLogDispatcher.getInstance().log(printMsg, null);
+           Application.getPrintService().print(new PrintContext("@@TargetName@@", document));
+]],[[
+@//
+            Collection resultObject = null;
+            try {
+                resultObject = (Collection) Application.getServiceProxy().$2(os, ctx);
+            } catch (RuntimeException e) {
+                // rollback from recursive obtain
+                Object parent = os.getRootObject(the@@TargetName@@
+                        .getRootNode().getRoleName());
+                if (parent != null) {
+                    AbstractNode top = (AbstractNode) the@@TargetName@@
+                            .getRootNode();
+                    List pathToTarget = the@@TargetName@@.getPathToNode();
+                    top.mergeAssociations(parent, pathToTarget,true); 
+                }
+                throw e;
+            }
+@//
+ifelse($1, Update, M4_merge)
+ifelse($1, Insert, M4_merge)
+ifelse($1, Save, M4_merge)
+ifelse($1, Delete, [[
+            Object root = os.getRootObject(the@@TargetName@@.getRootNode().getRoleName());
+            the@@TargetName@@.removeFromParent(root);
+]])
+ifelse($1, Delete, M4_merge)
+
+
+            if (hookAction$1@@TargetName@@Display(resultObject)) {
+                new ClearTool(roleObjects).ifelse($1, Delete, [[clear("@@TargetName@@");]],[[ifelse($1, FindAll, [[clearRole("@@TargetName@@");]], [[clearKeepKeys("@@TargetName@@");]])]])
+                resetProxy();
+                if (resultObject != null) {
+ifelse($1, FindAll,[[                    List path = TypeTool.getDefaultList();]])
+ifelse($1, FindAll,[[                    path.add(the@@TargetName@@);]])                     
+                    the@@TargetName@@.ifelse($1, FindAll,[[]],[[getRootNode().]])displayOnEDT(resultObject, ifelse($1, FindAll,[[path, true]],[[the@@TargetName@@.getPathToNode(), false]]));
+                } 
+@//
+ifelse($1, Update,[[                setListblockStates(selectedLines, $$hasParameter SkipSelectAfterSave?false:true$$);]])
+ifelse($1, Insert,[[                setListblockStates(selectedLines, $$hasParameter SkipSelectAfterSave?false:true$$);]])
+ifelse($1, Save,[[                setListblockStates(selectedLines, $$hasParameter SkipSelectAfterSave?false:true$$);]])
+
+            }
+        
+ifelse($1, Find,[[            if (resultObject != null) {
+                AbstractNode top = (AbstractNode) the@@TargetName@@.getRootNode();
+                if (the@@TargetName@@ != top) {  // restore associations from root node.
+                    if (resultObject.iterator().hasNext()) {
+                        Object first = resultObject.iterator().next();
+                        top.resetAssociations(first);
+                    }
+                }
+            }]])
+
+               
+@//
+]])
+        } catch (RuntimeException e) {
+            if (hookAction$1@@TargetName@@Exception(e)) {
+                throw e;
+            }
+        } 
+    }
+@endif
+@section HookAction$1@@TargetName@@
+@if @(emptySection)@
+@//
+@//    
+    /**
+     * Hook method, called if the action resulted in a RuntimeException.
+     * Override in subclass.
+     *
+     * <p>If the exception is handeled in this hook, the hook should return
+     * <code>false</code>. If the hook returns <code>true</code> the 
+     * exception will be re-thrown from the invoking 
+     * <code>action$1@@TargetName@@()</code> method.
+     * <br>The default return value is <code>true</code>.
+     * @param e the catched exception 
+     * @return <code>false</code> if exception is handeled, 
+     *         <code>true</code> if exception should be re-thrown.
+     */
+    public boolean hookAction$1@@TargetName@@Exception(RuntimeException e) {
+        return true;
+    }
+@//
+@//    
+    /**
+     * Hook method, called after the object selection is obtained. The boolean return value
+     * is used by the server action to determine if the action should proceed, true indicating
+     * that it should. The default return value is <code>true</code>.
+     * Override in subclass.
+     * @param objectSelection the obtained object selection.
+     * @return <code>true</code> if action should proceed.
+     */
+    public boolean hookAction$1@@TargetName@@Obtain(ObjectSelection objectSelection) {
+        return true;
+    }
+@//
+@//
+    /**
+     * Hook method, called before server action is called. The returned ClientContext is used 
+     * when calling the server. If <code>null</code> is returned, 
+     * the Application.getClientContext() is used.
+     * <p>Override in subclass.
+     * @return the ClientContext that will be used as argument to the server action.
+     */
+    public ClientContext hookAction$1@@TargetName@@ClientContext() {
+        return null;
+    }
+@//
+@//    
+ifelse($1, Print, [[
+]],[[    
+    /**
+     * Hook method, called before the found object in @@MethodName@@ is 
+     * displayed. The boolean return value is used to determine if the foundObject
+     * should be displayed (defaults to <code>true</code>.
+     * <p>Override in subclass! 
+     * @param foundObject the object returned from the server action find on target @@TargetName@@
+     * @return <code>true</code> if the object should be displayed.
+     */
+    public boolean hookAction$1@@TargetName@@Display(Object foundObject) {
+        return true;
+    }
+]])      
+@endif
+]])dnl
+define(M4_expression,[[@if @(hasExpression)@
+@//
+        // Generated expressions-code
+        ComponentLink.link(@@ExpressionAsProgramName@@, m_name
+                , "@@Name@@", controller, "@@NodeName@@");
+@endif
+@if @(!hasExpression)@
+@if @(hasNextEquivalentName)@
+        // Generated expressions-code for linked data items.
+        ComponentLink.link(m_name, @@NextEquivalentName@@
+                , "@@Name@@", controller, "@@NodeName@@");
+
+@endif
+@endif
+]])dnl
+define(M4_standardDisplaySetup,[[
+        @@NodeName@@_@@Name@@.setInputJustification(@(InputJustification==Left?JTextField.LEFT:@(InputJustification==Right?JTextField.RIGHT:JTextField.CENTER)@)@);
+        @@NodeName@@_@@Name@@.setOutputJustification(@(OutputJustification==Left?JTextField.LEFT:@(OutputJustification==Right?JTextField.RIGHT:JTextField.CENTER)@)@);
+        @@NodeName@@_@@Name@@.setHorizontalAlignment(@(OutputJustification==Left?JTextField.LEFT:@(OutputJustification==Right?JTextField.RIGHT:JTextField.CENTER)@)@);
+]])dnl
+define(M4_standardComponentSetup,[[
+@if @(!isVisible)@
+        $1.setVisible(false); 
+@endif
+@if@(!isEnabled)@
+        $1.setEnabled(false); 
+        disabledComponents.add($1);
+@endif
+        @(hasTooltip?$1.setToolTipText("@@Tooltip@@");:)@
+
+]])dnl
+define(M4_checkLogic,[[
+@section NodeInfo@@NodeName@@GetChangedKeyFields
+        if (isPartOfKey("@@Name@@")) {
+            component = controller.view.fromNameToComponent("@@LogicalName@@");
+            if (component instanceof GenovaValueState) {
+                if (((GenovaValueState) component).isChanged()) {
+                    changedFields.add("@@Name@@");
+                }
+            }
+        }
+
+@section NodeInfo@@NodeName@@GetChangedFields
+        component = controller.view.fromNameToComponent("@@LogicalName@@");
+        if (component instanceof GenovaValueState) {
+            if (((GenovaValueState) component).isChanged()) {
+                changedFields.add("@@Name@@");
+            }
+        }
+@section NodeInfo@@NodeName@@ResetFields
+        component = controller.view.fromNameToComponent("@@LogicalName@@");
+        if (component instanceof GenovaValueState) {
+            ((GenovaValueState) component).resetState();
+        }
+]])dnl
+
+
+
+define(M4_ShowAndEnableActions,[[
+@createSection Action$1$2@@TargetName@@ ActionMethodImpl
+@createSection HookAction$1$2@@TargetName@@ HookMethodsSuper
+
+@section MethodDeclaration rt
+            ifelse($1, Visible,[[ifelse($2, true,[[actionShow@@TargetName@@()]],[[actionHide@@TargetName@@()]])]], ifelse($2, true, [[actionEnable@@TargetName@@()]], [[actionDisable@@TargetName@@()]]));
+@section Action$1$2@@TargetName@@
+@if @(emptySection)@
+    @//
+    @//
+    /**
+     * ifelse($1, Visible, [[ifelse($2, true, [[Shows]], [[Hides]])]], [[ifelse($2, true,[[Enables]], [[Disables]])]]) the @@TargetName@@ @(isTargetDialog?dialog:@(isTargetDataItem?data item:component)@)@.
+     */
+    protected void ifelse($1, Visible,[[ifelse($2, true, [[actionShow@@TargetName@@()]], [[actionHide@@TargetName@@()]])]], [[ifelse($2, true,[[actionEnable@@TargetName@@()]],[[actionDisable@@TargetName@@()]])]]) {
+        String msgID = null;
+        Exception ex = null;
+    @//
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                public void run() {
+                    try {
+@if @(isTargetDialog)@
+                        /* Target is a dialog, possible another one than this */
+                        GenovaDialogController gc = application.getDialog("@@TargetName@@");
+                        if(gc != null) {
+                            boolean isShowAction = $2;
+                            if (isShowAction && gc.getWindow() instanceof JDialog) {
+                                gc.toFront();
+                            } else {
+                               gc.set$1Component(gc.getWindow(), $2, false);
+                            }
+                        }
+@endif
+@if @(!isTargetDialog)@
+                        /* Target is a component */
+                        view.set$1Component(view.@(isTargetDataItem?@@TargetNodeName@@_:)@@@TargetName@@, $2, false); 
+@endif        
+                    } catch (RuntimeException e) {
+                        if (ifelse($1,Visible,[[ifelse($2,true,[[hookActionShow]],[[hookActionHide]])]],[[ifelse($2,true,[[hookActionEnable]],[[hookActionDisable]])]])@@TargetName@@Exception(e)) {
+                            throw e;
+                        }
+                    }
+                }
+            });
+        } catch (InterruptedException e) {
+            msgID = CRuntimeMsg.CT_INTERRUPTED;
+            ex = e;
+        } catch (InvocationTargetException e) {
+            Throwable t = e.getCause();
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException)t;
+            } else {
+                msgID = CRuntimeMsg.CT_INVOCATION_TARGET;
+                if (t instanceof Exception) {
+                    ex = (Exception)t;
+                } else {
+                    ex = e;
+                }
+            }
+M4_GUIFinallyMsgBlock(ifelse($1,Visible,[[ifelse($2,true,[[Show]],[[Hide]])]],[[ifelse($2,true,[[Enable]],[[Disable]])]]))
+        }            
+
+    }
+    @//
+@endif
+    
+@section HookAction$1$2@@TargetName@@ HookMethodsSuper
+@if @(emptySection)@
+@//
+@//    
+    /**
+     * Hook method, called if the action resulted in a RuntimeException. 
+     * Override in subclass.
+     * @param e the catched exception 
+     * @return <code>false</code> the exception is handeled, and no further action is needed.
+     */
+    public boolean ifelse($1,Visible,[[ifelse($2,true,[[hookActionShow]],[[hookActionHide]])]],[[ifelse($2,true,[[hookActionEnable]],[[hookActionDisable]])]])@@TargetName@@Exception(RuntimeException e) {
+        return true;
+    }
+@endif
+
+    
+]])dnl
+define(M4_setupNameComponentMap,[[@section setUpNameComponentMapping
+        nameToComponent.put("@@LogicalName@@", m_name);
+        componentToName.put(m_name, "@@LogicalName@@");
+
+
+]])dnl
+
+define(M4_Copyright,
+[[@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+]])dnl
+define(M4_recursiveDisplay,[[@createSection RecursiveDisplayInParent@@Name@@ RecursiveDisplay@@ParentName@@End
+@section RecursiveDisplayInParent@@Name@@
+@if @(hasParameter UseAccessorMethods)@
+        Object object@@Name@@ = some@@ParentName@@.@@GetAssociationRoleName@@();
+@endif
+@if @(!hasParameter UseAccessorMethods)@
+        Object object@@Name@@ = some@@ParentName@@.@@AssociationRoleName@@;
+@endif        
+        if (object@@Name@@ instanceof @@ClassName@@) {
+            @@ClassName@@ tmp = (@@ClassName@@) object@@Name@@;
+            controller.the@@Name@@.recursiveDisplay(tmp);
+        } else if (object@@Name@@ instanceof Collection) {
+            Collection tmp = (Collection) object@@Name@@;
+            controller.the@@Name@@.recursiveDisplay(tmp);
+        }
+]])dnl
+define(M4_ConditionalSetColor,[[@(has$1Color?RepositoryProxy.set$1Color($2,"@@Style$1Color@@");:)@]])dnl
+define(M4_ConditionalSetFont,[[@(hasFont?RepositoryProxy.setFont($1,"@@FontName@@");:)@]])dnl
+define(M4_ConditionalSetBorder,[[@(hasFrame?:RepositoryProxy.setBorder($1,@@FrameCode@@,"");)@]])dnl
+define(M4_GUIFinallyMsgBlock,[[        } finally {
+            if (msgID != null) {
+               Object[] msgArgs = {this.getClass(), "action$1@@TargetName@@", ex};
+               Message msg = MessageFactory.getInstance().getMessage(msgID, msgArgs);
+               MessageLogDispatcher.getInstance().log(msg, null);
+               throw new GenovaClientFrameworkException(ex, msg);
+            }]])dnl
+define(M4_FocusActions,[[@createSection EndFocusGained@@LogicalName@@ FocusActions
+@createSection StartFocusGained@@LogicalName@@ EndFocusGained@@LogicalName@@
+
+@section StartFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+        $1.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+@section EndFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+            }
+        });
+@endif
+
+@createSection EndFocusLost@@LogicalName@@ FocusActions
+@createSection StartFocusLost@@LogicalName@@ EndFocusLost@@LogicalName@@
+
+@section StartFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+        $1.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+
+@section EndFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+            }
+        });
+@endif
+]])dnl
+define(M4_merge,[[            if (resultObject != null) {
+                AbstractNode top = (AbstractNode) the@@TargetName@@.getRootNode();
+                List pathToTarget = the@@TargetName@@.getPathToNode();
+                if (resultObject.iterator().hasNext()) {
+                    Object first = resultObject.iterator().next();
+                    top.mergeAssociations(first, pathToTarget,false);
+                }
+            }
+]])dnl
+define(M4_listcolumnComparator,[[
+@//
+        class Comparator_@@RoleName@@_@@Name@@ extends AbstractAttributeComparator {
+@//
+            Comparator_@@RoleName@@_@@Name@@(int column) {
+                super("@@RoleName@@.@@Name@@", column, @@SortPriority@@@(SortDirection==0?+1000:)@, @@SortDirection@@);
+            }
+@//
+            public int compare(Object o1, Object o2) {
+                LineListblock@@ParentName@@ lineOne = (LineListblock@@ParentName@@) o1;
+                LineListblock@@ParentName@@ lineTwo = (LineListblock@@ParentName@@) o2;
+                @@ClassName@@ obj1 = lineOne.get@@RoleName@@(false);
+                @@ClassName@@ obj2 = lineTwo.get@@RoleName@@(false);
+        
+@//
+@if @(hasParameter UseAccessorMethods)@
+                Object val1 = obj1 != null ? TypeTool.toObject(obj1.@@GetName@@) : null;
+                Object val2 = obj2 != null ? TypeTool.toObject(obj2.@@GetName@@) : null;
+                int result = TypeTool.compareTo(val1, val2);
+@endif
+@if @(!hasParameter UseAccessorMethods)@
+                Object val1 = obj1 != null ? TypeTool.toObject(obj1.@@Name@@) : null;
+                Object val2 = obj2 != null ? TypeTool.toObject(obj2.@@Name@@) : null;
+                int result = TypeTool.compareTo(val1, val2);
+@endif
+                if (getDirection() == DESCENDING) {
+                    result *= -1;
+                }
+                if (result == 0 && getNextComparator() != null) {
+                    result = getNextComparator().compare(o1, o2);
+                }
+                return result;
+            }
+        }
+        comparatorList.add(new Comparator_@@RoleName@@_@@Name@@(@(isColumnHidden?-1:column)@));
+]])dnl
+define(M4_CellRender,[[
+        @@ParentName@@@@NodeName@@@@Name@@Column.setCellRenderer(
+                new GenovaTableCellRenderer(RepositoryProxy.getDocument(
+                        @(GenovaDataType==10?7:$$GenovaDataType$$)@, @(isUpperCase?1:@(isLowerCase?-1:0)@)@,
+                        controller.getApplication().getEnums(),
+                        null,
+                        FormatHelper.getDisplayrule(@(GenovaDataType==10?7:$$GenovaDataType$$)@,
+                                "@@DisplayRule@@", @@LengthInput@@,
+                                @@LengthStored@@, @@Decimals@@),
+                        @@LengthInput@@, @@blankWhenZero?true:false@@), @(OutputJustification==Left?JTextField.LEFT:@(OutputJustification==Right?JTextField.RIGHT:JTextField.CENTER)@)@));
+        ((GenovaTableCellRenderer)(@@ParentName@@@@NodeName@@@@Name@@Column.getCellRenderer())).setToolTipText(@(hasTooltip?"@@Tooltip@@":@(hasLabelTooltip?"@@LabelTooltip@@":"@@ParentTooltip@@")@)@);
+       
+]])dnl
+define(M4_getDocument,[[
+                        RepositoryProxy.getDocument(
+                                $$GenovaDataType$$, // data type
+                                @(isUpperCase?1:@(isLowerCase?-1:0)@)@, // case
+                                controller.getApplication().getEnums(), // enums
+                                @(GenovaDataType==10?@@EnumerationName@@.class:null)@,
+                                FormatHelper.getDisplayrule(
+                                        $$GenovaDataType$$, // data type
+                                        "@@DisplayRule@@", // display rule
+                                        @@LengthInput@@, // length input
+                                        @@LengthStored@@, // length stored
+                                        @@Decimals@@), // decimals
+                                @@LengthInput@@, // length input
+                                @@blankWhenZero?true:false@@ // blank when zero
+                        )
+]])dnl
+define(M4_ConstDataItem,[[
+@section ConstRole@@NodeName@@
+@//
+        /** The @@Name@@ data field */        
+        String $$hasParameter DialogConstUppercase?@@NameUpper@@:@@Name@@$$ = "@@LogicalName@@";
+]])dnl
+define(M4_ConstCompItem,[[
+@section ConstComp$1
+@//
+        /** The $1 @@Name@@ component */
+        String $$hasParameter DialogConstUppercase?@@NameUpper@@:@@Name@@$$ = "@@Name@@";
+]])dnl
+define(M4_DMOName,[[$$parameterDefined DialogConstObjectName?@@GetParameter DialogConstObjectName@@:DialogObject$$]])dnl
+define(M4_OSRoleName,[[$$parameterDefined DialogConstOSRoleName?@@GetParameter DialogConstOSRoleName@@:OSRoleName$$]])dnl
+define(M4_ConstRoleName,[[@@DialogName@@Const.$1.M4_OSRoleName]])dnl
+define(M4_CallCheckDoc,[[
+    /**
+     * <strong>The use of this method is discouraged. Use
+     * callHookCheck $1 instead.</strong>
+     * Invokes the check $1 hook for the specified role. If no such
+     * role exists, the returned value is <code>true</code>, else the roles
+     * hook check $1 is returned.
+     * 
+     * @param roleName the name of the role
+     * @return the result of invoking the hook.
+     */]])dnl
+define(M4_CheckHook,[[
+@//
+@//
+    /**
+     * Hook method, invoked as part of "check$1" on @@Name@@.
+     * Override in subclass! 
+     * <p>The return value must be one of the following:
+     *
+     * <ul>
+     *   <li><code>ECheckResult.DEFAULT</code> - continue with check
+     *   <li><code>ECheckResult.UNCHANGED</code> - @@Name@@ and children 
+     *       are unchanged
+     *   <li><code>ECheckResult.CONTINUE</code> - @@Name@@ is unchanged, 
+     *       check children
+     *   <li><code>ECheckResult.CHANGED</code> - @@Name@@ is changed
+     * </ul>
+     *
+     * If an exception is thrown, the ongoing action is aborted. 
+     *
+     * @return an ECheckResult 
+     */
+     public ECheckResult hook@@Name@@Check$1() {
+        return hookCheck$1@@Name@@() ? 
+                ECheckResult.DEFAULT : ECheckResult.UNCHANGED;
+     }]])dnl
+define(M4_CallHook,[[
+@section callHookCheck$1
+@//
+        if (M4_ConstRoleName(@@Name@@).equals(roleName)) {
+            return hook@@Name@@Check$1();
+        }]])dnl
+define(M4_CallHookSuper,[[
+    /**
+     * Internal use.
+     * Invokes the $1 hook method on the specified node, and returns
+     * the result.
+     * @return the result of invoking the hook.
+     */
+    public ECheckResult callHookCheck$1(String roleName) {
+@section callHookCheck$1
+@//
+        return ECheckResult.DEFAULT;
+    }]])dnl
+define(M4_InlineEditor,[[
+@if @(isSectionDefined CellEditor@@ParentName@@Start)@
+@if @(isEditable)@
+@section CellEditor@@ParentName@@Start
+        if (controller.listblockMethods@@ParentName@@.
+                hasColumn("@@RoleName@@.@@Name@@")) {         
+            colIndex = controller.listblockMethods@@ParentName@@
+                    .getColumnIndex("@@RoleName@@.@@Name@@"); 
+            column = columnModel.getColumn(colIndex);
+            column.setCellEditor(new no.genova.client.component.GDefaultCellEditor
+                     (@@NodeName@@_@@Name@@));
+           if ((Object) @@NodeName@@_@@Name@@ instanceof JCheckBox) {
+               @@NodeName@@_@@Name@@.setHorizontalAlignment(SwingConstants.CENTER);
+           }
+        }
+@endif
+@endif
+]])dnl
+define(M4_SetAssocation,[[
+
+@if @(isSectionDefined setAssociation@@ParentName@@)@
+@section setAssociation@@ParentName@@
+        if ("@@Name@@".equals(associationRoleName)) {
+  @if @(hasParameter UseAccessorMethods)@
+  ifelse($1, many,[[
+            member.@@SetAssociationRoleName@@((Set) association);
+  ]],[[
+            member.@@SetAssociationRoleName@@((@@ClassName@@) association);
+  ]])
+  @endif
+  @if @(!hasParameter UseAccessorMethods)@
+  ifelse($1, many,[[
+            member.@@AssociationRoleName@@ = (Set) association;
+  ]],[[
+            member.@@AssociationRoleName@@ = (@@ClassName@@) association;
+  ]])
+  @endif
+            return;
+        }
+@endif]])

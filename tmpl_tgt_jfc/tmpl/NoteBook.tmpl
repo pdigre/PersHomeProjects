@@ -1,0 +1,196 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@section Declaration
+    @//
+    /* Her kommer generert kode for NoteBook:Declaration*/
+    @//
+    @//
+    JTabbedPane @@Name@@ = new JTabbedPane();
+    LinkedList @@Name@@NotePages = new LinkedList();
+    GenovaTabPaneManager @@Name@@Manager;
+@section controllerdecl
+    @//
+    /* Her kommer generert kode for NoteBook:controllerdecl*/
+    @//
+    HashMap tabListFromNodeName@@Name@@ = tabListFromNodeName@@ParentName@@;
+    HashMap tabListFromComponent@@Name@@ = tabListFromComponent@@ParentName@@;
+
+
+@section SetupInit@@ParentName@@Start
+        init@@Name@@();
+
+@createSection SetupInit@@Name@@End SetupInit
+@createSection SetupInit@@Name@@Start SetupInit@@Name@@End
+
+@section SetupInit@@Name@@Start
+    @//
+    /** Initializes the @@Name@@ note book */
+    private void init@@Name@@() {
+
+        @//
+        /* Her kommer generert kode for NoteBook:Setup*/
+        @//
+        @SetNumber 2 0
+        @//
+        controller.tabListFromNodeName@@ParentName@@.put("@@Name@@", @@Name@@);
+        controller.tabListFromComponent@@ParentName@@.put(@@Name@@, "@@Name@@");
+        /* Indexed on */
+        @//
+        @@ParentName@@.add(@@Name@@);
+        @@Name@@.setLocation(@@XPos@@+@@ParentLeftFrameWidth@@,@@YPos@@+@@ParentTopFrameHeight@@);
+        @@Name@@.setSize(@@Width@@, @@Height@@);
+        
+@if @(!isVisible)@
+        @@Name@@.setVisible(false); 
+@endif
+@if@(!isEnabled)@
+        @@Name@@.setEnabled(false); 
+        disabledComponents.add(@@Name@@);
+@endif
+        @(hasTooltip?@@Name@@.setToolTipText("@@Tooltip@@");:)@
+
+
+        @(hasBackgroundColor?RepositoryProxy.setBackgroundColor(@@Name@@,"@@StyleBackgroundColor@@");:)@
+        @(hasForegroundColor?RepositoryProxy.setForegroundColor(@@Name@@,"@@StyleForegroundColor@@");:)@
+        @(hasFont?RepositoryProxy.setFont(@@Name@@,"@@FontName@@");:)@
+        @//
+        $$hasPopupMenu?@@Name@@.addMouseListener(mouseProc);:$$
+@section SetupInit@@Name@@End
+    }
+
+@section PopupTrigger
+                @//
+                /* Her kommer generert kode for NoteBook:PopupTrigger*/
+                @//
+                $$hasPopupMenu?if (e.getSource() == @@Name@@):$$
+                $$hasPopupMenu?@@PopupMenuName@@_popup.show(e.getComponent(),e.getX(),e.getY());:$$
+@section SetupEnd
+        @//
+        /* Her kommer generert kode for NoteBook:SetupEnd*/
+        @//
+        if (@@Name@@.getTabCount() > 0) @@Name@@.setSelectedIndex(0);
+@section MethodDeclaration
+    @//
+    /** 
+     * Returns the name of the selected note page
+     * @return the selecte note page name
+     */
+    public String getActiveNotepage@@Name@@() {
+        return (String)view.@@Name@@NotePages.get(view.@@Name@@.getSelectedIndex());
+    }
+
+    @//
+    /** 
+     * Selects the note page with the specified name.
+     * @param name the name of the note page to select.
+     */
+    public void setActiveNotepage@@Name@@(String name) {
+        int pos = view.@@Name@@NotePages.indexOf(name);
+        if(pos >= 0) {
+            view.@@Name@@.setSelectedIndex(pos);
+          view.@@Name@@.requestFocus();
+        }
+    }
+
+    @//
+    /** 
+     * Enables or disables the specified note page
+     * @param name the name of the note page
+     * @param enabled boolean flag 
+     */
+    public void setEnabledNotepage@@Name@@(String name, boolean enabled) {
+        int pos = view.@@Name@@NotePages.indexOf(name);
+        if(pos >= 0) {
+            view.@@Name@@.setEnabledAt(pos, enabled);
+        }
+    }
+
+@createSection ClearBlockEnd@@Name@@@@DialogName@@ ClearBlock
+@createSection ClearBlockStart@@Name@@@@DialogName@@ ClearBlockEnd@@Name@@@@DialogName@@
+
+
+@section ClearBlockStart@@Name@@@@DialogName@@
+@//
+    /**
+     * Clears the @@Name@@ 
+     */
+    public void clear@@Name@@() {
+
+@section ClearBlockEnd@@Name@@@@DialogName@@
+    }
+
+@section ClearBlockStart@@ParentName@@@@DialogName@@
+        clear@@Name@@();
+ 
+
+@createSection EndFocusGained@@LogicalName@@ FocusActions
+@createSection StartFocusGained@@LogicalName@@ EndFocusGained@@LogicalName@@
+
+@section StartFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+        @@Name@@.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+@section EndFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+            }
+        });
+@endif
+
+@createSection EndFocusLost@@LogicalName@@ FocusActions
+@createSection StartFocusLost@@LogicalName@@ EndFocusLost@@LogicalName@@
+
+@section StartFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+        @@Name@@.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+
+@section EndFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+            }
+        });
+@endif
+
+
+@section setUpNameComponentMapping
+        nameToComponent.put("@@Name@@", @@Name@@);
+        componentToName.put(@@Name@@, "@@Name@@");
+
+
+@section ConstCompNoteBook
+@//
+        /** The NoteBook @@Name@@ component */
+        String $$hasParameter DialogConstUppercase?@@NameUpper@@:@@Name@@$$ = "@@Name@@";
+
+
+@event Got Focus
+@section StartFocusGained@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.@@MethodName@@(new GenovaFocusEventHolder(e));
+@endif
+@endif    
+
+@event Lost Focus
+@section StartFocusLost@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.@@MethodName@@(new GenovaFocusEventHolder(e));
+@endif
+@endif

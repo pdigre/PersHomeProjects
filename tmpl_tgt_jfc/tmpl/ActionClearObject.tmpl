@@ -1,0 +1,99 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@createSection ActionClearObject@@TargetName@@ ActionMethodImpl
+@createSection HookActionClearObject@@TargetName@@ HookMethodsSuper
+
+@section MethodDeclaration rt
+            actionClearObject@@TargetName@@(); 
+
+@section ActionClearObject@@TargetName@@
+@if @(emptySection)@
+@//
+@//
+    /**
+     * Clears the @(isTargetDataItem?@@TargetNodeName@@.:)@@@TargetName@@ @(isTargetDialog?dialog:@(isTargetDataItem?data item:object)@)@.
+     */ 
+    protected void actionClearObject@@TargetName@@() {
+@//
+        String msgID = null;
+        Exception ex = null;
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {    
+                public void run() {
+                    try {
+@if @(isTargetDialog)@
+                        GenovaDialogController gc = 
+                                application.getDialog("@@TargetName@@");
+                            if (gc != null) {
+                                gc.clearDialog();
+                            }
+@endif
+
+@if @(isTargetDataItem)@
+                        the@@TargetNodeName@@.clear("@@TargetName@@");
+@endif
+
+@if @(!isTargetDialog)@
+@if @(!isTargetDataItem)@
+                        view.clear@@TargetName@@();
+@endif
+@endif
+                    } catch (RuntimeException e) {
+                        if (hookActionClearObject@@TargetName@@Exception(e)) {
+                            throw e;
+                        }
+                    }
+                }
+            });
+        } catch (InterruptedException e) {
+            msgID = CRuntimeMsg.CT_INTERRUPTED;
+            ex = e;
+        } catch (InvocationTargetException e) {
+            Throwable t = e.getCause();
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException)t;
+            } else {
+                msgID = CRuntimeMsg.CT_INVOCATION_TARGET;
+                if (t instanceof Exception) {
+                    ex = (Exception)t;
+                } else {
+                    ex = e;
+                }
+            }
+        } finally {
+            if (msgID != null) {
+               Object[] msgArgs = {this.getClass(), "actionClear@@TargetName@@", ex};
+               Message msg = MessageFactory.getInstance().getMessage(msgID, msgArgs);
+               MessageLogDispatcher.getInstance().log(msg, null);
+               throw new GenovaClientFrameworkException(ex, msg);
+            }
+        } 
+    }
+@//
+@endif
+
+@section HookActionClearObject@@TargetName@@
+@if @(emptySection)@
+@//
+@//
+    /**
+     * Hook method, called if the action resulted in a RuntimeException. 
+     * Override in subclass.
+     * @param e the catched exception 
+    * @return <code>false</code> the hook has handeled the exception, and no further action is needed.
+     */
+    public boolean hookActionClearObject@@TargetName@@Exception(RuntimeException e) {
+        return true;
+    }
+@endif

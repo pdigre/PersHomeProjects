@@ -1,0 +1,91 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@section Declaration
+    protected ScrollPane @@ParentName@@_@@Name@@ = new ScrollPane();
+    protected JList @@ParentName@@_@@Name@@_list = new JList();
+    
+@section Setup
+    @@ParentName@@_@@Name@@.add(@@ParentName@@_@@Name@@_list,BorderLayout.CENTER);
+    @@ParentName@@.add(@@ParentName@@_@@Name@@);
+    @@ParentName@@_@@Name@@.setLocation(@@XPos@@+@@ParentLeftFrameWidth@@,@@YPos@@+@@ParentTopFrameHeight@@);
+    @@ParentName@@_@@Name@@.setSize(@@Width@@, @@Height@@);
+    @@ParentName@@_@@Name@@_list.setVisible(true);
+    
+@if @(!isVisible)@
+        @@ParentName@@_@@Name@@.setVisible(false); 
+@endif
+@if@(!isEnabled)@
+        @@ParentName@@_@@Name@@.setEnabled(false); 
+        disabledComponents.add(@@ParentName@@_@@Name@@);
+@endif
+        @(hasTooltip?@@ParentName@@_@@Name@@.setToolTipText("@@Tooltip@@");:)@
+
+
+    
+        @@NodeName@@_@@Name@@.setInputJustification(@(InputJustification==Left?JTextField.LEFT:@(InputJustification==Right?JTextField.RIGHT:JTextField.CENTER)@)@);
+        @@NodeName@@_@@Name@@.setOutputJustification(@(OutputJustification==Left?JTextField.LEFT:@(OutputJustification==Right?JTextField.RIGHT:JTextField.CENTER)@)@);
+        @@NodeName@@_@@Name@@.setHorizontalAlignment(@(OutputJustification==Left?JTextField.LEFT:@(OutputJustification==Right?JTextField.RIGHT:JTextField.CENTER)@)@);
+
+    $$hasActionEvent?@@ParentName@@_@@Name@@_list.addListSelectionListener(listSelectionProc);:$$
+    $$hasDoubleClickedEvent?@@ParentName@@_@@Name@@_list.addMouseListener(mouseProc);:$$
+    $$hasFocusEvent?@@ParentName@@_@@Name@@_list.addFocusListener(focusProc);:$$
+    $$hasKeyEvent?@@ParentName@@_@@Name@@.addKeyListener(keyProc);:$$
+    $$hasPopupMenu?@@ParentName@@_@@Name@@.addMouseListener(mouseProc);:$$
+@section PopupTrigger
+    $$hasPopupMenu?if (e.getSource() == @@ParentName@@_@@Name@@):$$
+    $$hasPopupMenu?@@PopupMenuName@@_popup.show(e.getComponent(),e.getX(),e.getY());:$$
+
+
+
+@section ConstRole@@NodeName@@
+@//
+        /** The @@Name@@ data field */        
+        String $$hasParameter DialogConstUppercase?@@NameUpper@@:@@Name@@$$ = "@@LogicalName@@";
+
+
+@event Value Changed
+@section KeyPressed
+   if (e.getSource() == @@ParentName@@_@@Name@@_list) {
+      $$hasMethodName?controller.@@MethodName@@(new GenovaKeyEventHolder(e));:$$
+   }
+
+@event Double Clicked
+@section DoubleClicked
+   if (e.getSource() == @@ParentName@@_@@Name@@_list) {
+      $$hasMethodName?controller.@@MethodName@@(new GenovaMouseEventHolder(e));:$$
+   }
+
+@event Got Focus
+@section FocusGained
+   if (e.getSource() == @@ParentName@@_@@Name@@_list) {
+      $$hasMethodName?controller.@@MethodName@@(new GenovaFocusEventHolder(e));:$$
+   }
+
+@event Lost Focus
+@section FocusLost
+   if (e.getSource() == @@ParentName@@_@@Name@@_list) {
+      $$hasMethodName?controller.@@MethodName@@(new GenovaFocusEventHolder(e));:$$
+   }
+
+@event Clicked
+@section ListValueChanged
+   if (e.getSource() == @@ParentName@@_@@Name@@_list) {
+      $$hasMethodName?controller.@@MethodName@@(new GenovaMouseEventHolder(e));:$$
+   }
+
+@event Selected
+@section ListValueChanged
+   if (e.getSource() == @@ParentName@@_@@Name@@_list) {
+      $$hasMethodName?controller.@@MethodName@@(new GenovaListSelectionEventHolder(e));:$$
+   }

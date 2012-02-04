@@ -1,0 +1,639 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@section Declaration
+    @//
+    /* Her kommer generert kode fra WindowBlock:Declaration*/
+    @//
+    JPanel @@Name@@ = new JPanel();
+    JPanel @@Name@@_outer = new JPanel();
+        
+    int blockWindowEvents@@Name@@ = 0;
+    $$isFirstLevel?protected JFrame @@Name@@_frame = new JFrame();:$$
+    JPanel theOutmostFrame = @@Name@@_outer;
+    
+    private JDialog asDialog;
+
+@//
+@//
+    /**
+     * Positions the dialog window
+     */
+    private void positionWindow() {
+        int xpos = @@WindowXPos@@;
+        int ypos = @@WindowYPos@@;
+        if (xpos != 0 || ypos != 0) {
+            setLocation(xpos, ypos);
+        }
+    }
+@//
+@//        
+    /**
+     * Returns <code>true</code> if this is a dialog box.
+     * @return a boolean value, <code>true</code> if this is a dialog box.
+     */
+    protected boolean isDialog() {
+        return $$isDialogBox?true:false$$;
+    }
+
+    /**
+     * Gets a JDialog representation of this dialog.
+     * @return a JDialog representation of this dialog.
+     */
+    protected JDialog getDialog() {
+        if (asDialog == null) {
+            asDialog = new GenovaDialogBox(controller.application.getApplicationWindow());
+            asDialog.setTitle(getTitle());
+            ((GenovaDialogBox) asDialog).setController(getController());
+            asDialog.setContentPane(getContentPane());
+
+            cleanUpMnemonicButtons();
+            JButton defaultButton = getRootPane().getDefaultButton();
+            if (defaultButton != null) {
+                getRootPane().setDefaultButton(null);
+                asDialog.getRootPane().setDefaultButton(defaultButton);
+            }
+            asDialog.setSize(getSize());
+            asDialog.setModal(isModal());
+            asDialog.setResizable(false);
+            asDialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+            asDialog.addWindowListener(new WindowProc());
+            ((GenovaDialogBox) asDialog).copyActions(this);
+            asDialog.addHierarchyListener(new HierarchyListener() {
+@//
+                public void hierarchyChanged(HierarchyEvent e) {
+                    if (HierarchyEvent.SHOWING_CHANGED == (e
+                            .getChangeFlags() & HierarchyEvent.SHOWING_CHANGED)) {
+                        JDialog dialog = (JDialog) e.getSource();
+                        if (!dialog.isShowing()) {
+                            fireGenovaWindowEvent(GenovaWindowEvent
+                                    .GENOVA_DIALOG_HIDDEN);
+                        }
+                    }
+                }
+            });
+            int xpos = @@WindowXPos@@;
+            int ypos = @@WindowYPos@@;
+            if (xpos == 0 && ypos == 0) {
+                controller.setDialogLocation();
+            } else {
+                asDialog.setLocation(xpos, ypos);
+            }                        
+        }
+@//
+        return asDialog;
+    }
+
+
+
+@section controllerdecl
+    @//
+    /* Her kommer generert kode fra WindowBlock:controllerdecl*/
+    @//
+    HashMap tabListFromNodeName@@Name@@ = new HashMap();
+    HashMap tabListFromComponent@@Name@@ = new HashMap();
+    @//
+    String[] tabSequence = {@@TabSequence@@};
+    Map nextTabElementString = TypeTool.quickIndex(tabSequence, true);
+    Map previousTabElementString = TypeTool.quickIndex(tabSequence, false);
+@section DialogTitle
+    @//
+    /* Her kommer generert kode fra WindowBlock:DialogTitle*/
+    @//
+    $$hasTitle? return "@@Title@@"; :return "@@DialogName@@";$$
+@section SetupDialogPane
+        @//
+        /* Her kommer generert kode fra WindowBlock:SetupDialogPane*/
+        @//
+        setTitle("@@Title@@");
+        $$isModal?controller.setModal(true);:$$
+        $$isFirstLevel?@@Name@@_frame.:$$getContentPane().add("Center",@@Name@@_outer);
+@if @(isApplicationWindow)@
+@if @(hasIcon)@
+        ImageIcon icon = RepositoryProxy.getImageField("@@Icon@@");
+        if (icon == null) {
+            String msgID = CRuntimeMsg.CF_NO_SUCH_ICON;
+            Object[] msgArgs = 
+                     { 
+                         this.getClass(), 
+                         "@@Icon@@. Attempting Genova Icon instead"
+                     };
+            Message msg = MessageFactory.getInstance().getMessage(msgID, msgArgs);
+            MessageLogDispatcher.getInstance().log(msg, null);
+
+            // Try to load the default Genova icon
+            String defaultIcon = "DefaultIcon";
+            icon = RepositoryProxy.getImageField(defaultIcon);
+            if (icon == null) {
+                msgArgs = new Object[] 
+                        {
+                            this.getClass(), 
+                            defaultIcon
+                        };
+                msg = MessageFactory.getInstance().getMessage(msgID, msgArgs);
+                MessageLogDispatcher.getInstance().log(msg, null);
+            }                
+        } else {
+            RepositoryProxy.setDefaultImage("@@Icon@@");
+        }
+        
+@endif
+@if @(!hasIcon)@
+        ImageIcon icon = RepositoryProxy.getImageField("DefaultIcon");
+        if (icon == null) {
+            String msgID = CRuntimeMsg.CF_NO_SUCH_ICON;
+            Object[] msgArgs = {this.getClass(), "DefaultIcon"};
+            Message msg = MessageFactory.getInstance().getMessage(msgID, msgArgs);
+            MessageLogDispatcher.getInstance().log(msg, null);
+        } 
+@endif
+        if (icon != null) {
+            getController().getApplication().getApplicationWindow()
+                    .setIconImage(icon.getImage());
+        }
+@endif
+
+@if @(!isApplicationWindow)@
+@if @(hasIcon)@
+        setFrameIcon(RepositoryProxy.getImageField("@@Icon@@"));
+@endif
+@if @(!hasIcon)@
+        setFrameIcon(RepositoryProxy.getImageField("DefaultIcon"));
+@endif
+@endif
+
+@section InitModality
+        super("", true, true, true, $$isModal?false:true$$);
+
+@createSection ClearBlockEnd@@Name@@@@DialogName@@ ClearBlock
+@createSection ClearBlockStart@@Name@@@@DialogName@@ ClearBlockEnd@@Name@@@@DialogName@@
+
+@section ClearBlockStart@@Name@@@@DialogName@@
+@//
+    /**
+     * Clears the @@Name@@ window block.
+     */    
+    public void clear@@Name@@() {
+
+@section ClearBlockEnd@@Name@@@@DialogName@@
+    }
+
+@section ClearBlockDialog
+        clear@@Name@@(); 
+
+
+@section Setup
+        init@@Name@@();        
+
+@createSection SetupInit@@Name@@End SetupInit
+@createSection SetupInit@@Name@@Start SetupInit@@Name@@End
+
+@section SetupInit@@Name@@Start
+    @//
+     /** Initializes the @@Name@@ window block */
+    private void init@@Name@@() {
+        @begin
+        @@Name@@_outer.setPreferredSize(new Dimension(@@Width@@, @@Height@@));
+        @(hasBackgroundColor?RepositoryProxy.setBackgroundColor(@@Name@@,"@@StyleBackgroundColor@@");:)@
+@if @(isApplicationWindow)@
+        @(hasBackgroundColor?RepositoryProxy.setBackgroundColor(controller.getApplication().getGenovaDesktopPane(),"@@StyleBackgroundColor@@");:)@
+@endif
+        @(hasForegroundColor?RepositoryProxy.setForegroundColor(@@Name@@,"@@StyleForegroundColor@@");:)@
+        @(hasFont?RepositoryProxy.setFont(@@Name@@,"@@FontName@@");:)@
+
+        @@Name@@_outer.setLayout(null);
+        @@Name@@_outer.add(@@Name@@);   
+        @@Name@@.setLocation(0,0);
+        @@Name@@.setSize(@@Width@@, @@Height@@);
+        @@Name@@.setLayout(null);
+        
+@if @(!isVisible)@
+        @@Name@@.setVisible(false); 
+@endif
+@if@(!isEnabled)@
+        @@Name@@.setEnabled(false); 
+        disabledComponents.add(@@Name@@);
+@endif
+        @(hasTooltip?@@Name@@.setToolTipText("@@Tooltip@@");:)@
+
+
+        @//
+        addInternalFrameListener(windowProc);
+        $$hasWindowEvent?addGenovaWindowListener(genovaWindowProc);:$$
+        $$hasShownHiddenEvent?addComponentListener(componentProc);:$$
+        $$hasPopupMenu?@@Name@@.addMouseListener(mouseProc);:$$
+
+@section SetupInit@@Name@@End
+    }
+
+
+@section ConstCompWindowBlock
+@//
+        /** The WindowBlock @@Name@@ component */
+        String $$hasParameter DialogConstUppercase?@@NameUpper@@:@@Name@@$$ = "@@Name@@";
+
+
+@section PopupTrigger
+                @//
+                /* Her kommer generert kode fra WindowBlock:PopupTrigger*/
+                @//
+                $$hasPopupMenu?if (e.getSource() == @@Name@@):$$
+                $$hasPopupMenu?@@PopupMenuName@@_popup.show(e.getComponent(),e.getX(),e.getY());:$$
+@section setdefaultbutton
+@if @(hasDefaultButton)@
+        // initializing the default button
+        getRootPane().setDefaultButton(@@DefaultButtonName@@);
+@endif
+
+@section UpdateComponentTree
+        SwingUtilities.updateComponentTreeUI(@@Name@@);
+
+
+@section statusBar
+@if @(isApplicationWindow)@
+        useStatusBar = $$hasMessageBar?true:false$$; // specified value
+@endif
+
+@section windowSize
+@if @(isApplicationWindow)@
+        wWidth = @@WindowWidth@@;    // specified or calculated value
+        wHeight = @@WindowHeight@@;  // specified or calculated value
+@endif
+
+@section windowPosition
+@if @(isApplicationWindow)@
+        wXPos = @@XPos@@;  // specified or calculated value
+        wYPos = @@YPos@@;  // specified or calculated value
+@endif
+
+@createSection EndWindowActivated@@LogicalName@@ WindowActivated
+@createSection StartWindowActivated@@LogicalName@@ EndWindowActivated@@LogicalName@@
+
+         
+@section StartWindowActivated@@LogicalName@@
+@if @(hasEvent Got Focus)@
+    @//
+    /* Her kommer generert kode fra WindowBlock:WindowActivated*/
+    @//
+    if (blockWindowEvents@@Name@@ == 0) {
+        blockWindowEvents@@Name@@++;
+
+@endif
+
+@section EndWindowActivated@@LogicalName@@
+@if @(hasEvent Got Focus)@
+        blockWindowEvents@@Name@@--;
+    }
+@endif
+
+@createSection EndWindowDeactivated@@LogicalName@@ WindowDeactivated
+@createSection StartWindowDeactivated@@LogicalName@@ EndWindowDeactivated@@LogicalName@@
+
+@section StartWindowDeactivated@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+    @//
+    /* Her kommer generert kode fra WindowBlock:WindowDeactivated*/
+    @//
+    if (blockWindowEvents@@Name@@ == 0) {
+        blockWindowEvents@@Name@@++;
+@endif
+
+@section EndWindowDeactivated@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+        blockWindowEvents@@Name@@--;
+    }
+@endif
+
+@createSection EndWindowOpened@@LogicalName@@ WindowOpened
+@createSection StartWindowOpened@@LogicalName@@ EndWindowOpened@@LogicalName@@
+
+@section StartWindowOpened@@LogicalName@@
+@if @(hasEvent Opened)@
+    @//
+    /* Her kommer generert kode fra WindowBlock:WindowOpened*/
+    @//
+        if (blockWindowEvents@@Name@@ == 0) {
+            blockWindowEvents@@Name@@++;
+@endif
+
+@section EndWindowOpened@@LogicalName@@
+@if @(hasEvent Opened)@
+            blockWindowEvents@@Name@@--;
+        }
+@endif
+
+@createSection EndWindowClosed@@LogicalName@@ WindowClosed
+@createSection StartWindowClosed@@LogicalName@@ EndWindowClosed@@LogicalName@@
+
+@section StartWindowClosed@@LogicalName@@
+@if @(hasEvent Closed)@
+    @//
+    /* Her kommer generert kode fra WindowBlock:WindowClosed*/
+    @//
+    if (blockWindowEvents@@Name@@ == 0) {
+        blockWindowEvents@@Name@@++;
+@endif
+
+@section EndWindowClosed@@LogicalName@@
+@if @(hasEvent Closed)@
+        blockWindowEvents@@Name@@--;
+    }
+@endif
+
+@createSection EndWindowShown@@LogicalName@@ WindowShown
+@createSection StartWindowShown@@LogicalName@@ EndWindowShown@@LogicalName@@
+
+@section StartWindowShown@@LogicalName@@
+@if @(hasEvent Shown)@
+    @//
+    // Her kommer generert kode fra WindowBlock:WindowShown
+    @//
+    if (blockWindowEvents@@Name@@ == 0) {
+        blockWindowEvents@@Name@@++;
+@endif
+
+@section EndWindowShown@@LogicalName@@
+@if @(hasEvent Shown)@
+        blockWindowEvents@@Name@@--;
+    }
+@endif
+
+@createSection EndWindowHidden@@LogicalName@@ WindowHidden
+@createSection StartWindowHidden@@LogicalName@@ EndWindowHidden@@LogicalName@@
+
+@section StartWindowHidden@@LogicalName@@
+@if @(hasEvent Hidden)@
+    @//
+    // Her kommer generert kode fra WindowBlock:WindowHidden
+    @//
+    if (blockWindowEvents@@Name@@ == 0) {
+        blockWindowEvents@@Name@@++;
+@endif
+
+@section EndWindowHidden@@LogicalName@@
+@if @(hasEvent Hidden)@
+        blockWindowEvents@@Name@@--;
+    }
+@endif
+
+@createSection EndWindowIconified@@LogicalName@@ WindowIconified
+@createSection StartWindowIconified@@LogicalName@@ EndWindowIconified@@LogicalName@@
+
+@section StartWindowIconified@@LogicalName@@
+@if @(hasEvent Iconized)@
+    @//
+    /* Her kommer generert kode fra WindowBlock:WindowIconified*/
+    @//
+    if (blockWindowEvents@@Name@@ == 0) {
+        blockWindowEvents@@Name@@++;
+@endif
+
+@section EndWindowIconified@@LogicalName@@
+@if @(hasEvent Iconized)@
+        blockWindowEvents@@Name@@--;
+    }
+@endif
+
+
+@createSection EndWindowDeiconified@@LogicalName@@ WindowDeiconified
+@createSection StartWindowDeiconified@@LogicalName@@ EndWindowDeiconified@@LogicalName@@
+
+@section StartWindowDeiconified@@LogicalName@@
+@if @(hasEvent Restored)@
+    @//
+    /* Her kommer generert kode fra WindowBlock:WindowDeiconified*/
+    @//
+    if (blockWindowEvents@@Name@@ == 0) {
+        blockWindowEvents@@Name@@++;
+@endif
+
+@section StartWindowDeiconified@@LogicalName@@
+@if @(hasEvent Restored)@
+        blockWindowEvents@@Name@@--;
+    }
+@endif
+
+
+@if @(isApplicationWindow)@
+  @if @(hasEvent WM Close)@
+    @createSection ApplicationCloseEnd ApplicationCloseAppWindow
+    @createSection ApplicationCloseStart ApplicationCloseEnd
+
+    @section ApplicationCloseStart
+        application.getApplicationWindow().setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        application.getApplicationWindow().addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                application.setLastException(null);
+
+    @section ApplicationCloseEnd
+ 
+    @if @(hasEvent WM Close)@
+            }
+        });
+    @endif
+
+  @endif
+    @if @(!hasEvent WM Close)@
+    @section ApplicationCloseAppWindow
+        application.getApplicationWindow().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  @endif
+
+@endif
+ 
+               
+
+@createSection EndWindowClosing@@LogicalName@@ WindowClosing
+@createSection StartWindowClosing@@LogicalName@@ EndWindowClosing@@LogicalName@@
+
+@section StartWindowClosing@@LogicalName@@
+@if @(hasEvent WM Close)@
+@if @(!isApplicationWindow)@
+        @//
+        /* Her kommer generert kode fra WindowBlock:WindowClosing*/
+        @//
+        controller.application.setLastException(null);
+        if (blockWindowEvents@@Name@@ == 0) {
+            blockWindowEvents@@Name@@++;
+@endif
+@endif
+
+@if @(!hasEvent WM Close)@
+@if @(!isApplicationWindow)@
+        controller.application.setLastException(null);
+        // Event is not specified, default action is to dispose dialog.
+        if (isDialog()) {
+            getDialog().dispose();
+        } else {
+            dispose();
+        }
+@endif
+@endif
+
+@section EndWindowClosing@@LogicalName@@
+@if @(hasEvent WM Close)@
+@if @(!isApplicationWindow)@
+            blockWindowEvents@@Name@@--;
+        }
+@endif
+@endif
+
+
+@event Accelerator
+
+@createSection InitAccelerator SetupInit@@Name@@End
+
+@section InitAccelerator
+        initAccelerator@@MethodName@@@@AcceleratorIdentifier@@();
+
+@section CleanupAcceleratorEvent
+        view.getRootPane().getInputMap(JInternalFrame.WHEN_IN_FOCUSED_WINDOW)
+                          .put(GenovaRender.render("@@Accelerator@@"), null);
+
+@section AcceleratorEvent
+    @//
+    /** 
+     * Initializes the accelerator for @@MethodName@@ with 
+     * accelerator @@AcceleratorIdentifier@@ 
+     */
+    private void initAccelerator@@MethodName@@@@AcceleratorIdentifier@@() {
+        final KeyStroke stroke = GenovaRender.render("@@Accelerator@@");
+        int ctrlMask = @@hasCtrlModifier?KeyEvent.CTRL_DOWN_MASK:0@@;
+        int shiftMask = @@hasShiftModifier?KeyEvent.SHIFT_DOWN_MASK:0@@;
+        int altMask = @@hasAltModifier?KeyEvent.ALT_DOWN_MASK:0@@;
+        final int mask = ctrlMask | shiftMask | altMask;
+@//
+@if @(isApplicationWindow)@
+        DialogBlocker.addAllowedKeyStroke(stroke);
+@endif
+        Object key = getRootPane().getInputMap(WHEN_IN_FOCUSED_WINDOW).get(stroke);
+        final javax.swing.Action otherAction = key != null ? getRootPane()
+                .getActionMap().get(key) : null;
+        
+        getRootPane().getInputMap(WHEN_IN_FOCUSED_WINDOW).put(stroke,
+                                  "@@MethodName@@@@Accelerator@@");
+        getRootPane().getActionMap().put("@@MethodName@@@@Accelerator@@", 
+                new javax.swing.AbstractAction() {
+            
+@//
+                    public void actionPerformed(ActionEvent e) {
+                        if (otherAction != null) {
+                            otherAction.actionPerformed(e);
+                        }
+                        Component source = (Component) e.getSource();
+                        int keyPressed = KeyEvent.KEY_PRESSED;
+                        long when = e.getWhen();
+                        int keyCode = stroke.getKeyCode();
+                        char keyChar = stroke.getKeyChar();
+                        KeyEvent event = new KeyEvent(source, keyPressed,
+                                when, mask, keyCode, keyChar);
+                        controller.$$MethodName$$(
+                                new GenovaKeyEventHolder(event));
+                    }
+                });
+    }
+
+
+@event WM Close
+@if @(!isApplicationWindow)@
+@section StartWindowClosing@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+            controller.@@MethodName@@(new GenovaWindowEventHolder(e));
+@endif
+@endif
+@endif
+
+@if @(isApplicationWindow)@
+@section ApplicationCloseStart
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+            @@MethodName@@(new GenovaWindowEventHolder(e));
+@endif
+@endif
+@endif
+
+
+
+@event Restored
+@section StartWindowDeiconified@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+        controller.@@MethodName@@(new GenovaWindowEventHolder(e));
+@endif
+@endif
+
+
+@event Iconized
+@section StartWindowIconified@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+        controller.@@MethodName@@(new GenovaWindowEventHolder(e));
+@endif
+@endif
+
+
+
+
+@event Hidden
+@section StartWindowHidden@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+        controller.@@MethodName@@(new GenovaWindowEventHolder(e));
+@endif
+@endif
+
+@event Shown
+@section WindowShown
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+        controller.@@MethodName@@(new GenovaComponentEventHolder(e));
+@endif
+@endif
+
+
+
+@event Closed
+@section StartWindowClosed@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+        controller.@@MethodName@@(new GenovaWindowEventHolder(e));
+@endif
+@endif
+
+
+
+@event Opened
+@section StartWindowOpened@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+        controller.@@MethodName@@(new GenovaWindowEventHolder(e));
+@endif
+@endif
+
+
+
+@event Lost Focus
+@section StartWindowDeactivated@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+        controller.@@MethodName@@(new GenovaWindowEventHolder(e));
+@endif
+@endif
+
+@event Got Focus
+@section StartWindowActivated@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+        controller.@@MethodName@@(new GenovaWindowEventHolder(e));
+@endif
+@endif

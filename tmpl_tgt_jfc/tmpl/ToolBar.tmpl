@@ -1,0 +1,44 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@section Declaration
+    @//
+    /* Her kommer generert kode fra Menu:Declaration*/
+    @//
+    GenovaToolBar @@Name@@ = new GenovaToolBar(this, toolBarElements);
+
+@section controllerdecl
+    HashMap tabListFromNodeName@@Name@@ = tabListFromNodeName@@ParentName@@;
+    HashMap tabListFromComponent@@Name@@ = tabListFromComponent@@ParentName@@;
+
+
+@section SetupInit@@ParentName@@Start
+        init@@Name@@();
+
+@createSection SetupInit@@Name@@End SetupInit
+@createSection SetupInit@@Name@@Start SetupInit@@Name@@End
+
+@section SetupInit@@Name@@Start 
+    @//
+    /** Initializes the @@Name@@ toolbar */
+    private void init@@Name@@() {
+        setGenovaToolBar(@@Name@@);
+
+@section SetupInit@@Name@@End
+    }
+
+
+@section ConstCompToolBar
+@//
+        /** The ToolBar @@Name@@ component */
+        String $$hasParameter DialogConstUppercase?@@NameUpper@@:@@Name@@$$ = "@@Name@@";

@@ -1,0 +1,216 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+@section Declaration
+    @//
+    /** The @@Name@@ simple block */
+    protected JPanel @@Name@@ = new JPanel();
+@section controllerdecl
+    @//
+    HashMap tabListFromNodeName@@Name@@ = tabListFromNodeName@@ParentName@@;
+    HashMap tabListFromComponent@@Name@@ = tabListFromComponent@@ParentName@@;
+
+@section SetupInit@@ParentName@@Start
+        init@@Name@@();
+
+@createSection SetupInit@@Name@@End SetupInit
+@createSection SetupInit@@Name@@Start SetupInit@@Name@@End
+
+@section SetupInit@@Name@@Start
+    @//
+    /** Initializes the @@Name@@ container */
+    private void init@@Name@@() {
+        @@ParentName@@.add(@@Name@@);
+        @@Name@@.setLocation(@@XPos@@+@@ParentLeftFrameWidth@@,@@YPos@@+@@ParentTopFrameHeight@@);
+        @@Name@@.setSize(@@Width@@, @@Height@@);
+        
+@if @(!isVisible)@
+        @@Name@@.setVisible(false); 
+@endif
+@if@(!isEnabled)@
+        @@Name@@.setEnabled(false); 
+        disabledComponents.add(@@Name@@);
+@endif
+        @(hasTooltip?@@Name@@.setToolTipText("@@Tooltip@@");:)@
+
+
+@if @(hasShownHiddenEvent)@
+        addShownHidden@@Name@@();
+@endif
+
+        RepositoryProxy.setBorder(@@Name@@,@@FrameCode@@,"@@Title@@");
+        @(hasBackgroundColor?RepositoryProxy.setBackgroundColor(@@Name@@,"@@StyleBackgroundColor@@");:)@
+        @(hasForegroundColor?RepositoryProxy.setForegroundColor(@@Name@@,"@@StyleForegroundColor@@");:)@
+        @(hasFont?RepositoryProxy.setFont(@@Name@@,"@@FontName@@");:)@
+        @@Name@@.setLayout(null);
+        @//
+        $$hasPopupMenu?@@Name@@.addMouseListener(mouseProc);:$$
+
+@section SetupInit@@Name@@End
+    }
+@section PopupTrigger
+                @//
+                /* Her kommer generert kode for SimpleBlock:PopupTrigger*/
+                @//
+                $$hasPopupMenu?if (e.getSource() == @@Name@@):$$
+                $$hasPopupMenu?@@PopupMenuName@@_popup.show(e.getComponent(),e.getX(),e.getY());:$$
+
+
+@createSection setShown@@Name@@ setShown@@NodeName@@End
+@createSection setShownField@@Name@@ setShownField@@NodeName@@End
+@createSection isShown@@Name@@ isShownField@@NodeName@@End
+@createSection isShownField@@Name@@ isShownField@@NodeName@@End
+
+@//
+@section setShown@@Name@@ rt
+@begin
+    @//
+    /* Her kommer generert kode for SimpleBlock:setShown*/
+    @//
+    view.@@Name@@.setVisible(b);
+@section setShownField@@Name@@ rt
+@begin
+    @//
+    /* Her kommer generert kode for SimpleBlock:setShownField*/
+    @//
+    if (s.equals("@@Name@@")) {
+        view.@@Name@@.setVisible(b);
+    }
+@section isShown@@Name@@ rt
+@begin
+    @//
+    /* Her kommer generert kode for SimpleBlock:isShown*/
+    @//
+    if (view.@@Name@@.isEnabled()) b=true;
+@section isShownField@@Name@@ rt
+@begin
+    @//
+    /* Her kommer generert kode for SimpleBlock:isShownField*/
+    @//
+    if (s.equals("@@Name@@")) {
+        if (view.@@Name@@.hasFocus()) b=true;
+    }
+
+@createSection SetShownHidden@@LogicalName@@End SetShownHidden
+@createSection SetShownHidden@@LogicalName@@Start SetShownHidden@@LogicalName@@End 
+
+@section SetShownHidden@@Name@@Start
+@if @(hasShownHiddenEvent)@
+    private void addShownHidden@@Name@@() {
+        @@Name@@.addComponentListener(new ComponentAdapter() { 
+@section SetShownHidden@@Name@@End
+        });
+    }
+@endif
+
+
+@createSection ClearBlockEnd@@Name@@@@DialogName@@ ClearBlock
+@createSection ClearBlockStart@@Name@@@@DialogName@@ ClearBlockEnd@@Name@@@@DialogName@@
+
+
+@section ClearBlockStart@@Name@@@@DialogName@@
+@//
+    /**
+     * Clears the @@Name@@ 
+     */
+    public void clear@@Name@@() {
+
+@section ClearBlockEnd@@Name@@@@DialogName@@
+    }
+
+@section ClearBlockStart@@ParentName@@@@DialogName@@
+        clear@@Name@@(); 
+
+@section setUpNameComponentMapping
+        nameToComponent.put("@@Name@@", @@Name@@);
+        componentToName.put(@@Name@@, "@@Name@@");
+
+
+@section ConstCompSimpleBlock
+@//
+        /** The SimpleBlock @@Name@@ component */
+        String $$hasParameter DialogConstUppercase?@@NameUpper@@:@@Name@@$$ = "@@Name@@";
+
+
+@createSection EndFocusGained@@LogicalName@@ FocusActions
+@createSection StartFocusGained@@LogicalName@@ EndFocusGained@@LogicalName@@
+
+@section StartFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+        @@Name@@.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+@section EndFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+            }
+        });
+@endif
+
+@createSection EndFocusLost@@LogicalName@@ FocusActions
+@createSection StartFocusLost@@LogicalName@@ EndFocusLost@@LogicalName@@
+
+@section StartFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+        @@Name@@.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+
+@section EndFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+            }
+        });
+@endif
+
+
+
+
+@event Lost Focus
+@section StartFocusLost@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+        controller.@@MethodName@@(new GenovaFocusEventHolder(e));
+@endif
+@endif
+
+
+@event Got Focus
+@section StartFocusGained@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+        controller.@@MethodName@@(new GenovaFocusEventHolder(e));
+@endif
+@endif
+
+@event Shown
+@section SetShownHidden@@LogicalName@@Start
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+            public void componentShown(ComponentEvent e) {
+                controller.@@MethodName@@(new GenovaEvent(e));
+            }
+@endif
+@endif
+
+@event Hidden
+@section SetShownHidden@@LogicalName@@Start
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+            public void componentHidden(ComponentEvent e) {
+                controller.@@MethodName@@(new GenovaEvent(e));
+            }
+@endif
+@endif
