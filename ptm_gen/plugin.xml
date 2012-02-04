@@ -51,10 +51,10 @@
       <action
             class="no.esito.genova.io.xtend.CreateXtendAction"
             icon="src/main/resources/icons/Build.png"
-            id="no.esito.genova.action.xtend"
-            label="Create XTend2 Templates "
+            id="no.esito.genova.action.ptm2xtend"
+            label="PTM -&gt; Xtend"
             menubarPath="project/projEnd"
-            tooltip="Create Xtend equivalent template files">
+            tooltip="Create Xtend equivalent template files from PTM">
       </action>
    </actionSet>
 </extension>
