@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1"?><ModelExport>
+	<Exporter>Genova</Exporter>
+	<ExporterVersion>900</ExporterVersion>
+	<ExporterTime>Sun Dec 06 15:04:43 CET 2009</ExporterTime>
+	<ModelType>GeneratorTarget</ModelType>
+<GeneratorRoot>
+	<Generator Description="Java Swing target" Engine="G1" Image="target.png" name="Java/JFC" SubDir="src/main/java" TopLevel="False" Type="DialogModel">
+		<GenSetup Default="False" name="Skip generation of .new files" Type="Bool"/>
+		<GenSetup Default="False" name="Generate all resources" Type="Bool"/>
+		<GenSetup Default="True" name="Create full generated tag" Type="Bool"/>
+		<GenSetup name="Preprocessing command" Type="String"/>
+		<GenParam Default="example.dialog" name="DialogClassPackage"/>
+		<GenParam Default="example/dialog" name="DialogFileDir"/>
+		<GenParam Default="True" name="UseAccessorMethods" Type="Bool"/>
+		<GenParam Default="False" name="GenerateDebug" Type="Bool"/>
+		<GenParam Default="DialogObject" name="DialogConstObjectName"/>
+		<GenParam Default="OSRoleName" name="DialogConstOSRoleName"/>
+		<GenParam Default="True" name="DialogConstUpperCase" Type="Bool"/>
+		<GenParam Default="False" name="SkipSelectAfterSave" Type="Bool"/>
+		<GenParam name="ApplicationName"/>
+		<GenAction Action="AddNature" Description="Add Java Nature" name="JavaNature" Parameters="org.eclipse.jdt.core.javanature,org.eclipse.jdt.core.javabuilder"/>
+		<GenAction Action="AddNature" Description="Add Maven 2.0 Integration Nature" name="Maven2Nature" Parameters="org.maven.ide.eclipse.maven2Nature,org.maven.ide.eclipse.maven2Builder"/>
+		<GenAction Action="GeneratePOM" Description="Generate POM for Maven configured build" name="GeneratePOM"/>
+		<GenDepend ArtifactId="genova-swing" GroupId="no.esito" name="genova-swing" Version="9.0.0"/>
+	</Generator>
+</GeneratorRoot></ModelExport>

@@ -1,10 +1,6 @@
 package no.esito.genova.io.generator;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -18,7 +14,7 @@ import java.util.concurrent.Callable;
 
 import no.esito.genova.io.antlr.GParser.prog_return;
 import no.esito.genova.io.driver.PTM_Plugin;
-import no.esito.genova.io.xtend.Ptm2Xtend;
+import no.esito.genova.io.xtend.Tmpl2Xtend;
 import no.esito.genova.model.core.ModelManager;
 import no.esito.genova.model.core.PObject;
 import no.esito.genova.model.core.QObject;
@@ -32,16 +28,8 @@ import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
-import org.eclipse.ui.PlatformUI;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
-import org.eclipse.xtext.xbase.lib.*;
 
 public class TMPL_Engine implements IGeneratorEngine {
 
@@ -196,7 +184,7 @@ public class TMPL_Engine implements IGeneratorEngine {
 
     }
 
-    public Ptm2Xtend convertXtend(IFile ifile) throws IOException, CoreException {
+    public Tmpl2Xtend convertXtend(IFile ifile) throws IOException, CoreException {
         String fname = ifile.getName();
         if (!fname.endsWith(".tmpl"))
             return null;
@@ -205,7 +193,7 @@ public class TMPL_Engine implements IGeneratorEngine {
         templatefile = fname;
         final GTreeUnit unit = getGTreeUnit(templatedir, templatefile);
         CommonTree tree = unit.getTree();
-        Ptm2Xtend xtend = new Ptm2Xtend();
+        Tmpl2Xtend xtend = new Tmpl2Xtend();
         xtend.engine = this;
         xtend.clazzname = fname.replaceFirst("\\.tmpl", "");
         xtend.node = tree;

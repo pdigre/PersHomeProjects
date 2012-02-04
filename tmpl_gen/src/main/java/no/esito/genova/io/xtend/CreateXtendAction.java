@@ -21,7 +21,7 @@ public class CreateXtendAction extends GMenuAction {
     public static final String PATH_USAGE = "usage";
     public static final String PATH_XTEND_OUTPUT = "xtend";
 	
-    HashSet<Ptm2Xtend> set = new HashSet<Ptm2Xtend>();
+    HashSet<Tmpl2Xtend> set = new HashSet<Tmpl2Xtend>();
 
 	@Override
 	public void run(IAction action) {
@@ -36,7 +36,7 @@ public class CreateXtendAction extends GMenuAction {
 	}
 
     private void saveXtendFiles() {
-        for (Ptm2Xtend xtend : set) {
+        for (Tmpl2Xtend xtend : set) {
             xtend.scanMode = false;
             xtend.isClosed = true;
             xtend.saveResource(PATH_XTEND_OUTPUT, xtend.clazzname + ".xtend", xtend._stat().toString());
@@ -45,23 +45,23 @@ public class CreateXtendAction extends GMenuAction {
 
     private void loadPtmFiles(TMPL_Engine ptm_Engine) {
         recurse(ptm_Engine, getGProject().getIProject());
-        for (Ptm2Xtend xtend : set) {
+        for (Tmpl2Xtend xtend : set) {
             xtend.scanMode = true;
             xtend._stat();
         }
     }
 
-	private void recurse(TMPL_Engine ptm_Engine, IContainer container) {
+	private void recurse(TMPL_Engine tmpl_Engine, IContainer container) {
 		try {
 			for (IResource res : container.members()) {
 				if (res instanceof IFile) {
-					Ptm2Xtend xtend = ptm_Engine.convertXtend((IFile) res);
+					Tmpl2Xtend xtend = tmpl_Engine.convertXtend((IFile) res);
 					if (xtend != null){
 						set.add(xtend);
 					}
 				}
 				if (res instanceof IContainer)
-					recurse(ptm_Engine, (IContainer) res);
+					recurse(tmpl_Engine, (IContainer) res);
 			}
 		} catch (CoreException e) {
 			e.printStackTrace();
