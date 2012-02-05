@@ -19,6 +19,10 @@ import static no.esito.genova.io.antlr.PtmParser.VARIABLE2;
 import java.util.ArrayList;
 import java.util.List;
 
+import no.esito.genova.io.convert.AbstractAnalysis;
+import no.esito.genova.io.convert.ECall;
+import no.esito.genova.io.convert.ELink;
+import no.esito.genova.io.convert.EXPSTATE;
 import no.esito.genova.model.util.DelimitedList;
 
 import org.antlr.runtime.tree.CommonTree;
@@ -34,6 +38,11 @@ public abstract class AbstractPtm2Xtend extends AbstractAnalysis {
 
 	// public Stack<CommonTree> stack=new Stack<CommonTree>();
 
+	@Override
+	public boolean isEmpty() {
+		return node==null || node.token==null;
+	}
+	
 	@SuppressWarnings("rawtypes")
 	private CharSequence walk_(CommonTree parent) {
 		CharSequence out = "";
@@ -62,6 +71,7 @@ public abstract class AbstractPtm2Xtend extends AbstractAnalysis {
 		return out;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public CharSequence walk2(int start) {
 		CharSequence out = "";
 		CommonTree parent = node;

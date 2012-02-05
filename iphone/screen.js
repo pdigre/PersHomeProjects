@@ -7,7 +7,7 @@ function level(){return document.getElementById("level").selectedIndex+1};
 
 
 // Draw the chess board
-function drawBoard(){
+function drawBoard(){ 
   var h=[];
   for(var y=90;y>10;y-=10){
     h[h.length]='<tr>';

@@ -1,27 +1,34 @@
 package no.pdigre.droidchess;
 
 
+
 public enum PieceType {
-    WhitePawn(1, "1.gif"),
-    WhiteBishop(3, "4.gif"),
-    WhiteKnight(3, "3.gif"),
-    WhiteRook(5, "2.gif"),
-    WhiteQueen(9, "5.gif"),
-    WhiteKing(100, "6.gif"),
-    BlackPawn(-1, "9.gif"),
-    BlackBishop(-3, "12.gif"),
-    BlackKnight(-3, "11.gif"),
-    BlackRook(-5, "10.gif"),
-    BlackQueen(-9, "13.gif"),
-    BlackKing(-100, "14.gif");
+    WhitePawn(1, 'P'),
+    WhiteKnight(3, 'N'),
+    WhiteBishop(3, 'B'),
+    WhiteRook(5, 'R'),
+    WhiteQueen(9, 'Q'),
+    WhiteKing(100, 'K'),
+    BlackPawn(-1, 'p'),
+    BlackKnight(-3, 'n'),
+    BlackBishop(-3, 'b'),
+    BlackRook(-5, 'r'),
+    BlackQueen(-9, 'q'),
+    BlackKing(-100, 'k'); 
 
     final int weight;
+    final char fen;
 
-    final String filename;
-
-    PieceType(int weight, String filename) {
+    PieceType(int weight, char fen) {
         this.weight = weight;
-        this.filename = filename;
+        this.fen=fen;
     }
 
+    public static PieceType getPieceType(char fen){
+    	for (PieceType type : PieceType.values()) {
+			if(type.fen==fen)
+				return type;
+		}
+    	return null;
+    }
 }

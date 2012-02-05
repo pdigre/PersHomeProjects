@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Genova - PTM Parser
-Bundle-SymbolicName: no.esito.genova.ptm_gen;singleton:=true
+Bundle-Name: Genova -TMPL Parser
+Bundle-SymbolicName: no.esito.genova.tmpl_gen;singleton:=true
 Bundle-Version: 9.0.3.qualifier
 Bundle-Vendor: Esito AS
 Require-Bundle: org.eclipse.ui,
@@ -22,7 +22,7 @@ Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: velocity-dep-1.5.jar,
  .,
  src/main/resources/
-Bundle-Activator: no.esito.genova.io.driver.PTM_Plugin
+Bundle-Activator: no.esito.genova.io.driver.XtendPlugin
 Import-Package: org.antlr.analysis,
  org.antlr.runtime,
  org.antlr.runtime.tree

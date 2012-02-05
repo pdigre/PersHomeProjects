@@ -271,7 +271,7 @@ public class PtmLexerSub extends PtmLexer {
 	public String[] getTokenNames() {
 		if (tokennames == null) {
 			try {
-				String fname = "C:/eclipse/work36/genova/gen_ptm/src/main/grammar/GLexer.tokens";
+				String fname = "C:/git/PersHomeProjects/xtend_gen/src/main/grammar/PtmLexer.tokens";
 				String text = FileUtils
 						.stream2String(new FileInputStream(fname));
 				String[] split = text.split("\r\n");
@@ -287,7 +287,6 @@ public class PtmLexerSub extends PtmLexer {
 				e.printStackTrace();
 			}
 		}
-
 		return tokennames;
 	}
 
@@ -415,10 +414,10 @@ public class PtmLexerSub extends PtmLexer {
 		return null;
 	}
 
-	public void lexerPrint(String outputdir, String name,
+	public void lexerPrint(String filename,
 			CommonTokenStream tokens) {
 		try {
-			FileWriter lexstream = output(outputdir + name + ".lex");
+			FileWriter lexstream = output(filename);
 			lexPrint(tokens, lexstream);
 			lexstream.close();
 		} catch (Exception e) {

@@ -1,26 +1,22 @@
 parser grammar TmplParser;
 
 options {
-		language = Java;
-		backtrack = true;
-		memoize = true;
-		output = AST;
-		tokenVocab = TmplLexer;
-		ASTLabelType = CommonTree;
+  language     = Java;
+  backtrack    = true;
+  memoize      = true;
+  output       = AST;
+  tokenVocab   = TmplLexer;
+  ASTLabelType = CommonTree;
 }
 
 tokens {
-    ATTRIBUTE;
-    ATTRIBUTE2;
-    VARIABLE;
-    VARIABLE2;
-    ARRAY;
-		SUB;
-		EXPR;
-		FUNCTION;
-		PATH;
-		THEN;
-		PROG;
+  EXPR;
+  PATH;
+  OPTIONAL;
+  BLOCK;
+  PROG;
+  SECTIONS;
+  HEADER;
 }
 
 @header {
@@ -34,182 +30,153 @@ package no.esito.genova.io.antlr;
 // Grammar section
 // ****************
 
-prog :
-		(stat{
-//          System.out.println($stat.tree.toStringTree());
-        } 
-)+
-         ->  ^(PROG stat+);
+prog
+  :
+  block sections
+    ->
+      ^(PROG block sections)
+  ;
 
-stat :
-		OUT
-		| TYPES_MODE types2* NEWLINE? TEMPLATE_MODE
-				-> ^(TYPES_MODE types2* )
-		| TYPEDEF types
-				-> ^(TYPEDEF types )
-    | MACRO ID DLM
-        -> ^(MACRO ID )
-    | TYPED ID DLM
-        -> ^(TYPED ID )
-    | RESERVED ID DLM
-        -> ^(RESERVED ID )
-		| STR ID DLM
-				-> ^(STR ID )
-		| BREAK
-		| CONTINUE
-		| POPFILE
-		| ENDFILE
-		| LINE
-		| ENDLINE
-		| INDENT
-		| ENDINDENT
-		| ENDCONTEXT
-		| REM 
-		| ENDSTR
-		| INDENT2 expr DLM
-				-> ^(INDENT2 expr )
-		| CONTEXT ID DLM
-				-> ^(CONTEXT ID )
-		| INFO expr DLM
-				-> ^(INFO expr )
-		| WARNING expr DLM
-				-> ^(WARNING expr )
-		| ERROR expr DLM
-				-> ^(ERROR expr )
-		| DEBUG expr DLM
-				-> ^(DEBUG expr )
-		| FILE filepath NEWLINE
-				-> ^(FILE filepath )
-		| NEWFILE filepath NEWLINE
-				-> ^(NEWFILE filepath )
-		| INCLUDE filepath NEWLINE
-				-> ^(INCLUDE filepath )
-		| IGNOREFILE filepath NEWLINE
-				-> ^(IGNOREFILE filepath )
-		| PUSHFILE filepath NEWLINE
-				-> ^(PUSHFILE filepath )
-		| COPYFILE filepath filepath NEWLINE
-				-> ^(COPYFILE filepath filepath )
-		| IFCONTEXT ID then2 ENDIF
-				-> ^(IFCONTEXT ID then2 )
-		| IFCONTEXT ID then2 else2 ENDIF
-				-> ^(IFCONTEXT ID then2 else2 )
-		| IF_ expr then2 elseif* else2? ENDIF
-				-> ^(IF_ expr then2 elseif* else2?)
-		| SET settable ASSIGN expr DLM
-				-> ^(SET settable expr )
-		| DLM expr DLM
-				-> ^(SUB expr )
-		| ITERATE ID DLM stat+ ENDITERATE
-				-> ^(ITERATE ^(ID stat+) )
-		| LOOP expr DLM stat+ ENDLOOP
-				-> ^(LOOP expr ^(SUB stat+) );
+sections
+  :
+  section*
+    ->
+      ^(SECTIONS section*)
+  ;
 
-then2 :
-		DLM stat+
-				-> ^(THEN stat+ );
+section
+  :
+  SECTION WS+ filepath filepath2 WS* NEWLINE block
+    ->
+      ^(SECTION filepath filepath2 block)
+  ;
 
-else2 :
-		ELSE_ stat+
-				-> ^(ELSE_ stat+ );
+filepath2
+  :
+  (WS+ filepath)?
+    ->
+      ^(OPTIONAL filepath?)
+  ;
 
-elseif :
-		ELSEIF_ expr then2
-				-> ^(ELSEIF_ expr then2 );
+stat
+  :
+  OUT
+  | BEGIN WS* NEWLINE
+  | CREATESECTION WS+ filepath filepath2 WS* NEWLINE
+    ->
+      ^(CREATESECTION filepath filepath2)
+  | REM
+  | COMMENT
+  | IF_ WS+ BOOL_START expr BOOL_END NEWLINE block ENDIF
+    ->
+      ^(IF_ expr block)
+  | EVENT WS+ expr WS* NEWLINE
+    ->
+      ^(EVENT expr)
+  | DOLLAR expr DOLLAR
+    ->
+      ^(DOLLAR expr)
+  | ALFA ID ALFA
+    ->
+      ^(ALFA ID)
+  | BOOL_START expr BOOL_END
+    ->
+      ^(BOOL_START expr)
+  ;
 
-types :
-    TYPE stat* NEWLINE+
-        -> ^(TYPE stat* );
-types2 :
-    types | REM;
+block
+  :
+  (stat 
+        {
+         //         System.out.println($stat.tree.toStringTree());
+        })*
+    ->
+      ^(BLOCK stat*)
+  ;
 
-settable :
-		ID array*
-        -> ^(ATTRIBUTE ID array* )
-    | ID DOT ID array*
-        -> ^(ATTRIBUTE2 ID ID array* )
-    | HASH ID array*
-				-> ^(VARIABLE ID array* )
-		| ID HASH ID array*
-				-> ^(VARIABLE2 ID ID array* ); 
+filepath
+  :
+  filepart+
+    ->
+      ^(PATH filepart+)
+  ;
 
-array:
-LSQUARE expr RSQUARE
-     -> ^(ARRAY expr);
+filepart
+  :
+  ID
+  | INT
+  | MINUS
+  | DOT
+  | SLASH
+  | ALFA ID ALFA
+    ->
+      ^(ALFA ID)
+  ;
 
-readable :
-		settable
-		| RESERVED ID
-				-> ^(RESERVED ID )
-		| TYPED ID
-				-> ^(TYPED ID ); 
+readable
+  :
+  ID (WS+ ID)?
+  | ALFA ID ALFA
+    ->
+      ^(ALFA ID)
+  ;
 
-filepath :
-		filepart+
-		   -> ^(PATH filepart+);
+expr
+  :
+  choice (QUESTION^ expr COLON! expr)*
+  ;
 
-filepart :
-		fileliteral+
-		    -> ^(LITERAL fileliteral+)
-    | DLM readable DLM
-        -> ^(SUB readable )
-    | MACRO ID DLM
-        -> ^(MACRO ID );
+choice
+  :
+  mult (op1^ mult)*
+  ;
 
-fileliteral :
-    ID
-    |INT
+op1
+  :
+  PLUS
+  | MINUS
+  | APPEND
+  | OR
+  | AND
+  ;
+
+mult
+  :
+  not (op2^ not)*
+  ;
+
+op2
+  :
+  MULTIPLY
+  | SLASH
+  | TILDE
+  | EQUAL
+  | NE
+  | GT
+  | GE
+  | LT
+  | LE
+  ;
+
+not
+  :
+  NOT^ pow
+  | pow
+  ;
+
+pow
+  :
+  atom (HAT^ pow)?
+  ;
+
+atom
+  :
+  (
+    PLUS
     | MINUS
-    | DOT
-    | SLASH ;
-
-expr :
-		choice (QUESTION^ expr COLON! expr)*;
-
-choice :
-		mult (op1^ mult)*;
-
-op1 :
-		PLUS
-		| MINUS
-		| APPEND
-		| OR
-		| AND;
-
-mult :
-		not (op2^ not)*;
-
-op2 :
-		MULTIPLY
-		| SLASH
-		| TILDE
-		| EQUAL
-		| NE
-		| GT
-		| GE
-		| LT
-		| LE;
-
-not :
-		NOT^ pow
-		| pow;
-
-pow :
-		atom (HAT^ pow)?;
-
-atom :
-		(
-		PLUS
-		| MINUS
-		)?
-		INT^
-		| LITERAL
-		| readable
-		| (LPARAN! expr RPARAN!)
-		| function;
-		
-function :
-ID LPARAN expr RPARAN
-  -> ^(FUNCTION ID expr);
-
-		
+  )?
+  INT^
+  | LITERAL
+  | readable
+  | (LPARAN! expr RPARAN!)
+  ;

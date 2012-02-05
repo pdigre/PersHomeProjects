@@ -7,7 +7,7 @@ import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.Canvas;
 
 public class ChessGraphics {
-    public static final int PIECE_HEIGHT = 32;
+    public static final int PIECE_HEIGHT = 32; 
 
     public static final int PIECE_WIDTH = 32;
 
@@ -20,9 +20,10 @@ public class ChessGraphics {
         super();
     }
 
-    public void drawPiece(GC gc, int i, String filename) {
+    public void drawPiece(GC gc, int i, PieceType type) {
         int x = i % 8;
         int y = (i - x) / 8;
+        String filename=(type.fen>'Z'?"b"+type.fen+".gif":"w"+type.fen+".gif").toLowerCase();
         Image img = new Image(gc.getDevice(), new ImageData(getClass().getClassLoader().getResourceAsStream(
             filename)));
         gc.drawImage(img, BOARD_MARGIN + x * PIECE_WIDTH, BOARD_OFFSET - y * PIECE_HEIGHT);

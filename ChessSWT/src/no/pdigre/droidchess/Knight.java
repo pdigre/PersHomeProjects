@@ -7,7 +7,7 @@ import java.util.List;
 public class Knight extends Piece {
 
     Knight(int pos, PieceType type) {
-        super(pos, type);
+        super(pos, type); 
     }
 
     @Override

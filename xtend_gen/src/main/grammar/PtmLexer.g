@@ -259,25 +259,11 @@ INCLUDE :
               {
                l.file();
               };
-//INCLUDE :
-//    '%INCLUDE%' WS INCLUDE_PART NEWLINE
-//                                      {
-//                                       $channel = HIDDEN;
-//                                       l.out();
-//                                       l.doInclude($INCLUDE_PART.text, input);
-//                                      };
-//fragment INCLUDE_PART :
-//		~(
-//		'\r'
-//		| '\n'
-//		 )*;
-
 // stat_cmt
 
 REM :
 		'%REM' 
          {
-//          $channel = HIDDEN;
           l.cmt();
          };
 

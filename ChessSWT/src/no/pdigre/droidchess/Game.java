@@ -5,69 +5,149 @@ import java.util.Stack;
 
 public class Game {
 
-    public HashSet<Piece> pieces = new HashSet<Piece>();
+	public HashSet<Piece> pieces = new HashSet<Piece>();
 
-    public Stack<Move> log = new Stack<Move>();
+	public Stack<Move> log = new Stack<Move>();
 
-    public Game() {
-        super();
-        newGame();
-    }
+	public Game() {
+		super();
+		newGame();
+	}
 
-    public void newGame() {
-        pieces.add(Piece.newPiece(0, PieceType.WhiteRook));
-        pieces.add(Piece.newPiece(1, PieceType.WhiteKnight));
-        pieces.add(Piece.newPiece(2, PieceType.WhiteBishop));
-        pieces.add(Piece.newPiece(3, PieceType.WhiteQueen));
-        pieces.add(Piece.newPiece(4, PieceType.WhiteKing));
-        pieces.add(Piece.newPiece(5, PieceType.WhiteBishop));
-        pieces.add(Piece.newPiece(6, PieceType.WhiteKnight));
-        pieces.add(Piece.newPiece(7, PieceType.WhiteRook));
-        pieces.add(Piece.newPiece(8, PieceType.WhitePawn));
-        pieces.add(Piece.newPiece(9, PieceType.WhitePawn));
-        pieces.add(Piece.newPiece(10, PieceType.WhitePawn));
-        pieces.add(Piece.newPiece(11, PieceType.WhitePawn));
-        pieces.add(Piece.newPiece(12, PieceType.WhitePawn));
-        pieces.add(Piece.newPiece(13, PieceType.WhitePawn));
-        pieces.add(Piece.newPiece(14, PieceType.WhitePawn));
-        pieces.add(Piece.newPiece(15, PieceType.WhitePawn));
-        pieces.add(Piece.newPiece(63, PieceType.BlackRook));
-        pieces.add(Piece.newPiece(62, PieceType.BlackKnight));
-        pieces.add(Piece.newPiece(61, PieceType.BlackBishop));
-        pieces.add(Piece.newPiece(60, PieceType.BlackQueen));
-        pieces.add(Piece.newPiece(59, PieceType.BlackKing));
-        pieces.add(Piece.newPiece(58, PieceType.BlackBishop));
-        pieces.add(Piece.newPiece(57, PieceType.BlackKnight));
-        pieces.add(Piece.newPiece(56, PieceType.BlackRook));
-        pieces.add(Piece.newPiece(55, PieceType.BlackPawn));
-        pieces.add(Piece.newPiece(54, PieceType.BlackPawn));
-        pieces.add(Piece.newPiece(53, PieceType.BlackPawn));
-        pieces.add(Piece.newPiece(52, PieceType.BlackPawn));
-        pieces.add(Piece.newPiece(51, PieceType.BlackPawn));
-        pieces.add(Piece.newPiece(50, PieceType.BlackPawn));
-        pieces.add(Piece.newPiece(49, PieceType.BlackPawn));
-        pieces.add(Piece.newPiece(48, PieceType.BlackPawn));
-    }
+	public void newGame() {
+		log.clear();
+		String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+		System.out.println(fen);
+		setFen(fen);
+	}
 
-    public void move(int from, int to) {
-        for (Piece piece : pieces) {
-            if (piece.pos == from) {
-                piece.move(to);
-                PieceType victim = null;
-                for (Piece other : pieces) {
-                    if (other.pos == to)
-                        victim = other.type;
-                }
-                log.add(new Move(from, to, piece.type, victim));
-                System.out.println(log.peek());
-            }
-        }
-    }
+	public void setFen(String fen) {
+		pieces.clear();
+		int y = 56;
+		int x = 0;
+		for (int i = 0; i < fen.length(); i++) {
+			char c = fen.charAt(i);
+			if (c == '/') {
+				y-=8;
+				x = 0;
+			} else if (c == ' ') {
+				break;
+			} else if (c >= '1' && c <= '0') {
+				x += Integer.parseInt(String.valueOf(c));
+			} else if (c >= 'A' && c <= 'z') {
+				pieces.add(Piece.newPiece(x+y, PieceType.getPieceType(c)));
+				x++;
+			}
+		}
+	}
 
-    public PieceType[] getcurrentBoard(){
-        PieceType[] board=new PieceType[64];
-        for (Piece piece : pieces)
-            board[piece.pos]=piece.type;
-        return board;
-    }
+	public void move(int from, int to) {
+		Piece victim = null;
+		for (Piece piece : pieces) {
+			if (piece.pos == from) {
+				PieceType type=null;
+				for (Piece other : pieces) {
+					if (other.pos == to){
+						victim = other;
+						type=other.type;
+					}
+				}
+				piece.move(to);
+				log.add(new Move(from, to, piece.type, type));
+				System.out.println(getFen());
+			}
+		}
+		if(victim!=null)
+			pieces.remove(victim);
+	}
+
+	public PieceType[] getCurrentBoard() {
+		PieceType[] board = new PieceType[64];
+		for (Piece piece : pieces)
+			board[piece.pos] = piece.type;
+		return board;
+	}
+
+	/**
+	 * Standard Forsyth–Edwards Notation
+	 * 
+	 * @return
+	 */
+	public String getFen() {
+		PieceType[] board = getCurrentBoard();
+		StringBuilder fen = new StringBuilder();
+		for (int y = 8; y-- > 0; ) {
+			int i = 0;
+			if (y != 7)
+				fen.append("/");
+			for (int x = 0; x < 8; x++) {
+				PieceType type = board[y * 8 + x];
+				if (type == null) {
+					i++;
+				} else {
+					if (i > 0) {
+						fen.append(i);
+						i = 0;
+					}
+					fen.append(type.fen);
+				}
+			}
+			if (i > 0)
+				fen.append(i);
+		}
+		String castling = "";
+		for (Piece piece : pieces) {
+			switch (piece.type) {
+			case WhiteKing:
+				if (((WhiteKing) piece).castling)
+					castling = "KQ" + castling;
+				break;
+			case BlackKing:
+				if (((BlackKing) piece).castling)
+					castling = "kq" + castling;
+				break;
+			}
+		}
+		fen.append(" ");
+		int n = log.size();
+		int side = n % 2;
+		fen.append(side == 0 ? "w" : "b");
+		fen.append(" ");
+
+		if (castling.isEmpty())
+			castling = "-";
+		fen.append(castling);
+		String passant = "-";
+		fen.append(" ");
+
+		if (!log.isEmpty()) {
+			Move move = log.peek();
+			if (move.type == PieceType.WhitePawn && move.from - move.to == -16)
+				passant = coord(move.from + 8);
+			if (move.type == PieceType.BlackPawn && move.from - move.to == 16)
+				passant = coord(move.from - 8);
+		}
+		fen.append(passant);
+		fen.append(" ");
+
+		int j = n;
+		for (; j-- > 0;) {
+			Move move = log.get(j);
+			if (move.beats != null || move.type == PieceType.WhitePawn
+					|| move.type == PieceType.BlackPawn)
+				break;
+		}
+		fen.append(n - j);
+		fen.append(" ");
+		fen.append((n -side)/ 2 +1);
+		fen.append(" ");
+		return fen.toString();
+	}
+
+	private String coord(int i) {
+		int x = i % 8;
+		int y = (i - x) / 8;
+		return String.valueOf("abcdefgh".charAt(x)) + String.valueOf(y + 1);
+	}
+
 }

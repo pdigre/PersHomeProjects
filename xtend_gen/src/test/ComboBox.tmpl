@@ -1,0 +1,697 @@
+
+
+
+
+
+
+
+@rem ------------------------------------------------------
+@rem  Copyright (c) M4_CopyrightYear, M4_CopyrightComp. All rights reserved.
+@rem  Version: M4_Version. M4_BuildDate.
+@rem ------------------------------------------------------
+
+
+
+@section ConstRole@@NodeName@@
+@//
+        /** The @@Name@@ data field */        
+        String $$hasParameter DialogConstUppercase?@@NameUpper@@:@@Name@@$$ = "@@LogicalName@@";
+
+
+@if @(hasParameter UseInnerComboboxClass)@
+  @createSection @@NodeName@@_@@Name@@ComboBoxCollectionClassEnd MethodDeclaration
+  @createSection @@NodeName@@_@@Name@@ComboBoxCollectionClass @@NodeName@@_@@Name@@ComboBoxCollectionClassEnd
+
+  @createSection @@NodeName@@_@@Name@@ComboBoxOldEnd @@NodeName@@_@@Name@@ComboBoxCollectionClassEnd
+  @createSection @@NodeName@@_@@Name@@ComboBoxOld @@NodeName@@_@@Name@@ComboBoxOldEnd
+
+  @createSection @@NodeName@@_@@Name@@Methods  @@NodeName@@_@@Name@@ComboBoxCollectionClassEnd
+@endif
+
+@section Declaration
+    @//
+    /* Her kommer generert kode for ComboBox:Declaration*/
+    @//
+
+    GenovaComboBox @@NodeName@@_@@Name@@ = new GenovaComboBox();
+    Object objectVersionOf@@NodeName@@@@Name@@ = @@NodeName@@_@@Name@@;
+
+
+@section SetupInit@@ParentName@@Start
+        init@@NodeName@@_@@Name@@();
+
+@section SetupInit
+    
+@begin
+    private void init@@NodeName@@_@@Name@@() {
+        @@NodeName@@_@@Name@@
+                .setRenderer(new no.genova.client.component.ComboBoxRenderer(
+                        
+                        RepositoryProxy.getDocument(
+                                $$GenovaDataType$$, // data type
+                                @(isUpperCase?1:@(isLowerCase?-1:0)@)@, // case
+                                controller.getApplication().getEnums(), // enums
+                                @(GenovaDataType==10?@@EnumerationName@@.class:null)@,
+                                FormatHelper.getDisplayrule(
+                                        $$GenovaDataType$$, // data type
+                                        "@@DisplayRule@@", // display rule
+                                        @@LengthInput@@, // length input
+                                        @@LengthStored@@, // length stored
+                                        @@Decimals@@), // decimals
+                                @@LengthInput@@, // length input
+                                @@blankWhenZero?true:false@@ // blank when zero
+                        )
+
+                , @(OutputJustification==Left?JTextField.LEFT:@(OutputJustification==Right?JTextField.RIGHT:JTextField.CENTER)@)@) {
+                    @//
+                    protected Object getDisplayValue(Object domainObject) {
+@if @(GenovaDataType==10)@
+                        return domainObject;
+@endif
+@if @(!GenovaDataType==10)@
+                        if (domainObject instanceof @@ClassName@@) {
+                            return TypeTool.toObject(((@@ClassName@@) domainObject)
+                                    .$$hasParameter UseAccessorMethods?@@GetName@@:@@Name@@$$);
+                        } else {
+                            return domainObject;
+                        }
+@endif
+                    }
+                });
+        @@NodeName@@_@@Name@@.setName("@@LogicalName@@");
+        controller.tabListFromNodeName@@ParentName@@.put("@@LogicalName@@", @@NodeName@@_@@Name@@);
+        controller.tabListFromComponent@@ParentName@@.put(@@NodeName@@_@@Name@@, "@@LogicalName@@");
+       
+        @//
+@if @(!hasListHiddenEditFields)@
+        @@ParentName@@.add(@@NodeName@@_@@Name@@);
+        @@NodeName@@_@@Name@@.setLocation(@@XPos@@+@@ParentLeftFrameWidth@@,@@YPos@@+@@ParentTopFrameHeight@@);
+        { // limit scope of width and height declarations.
+            int width = @@Width@@;
+            int height = @@Height@@;
+            @@NodeName@@_@@Name@@.setSize(width, height);
+            if (width == 0 && height == 0) {
+                @@NodeName@@_@@Name@@.setFocusable(false);
+            }
+        } // end limit scope
+@endif
+        @(NumberOfLines==0?:@@NodeName@@_@@Name@@.setMaximumRowCount(@@NumberOfLines@@);)@
+
+        @//
+      
+@if @(isSearchable)@
+        // Combo is searchable
+        { // limit scope, set up editor, needed for searching.
+            GenovaTextField gtf = (GenovaTextField) @@NodeName@@_@@Name@@.getEditor().getEditorComponent();
+            gtf.setDocument(
+                        RepositoryProxy.getDocument(
+                                $$GenovaDataType$$, // data type
+                                @(isUpperCase?1:@(isLowerCase?-1:0)@)@, // case
+                                controller.getApplication().getEnums(), // enums
+                                @(GenovaDataType==10?@@EnumerationName@@.class:null)@,
+                                FormatHelper.getDisplayrule(
+                                        $$GenovaDataType$$, // data type
+                                        "@@DisplayRule@@", // display rule
+                                        @@LengthInput@@, // length input
+                                        @@LengthStored@@, // length stored
+                                        @@Decimals@@), // decimals
+                                @@LengthInput@@, // length input
+                                @@blankWhenZero?true:false@@ // blank when zero
+                        )
+);
+        }
+        @@NodeName@@_@@Name@@.setSearchable(true);
+@endif
+
+            
+@if @(isEditable)@
+        // Combo is editable
+@if @(!isSearchable)@
+        { // set up editor, limit scope
+            GenovaTextField gtf = (GenovaTextField) @@NodeName@@_@@Name@@.getEditor().getEditorComponent();
+            gtf.setDocument(
+                        RepositoryProxy.getDocument(
+                                $$GenovaDataType$$, // data type
+                                @(isUpperCase?1:@(isLowerCase?-1:0)@)@, // case
+                                controller.getApplication().getEnums(), // enums
+                                @(GenovaDataType==10?@@EnumerationName@@.class:null)@,
+                                FormatHelper.getDisplayrule(
+                                        $$GenovaDataType$$, // data type
+                                        "@@DisplayRule@@", // display rule
+                                        @@LengthInput@@, // length input
+                                        @@LengthStored@@, // length stored
+                                        @@Decimals@@), // decimals
+                                @@LengthInput@@, // length input
+                                @@blankWhenZero?true:false@@ // blank when zero
+                        )
+);
+        }
+@endif
+        @@NodeName@@_@@Name@@.setEditable(true);
+        
+@endif
+        @@NodeName@@_@@Name@@.setSelectAllOnFocus(@(selectAllOnFocus?true:false)@);
+        $$isSorted?@@NodeName@@_@@Name@@.setSorted(true);:$$ 
+                @(hasBackgroundColor?RepositoryProxy.setBackgroundColor(@@NodeName@@_@@Name@@,"@@StyleBackgroundColor@@");:)@
+        @(hasForegroundColor?RepositoryProxy.setForegroundColor(@@NodeName@@_@@Name@@,"@@StyleForegroundColor@@");:)@
+                @(hasFont?RepositoryProxy.setFont(@@NodeName@@_@@Name@@,"@@FontName@@");:)@ 
+
+        if (@@NodeName@@_@@Name@@.isEditable()) {
+            JComponent editor = (JComponent) @@NodeName@@_@@Name@@.getEditor()
+                    .getEditorComponent();
+            @(hasBackgroundColor?RepositoryProxy.setBackgroundColor(editor,"@@StyleBackgroundColor@@");:)@
+            @(hasForegroundColor?RepositoryProxy.setForegroundColor(editor,"@@StyleForegroundColor@@");:)@
+            @(hasFont?RepositoryProxy.setFont(editor,"@@FontName@@");:)@
+        }
+
+        @//
+        @//
+        
+@if @(!isVisible)@
+        @@NodeName@@_@@Name@@.setVisible(false); 
+@endif
+@if@(!isEnabled)@
+        @@NodeName@@_@@Name@@.setEnabled(false); 
+        disabledComponents.add(@@NodeName@@_@@Name@@);
+@endif
+        @(hasTooltip?@@NodeName@@_@@Name@@.setToolTipText("@@Tooltip@@");:)@
+
+
+        
+        @@NodeName@@_@@Name@@.setInputJustification(@(InputJustification==Left?JTextField.LEFT:@(InputJustification==Right?JTextField.RIGHT:JTextField.CENTER)@)@);
+        @@NodeName@@_@@Name@@.setOutputJustification(@(OutputJustification==Left?JTextField.LEFT:@(OutputJustification==Right?JTextField.RIGHT:JTextField.CENTER)@)@);
+        @@NodeName@@_@@Name@@.setHorizontalAlignment(@(OutputJustification==Left?JTextField.LEFT:@(OutputJustification==Right?JTextField.RIGHT:JTextField.CENTER)@)@);
+
+
+
+
+@section SetupInit
+@end
+
+@if @(hasEvent Selected)@
+        @@NodeName@@_@@Name@@.addGenovaSelectionListener(new GenovaSelectionListener() {
+            public void selectionChanged(GenovaSelectedEvent e) {
+                selectedInCombobox(@@NodeName@@_@@Name@@, e);
+            }
+        });
+@endif
+
+@if @(hasEvent Dropped Down)@
+        @@NodeName@@_@@Name@@.addPopupMenuListener(new PopupMenuListener() {
+            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+                comboBoxDroppedDown(@@NodeName@@_@@Name@@, e);
+            }
+@//
+            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+                // not implemented
+            }
+@//
+            public void popupMenuCanceled(PopupMenuEvent e) {
+                // not implemented
+            }
+        });
+@endif
+
+
+@if @(hasKeyEvent)@
+        @@NodeName@@_@@Name@@.getEditor().getEditorComponent().addKeyListener(keyProc);
+@endif
+
+
+@if @(hasPopupMenu)@
+        @@NodeName@@_@@Name@@.addMouseListener(mouseProc);
+@endif
+    }
+
+@section Expression
+@if @(hasExpression)@
+@//
+        // Generated expressions-code
+        ComponentLink.link(@@ExpressionAsProgramName@@, @@NodeName@@_@@Name@@
+                , "@@Name@@", controller, "@@NodeName@@");
+@endif
+@if @(!hasExpression)@
+@if @(hasNextEquivalentName)@
+        // Generated expressions-code for linked data items.
+        ComponentLink.link(@@NodeName@@_@@Name@@, @@NextEquivalentName@@
+                , "@@Name@@", controller, "@@NodeName@@");
+
+@endif
+@endif
+
+
+
+@section NodeInfo@@NodeName@@GetChangedKeyFields
+        if (isPartOfKey("@@Name@@")) {
+            component = controller.view.fromNameToComponent("@@LogicalName@@");
+            if (component instanceof GenovaValueState) {
+                if (((GenovaValueState) component).isChanged()) {
+                    changedFields.add("@@Name@@");
+                }
+            }
+        }
+
+@section NodeInfo@@NodeName@@GetChangedFields
+        component = controller.view.fromNameToComponent("@@LogicalName@@");
+        if (component instanceof GenovaValueState) {
+            if (((GenovaValueState) component).isChanged()) {
+                changedFields.add("@@Name@@");
+            }
+        }
+@section NodeInfo@@NodeName@@ResetFields
+        component = controller.view.fromNameToComponent("@@LogicalName@@");
+        if (component instanceof GenovaValueState) {
+            ((GenovaValueState) component).resetState();
+        }
+
+
+@section PopupTrigger
+@if @(hasPopupMenu)@
+        if (e.getSource() == @@NodeName@@_@@Name@@) {
+            @@PopupMenuName@@_popup.show(e.getComponent(),e.getX(),e.getY());
+        }
+@endif
+
+
+
+@section controllerdecl
+    List @@NodeName@@@@Name@@links;
+
+@section linkFields
+    if("@@LogicalName@@".equals(obj1)) {
+        if(@@NodeName@@@@Name@@links == null) {
+            @@NodeName@@@@Name@@links = new LinkedList();
+        }
+        
+        if(!@@NodeName@@@@Name@@links.contains(link)) {
+            @@NodeName@@@@Name@@links.add(link);
+        }
+
+        link.setComponent1(obj1, view.@@NodeName@@_@@Name@@, obj1list);
+    }
+    if("@@LogicalName@@".equals(obj2)) {
+        if(@@NodeName@@@@Name@@links == null) {
+            @@NodeName@@@@Name@@links = new LinkedList();
+        }
+        if(!@@NodeName@@@@Name@@links.contains(link)) {
+            @@NodeName@@@@Name@@links.add(link);
+        }
+        link.setComponent2(obj2, view.@@NodeName@@_@@Name@@, obj2list);
+    }
+
+@section ClearBlockStart@@ParentName@@@@DialogName@@
+        @@NodeName@@_@@Name@@.reset();
+
+@section ObtainDataString@@NodeName@@ rt
+@begin
+        if(attr.equals("@@Name@@")) {
+            if(view.@@NodeName@@_@@Name@@.isEditable()) {
+                 Object item = view.@@NodeName@@_@@Name@@.getEditor().getItem();
+                return view.@@NodeName@@_@@Name@@.format(item);
+            } else {
+                return view.@@NodeName@@_@@Name@@.getSelectedItemAsString();
+            }
+        }
+
+@section ObtainData@@NodeName@@ rt
+@begin
+
+    @//            
+        /* Her kommer generert kode for ComboBox:ObtainData*/
+        objectProxy.setAttribute("@@Name@@", view.@@NodeName@@_@@Name@@.getValue());
+
+
+@section setUpNameComponentMapping
+        nameToComponent.put("@@LogicalName@@", @@NodeName@@_@@Name@@);
+        componentToName.put(@@NodeName@@_@@Name@@, "@@LogicalName@@");
+
+
+    
+    
+
+@section DisplayData@@NodeName@@ rt
+@begin
+        display("@@Name@@", TypeTool.toObject(tmp@@NodeName@@.$$hasParameter UseAccessorMethods?@@GetName@@:@@Name@@$$), resetState);
+
+
+@section setShowZeroFieldDecl@@NodeName@@ rt
+    boolean zero@@NodeName@@@@Name@@ = false;
+
+
+@section DisplayDataField@@NodeName@@ rt
+@begin
+            if (attributeName.equals("@@Name@@")) {
+                value = TypeTool.toObject(tmp@@NodeName@@.$$hasParameter UseAccessorMethods?@@GetName@@:@@Name@@$$);
+            }
+
+@section DisplayDataString@@NodeName@@
+            if ("@@Name@@".equals(attributeName)) {
+                Object valueObject = null;
+                if (value instanceof String) {
+                    valueObject = view.@@NodeName@@_@@Name@@
+                            .parse((String) value);
+                } else {
+                    valueObject = value;
+                }
+                if (resetState) {
+                    view.@@NodeName@@_@@Name@@.setInitialValue(valueObject);
+                }
+                view.@@NodeName@@_@@Name@@.display(valueObject);
+            }
+
+@section ClearData@@NodeName@@ rt
+@begin
+        view.@@NodeName@@_@@Name@@.reset();
+        
+@section ClearDataField@@NodeName@@ rt
+@begin
+@section ClearDataField@@NodeName@@ rt
+        if ("@@Name@@".equals(s)) {
+            view.@@NodeName@@_@@Name@@.reset();
+        }
+
+@section setEnabled@@NodeName@@ rt
+@begin
+    view.@@NodeName@@_@@Name@@.setEnabled(b);
+
+@section setEnabledField@@NodeName@@ rt
+@begin
+        if (s.equals("@@Name@@")) {
+            view.@@NodeName@@_@@Name@@.setEnabled(b);
+        }
+
+@section setShown@@NodeName@@ rt
+@begin
+    view.@@NodeName@@_@@Name@@.setVisible(b);
+
+@section setShownField@@NodeName@@ rt
+@begin
+        if (s.equals("@@Name@@")) {
+                view.@@NodeName@@_@@Name@@.setVisible(b);
+        }
+
+@section setFocusField@@NodeName@@ rt
+@begin
+        if (s.equals("@@Name@@")) {
+            view.@@NodeName@@_@@Name@@.requestFocusInWindow();
+        }
+
+@section isEnabled@@NodeName@@ rt
+@begin
+    if (view.@@NodeName@@_@@Name@@.isEnabled()) b=true;
+
+@section isEnabledField@@NodeName@@ rt
+@begin
+        if (s.equals("@@Name@@")) {
+                if (view.@@NodeName@@_@@Name@@.isEnabled()) b=true;
+        }
+
+@section isShown@@NodeName@@ rt
+@begin
+    if (view.@@NodeName@@_@@Name@@.isEnabled()) b=true;
+
+@section isShownField@@NodeName@@ rt
+@begin
+        if (s.equals("@@Name@@")) {
+                if (view.@@NodeName@@_@@Name@@.hasFocus()) b=true;
+        }
+
+@section hasFocusField@@NodeName@@ rt
+@begin
+    if (view.@@NodeName@@_@@Name@@.hasFocus()) b=true;
+
+
+@section isConsistant@@NodeName@@ rt
+    if(!TypeTool.isConsistant(view.@@NodeName@@_@@Name@@.getEditor().getItem().toString(), old@@NodeName@@.@@GetName@@)) {
+            return false;
+    }
+
+@section hasOneValue@@NodeName@@ rt
+    if(view.@@NodeName@@_@@Name@@.isEditable()) {
+            if(view.@@NodeName@@_@@Name@@.getEditor().getItem() != null && view.@@NodeName@@_@@Name@@.getEditor().getItem().toString().length() > 0) {
+                return true;
+            }
+    } else {
+            if(view.@@NodeName@@_@@Name@@.getSelectedItemAsString().trim().length() > 0) {
+                return true;
+            }
+    }
+    
+
+@section hasValue@@NodeName@@ rt
+    if(view.@@NodeName@@_@@Name@@.getEditor().getItem() == null || view.@@NodeName@@_@@Name@@.getEditor().getItem().toString().length() == 0) {
+            return false;
+    }
+
+@section hasValueField@@NodeName@@ rt
+    if(field.equals("@@Name@@") && (view.@@NodeName@@_@@Name@@.getEditor().getItem() == null || view.@@NodeName@@_@@Name@@.getEditor().getItem().toString().length() == 0)) {
+            return false;
+    }
+
+
+
+
+@if @(hasFocusEvent)@
+  @if @(isSearchable)@
+        @createSection EndFocusGained@@LogicalName@@ FocusActions
+@createSection StartFocusGained@@LogicalName@@ EndFocusGained@@LogicalName@@
+
+@section StartFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+        @@NodeName@@_@@Name@@.getEditor().getEditorComponent().addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+@section EndFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+            }
+        });
+@endif
+
+@createSection EndFocusLost@@LogicalName@@ FocusActions
+@createSection StartFocusLost@@LogicalName@@ EndFocusLost@@LogicalName@@
+
+@section StartFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+        @@NodeName@@_@@Name@@.getEditor().getEditorComponent().addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+
+@section EndFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+            }
+        });
+@endif
+
+  @endif
+  @if @(isEditable)@
+      @if @(!isSearchable)@
+        @createSection EndFocusGained@@LogicalName@@ FocusActions
+@createSection StartFocusGained@@LogicalName@@ EndFocusGained@@LogicalName@@
+
+@section StartFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+        @@NodeName@@_@@Name@@.getEditor().getEditorComponent().addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+@section EndFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+            }
+        });
+@endif
+
+@createSection EndFocusLost@@LogicalName@@ FocusActions
+@createSection StartFocusLost@@LogicalName@@ EndFocusLost@@LogicalName@@
+
+@section StartFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+        @@NodeName@@_@@Name@@.getEditor().getEditorComponent().addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+
+@section EndFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+            }
+        });
+@endif
+
+      @endif
+  @endif
+  @if @(!isEditable)@
+      @if @(!isSearchable)@
+        @createSection EndFocusGained@@LogicalName@@ FocusActions
+@createSection StartFocusGained@@LogicalName@@ EndFocusGained@@LogicalName@@
+
+@section StartFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+        @@NodeName@@_@@Name@@.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+@section EndFocusGained@@LogicalName@@
+@if @(hasEvent Got Focus)@
+            }
+        });
+@endif
+
+@createSection EndFocusLost@@LogicalName@@ FocusActions
+@createSection StartFocusLost@@LogicalName@@ EndFocusLost@@LogicalName@@
+
+@section StartFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+        @@NodeName@@_@@Name@@.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent e) {
+                controller.application.setLastException(null);
+@endif
+
+
+@section EndFocusLost@@LogicalName@@
+@if @(hasEvent Lost Focus)@
+            }
+        });
+@endif
+
+      @endif
+  @endif
+@endif
+
+
+
+
+@createSection EndcomboboxDroppedDown@@LogicalName@@ comboboxDroppedDown
+@createSection StartcomboboxDroppedDown@@LogicalName@@ EndcomboboxDroppedDown@@LogicalName@@
+
+@section StartcomboboxDroppedDown@@LogicalName@@
+@if @(hasEvent Dropped Down)@
+    @//
+        if(theBox == @@NodeName@@_@@Name@@) {
+@endif
+@section EndcomboboxDroppedDown@@LogicalName@@
+@if @(hasEvent Dropped Down)@
+        } 
+@endif
+
+
+
+
+
+@createSection EndValueChangedTest@@LogicalName@@ ValueChanged
+@createSection StartValueChangedTest@@LogicalName@@ EndValueChangedTest@@LogicalName@@
+
+@section StartValueChangedTest@@LogicalName@@
+@if @(hasEvent Value Changed)@
+        @@NodeName@@_@@Name@@.addValueChangedListener(new GenovaValueChangedListener() {
+            public void valueChanged(GenovaValueChangedEvent e) {
+                controller.application.setLastException(null);
+@endif
+          
+@section EndValueChangedTest@@LogicalName@@
+@if @(hasEvent Value Changed)@
+            }
+        });   
+
+@endif
+
+
+  @createSection EndKeyTyped@@LogicalName@@ KeyTyped
+  @createSection StartKeyTyped@@LogicalName@@ EndKeyTyped@@LogicalName@@
+
+  @section StartKeyTyped@@LogicalName@@
+@if @(hasEvent Character Changed)@
+            if (e.getSource() == @@NodeName@@_@@Name@@.getEditor().getEditorComponent()) {
+@endif
+
+  @section EndKeyTyped@@LogicalName@@
+@if @(hasEvent Character Changed)@
+            }
+@endif
+
+
+
+
+@createSection EndSelected@@LogicalName@@ selectedInCombobox
+@createSection StartSelected@@LogicalName@@ EndSelected@@LogicalName@@
+
+@section StartSelected@@LogicalName@@
+@if @(hasEvent Selected)@
+            if(source == @@NodeName@@_@@Name@@ 
+                    && source.getSelectedIndex() >= 0) {
+
+@endif
+
+@section EndSelected@@LogicalName@@
+@if @(hasEvent Selected)@
+            }
+@endif
+
+
+
+@section ComboSelectionManager
+        @@NodeName@@_@@Name@@.setKeySelectionManager(@@NodeName@@_@@Name@@.new SelectionManager());
+
+
+
+
+
+@event Character Changed
+@section StartKeyTyped@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.@@MethodName@@(new GenovaKeyEventHolder(e));
+@endif
+@endif
+
+
+
+
+
+
+@event Got Focus
+@section StartFocusGained@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.@@MethodName@@(new GenovaFocusEventHolder(e));
+@endif
+@endif
+
+@event Lost Focus
+@section StartFocusLost@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.@@MethodName@@(new GenovaFocusEventHolder(e));
+@endif
+@endif
+
+
+@event Dropped Down
+@section StartcomboboxDroppedDown@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+            controller.@@MethodName@@(new GenovaDroppedDownEvent(@@NodeName@@_@@Name@@, null));
+@endif
+@endif
+
+@event Value Changed
+@section StartValueChangedTest@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.@@MethodName@@(e);
+@endif
+@endif
+
+@event Selected
+@section StartSelected@@LogicalName@@
+@if @(hasMethodName)@
+@if @(isFirstInMethod)@
+                controller.@@MethodName@@(event); 
+@endif
+@endif
+

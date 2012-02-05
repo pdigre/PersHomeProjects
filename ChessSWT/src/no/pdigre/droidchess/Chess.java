@@ -4,14 +4,19 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import org.eclipse.swt.SWT;
+import org.eclipse.swt.SWT; 
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.printing.Printer;
+import org.eclipse.swt.printing.PrinterData;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -27,7 +32,22 @@ public class Chess extends ChessGraphics {
 
     private void init() {
 
+    	PrinterData data=new PrinterData();
+//		Printer printer=new Printer(data);
+//    	Point dpi = printer.getDPI();
+//    	FontData[] fontList = printer.getFontList("Arial", true);
+//    	GC gc = new GC(printer);
+//    	FontData fd = fontList[0];
+//    	int height = fd.getHeight();
+//    	fd.setHeight(10);
+//		gc.setFont(new Font(printer, fd));
+//    	Point p1 = gc.stringExtent("Per");
+    	
         Display display = new Display();
+//        GC gc2 = new GC(display);
+//		gc2.setFont(new Font(display, fd));
+//    	Point p2 = gc2.stringExtent("Per");
+//    	Point dpi2 = display.getDPI();
         Shell shell = new Shell(display);
         final Canvas canvas = new Canvas(shell, SWT.None);
         canvas.addPaintListener(new PaintListener() {
@@ -55,11 +75,11 @@ public class Chess extends ChessGraphics {
                     List<int[]> moves = new ArrayList<int[]>();
                     for (Piece piece : game.pieces) {
                         if (piece.pos == i) {
-                            piece.findMoves(game.getcurrentBoard(), moves, game.log.isEmpty()?null:game.log.peek(), game.pieces);
+                            piece.findMoves(game.getCurrentBoard(), moves, game.log.isEmpty()?null:game.log.peek(), game.pieces);
                             for (int[] move : moves) {
                                 if(move[0]==i)
                                 markers.add(move[1]);
-                            }
+                            } 
                         }
                     }
                     canvas.redraw();
@@ -105,7 +125,7 @@ public class Chess extends ChessGraphics {
         for (int i = 0; i < 64; i++)
             drawSquare(gc, i, markers.contains(i) ? SWT.COLOR_GREEN : 0);
         for (Piece piece : game.pieces)
-            drawPiece(gc, piece.pos, piece.type.filename);
+            drawPiece(gc, piece.pos, piece.type);
     }
 
 }

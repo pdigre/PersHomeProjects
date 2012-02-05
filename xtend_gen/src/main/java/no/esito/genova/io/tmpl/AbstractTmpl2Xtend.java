@@ -1,25 +1,14 @@
 package no.esito.genova.io.tmpl;
 
-import static no.esito.genova.io.antlr.TmplParser.ATTRIBUTE;
-import static no.esito.genova.io.antlr.TmplParser.ATTRIBUTE2;
-import static no.esito.genova.io.antlr.TmplParser.CONTEXT;
-import static no.esito.genova.io.antlr.TmplParser.ENDCONTEXT;
-import static no.esito.genova.io.antlr.TmplParser.IFCONTEXT;
-import static no.esito.genova.io.antlr.TmplParser.INCLUDE;
-import static no.esito.genova.io.antlr.TmplParser.ITERATE;
-import static no.esito.genova.io.antlr.TmplParser.MACRO;
+import static no.esito.genova.io.antlr.TmplParser.ALFA;
+import static no.esito.genova.io.antlr.TmplParser.BOOL_START;
+import static no.esito.genova.io.antlr.TmplParser.DOLLAR;
 import static no.esito.genova.io.antlr.TmplParser.OUT;
-import static no.esito.genova.io.antlr.TmplParser.SUB;
-import static no.esito.genova.io.antlr.TmplParser.TYPE;
-import static no.esito.genova.io.antlr.TmplParser.TYPED;
-import static no.esito.genova.io.antlr.TmplParser.TYPEDEF;
-import static no.esito.genova.io.antlr.TmplParser.VARIABLE;
-import static no.esito.genova.io.antlr.TmplParser.VARIABLE2;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import no.esito.genova.model.util.DelimitedList;
+import no.esito.genova.io.convert.AbstractSupport;
+import no.esito.genova.io.convert.EXPSTATE;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.Tree;
@@ -30,9 +19,11 @@ public abstract class AbstractTmpl2Xtend extends AbstractSupport {
 
 	public boolean fileQuoteState;
 
-	public boolean isClosed = true;
 
-	// public Stack<CommonTree> stack=new Stack<CommonTree>();
+	@Override
+	public boolean isEmpty() {
+		return node==null || node.token==null;
+	}
 
 	@SuppressWarnings("rawtypes")
 	private CharSequence walk_(CommonTree parent) {
@@ -62,6 +53,7 @@ public abstract class AbstractTmpl2Xtend extends AbstractSupport {
 		return out;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public CharSequence walk2(int start) {
 		CharSequence out = "";
 		CommonTree parent = node;
@@ -116,6 +108,19 @@ public abstract class AbstractTmpl2Xtend extends AbstractSupport {
 		return out;
 	}
 
+	public CharSequence optionalFile(String prefix,int i){
+		fileQuoteState = false;
+		CommonTree parent = node;
+		Tree child = node.getChild(i - 1);
+		Tree child2 = ((CommonTree) child).getChild(0);
+		String text="";
+		if(child2!=null){
+			text=prefix+file_((CommonTree) child2);
+		}
+		node = parent;
+		return text;
+	}
+	
 	public CharSequence file(int i) {
 		fileQuoteState = false;
 		CommonTree parent = node;
@@ -271,20 +276,14 @@ public abstract class AbstractTmpl2Xtend extends AbstractSupport {
 	public String out2() {
 		String out = "";
 		switch (node.token.getType()) {
-		case SUB:
-		case MACRO:
-		case TYPED:
-			if (isClosed) {
-				out = out + ("'''");
-				isClosed = false;
-			}
-			break;
+		case ALFA:
+		case BOOL_START:
+		case DOLLAR:
 		case OUT:
-			break;
+			return out;
 		default:
-			return close();
 		}
-		return out;
+		return close();
 	}
 
 	public String close() {
@@ -333,16 +332,6 @@ public abstract class AbstractTmpl2Xtend extends AbstractSupport {
 		if (!scanMode)
 			return;
 		switch (node.token.getType()) {
-		case ITERATE:
-			break;
-		case INCLUDE:
-			break;
-		case IFCONTEXT:
-			break;
-		case CONTEXT:
-			break;
-		case ENDCONTEXT:
-			break;
 		default:
 		}
 	}

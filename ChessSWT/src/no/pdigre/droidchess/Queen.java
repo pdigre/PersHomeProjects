@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 
-public class Queen extends Piece {
+public class Queen extends Piece { 
 
     Queen(int pos, PieceType type) {
         super(pos, type);
