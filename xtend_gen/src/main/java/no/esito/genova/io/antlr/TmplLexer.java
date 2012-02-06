@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplLexer.g 2012-02-05 10:53:21
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplLexer.g 2012-02-06 10:18:55
 
 package no.esito.genova.io.antlr;
 
@@ -2095,11 +2095,11 @@ public class TmplLexer extends Lexer {
         state.failed=false;
         return success;
     }
-    public final boolean synpred42_TmplLexer() {
+    public final boolean synpred33_TmplLexer() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred42_TmplLexer_fragment(); // can never throw exception
+            synpred33_TmplLexer_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -2109,11 +2109,11 @@ public class TmplLexer extends Lexer {
         state.failed=false;
         return success;
     }
-    public final boolean synpred33_TmplLexer() {
+    public final boolean synpred42_TmplLexer() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred33_TmplLexer_fragment(); // can never throw exception
+            synpred42_TmplLexer_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -2151,11 +2151,11 @@ public class TmplLexer extends Lexer {
         state.failed=false;
         return success;
     }
-    public final boolean synpred32_TmplLexer() {
+    public final boolean synpred8_TmplLexer() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred32_TmplLexer_fragment(); // can never throw exception
+            synpred8_TmplLexer_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -2165,11 +2165,11 @@ public class TmplLexer extends Lexer {
         state.failed=false;
         return success;
     }
-    public final boolean synpred8_TmplLexer() {
+    public final boolean synpred32_TmplLexer() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred8_TmplLexer_fragment(); // can never throw exception
+            synpred32_TmplLexer_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -2193,20 +2193,6 @@ public class TmplLexer extends Lexer {
         state.failed=false;
         return success;
     }
-    public final boolean synpred1_TmplLexer() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred1_TmplLexer_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
     public final boolean synpred2_TmplLexer() {
         state.backtracking++;
         int start = input.mark();
@@ -2221,11 +2207,11 @@ public class TmplLexer extends Lexer {
         state.failed=false;
         return success;
     }
-    public final boolean synpred38_TmplLexer() {
+    public final boolean synpred1_TmplLexer() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred38_TmplLexer_fragment(); // can never throw exception
+            synpred1_TmplLexer_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -2240,6 +2226,20 @@ public class TmplLexer extends Lexer {
         int start = input.mark();
         try {
             synpred27_TmplLexer_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
+    public final boolean synpred38_TmplLexer() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred38_TmplLexer_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -2285,36 +2285,29 @@ public class TmplLexer extends Lexer {
     static final String DFA7_eofS =
         "\67\uffff";
     static final String DFA7_minS =
-        "\1\11\1\0\2\uffff\1\0\2\uffff\1\0\3\uffff\1\0\4\uffff\1\0\7\uffff"+
-        "\1\0\13\uffff\1\0\22\uffff";
+        "\1\11\2\uffff\1\0\5\uffff\1\0\3\uffff\1\0\4\uffff\1\0\7\uffff\1"+
+        "\0\12\uffff\1\0\2\uffff\1\0\16\uffff";
     static final String DFA7_maxS =
-        "\1\176\1\0\2\uffff\1\0\2\uffff\1\0\3\uffff\1\0\4\uffff\1\0\7\uffff"+
-        "\1\0\13\uffff\1\0\22\uffff";
+        "\1\176\2\uffff\1\0\5\uffff\1\0\3\uffff\1\0\4\uffff\1\0\7\uffff"+
+        "\1\0\12\uffff\1\0\2\uffff\1\0\16\uffff";
     static final String DFA7_acceptS =
-        "\2\uffff\1\42\1\44\1\uffff\1\45\1\46\1\uffff\1\47\1\54\1\21\1\uffff"+
-        "\1\12\1\33\1\32\1\50\1\uffff\1\41\1\43\1\23\1\56\1\37\1\16\1\57"+
-        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\13\1\17\1\uffff"+
-        "\1\40\1\52\1\34\1\26\1\51\1\14\1\24\1\27\1\20\1\30\1\15\1\25\1\55"+
-        "\1\53\1\36\1\35\1\22\1\31";
+        "\1\uffff\1\51\1\50\1\uffff\1\41\1\43\1\56\1\23\1\35\1\uffff\1\12"+
+        "\1\33\1\14\1\uffff\1\42\1\44\1\25\1\20\1\uffff\1\45\1\46\1\15\1"+
+        "\21\1\36\1\30\1\16\1\uffff\1\40\1\52\1\26\1\31\1\22\1\32\1\17\1"+
+        "\27\1\57\1\55\1\uffff\1\47\1\54\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6"+
+        "\1\7\1\10\1\11\1\13\1\53\1\34\1\37\1\24";
     static final String DFA7_specialS =
-        "\1\uffff\1\0\2\uffff\1\1\2\uffff\1\2\3\uffff\1\3\4\uffff\1\4\7"+
-        "\uffff\1\5\13\uffff\1\6\22\uffff}>";
+        "\3\uffff\1\0\5\uffff\1\1\3\uffff\1\2\4\uffff\1\3\7\uffff\1\4\12"+
+        "\uffff\1\5\2\uffff\1\6\16\uffff}>";
     static final String[] DFA7_transitionS = {
-            "\1\26\1\57\2\uffff\1\57\22\uffff\1\26\1\7\1\23\1\50\1\52\1"+
-            "\uffff\1\17\1\56\1\16\1\13\1\62\1\44\1\54\1\65\1\12\1\66\12"+
-            "\55\1\53\1\60\1\20\1\4\1\1\1\27\1\30\32\43\1\63\1\uffff\1\25"+
-            "\1\24\1\43\1\uffff\32\43\1\47\1\51\1\64\1\61",
-            "\1\uffff",
+            "\1\31\1\25\2\uffff\1\25\22\uffff\1\31\1\45\1\7\1\35\1\14\1"+
+            "\uffff\1\2\1\30\1\40\1\11\1\63\1\32\1\42\1\37\1\26\1\36\12\21"+
+            "\1\66\1\20\1\3\1\22\1\15\1\43\1\50\32\41\1\27\1\uffff\1\65\1"+
+            "\6\1\41\1\uffff\32\41\1\64\1\1\1\10\1\44",
             "",
             "",
             "\1\uffff",
             "",
-            "",
-            "\1\uffff",
-            "",
-            "",
-            "",
-            "\1\uffff",
             "",
             "",
             "",
@@ -2323,6 +2316,7 @@ public class TmplLexer extends Lexer {
             "",
             "",
             "",
+            "\1\uffff",
             "",
             "",
             "",
@@ -2335,6 +2329,13 @@ public class TmplLexer extends Lexer {
             "",
             "",
             "",
+            "\1\uffff",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "",
             "",
             "",
@@ -2342,8 +2343,7 @@ public class TmplLexer extends Lexer {
             "\1\uffff",
             "",
             "",
-            "",
-            "",
+            "\1\uffff",
             "",
             "",
             "",
@@ -2397,124 +2397,124 @@ public class TmplLexer extends Lexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA7_1 = input.LA(1);
+                        int LA7_3 = input.LA(1);
 
                          
-                        int index7_1 = input.index();
+                        int index7_3 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred34_TmplLexer()) ) {s = 2;}
+                        if ( (synpred33_TmplLexer()) ) {s = 4;}
 
-                        else if ( (synpred36_TmplLexer()) ) {s = 3;}
+                        else if ( (synpred35_TmplLexer()) ) {s = 5;}
 
                          
-                        input.seek(index7_1);
+                        input.seek(index7_3);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA7_4 = input.LA(1);
+                        int LA7_9 = input.LA(1);
 
                          
-                        int index7_4 = input.index();
+                        int index7_9 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred37_TmplLexer()) ) {s = 5;}
+                        if ( (synpred10_TmplLexer()) ) {s = 10;}
 
-                        else if ( (synpred38_TmplLexer()) ) {s = 6;}
+                        else if ( (synpred27_TmplLexer()) ) {s = 11;}
 
                          
-                        input.seek(index7_4);
+                        input.seek(index7_9);
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
-                        int LA7_7 = input.LA(1);
+                        int LA7_13 = input.LA(1);
 
                          
-                        int index7_7 = input.index();
+                        int index7_13 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred39_TmplLexer()) ) {s = 8;}
+                        if ( (synpred34_TmplLexer()) ) {s = 14;}
 
-                        else if ( (synpred44_TmplLexer()) ) {s = 9;}
+                        else if ( (synpred36_TmplLexer()) ) {s = 15;}
 
                          
-                        input.seek(index7_7);
+                        input.seek(index7_13);
                         if ( s>=0 ) return s;
                         break;
                     case 3 : 
-                        int LA7_11 = input.LA(1);
+                        int LA7_18 = input.LA(1);
 
                          
-                        int index7_11 = input.index();
+                        int index7_18 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred10_TmplLexer()) ) {s = 12;}
+                        if ( (synpred37_TmplLexer()) ) {s = 19;}
 
-                        else if ( (synpred27_TmplLexer()) ) {s = 13;}
+                        else if ( (synpred38_TmplLexer()) ) {s = 20;}
 
                          
-                        input.seek(index7_11);
+                        input.seek(index7_18);
                         if ( s>=0 ) return s;
                         break;
                     case 4 : 
-                        int LA7_16 = input.LA(1);
+                        int LA7_26 = input.LA(1);
 
                          
-                        int index7_16 = input.index();
+                        int index7_26 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred33_TmplLexer()) ) {s = 17;}
+                        if ( (synpred32_TmplLexer()) ) {s = 27;}
 
-                        else if ( (synpred35_TmplLexer()) ) {s = 18;}
+                        else if ( (synpred42_TmplLexer()) ) {s = 28;}
 
                          
-                        input.seek(index7_16);
+                        input.seek(index7_26);
                         if ( s>=0 ) return s;
                         break;
                     case 5 : 
-                        int LA7_24 = input.LA(1);
+                        int LA7_37 = input.LA(1);
 
                          
-                        int index7_24 = input.index();
+                        int index7_37 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred1_TmplLexer()) ) {s = 25;}
+                        if ( (synpred39_TmplLexer()) ) {s = 38;}
 
-                        else if ( (synpred2_TmplLexer()) ) {s = 26;}
-
-                        else if ( (synpred3_TmplLexer()) ) {s = 27;}
-
-                        else if ( (synpred4_TmplLexer()) ) {s = 28;}
-
-                        else if ( (synpred5_TmplLexer()) ) {s = 29;}
-
-                        else if ( (synpred6_TmplLexer()) ) {s = 30;}
-
-                        else if ( (synpred7_TmplLexer()) ) {s = 31;}
-
-                        else if ( (synpred8_TmplLexer()) ) {s = 32;}
-
-                        else if ( (synpred9_TmplLexer()) ) {s = 33;}
-
-                        else if ( (synpred11_TmplLexer()) ) {s = 34;}
+                        else if ( (synpred44_TmplLexer()) ) {s = 39;}
 
                          
-                        input.seek(index7_24);
+                        input.seek(index7_37);
                         if ( s>=0 ) return s;
                         break;
                     case 6 : 
-                        int LA7_36 = input.LA(1);
+                        int LA7_40 = input.LA(1);
 
                          
-                        int index7_36 = input.index();
+                        int index7_40 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred32_TmplLexer()) ) {s = 37;}
+                        if ( (synpred1_TmplLexer()) ) {s = 41;}
 
-                        else if ( (synpred42_TmplLexer()) ) {s = 38;}
+                        else if ( (synpred2_TmplLexer()) ) {s = 42;}
+
+                        else if ( (synpred3_TmplLexer()) ) {s = 43;}
+
+                        else if ( (synpred4_TmplLexer()) ) {s = 44;}
+
+                        else if ( (synpred5_TmplLexer()) ) {s = 45;}
+
+                        else if ( (synpred6_TmplLexer()) ) {s = 46;}
+
+                        else if ( (synpred7_TmplLexer()) ) {s = 47;}
+
+                        else if ( (synpred8_TmplLexer()) ) {s = 48;}
+
+                        else if ( (synpred9_TmplLexer()) ) {s = 49;}
+
+                        else if ( (synpred11_TmplLexer()) ) {s = 50;}
 
                          
-                        input.seek(index7_36);
+                        input.seek(index7_40);
                         if ( s>=0 ) return s;
                         break;
             }

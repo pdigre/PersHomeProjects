@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g 2012-02-05 10:53:22
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g 2012-02-06 10:18:56
 
 package no.esito.genova.io.antlr;
 
@@ -85,7 +85,7 @@ public class TmplParser extends Parser {
         }
         public TmplParser(TokenStream input, RecognizerSharedState state) {
             super(input, state);
-            this.state.ruleMemo = new HashMap[69+1];
+            this.state.ruleMemo = new HashMap[72+1];
              
              
         }
@@ -146,7 +146,7 @@ public class TmplParser extends Parser {
 
 
             // AST REWRITE
-            // elements: sections, block
+            // elements: block, sections
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -431,7 +431,7 @@ public class TmplParser extends Parser {
 
 
             // AST REWRITE
-            // elements: filepath, filepath2, block, SECTION
+            // elements: filepath2, block, filepath, SECTION
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1042,7 +1042,7 @@ public class TmplParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: IF_, block, expr
+                    // elements: expr, IF_, block
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1149,7 +1149,7 @@ public class TmplParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: EVENT, expr
+                    // elements: expr, EVENT
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1284,7 +1284,7 @@ public class TmplParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: BOOL_START, expr
+                    // elements: expr, BOOL_START
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1723,7 +1723,7 @@ public class TmplParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: ALFA, ID
+                    // elements: ID, ALFA
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1780,7 +1780,7 @@ public class TmplParser extends Parser {
     };
 
     // $ANTLR start "readable"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:116:1: readable : ( ID ( ( WS )+ ID )? | ALFA ID ALFA -> ^( ALFA ID ) );
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:116:1: readable : ( ID DOT ID | ID ( ( WS )+ ID )? | ALFA ID ALFA -> ^( ALFA ID ) );
     public final TmplParser.readable_return readable() throws RecognitionException {
         TmplParser.readable_return retval = new TmplParser.readable_return();
         retval.start = input.LT(1);
@@ -1788,32 +1788,52 @@ public class TmplParser extends Parser {
         CommonTree root_0 = null;
 
         Token ID57=null;
-        Token WS58=null;
+        Token DOT58=null;
         Token ID59=null;
-        Token ALFA60=null;
-        Token ID61=null;
-        Token ALFA62=null;
+        Token ID60=null;
+        Token WS61=null;
+        Token ID62=null;
+        Token ALFA63=null;
+        Token ID64=null;
+        Token ALFA65=null;
 
         CommonTree ID57_tree=null;
-        CommonTree WS58_tree=null;
+        CommonTree DOT58_tree=null;
         CommonTree ID59_tree=null;
-        CommonTree ALFA60_tree=null;
-        CommonTree ID61_tree=null;
-        CommonTree ALFA62_tree=null;
+        CommonTree ID60_tree=null;
+        CommonTree WS61_tree=null;
+        CommonTree ID62_tree=null;
+        CommonTree ALFA63_tree=null;
+        CommonTree ID64_tree=null;
+        CommonTree ALFA65_tree=null;
         RewriteRuleTokenStream stream_ALFA=new RewriteRuleTokenStream(adaptor,"token ALFA");
         RewriteRuleTokenStream stream_ID=new RewriteRuleTokenStream(adaptor,"token ID");
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:117:3: ( ID ( ( WS )+ ID )? | ALFA ID ALFA -> ^( ALFA ID ) )
-            int alt18=2;
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:117:3: ( ID DOT ID | ID ( ( WS )+ ID )? | ALFA ID ALFA -> ^( ALFA ID ) )
+            int alt18=3;
             int LA18_0 = input.LA(1);
 
             if ( (LA18_0==ID) ) {
-                alt18=1;
+                int LA18_1 = input.LA(2);
+
+                if ( (LA18_1==DOT) ) {
+                    alt18=1;
+                }
+                else if ( (LA18_1==EOF||(LA18_1>=WS && LA18_1<=NEWLINE)||LA18_1==BOOL_END||LA18_1==DOLLAR||LA18_1==MINUS||LA18_1==COLON||LA18_1==SLASH||LA18_1==RPARAN||(LA18_1>=APPEND && LA18_1<=EQUAL)||(LA18_1>=NE && LA18_1<=MULTIPLY)||(LA18_1>=TILDE && LA18_1<=QUESTION)) ) {
+                    alt18=2;
+                }
+                else {
+                    if (state.backtracking>0) {state.failed=true; return retval;}
+                    NoViableAltException nvae =
+                        new NoViableAltException("", 18, 1, input);
+
+                    throw nvae;
+                }
             }
             else if ( (LA18_0==ALFA) ) {
-                alt18=2;
+                alt18=3;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return retval;}
@@ -1824,7 +1844,7 @@ public class TmplParser extends Parser {
             }
             switch (alt18) {
                 case 1 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:118:3: ID ( ( WS )+ ID )?
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:118:3: ID DOT ID
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1833,14 +1853,37 @@ public class TmplParser extends Parser {
                     ID57_tree = (CommonTree)adaptor.create(ID57);
                     adaptor.addChild(root_0, ID57_tree);
                     }
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:118:6: ( ( WS )+ ID )?
+                    DOT58=(Token)match(input,DOT,FOLLOW_DOT_in_readable700); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    DOT58_tree = (CommonTree)adaptor.create(DOT58);
+                    adaptor.addChild(root_0, DOT58_tree);
+                    }
+                    ID59=(Token)match(input,ID,FOLLOW_ID_in_readable702); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    ID59_tree = (CommonTree)adaptor.create(ID59);
+                    adaptor.addChild(root_0, ID59_tree);
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:119:5: ID ( ( WS )+ ID )?
+                    {
+                    root_0 = (CommonTree)adaptor.nil();
+
+                    ID60=(Token)match(input,ID,FOLLOW_ID_in_readable708); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    ID60_tree = (CommonTree)adaptor.create(ID60);
+                    adaptor.addChild(root_0, ID60_tree);
+                    }
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:119:8: ( ( WS )+ ID )?
                     int alt17=2;
                     alt17 = dfa17.predict(input);
                     switch (alt17) {
                         case 1 :
-                            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:118:7: ( WS )+ ID
+                            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:119:9: ( WS )+ ID
                             {
-                            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:118:7: ( WS )+
+                            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:119:9: ( WS )+
                             int cnt16=0;
                             loop16:
                             do {
@@ -1856,10 +1899,10 @@ public class TmplParser extends Parser {
                             	case 1 :
                             	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:0:0: WS
                             	    {
-                            	    WS58=(Token)match(input,WS,FOLLOW_WS_in_readable701); if (state.failed) return retval;
+                            	    WS61=(Token)match(input,WS,FOLLOW_WS_in_readable711); if (state.failed) return retval;
                             	    if ( state.backtracking==0 ) {
-                            	    WS58_tree = (CommonTree)adaptor.create(WS58);
-                            	    adaptor.addChild(root_0, WS58_tree);
+                            	    WS61_tree = (CommonTree)adaptor.create(WS61);
+                            	    adaptor.addChild(root_0, WS61_tree);
                             	    }
 
                             	    }
@@ -1875,10 +1918,10 @@ public class TmplParser extends Parser {
                                 cnt16++;
                             } while (true);
 
-                            ID59=(Token)match(input,ID,FOLLOW_ID_in_readable704); if (state.failed) return retval;
+                            ID62=(Token)match(input,ID,FOLLOW_ID_in_readable714); if (state.failed) return retval;
                             if ( state.backtracking==0 ) {
-                            ID59_tree = (CommonTree)adaptor.create(ID59);
-                            adaptor.addChild(root_0, ID59_tree);
+                            ID62_tree = (CommonTree)adaptor.create(ID62);
+                            adaptor.addChild(root_0, ID62_tree);
                             }
 
                             }
@@ -1889,22 +1932,22 @@ public class TmplParser extends Parser {
 
                     }
                     break;
-                case 2 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:119:5: ALFA ID ALFA
+                case 3 :
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:120:5: ALFA ID ALFA
                     {
-                    ALFA60=(Token)match(input,ALFA,FOLLOW_ALFA_in_readable712); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_ALFA.add(ALFA60);
+                    ALFA63=(Token)match(input,ALFA,FOLLOW_ALFA_in_readable722); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_ALFA.add(ALFA63);
 
-                    ID61=(Token)match(input,ID,FOLLOW_ID_in_readable714); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_ID.add(ID61);
+                    ID64=(Token)match(input,ID,FOLLOW_ID_in_readable724); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_ID.add(ID64);
 
-                    ALFA62=(Token)match(input,ALFA,FOLLOW_ALFA_in_readable716); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_ALFA.add(ALFA62);
+                    ALFA65=(Token)match(input,ALFA,FOLLOW_ALFA_in_readable726); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_ALFA.add(ALFA65);
 
 
 
                     // AST REWRITE
-                    // elements: ID, ALFA
+                    // elements: ALFA, ID
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1915,9 +1958,9 @@ public class TmplParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 120:5: -> ^( ALFA ID )
+                    // 121:5: -> ^( ALFA ID )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:121:7: ^( ALFA ID )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:122:7: ^( ALFA ID )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_ALFA.nextNode(), root_1);
@@ -1961,83 +2004,121 @@ public class TmplParser extends Parser {
     };
 
     // $ANTLR start "expr"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:124:1: expr : choice ( QUESTION expr COLON expr )* ;
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:125:1: expr : choice ( QUESTION ( expr )? COLON ( expr )? )* ;
     public final TmplParser.expr_return expr() throws RecognitionException {
         TmplParser.expr_return retval = new TmplParser.expr_return();
         retval.start = input.LT(1);
         int expr_StartIndex = input.index();
         CommonTree root_0 = null;
 
-        Token QUESTION64=null;
-        Token COLON66=null;
-        TmplParser.choice_return choice63 = null;
+        Token QUESTION67=null;
+        Token COLON69=null;
+        TmplParser.choice_return choice66 = null;
 
-        TmplParser.expr_return expr65 = null;
+        TmplParser.expr_return expr68 = null;
 
-        TmplParser.expr_return expr67 = null;
+        TmplParser.expr_return expr70 = null;
 
 
-        CommonTree QUESTION64_tree=null;
-        CommonTree COLON66_tree=null;
+        CommonTree QUESTION67_tree=null;
+        CommonTree COLON69_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:125:3: ( choice ( QUESTION expr COLON expr )* )
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:126:3: choice ( QUESTION expr COLON expr )*
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:126:3: ( choice ( QUESTION ( expr )? COLON ( expr )? )* )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:127:3: choice ( QUESTION ( expr )? COLON ( expr )? )*
             {
             root_0 = (CommonTree)adaptor.nil();
 
-            pushFollow(FOLLOW_choice_in_expr749);
-            choice63=choice();
+            pushFollow(FOLLOW_choice_in_expr759);
+            choice66=choice();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, choice63.getTree());
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:126:10: ( QUESTION expr COLON expr )*
-            loop19:
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, choice66.getTree());
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:127:10: ( QUESTION ( expr )? COLON ( expr )? )*
+            loop21:
             do {
-                int alt19=2;
-                int LA19_0 = input.LA(1);
+                int alt21=2;
+                int LA21_0 = input.LA(1);
 
-                if ( (LA19_0==QUESTION) ) {
-                    int LA19_2 = input.LA(2);
+                if ( (LA21_0==QUESTION) ) {
+                    int LA21_2 = input.LA(2);
 
-                    if ( (synpred31_TmplParser()) ) {
-                        alt19=1;
+                    if ( (synpred34_TmplParser()) ) {
+                        alt21=1;
                     }
 
 
                 }
 
 
-                switch (alt19) {
+                switch (alt21) {
             	case 1 :
-            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:126:11: QUESTION expr COLON expr
+            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:127:11: QUESTION ( expr )? COLON ( expr )?
             	    {
-            	    QUESTION64=(Token)match(input,QUESTION,FOLLOW_QUESTION_in_expr752); if (state.failed) return retval;
+            	    QUESTION67=(Token)match(input,QUESTION,FOLLOW_QUESTION_in_expr762); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
-            	    QUESTION64_tree = (CommonTree)adaptor.create(QUESTION64);
-            	    root_0 = (CommonTree)adaptor.becomeRoot(QUESTION64_tree, root_0);
+            	    QUESTION67_tree = (CommonTree)adaptor.create(QUESTION67);
+            	    root_0 = (CommonTree)adaptor.becomeRoot(QUESTION67_tree, root_0);
             	    }
-            	    pushFollow(FOLLOW_expr_in_expr755);
-            	    expr65=expr();
+            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:127:21: ( expr )?
+            	    int alt19=2;
+            	    int LA19_0 = input.LA(1);
 
-            	    state._fsp--;
-            	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, expr65.getTree());
-            	    COLON66=(Token)match(input,COLON,FOLLOW_COLON_in_expr757); if (state.failed) return retval;
-            	    pushFollow(FOLLOW_expr_in_expr760);
-            	    expr67=expr();
+            	    if ( (LA19_0==ALFA||LA19_0==ID||LA19_0==INT||(LA19_0>=MINUS && LA19_0<=LITERAL)||LA19_0==LPARAN||LA19_0==PLUS||LA19_0==NOT) ) {
+            	        alt19=1;
+            	    }
+            	    switch (alt19) {
+            	        case 1 :
+            	            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:0:0: expr
+            	            {
+            	            pushFollow(FOLLOW_expr_in_expr765);
+            	            expr68=expr();
 
-            	    state._fsp--;
-            	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, expr67.getTree());
+            	            state._fsp--;
+            	            if (state.failed) return retval;
+            	            if ( state.backtracking==0 ) adaptor.addChild(root_0, expr68.getTree());
+
+            	            }
+            	            break;
+
+            	    }
+
+            	    COLON69=(Token)match(input,COLON,FOLLOW_COLON_in_expr768); if (state.failed) return retval;
+            	    if ( state.backtracking==0 ) {
+            	    COLON69_tree = (CommonTree)adaptor.create(COLON69);
+            	    adaptor.addChild(root_0, COLON69_tree);
+            	    }
+            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:127:33: ( expr )?
+            	    int alt20=2;
+            	    int LA20_0 = input.LA(1);
+
+            	    if ( (LA20_0==ALFA||LA20_0==ID||LA20_0==INT||(LA20_0>=MINUS && LA20_0<=LITERAL)||LA20_0==LPARAN||LA20_0==PLUS||LA20_0==NOT) ) {
+            	        alt20=1;
+            	    }
+            	    switch (alt20) {
+            	        case 1 :
+            	            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:0:0: expr
+            	            {
+            	            pushFollow(FOLLOW_expr_in_expr770);
+            	            expr70=expr();
+
+            	            state._fsp--;
+            	            if (state.failed) return retval;
+            	            if ( state.backtracking==0 ) adaptor.addChild(root_0, expr70.getTree());
+
+            	            }
+            	            break;
+
+            	    }
+
 
             	    }
             	    break;
 
             	default :
-            	    break loop19;
+            	    break loop21;
                 }
             } while (true);
 
@@ -2071,67 +2152,67 @@ public class TmplParser extends Parser {
     };
 
     // $ANTLR start "choice"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:129:1: choice : mult ( op1 mult )* ;
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:130:1: choice : mult ( op1 mult )* ;
     public final TmplParser.choice_return choice() throws RecognitionException {
         TmplParser.choice_return retval = new TmplParser.choice_return();
         retval.start = input.LT(1);
         int choice_StartIndex = input.index();
         CommonTree root_0 = null;
 
-        TmplParser.mult_return mult68 = null;
+        TmplParser.mult_return mult71 = null;
 
-        TmplParser.op1_return op169 = null;
+        TmplParser.op1_return op172 = null;
 
-        TmplParser.mult_return mult70 = null;
+        TmplParser.mult_return mult73 = null;
 
 
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:130:3: ( mult ( op1 mult )* )
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:131:3: mult ( op1 mult )*
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:131:3: ( mult ( op1 mult )* )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:132:3: mult ( op1 mult )*
             {
             root_0 = (CommonTree)adaptor.nil();
 
-            pushFollow(FOLLOW_mult_in_choice777);
-            mult68=mult();
+            pushFollow(FOLLOW_mult_in_choice788);
+            mult71=mult();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, mult68.getTree());
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:131:8: ( op1 mult )*
-            loop20:
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, mult71.getTree());
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:132:8: ( op1 mult )*
+            loop22:
             do {
-                int alt20=2;
-                int LA20_0 = input.LA(1);
+                int alt22=2;
+                int LA22_0 = input.LA(1);
 
-                if ( (LA20_0==MINUS||LA20_0==APPEND||(LA20_0>=AND && LA20_0<=PLUS)) ) {
-                    alt20=1;
+                if ( (LA22_0==MINUS||LA22_0==APPEND||(LA22_0>=AND && LA22_0<=PLUS)) ) {
+                    alt22=1;
                 }
 
 
-                switch (alt20) {
+                switch (alt22) {
             	case 1 :
-            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:131:9: op1 mult
+            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:132:9: op1 mult
             	    {
-            	    pushFollow(FOLLOW_op1_in_choice780);
-            	    op169=op1();
+            	    pushFollow(FOLLOW_op1_in_choice791);
+            	    op172=op1();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) root_0 = (CommonTree)adaptor.becomeRoot(op169.getTree(), root_0);
-            	    pushFollow(FOLLOW_mult_in_choice783);
-            	    mult70=mult();
+            	    if ( state.backtracking==0 ) root_0 = (CommonTree)adaptor.becomeRoot(op172.getTree(), root_0);
+            	    pushFollow(FOLLOW_mult_in_choice794);
+            	    mult73=mult();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, mult70.getTree());
+            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, mult73.getTree());
 
             	    }
             	    break;
 
             	default :
-            	    break loop20;
+            	    break loop22;
                 }
             } while (true);
 
@@ -2165,28 +2246,28 @@ public class TmplParser extends Parser {
     };
 
     // $ANTLR start "op1"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:134:1: op1 : ( PLUS | MINUS | APPEND | OR | AND );
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:135:1: op1 : ( PLUS | MINUS | APPEND | OR | AND );
     public final TmplParser.op1_return op1() throws RecognitionException {
         TmplParser.op1_return retval = new TmplParser.op1_return();
         retval.start = input.LT(1);
         int op1_StartIndex = input.index();
         CommonTree root_0 = null;
 
-        Token set71=null;
+        Token set74=null;
 
-        CommonTree set71_tree=null;
+        CommonTree set74_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:135:3: ( PLUS | MINUS | APPEND | OR | AND )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:136:3: ( PLUS | MINUS | APPEND | OR | AND )
             // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:
             {
             root_0 = (CommonTree)adaptor.nil();
 
-            set71=(Token)input.LT(1);
+            set74=(Token)input.LT(1);
             if ( input.LA(1)==MINUS||input.LA(1)==APPEND||(input.LA(1)>=AND && input.LA(1)<=PLUS) ) {
                 input.consume();
-                if ( state.backtracking==0 ) adaptor.addChild(root_0, (CommonTree)adaptor.create(set71));
+                if ( state.backtracking==0 ) adaptor.addChild(root_0, (CommonTree)adaptor.create(set74));
                 state.errorRecovery=false;state.failed=false;
             }
             else {
@@ -2225,67 +2306,67 @@ public class TmplParser extends Parser {
     };
 
     // $ANTLR start "mult"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:143:1: mult : not ( op2 not )* ;
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:144:1: mult : not ( op2 not )* ;
     public final TmplParser.mult_return mult() throws RecognitionException {
         TmplParser.mult_return retval = new TmplParser.mult_return();
         retval.start = input.LT(1);
         int mult_StartIndex = input.index();
         CommonTree root_0 = null;
 
-        TmplParser.not_return not72 = null;
+        TmplParser.not_return not75 = null;
 
-        TmplParser.op2_return op273 = null;
+        TmplParser.op2_return op276 = null;
 
-        TmplParser.not_return not74 = null;
+        TmplParser.not_return not77 = null;
 
 
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:144:3: ( not ( op2 not )* )
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:145:3: not ( op2 not )*
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:145:3: ( not ( op2 not )* )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:146:3: not ( op2 not )*
             {
             root_0 = (CommonTree)adaptor.nil();
 
-            pushFollow(FOLLOW_not_in_mult839);
-            not72=not();
+            pushFollow(FOLLOW_not_in_mult850);
+            not75=not();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, not72.getTree());
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:145:7: ( op2 not )*
-            loop21:
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, not75.getTree());
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:146:7: ( op2 not )*
+            loop23:
             do {
-                int alt21=2;
-                int LA21_0 = input.LA(1);
+                int alt23=2;
+                int LA23_0 = input.LA(1);
 
-                if ( (LA21_0==SLASH||(LA21_0>=LT && LA21_0<=EQUAL)||LA21_0==NE||LA21_0==MULTIPLY||LA21_0==TILDE) ) {
-                    alt21=1;
+                if ( (LA23_0==SLASH||(LA23_0>=LT && LA23_0<=EQUAL)||LA23_0==NE||LA23_0==MULTIPLY||LA23_0==TILDE) ) {
+                    alt23=1;
                 }
 
 
-                switch (alt21) {
+                switch (alt23) {
             	case 1 :
-            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:145:8: op2 not
+            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:146:8: op2 not
             	    {
-            	    pushFollow(FOLLOW_op2_in_mult842);
-            	    op273=op2();
+            	    pushFollow(FOLLOW_op2_in_mult853);
+            	    op276=op2();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) root_0 = (CommonTree)adaptor.becomeRoot(op273.getTree(), root_0);
-            	    pushFollow(FOLLOW_not_in_mult845);
-            	    not74=not();
+            	    if ( state.backtracking==0 ) root_0 = (CommonTree)adaptor.becomeRoot(op276.getTree(), root_0);
+            	    pushFollow(FOLLOW_not_in_mult856);
+            	    not77=not();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, not74.getTree());
+            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, not77.getTree());
 
             	    }
             	    break;
 
             	default :
-            	    break loop21;
+            	    break loop23;
                 }
             } while (true);
 
@@ -2319,28 +2400,28 @@ public class TmplParser extends Parser {
     };
 
     // $ANTLR start "op2"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:148:1: op2 : ( MULTIPLY | SLASH | TILDE | EQUAL | NE | GT | GE | LT | LE );
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:149:1: op2 : ( MULTIPLY | SLASH | TILDE | EQUAL | NE | GT | GE | LT | LE );
     public final TmplParser.op2_return op2() throws RecognitionException {
         TmplParser.op2_return retval = new TmplParser.op2_return();
         retval.start = input.LT(1);
         int op2_StartIndex = input.index();
         CommonTree root_0 = null;
 
-        Token set75=null;
+        Token set78=null;
 
-        CommonTree set75_tree=null;
+        CommonTree set78_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:149:3: ( MULTIPLY | SLASH | TILDE | EQUAL | NE | GT | GE | LT | LE )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:150:3: ( MULTIPLY | SLASH | TILDE | EQUAL | NE | GT | GE | LT | LE )
             // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:
             {
             root_0 = (CommonTree)adaptor.nil();
 
-            set75=(Token)input.LT(1);
+            set78=(Token)input.LT(1);
             if ( input.LA(1)==SLASH||(input.LA(1)>=LT && input.LA(1)<=EQUAL)||input.LA(1)==NE||input.LA(1)==MULTIPLY||input.LA(1)==TILDE ) {
                 input.consume();
-                if ( state.backtracking==0 ) adaptor.addChild(root_0, (CommonTree)adaptor.create(set75));
+                if ( state.backtracking==0 ) adaptor.addChild(root_0, (CommonTree)adaptor.create(set78));
                 state.errorRecovery=false;state.failed=false;
             }
             else {
@@ -2379,71 +2460,71 @@ public class TmplParser extends Parser {
     };
 
     // $ANTLR start "not"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:161:1: not : ( NOT pow | pow );
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:162:1: not : ( NOT pow | pow );
     public final TmplParser.not_return not() throws RecognitionException {
         TmplParser.not_return retval = new TmplParser.not_return();
         retval.start = input.LT(1);
         int not_StartIndex = input.index();
         CommonTree root_0 = null;
 
-        Token NOT76=null;
-        TmplParser.pow_return pow77 = null;
+        Token NOT79=null;
+        TmplParser.pow_return pow80 = null;
 
-        TmplParser.pow_return pow78 = null;
+        TmplParser.pow_return pow81 = null;
 
 
-        CommonTree NOT76_tree=null;
+        CommonTree NOT79_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 15) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:162:3: ( NOT pow | pow )
-            int alt22=2;
-            int LA22_0 = input.LA(1);
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:163:3: ( NOT pow | pow )
+            int alt24=2;
+            int LA24_0 = input.LA(1);
 
-            if ( (LA22_0==NOT) ) {
-                alt22=1;
+            if ( (LA24_0==NOT) ) {
+                alt24=1;
             }
-            else if ( (LA22_0==ALFA||LA22_0==ID||LA22_0==INT||(LA22_0>=MINUS && LA22_0<=LITERAL)||LA22_0==LPARAN||LA22_0==PLUS) ) {
-                alt22=2;
+            else if ( (LA24_0==ALFA||LA24_0==ID||LA24_0==INT||(LA24_0>=MINUS && LA24_0<=LITERAL)||LA24_0==LPARAN||LA24_0==PLUS) ) {
+                alt24=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 22, 0, input);
+                    new NoViableAltException("", 24, 0, input);
 
                 throw nvae;
             }
-            switch (alt22) {
+            switch (alt24) {
                 case 1 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:163:3: NOT pow
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:164:3: NOT pow
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    NOT76=(Token)match(input,NOT,FOLLOW_NOT_in_not925); if (state.failed) return retval;
+                    NOT79=(Token)match(input,NOT,FOLLOW_NOT_in_not936); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    NOT76_tree = (CommonTree)adaptor.create(NOT76);
-                    root_0 = (CommonTree)adaptor.becomeRoot(NOT76_tree, root_0);
+                    NOT79_tree = (CommonTree)adaptor.create(NOT79);
+                    root_0 = (CommonTree)adaptor.becomeRoot(NOT79_tree, root_0);
                     }
-                    pushFollow(FOLLOW_pow_in_not928);
-                    pow77=pow();
+                    pushFollow(FOLLOW_pow_in_not939);
+                    pow80=pow();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, pow77.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, pow80.getTree());
 
                     }
                     break;
                 case 2 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:164:5: pow
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:165:5: pow
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_pow_in_not934);
-                    pow78=pow();
+                    pushFollow(FOLLOW_pow_in_not945);
+                    pow81=pow();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, pow78.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, pow81.getTree());
 
                     }
                     break;
@@ -2476,56 +2557,56 @@ public class TmplParser extends Parser {
     };
 
     // $ANTLR start "pow"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:167:1: pow : atom ( HAT pow )? ;
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:168:1: pow : atom ( HAT pow )? ;
     public final TmplParser.pow_return pow() throws RecognitionException {
         TmplParser.pow_return retval = new TmplParser.pow_return();
         retval.start = input.LT(1);
         int pow_StartIndex = input.index();
         CommonTree root_0 = null;
 
-        Token HAT80=null;
-        TmplParser.atom_return atom79 = null;
+        Token HAT83=null;
+        TmplParser.atom_return atom82 = null;
 
-        TmplParser.pow_return pow81 = null;
+        TmplParser.pow_return pow84 = null;
 
 
-        CommonTree HAT80_tree=null;
+        CommonTree HAT83_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 16) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:168:3: ( atom ( HAT pow )? )
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:169:3: atom ( HAT pow )?
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:169:3: ( atom ( HAT pow )? )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:170:3: atom ( HAT pow )?
             {
             root_0 = (CommonTree)adaptor.nil();
 
-            pushFollow(FOLLOW_atom_in_pow949);
-            atom79=atom();
+            pushFollow(FOLLOW_atom_in_pow960);
+            atom82=atom();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, atom79.getTree());
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:169:8: ( HAT pow )?
-            int alt23=2;
-            int LA23_0 = input.LA(1);
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, atom82.getTree());
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:170:8: ( HAT pow )?
+            int alt25=2;
+            int LA25_0 = input.LA(1);
 
-            if ( (LA23_0==HAT) ) {
-                alt23=1;
+            if ( (LA25_0==HAT) ) {
+                alt25=1;
             }
-            switch (alt23) {
+            switch (alt25) {
                 case 1 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:169:9: HAT pow
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:170:9: HAT pow
                     {
-                    HAT80=(Token)match(input,HAT,FOLLOW_HAT_in_pow952); if (state.failed) return retval;
+                    HAT83=(Token)match(input,HAT,FOLLOW_HAT_in_pow963); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    HAT80_tree = (CommonTree)adaptor.create(HAT80);
-                    root_0 = (CommonTree)adaptor.becomeRoot(HAT80_tree, root_0);
+                    HAT83_tree = (CommonTree)adaptor.create(HAT83);
+                    root_0 = (CommonTree)adaptor.becomeRoot(HAT83_tree, root_0);
                     }
-                    pushFollow(FOLLOW_pow_in_pow955);
-                    pow81=pow();
+                    pushFollow(FOLLOW_pow_in_pow966);
+                    pow84=pow();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, pow81.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, pow84.getTree());
 
                     }
                     break;
@@ -2562,86 +2643,86 @@ public class TmplParser extends Parser {
     };
 
     // $ANTLR start "atom"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:172:1: atom : ( ( PLUS | MINUS )? INT | LITERAL | readable | ( LPARAN expr RPARAN ) );
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:173:1: atom : ( ( PLUS | MINUS )? INT | LITERAL | readable | ( LPARAN expr RPARAN ) );
     public final TmplParser.atom_return atom() throws RecognitionException {
         TmplParser.atom_return retval = new TmplParser.atom_return();
         retval.start = input.LT(1);
         int atom_StartIndex = input.index();
         CommonTree root_0 = null;
 
-        Token set82=null;
-        Token INT83=null;
-        Token LITERAL84=null;
-        Token LPARAN86=null;
-        Token RPARAN88=null;
-        TmplParser.readable_return readable85 = null;
+        Token set85=null;
+        Token INT86=null;
+        Token LITERAL87=null;
+        Token LPARAN89=null;
+        Token RPARAN91=null;
+        TmplParser.readable_return readable88 = null;
 
-        TmplParser.expr_return expr87 = null;
+        TmplParser.expr_return expr90 = null;
 
 
-        CommonTree set82_tree=null;
-        CommonTree INT83_tree=null;
-        CommonTree LITERAL84_tree=null;
-        CommonTree LPARAN86_tree=null;
-        CommonTree RPARAN88_tree=null;
+        CommonTree set85_tree=null;
+        CommonTree INT86_tree=null;
+        CommonTree LITERAL87_tree=null;
+        CommonTree LPARAN89_tree=null;
+        CommonTree RPARAN91_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 17) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:173:3: ( ( PLUS | MINUS )? INT | LITERAL | readable | ( LPARAN expr RPARAN ) )
-            int alt25=4;
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:174:3: ( ( PLUS | MINUS )? INT | LITERAL | readable | ( LPARAN expr RPARAN ) )
+            int alt27=4;
             switch ( input.LA(1) ) {
             case INT:
             case MINUS:
             case PLUS:
                 {
-                alt25=1;
+                alt27=1;
                 }
                 break;
             case LITERAL:
                 {
-                alt25=2;
+                alt27=2;
                 }
                 break;
             case ALFA:
             case ID:
                 {
-                alt25=3;
+                alt27=3;
                 }
                 break;
             case LPARAN:
                 {
-                alt25=4;
+                alt27=4;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 25, 0, input);
+                    new NoViableAltException("", 27, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt25) {
+            switch (alt27) {
                 case 1 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:174:3: ( PLUS | MINUS )? INT
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:175:3: ( PLUS | MINUS )? INT
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:174:3: ( PLUS | MINUS )?
-                    int alt24=2;
-                    int LA24_0 = input.LA(1);
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:175:3: ( PLUS | MINUS )?
+                    int alt26=2;
+                    int LA26_0 = input.LA(1);
 
-                    if ( (LA24_0==MINUS||LA24_0==PLUS) ) {
-                        alt24=1;
+                    if ( (LA26_0==MINUS||LA26_0==PLUS) ) {
+                        alt26=1;
                     }
-                    switch (alt24) {
+                    switch (alt26) {
                         case 1 :
                             // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:
                             {
-                            set82=(Token)input.LT(1);
+                            set85=(Token)input.LT(1);
                             if ( input.LA(1)==MINUS||input.LA(1)==PLUS ) {
                                 input.consume();
-                                if ( state.backtracking==0 ) adaptor.addChild(root_0, (CommonTree)adaptor.create(set82));
+                                if ( state.backtracking==0 ) adaptor.addChild(root_0, (CommonTree)adaptor.create(set85));
                                 state.errorRecovery=false;state.failed=false;
                             }
                             else {
@@ -2656,57 +2737,57 @@ public class TmplParser extends Parser {
 
                     }
 
-                    INT83=(Token)match(input,INT,FOLLOW_INT_in_atom995); if (state.failed) return retval;
+                    INT86=(Token)match(input,INT,FOLLOW_INT_in_atom1006); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    INT83_tree = (CommonTree)adaptor.create(INT83);
-                    root_0 = (CommonTree)adaptor.becomeRoot(INT83_tree, root_0);
+                    INT86_tree = (CommonTree)adaptor.create(INT86);
+                    root_0 = (CommonTree)adaptor.becomeRoot(INT86_tree, root_0);
                     }
 
                     }
                     break;
                 case 2 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:179:5: LITERAL
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:180:5: LITERAL
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    LITERAL84=(Token)match(input,LITERAL,FOLLOW_LITERAL_in_atom1002); if (state.failed) return retval;
+                    LITERAL87=(Token)match(input,LITERAL,FOLLOW_LITERAL_in_atom1013); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
-                    LITERAL84_tree = (CommonTree)adaptor.create(LITERAL84);
-                    adaptor.addChild(root_0, LITERAL84_tree);
+                    LITERAL87_tree = (CommonTree)adaptor.create(LITERAL87);
+                    adaptor.addChild(root_0, LITERAL87_tree);
                     }
 
                     }
                     break;
                 case 3 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:180:5: readable
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:181:5: readable
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_readable_in_atom1008);
-                    readable85=readable();
+                    pushFollow(FOLLOW_readable_in_atom1019);
+                    readable88=readable();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, readable85.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, readable88.getTree());
 
                     }
                     break;
                 case 4 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:181:5: ( LPARAN expr RPARAN )
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:182:5: ( LPARAN expr RPARAN )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:181:5: ( LPARAN expr RPARAN )
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:181:6: LPARAN expr RPARAN
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:182:5: ( LPARAN expr RPARAN )
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:182:6: LPARAN expr RPARAN
                     {
-                    LPARAN86=(Token)match(input,LPARAN,FOLLOW_LPARAN_in_atom1015); if (state.failed) return retval;
-                    pushFollow(FOLLOW_expr_in_atom1018);
-                    expr87=expr();
+                    LPARAN89=(Token)match(input,LPARAN,FOLLOW_LPARAN_in_atom1026); if (state.failed) return retval;
+                    pushFollow(FOLLOW_expr_in_atom1029);
+                    expr90=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, expr87.getTree());
-                    RPARAN88=(Token)match(input,RPARAN,FOLLOW_RPARAN_in_atom1020); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, expr90.getTree());
+                    RPARAN91=(Token)match(input,RPARAN,FOLLOW_RPARAN_in_atom1031); if (state.failed) return retval;
 
                     }
 
@@ -2736,35 +2817,69 @@ public class TmplParser extends Parser {
     }
     // $ANTLR end "atom"
 
-    // $ANTLR start synpred31_TmplParser
-    public final void synpred31_TmplParser_fragment() throws RecognitionException {   
-        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:126:11: ( QUESTION expr COLON expr )
-        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:126:11: QUESTION expr COLON expr
+    // $ANTLR start synpred34_TmplParser
+    public final void synpred34_TmplParser_fragment() throws RecognitionException {   
+        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:127:11: ( QUESTION ( expr )? COLON ( expr )? )
+        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:127:11: QUESTION ( expr )? COLON ( expr )?
         {
-        match(input,QUESTION,FOLLOW_QUESTION_in_synpred31_TmplParser752); if (state.failed) return ;
-        pushFollow(FOLLOW_expr_in_synpred31_TmplParser755);
-        expr();
+        match(input,QUESTION,FOLLOW_QUESTION_in_synpred34_TmplParser762); if (state.failed) return ;
+        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:127:21: ( expr )?
+        int alt38=2;
+        int LA38_0 = input.LA(1);
 
-        state._fsp--;
-        if (state.failed) return ;
-        match(input,COLON,FOLLOW_COLON_in_synpred31_TmplParser757); if (state.failed) return ;
-        pushFollow(FOLLOW_expr_in_synpred31_TmplParser760);
-        expr();
+        if ( (LA38_0==ALFA||LA38_0==ID||LA38_0==INT||(LA38_0>=MINUS && LA38_0<=LITERAL)||LA38_0==LPARAN||LA38_0==PLUS||LA38_0==NOT) ) {
+            alt38=1;
+        }
+        switch (alt38) {
+            case 1 :
+                // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:0:0: expr
+                {
+                pushFollow(FOLLOW_expr_in_synpred34_TmplParser765);
+                expr();
 
-        state._fsp--;
-        if (state.failed) return ;
+                state._fsp--;
+                if (state.failed) return ;
+
+                }
+                break;
+
+        }
+
+        match(input,COLON,FOLLOW_COLON_in_synpred34_TmplParser768); if (state.failed) return ;
+        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:127:33: ( expr )?
+        int alt39=2;
+        int LA39_0 = input.LA(1);
+
+        if ( (LA39_0==ALFA||LA39_0==ID||LA39_0==INT||(LA39_0>=MINUS && LA39_0<=LITERAL)||LA39_0==LPARAN||LA39_0==PLUS||LA39_0==NOT) ) {
+            alt39=1;
+        }
+        switch (alt39) {
+            case 1 :
+                // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\TmplParser.g:0:0: expr
+                {
+                pushFollow(FOLLOW_expr_in_synpred34_TmplParser770);
+                expr();
+
+                state._fsp--;
+                if (state.failed) return ;
+
+                }
+                break;
+
+        }
+
 
         }
     }
-    // $ANTLR end synpred31_TmplParser
+    // $ANTLR end synpred34_TmplParser
 
     // Delegated rules
 
-    public final boolean synpred31_TmplParser() {
+    public final boolean synpred34_TmplParser() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred31_TmplParser_fragment(); // can never throw exception
+            synpred34_TmplParser_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -2880,7 +2995,7 @@ public class TmplParser extends Parser {
             this.transition = DFA17_transition;
         }
         public String getDescription() {
-            return "118:6: ( ( WS )+ ID )?";
+            return "119:8: ( ( WS )+ ID )?";
         }
     }
  
@@ -2941,41 +3056,44 @@ public class TmplParser extends Parser {
     public static final BitSet FOLLOW_ALFA_in_filepart661 = new BitSet(new long[]{0x0000000000200000L});
     public static final BitSet FOLLOW_ID_in_filepart663 = new BitSet(new long[]{0x0000000000020000L});
     public static final BitSet FOLLOW_ALFA_in_filepart665 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_readable698 = new BitSet(new long[]{0x0000000000000802L});
-    public static final BitSet FOLLOW_WS_in_readable701 = new BitSet(new long[]{0x0000000000200800L});
-    public static final BitSet FOLLOW_ID_in_readable704 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ALFA_in_readable712 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_ID_in_readable714 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_ALFA_in_readable716 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_choice_in_expr749 = new BitSet(new long[]{0x0040000000000002L});
-    public static final BitSet FOLLOW_QUESTION_in_expr752 = new BitSet(new long[]{0x000A000206A20000L});
-    public static final BitSet FOLLOW_expr_in_expr755 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_COLON_in_expr757 = new BitSet(new long[]{0x000A000206A20000L});
-    public static final BitSet FOLLOW_expr_in_expr760 = new BitSet(new long[]{0x0040000000000002L});
-    public static final BitSet FOLLOW_mult_in_choice777 = new BitSet(new long[]{0x0003808002000002L});
-    public static final BitSet FOLLOW_op1_in_choice780 = new BitSet(new long[]{0x000A000206A20000L});
-    public static final BitSet FOLLOW_mult_in_choice783 = new BitSet(new long[]{0x0003808002000002L});
+    public static final BitSet FOLLOW_ID_in_readable698 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_DOT_in_readable700 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_ID_in_readable702 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_readable708 = new BitSet(new long[]{0x0000000000000802L});
+    public static final BitSet FOLLOW_WS_in_readable711 = new BitSet(new long[]{0x0000000000200800L});
+    public static final BitSet FOLLOW_ID_in_readable714 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ALFA_in_readable722 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_ID_in_readable724 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_ALFA_in_readable726 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_choice_in_expr759 = new BitSet(new long[]{0x0040000000000002L});
+    public static final BitSet FOLLOW_QUESTION_in_expr762 = new BitSet(new long[]{0x000A00020EA20000L});
+    public static final BitSet FOLLOW_expr_in_expr765 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_COLON_in_expr768 = new BitSet(new long[]{0x004A000206A20002L});
+    public static final BitSet FOLLOW_expr_in_expr770 = new BitSet(new long[]{0x0040000000000002L});
+    public static final BitSet FOLLOW_mult_in_choice788 = new BitSet(new long[]{0x0003808002000002L});
+    public static final BitSet FOLLOW_op1_in_choice791 = new BitSet(new long[]{0x000A000206A20000L});
+    public static final BitSet FOLLOW_mult_in_choice794 = new BitSet(new long[]{0x0003808002000002L});
     public static final BitSet FOLLOW_set_in_op10 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_not_in_mult839 = new BitSet(new long[]{0x00145F0100000002L});
-    public static final BitSet FOLLOW_op2_in_mult842 = new BitSet(new long[]{0x000A000206A20000L});
-    public static final BitSet FOLLOW_not_in_mult845 = new BitSet(new long[]{0x00145F0100000002L});
+    public static final BitSet FOLLOW_not_in_mult850 = new BitSet(new long[]{0x00145F0100000002L});
+    public static final BitSet FOLLOW_op2_in_mult853 = new BitSet(new long[]{0x000A000206A20000L});
+    public static final BitSet FOLLOW_not_in_mult856 = new BitSet(new long[]{0x00145F0100000002L});
     public static final BitSet FOLLOW_set_in_op20 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NOT_in_not925 = new BitSet(new long[]{0x000A000206A20000L});
-    public static final BitSet FOLLOW_pow_in_not928 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_pow_in_not934 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_atom_in_pow949 = new BitSet(new long[]{0x0020000000000002L});
-    public static final BitSet FOLLOW_HAT_in_pow952 = new BitSet(new long[]{0x000A000206A20000L});
-    public static final BitSet FOLLOW_pow_in_pow955 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_atom972 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_INT_in_atom995 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LITERAL_in_atom1002 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_readable_in_atom1008 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPARAN_in_atom1015 = new BitSet(new long[]{0x000A000206A20000L});
-    public static final BitSet FOLLOW_expr_in_atom1018 = new BitSet(new long[]{0x0000000400000000L});
-    public static final BitSet FOLLOW_RPARAN_in_atom1020 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_QUESTION_in_synpred31_TmplParser752 = new BitSet(new long[]{0x000A000206A20000L});
-    public static final BitSet FOLLOW_expr_in_synpred31_TmplParser755 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_COLON_in_synpred31_TmplParser757 = new BitSet(new long[]{0x000A000206A20000L});
-    public static final BitSet FOLLOW_expr_in_synpred31_TmplParser760 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NOT_in_not936 = new BitSet(new long[]{0x000A000206A20000L});
+    public static final BitSet FOLLOW_pow_in_not939 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_pow_in_not945 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_atom_in_pow960 = new BitSet(new long[]{0x0020000000000002L});
+    public static final BitSet FOLLOW_HAT_in_pow963 = new BitSet(new long[]{0x000A000206A20000L});
+    public static final BitSet FOLLOW_pow_in_pow966 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_atom983 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_INT_in_atom1006 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LITERAL_in_atom1013 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_readable_in_atom1019 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LPARAN_in_atom1026 = new BitSet(new long[]{0x000A000206A20000L});
+    public static final BitSet FOLLOW_expr_in_atom1029 = new BitSet(new long[]{0x0000000400000000L});
+    public static final BitSet FOLLOW_RPARAN_in_atom1031 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_QUESTION_in_synpred34_TmplParser762 = new BitSet(new long[]{0x000A00020EA20000L});
+    public static final BitSet FOLLOW_expr_in_synpred34_TmplParser765 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_COLON_in_synpred34_TmplParser768 = new BitSet(new long[]{0x000A000206A20002L});
+    public static final BitSet FOLLOW_expr_in_synpred34_TmplParser770 = new BitSet(new long[]{0x0000000000000002L});
 
 }

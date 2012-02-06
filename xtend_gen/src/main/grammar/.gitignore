@@ -1,2 +1,6 @@
 /GParser.tokens
 /GLexer.tokens
+/TmplLexer.tokens
+/TmplParser.tokens
+/PtmParser.tokens
+/PtmLexer.tokens

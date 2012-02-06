@@ -115,7 +115,8 @@ filepart
 
 readable
   :
-  ID (WS+ ID)?
+  ID DOT ID
+  | ID (WS+ ID)?
   | ALFA ID ALFA
     ->
       ^(ALFA ID)
@@ -123,7 +124,7 @@ readable
 
 expr
   :
-  choice (QUESTION^ expr COLON! expr)*
+  choice (QUESTION^ expr? COLON expr?)*
   ;
 
 choice
