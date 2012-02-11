@@ -1,2 +1,10 @@
 /GLexer.java
 /GParser.java
+/TmplParser.tokens
+/PtmParser.tokens
+/TmplLexer.tokens
+/PtmLexer.tokens
+/TmplParser.java
+/PtmParser.java
+/PtmLexer.java
+/TmplLexer.java

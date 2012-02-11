@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g 2012-02-04 23:44:57
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g 2012-02-11 20:13:35
 
 package no.esito.genova.io.antlr;
 
@@ -138,7 +138,7 @@ public class PtmParser extends Parser {
     }
 
     public String[] getTokenNames() { return PtmParser.tokenNames; }
-    public String getGrammarFileName() { return "C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g"; }
+    public String getGrammarFileName() { return "C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g"; }
 
 
 
@@ -150,7 +150,7 @@ public class PtmParser extends Parser {
     };
 
     // $ANTLR start "prog"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:37:1: prog : ( stat )+ -> ^( PROG ( stat )+ ) ;
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:37:1: prog : ( stat )+ -> ^( PROG ( stat )+ ) ;
     public final PtmParser.prog_return prog() throws RecognitionException {
         PtmParser.prog_return retval = new PtmParser.prog_return();
         retval.start = input.LT(1);
@@ -163,10 +163,10 @@ public class PtmParser extends Parser {
         RewriteRuleSubtreeStream stream_stat=new RewriteRuleSubtreeStream(adaptor,"rule stat");
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:37:6: ( ( stat )+ -> ^( PROG ( stat )+ ) )
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:38:3: ( stat )+
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:37:6: ( ( stat )+ -> ^( PROG ( stat )+ ) )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:38:3: ( stat )+
             {
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:38:3: ( stat )+
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:38:3: ( stat )+
             int cnt1=0;
             loop1:
             do {
@@ -180,7 +180,7 @@ public class PtmParser extends Parser {
 
                 switch (alt1) {
             	case 1 :
-            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:38:4: stat
+            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:38:4: stat
             	    {
             	    pushFollow(FOLLOW_stat_in_prog159);
             	    stat1=stat();
@@ -223,7 +223,7 @@ public class PtmParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 42:10: -> ^( PROG ( stat )+ )
             {
-                // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:42:14: ^( PROG ( stat )+ )
+                // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:42:14: ^( PROG ( stat )+ )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(PROG, "PROG"), root_1);
@@ -272,7 +272,7 @@ public class PtmParser extends Parser {
     };
 
     // $ANTLR start "stat"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:44:1: stat : ( OUT | TYPES_MODE ( types2 )* ( NEWLINE )? TEMPLATE_MODE -> ^( TYPES_MODE ( types2 )* ) | TYPEDEF types -> ^( TYPEDEF types ) | MACRO ID DLM -> ^( MACRO ID ) | TYPED ID DLM -> ^( TYPED ID ) | RESERVED ID DLM -> ^( RESERVED ID ) | STR ID DLM -> ^( STR ID ) | BREAK | CONTINUE | POPFILE | ENDFILE | LINE | ENDLINE | INDENT | ENDINDENT | ENDCONTEXT | REM | ENDSTR | INDENT2 expr DLM -> ^( INDENT2 expr ) | CONTEXT ID DLM -> ^( CONTEXT ID ) | INFO expr DLM -> ^( INFO expr ) | WARNING expr DLM -> ^( WARNING expr ) | ERROR expr DLM -> ^( ERROR expr ) | DEBUG expr DLM -> ^( DEBUG expr ) | FILE filepath NEWLINE -> ^( FILE filepath ) | NEWFILE filepath NEWLINE -> ^( NEWFILE filepath ) | INCLUDE filepath NEWLINE -> ^( INCLUDE filepath ) | IGNOREFILE filepath NEWLINE -> ^( IGNOREFILE filepath ) | PUSHFILE filepath NEWLINE -> ^( PUSHFILE filepath ) | COPYFILE filepath filepath NEWLINE -> ^( COPYFILE filepath filepath ) | IFCONTEXT ID then2 ENDIF -> ^( IFCONTEXT ID then2 ) | IFCONTEXT ID then2 else2 ENDIF -> ^( IFCONTEXT ID then2 else2 ) | IF_ expr then2 ( elseif )* ( else2 )? ENDIF -> ^( IF_ expr then2 ( elseif )* ( else2 )? ) | SET settable ASSIGN expr DLM -> ^( SET settable expr ) | DLM expr DLM -> ^( SUB expr ) | ITERATE ID DLM ( stat )+ ENDITERATE -> ^( ITERATE ^( ID ( stat )+ ) ) | LOOP expr DLM ( stat )+ ENDLOOP -> ^( LOOP expr ^( SUB ( stat )+ ) ) );
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:44:1: stat : ( OUT | TYPES_MODE ( types2 )* ( NEWLINE )? TEMPLATE_MODE -> ^( TYPES_MODE ( types2 )* ) | TYPEDEF types -> ^( TYPEDEF types ) | MACRO ID DLM -> ^( MACRO ID ) | TYPED ID DLM -> ^( TYPED ID ) | RESERVED ID DLM -> ^( RESERVED ID ) | STR ID DLM -> ^( STR ID ) | BREAK | CONTINUE | POPFILE | ENDFILE | LINE | ENDLINE | INDENT | ENDINDENT | ENDCONTEXT | REM | ENDSTR | INDENT2 expr DLM -> ^( INDENT2 expr ) | CONTEXT ID DLM -> ^( CONTEXT ID ) | INFO expr DLM -> ^( INFO expr ) | WARNING expr DLM -> ^( WARNING expr ) | ERROR expr DLM -> ^( ERROR expr ) | DEBUG expr DLM -> ^( DEBUG expr ) | FILE filepath NEWLINE -> ^( FILE filepath ) | NEWFILE filepath NEWLINE -> ^( NEWFILE filepath ) | INCLUDE filepath NEWLINE -> ^( INCLUDE filepath ) | IGNOREFILE filepath NEWLINE -> ^( IGNOREFILE filepath ) | PUSHFILE filepath NEWLINE -> ^( PUSHFILE filepath ) | COPYFILE filepath filepath NEWLINE -> ^( COPYFILE filepath filepath ) | IFCONTEXT ID then2 ENDIF -> ^( IFCONTEXT ID then2 ) | IFCONTEXT ID then2 else2 ENDIF -> ^( IFCONTEXT ID then2 else2 ) | IF_ expr then2 ( elseif )* ( else2 )? ENDIF -> ^( IF_ expr then2 ( elseif )* ( else2 )? ) | SET settable ASSIGN expr DLM -> ^( SET settable expr ) | DLM expr DLM -> ^( SUB expr ) | ITERATE ID DLM ( stat )+ ENDITERATE -> ^( ITERATE ^( ID ( stat )+ ) ) | LOOP expr DLM ( stat )+ ENDLOOP -> ^( LOOP expr ^( SUB ( stat )+ ) ) );
     public final PtmParser.stat_return stat() throws RecognitionException {
         PtmParser.stat_return retval = new PtmParser.stat_return();
         retval.start = input.LT(1);
@@ -522,12 +522,12 @@ public class PtmParser extends Parser {
         RewriteRuleSubtreeStream stream_else2=new RewriteRuleSubtreeStream(adaptor,"rule else2");
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:44:6: ( OUT | TYPES_MODE ( types2 )* ( NEWLINE )? TEMPLATE_MODE -> ^( TYPES_MODE ( types2 )* ) | TYPEDEF types -> ^( TYPEDEF types ) | MACRO ID DLM -> ^( MACRO ID ) | TYPED ID DLM -> ^( TYPED ID ) | RESERVED ID DLM -> ^( RESERVED ID ) | STR ID DLM -> ^( STR ID ) | BREAK | CONTINUE | POPFILE | ENDFILE | LINE | ENDLINE | INDENT | ENDINDENT | ENDCONTEXT | REM | ENDSTR | INDENT2 expr DLM -> ^( INDENT2 expr ) | CONTEXT ID DLM -> ^( CONTEXT ID ) | INFO expr DLM -> ^( INFO expr ) | WARNING expr DLM -> ^( WARNING expr ) | ERROR expr DLM -> ^( ERROR expr ) | DEBUG expr DLM -> ^( DEBUG expr ) | FILE filepath NEWLINE -> ^( FILE filepath ) | NEWFILE filepath NEWLINE -> ^( NEWFILE filepath ) | INCLUDE filepath NEWLINE -> ^( INCLUDE filepath ) | IGNOREFILE filepath NEWLINE -> ^( IGNOREFILE filepath ) | PUSHFILE filepath NEWLINE -> ^( PUSHFILE filepath ) | COPYFILE filepath filepath NEWLINE -> ^( COPYFILE filepath filepath ) | IFCONTEXT ID then2 ENDIF -> ^( IFCONTEXT ID then2 ) | IFCONTEXT ID then2 else2 ENDIF -> ^( IFCONTEXT ID then2 else2 ) | IF_ expr then2 ( elseif )* ( else2 )? ENDIF -> ^( IF_ expr then2 ( elseif )* ( else2 )? ) | SET settable ASSIGN expr DLM -> ^( SET settable expr ) | DLM expr DLM -> ^( SUB expr ) | ITERATE ID DLM ( stat )+ ENDITERATE -> ^( ITERATE ^( ID ( stat )+ ) ) | LOOP expr DLM ( stat )+ ENDLOOP -> ^( LOOP expr ^( SUB ( stat )+ ) ) )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:44:6: ( OUT | TYPES_MODE ( types2 )* ( NEWLINE )? TEMPLATE_MODE -> ^( TYPES_MODE ( types2 )* ) | TYPEDEF types -> ^( TYPEDEF types ) | MACRO ID DLM -> ^( MACRO ID ) | TYPED ID DLM -> ^( TYPED ID ) | RESERVED ID DLM -> ^( RESERVED ID ) | STR ID DLM -> ^( STR ID ) | BREAK | CONTINUE | POPFILE | ENDFILE | LINE | ENDLINE | INDENT | ENDINDENT | ENDCONTEXT | REM | ENDSTR | INDENT2 expr DLM -> ^( INDENT2 expr ) | CONTEXT ID DLM -> ^( CONTEXT ID ) | INFO expr DLM -> ^( INFO expr ) | WARNING expr DLM -> ^( WARNING expr ) | ERROR expr DLM -> ^( ERROR expr ) | DEBUG expr DLM -> ^( DEBUG expr ) | FILE filepath NEWLINE -> ^( FILE filepath ) | NEWFILE filepath NEWLINE -> ^( NEWFILE filepath ) | INCLUDE filepath NEWLINE -> ^( INCLUDE filepath ) | IGNOREFILE filepath NEWLINE -> ^( IGNOREFILE filepath ) | PUSHFILE filepath NEWLINE -> ^( PUSHFILE filepath ) | COPYFILE filepath filepath NEWLINE -> ^( COPYFILE filepath filepath ) | IFCONTEXT ID then2 ENDIF -> ^( IFCONTEXT ID then2 ) | IFCONTEXT ID then2 else2 ENDIF -> ^( IFCONTEXT ID then2 else2 ) | IF_ expr then2 ( elseif )* ( else2 )? ENDIF -> ^( IF_ expr then2 ( elseif )* ( else2 )? ) | SET settable ASSIGN expr DLM -> ^( SET settable expr ) | DLM expr DLM -> ^( SUB expr ) | ITERATE ID DLM ( stat )+ ENDITERATE -> ^( ITERATE ^( ID ( stat )+ ) ) | LOOP expr DLM ( stat )+ ENDLOOP -> ^( LOOP expr ^( SUB ( stat )+ ) ) )
             int alt8=37;
             alt8 = dfa8.predict(input);
             switch (alt8) {
                 case 1 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:45:3: OUT
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:45:3: OUT
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -540,12 +540,12 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:46:5: TYPES_MODE ( types2 )* ( NEWLINE )? TEMPLATE_MODE
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:46:5: TYPES_MODE ( types2 )* ( NEWLINE )? TEMPLATE_MODE
                     {
                     TYPES_MODE3=(Token)match(input,TYPES_MODE,FOLLOW_TYPES_MODE_in_stat199); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_TYPES_MODE.add(TYPES_MODE3);
 
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:46:16: ( types2 )*
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:46:16: ( types2 )*
                     loop2:
                     do {
                         int alt2=2;
@@ -558,7 +558,7 @@ public class PtmParser extends Parser {
 
                         switch (alt2) {
                     	case 1 :
-                    	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:0:0: types2
+                    	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:0:0: types2
                     	    {
                     	    pushFollow(FOLLOW_types2_in_stat201);
                     	    types24=types2();
@@ -575,7 +575,7 @@ public class PtmParser extends Parser {
                         }
                     } while (true);
 
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:46:24: ( NEWLINE )?
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:46:24: ( NEWLINE )?
                     int alt3=2;
                     int LA3_0 = input.LA(1);
 
@@ -584,7 +584,7 @@ public class PtmParser extends Parser {
                     }
                     switch (alt3) {
                         case 1 :
-                            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:0:0: NEWLINE
+                            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:0:0: NEWLINE
                             {
                             NEWLINE5=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_stat204); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_NEWLINE.add(NEWLINE5);
@@ -601,7 +601,7 @@ public class PtmParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: types2, TYPES_MODE
+                    // elements: TYPES_MODE, types2
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -614,12 +614,12 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 47:5: -> ^( TYPES_MODE ( types2 )* )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:47:8: ^( TYPES_MODE ( types2 )* )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:47:8: ^( TYPES_MODE ( types2 )* )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_TYPES_MODE.nextNode(), root_1);
 
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:47:21: ( types2 )*
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:47:21: ( types2 )*
                         while ( stream_types2.hasNext() ) {
                             adaptor.addChild(root_1, stream_types2.nextTree());
 
@@ -635,7 +635,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:48:5: TYPEDEF types
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:48:5: TYPEDEF types
                     {
                     TYPEDEF7=(Token)match(input,TYPEDEF,FOLLOW_TYPEDEF_in_stat227); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_TYPEDEF.add(TYPEDEF7);
@@ -649,7 +649,7 @@ public class PtmParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: TYPEDEF, types
+                    // elements: types, TYPEDEF
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -662,7 +662,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 49:5: -> ^( TYPEDEF types )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:49:8: ^( TYPEDEF types )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:49:8: ^( TYPEDEF types )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_TYPEDEF.nextNode(), root_1);
@@ -678,7 +678,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:50:7: MACRO ID DLM
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:50:7: MACRO ID DLM
                     {
                     MACRO9=(Token)match(input,MACRO,FOLLOW_MACRO_in_stat250); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_MACRO.add(MACRO9);
@@ -705,7 +705,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 51:9: -> ^( MACRO ID )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:51:12: ^( MACRO ID )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:51:12: ^( MACRO ID )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_MACRO.nextNode(), root_1);
@@ -721,7 +721,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:52:7: TYPED ID DLM
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:52:7: TYPED ID DLM
                     {
                     TYPED12=(Token)match(input,TYPED,FOLLOW_TYPED_in_stat279); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_TYPED.add(TYPED12);
@@ -748,7 +748,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 53:9: -> ^( TYPED ID )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:53:12: ^( TYPED ID )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:53:12: ^( TYPED ID )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_TYPED.nextNode(), root_1);
@@ -764,7 +764,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:54:7: RESERVED ID DLM
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:54:7: RESERVED ID DLM
                     {
                     RESERVED15=(Token)match(input,RESERVED,FOLLOW_RESERVED_in_stat308); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RESERVED.add(RESERVED15);
@@ -778,7 +778,7 @@ public class PtmParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: RESERVED, ID
+                    // elements: ID, RESERVED
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -791,7 +791,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 55:9: -> ^( RESERVED ID )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:55:12: ^( RESERVED ID )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:55:12: ^( RESERVED ID )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_RESERVED.nextNode(), root_1);
@@ -807,7 +807,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:56:5: STR ID DLM
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:56:5: STR ID DLM
                     {
                     STR18=(Token)match(input,STR,FOLLOW_STR_in_stat335); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_STR.add(STR18);
@@ -821,7 +821,7 @@ public class PtmParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: STR, ID
+                    // elements: ID, STR
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -834,7 +834,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 57:5: -> ^( STR ID )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:57:8: ^( STR ID )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:57:8: ^( STR ID )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_STR.nextNode(), root_1);
@@ -850,7 +850,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 8 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:58:5: BREAK
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:58:5: BREAK
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -863,7 +863,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 9 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:59:5: CONTINUE
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:59:5: CONTINUE
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -876,7 +876,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 10 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:60:5: POPFILE
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:60:5: POPFILE
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -889,7 +889,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 11 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:61:5: ENDFILE
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:61:5: ENDFILE
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -902,7 +902,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 12 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:62:5: LINE
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:62:5: LINE
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -915,7 +915,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 13 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:63:5: ENDLINE
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:63:5: ENDLINE
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -928,7 +928,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 14 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:64:5: INDENT
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:64:5: INDENT
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -941,7 +941,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 15 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:65:5: ENDINDENT
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:65:5: ENDINDENT
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -954,7 +954,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 16 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:66:5: ENDCONTEXT
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:66:5: ENDCONTEXT
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -967,7 +967,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 17 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:67:5: REM
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:67:5: REM
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -980,7 +980,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 18 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:68:5: ENDSTR
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:68:5: ENDSTR
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -993,7 +993,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 19 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:69:5: INDENT2 expr DLM
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:69:5: INDENT2 expr DLM
                     {
                     INDENT232=(Token)match(input,INDENT2,FOLLOW_INDENT2_in_stat425); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_INDENT2.add(INDENT232);
@@ -1023,7 +1023,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 70:5: -> ^( INDENT2 expr )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:70:8: ^( INDENT2 expr )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:70:8: ^( INDENT2 expr )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_INDENT2.nextNode(), root_1);
@@ -1039,7 +1039,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 20 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:71:5: CONTEXT ID DLM
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:71:5: CONTEXT ID DLM
                     {
                     CONTEXT35=(Token)match(input,CONTEXT,FOLLOW_CONTEXT_in_stat448); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_CONTEXT.add(CONTEXT35);
@@ -1066,7 +1066,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 72:5: -> ^( CONTEXT ID )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:72:8: ^( CONTEXT ID )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:72:8: ^( CONTEXT ID )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_CONTEXT.nextNode(), root_1);
@@ -1082,7 +1082,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 21 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:73:5: INFO expr DLM
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:73:5: INFO expr DLM
                     {
                     INFO38=(Token)match(input,INFO,FOLLOW_INFO_in_stat471); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_INFO.add(INFO38);
@@ -1099,7 +1099,7 @@ public class PtmParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expr, INFO
+                    // elements: INFO, expr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1112,7 +1112,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 74:5: -> ^( INFO expr )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:74:8: ^( INFO expr )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:74:8: ^( INFO expr )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_INFO.nextNode(), root_1);
@@ -1128,7 +1128,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 22 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:75:5: WARNING expr DLM
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:75:5: WARNING expr DLM
                     {
                     WARNING41=(Token)match(input,WARNING,FOLLOW_WARNING_in_stat494); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_WARNING.add(WARNING41);
@@ -1158,7 +1158,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 76:5: -> ^( WARNING expr )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:76:8: ^( WARNING expr )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:76:8: ^( WARNING expr )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_WARNING.nextNode(), root_1);
@@ -1174,7 +1174,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 23 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:77:5: ERROR expr DLM
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:77:5: ERROR expr DLM
                     {
                     ERROR44=(Token)match(input,ERROR,FOLLOW_ERROR_in_stat517); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_ERROR.add(ERROR44);
@@ -1204,7 +1204,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 78:5: -> ^( ERROR expr )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:78:8: ^( ERROR expr )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:78:8: ^( ERROR expr )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_ERROR.nextNode(), root_1);
@@ -1220,7 +1220,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 24 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:79:5: DEBUG expr DLM
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:79:5: DEBUG expr DLM
                     {
                     DEBUG47=(Token)match(input,DEBUG,FOLLOW_DEBUG_in_stat540); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_DEBUG.add(DEBUG47);
@@ -1250,7 +1250,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 80:5: -> ^( DEBUG expr )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:80:8: ^( DEBUG expr )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:80:8: ^( DEBUG expr )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_DEBUG.nextNode(), root_1);
@@ -1266,7 +1266,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 25 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:81:5: FILE filepath NEWLINE
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:81:5: FILE filepath NEWLINE
                     {
                     FILE50=(Token)match(input,FILE,FOLLOW_FILE_in_stat563); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_FILE.add(FILE50);
@@ -1296,7 +1296,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 82:5: -> ^( FILE filepath )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:82:8: ^( FILE filepath )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:82:8: ^( FILE filepath )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_FILE.nextNode(), root_1);
@@ -1312,7 +1312,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 26 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:83:5: NEWFILE filepath NEWLINE
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:83:5: NEWFILE filepath NEWLINE
                     {
                     NEWFILE53=(Token)match(input,NEWFILE,FOLLOW_NEWFILE_in_stat586); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_NEWFILE.add(NEWFILE53);
@@ -1329,7 +1329,7 @@ public class PtmParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: NEWFILE, filepath
+                    // elements: filepath, NEWFILE
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1342,7 +1342,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 84:5: -> ^( NEWFILE filepath )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:84:8: ^( NEWFILE filepath )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:84:8: ^( NEWFILE filepath )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_NEWFILE.nextNode(), root_1);
@@ -1358,7 +1358,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 27 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:85:5: INCLUDE filepath NEWLINE
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:85:5: INCLUDE filepath NEWLINE
                     {
                     INCLUDE56=(Token)match(input,INCLUDE,FOLLOW_INCLUDE_in_stat609); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_INCLUDE.add(INCLUDE56);
@@ -1375,7 +1375,7 @@ public class PtmParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: INCLUDE, filepath
+                    // elements: filepath, INCLUDE
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1388,7 +1388,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 86:5: -> ^( INCLUDE filepath )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:86:8: ^( INCLUDE filepath )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:86:8: ^( INCLUDE filepath )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_INCLUDE.nextNode(), root_1);
@@ -1404,7 +1404,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 28 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:87:5: IGNOREFILE filepath NEWLINE
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:87:5: IGNOREFILE filepath NEWLINE
                     {
                     IGNOREFILE59=(Token)match(input,IGNOREFILE,FOLLOW_IGNOREFILE_in_stat632); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_IGNOREFILE.add(IGNOREFILE59);
@@ -1434,7 +1434,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 88:5: -> ^( IGNOREFILE filepath )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:88:8: ^( IGNOREFILE filepath )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:88:8: ^( IGNOREFILE filepath )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_IGNOREFILE.nextNode(), root_1);
@@ -1450,7 +1450,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 29 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:89:5: PUSHFILE filepath NEWLINE
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:89:5: PUSHFILE filepath NEWLINE
                     {
                     PUSHFILE62=(Token)match(input,PUSHFILE,FOLLOW_PUSHFILE_in_stat655); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_PUSHFILE.add(PUSHFILE62);
@@ -1480,7 +1480,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 90:5: -> ^( PUSHFILE filepath )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:90:8: ^( PUSHFILE filepath )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:90:8: ^( PUSHFILE filepath )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_PUSHFILE.nextNode(), root_1);
@@ -1496,7 +1496,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 30 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:91:5: COPYFILE filepath filepath NEWLINE
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:91:5: COPYFILE filepath filepath NEWLINE
                     {
                     COPYFILE65=(Token)match(input,COPYFILE,FOLLOW_COPYFILE_in_stat678); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COPYFILE.add(COPYFILE65);
@@ -1519,7 +1519,7 @@ public class PtmParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: filepath, filepath, COPYFILE
+                    // elements: COPYFILE, filepath, filepath
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1532,7 +1532,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 92:5: -> ^( COPYFILE filepath filepath )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:92:8: ^( COPYFILE filepath filepath )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:92:8: ^( COPYFILE filepath filepath )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_COPYFILE.nextNode(), root_1);
@@ -1549,7 +1549,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 31 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:93:5: IFCONTEXT ID then2 ENDIF
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:93:5: IFCONTEXT ID then2 ENDIF
                     {
                     IFCONTEXT69=(Token)match(input,IFCONTEXT,FOLLOW_IFCONTEXT_in_stat705); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_IFCONTEXT.add(IFCONTEXT69);
@@ -1569,7 +1569,7 @@ public class PtmParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: IFCONTEXT, then2, ID
+                    // elements: IFCONTEXT, ID, then2
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1582,7 +1582,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 94:5: -> ^( IFCONTEXT ID then2 )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:94:8: ^( IFCONTEXT ID then2 )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:94:8: ^( IFCONTEXT ID then2 )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_IFCONTEXT.nextNode(), root_1);
@@ -1599,7 +1599,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 32 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:95:5: IFCONTEXT ID then2 else2 ENDIF
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:95:5: IFCONTEXT ID then2 else2 ENDIF
                     {
                     IFCONTEXT73=(Token)match(input,IFCONTEXT,FOLLOW_IFCONTEXT_in_stat732); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_IFCONTEXT.add(IFCONTEXT73);
@@ -1625,7 +1625,7 @@ public class PtmParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: else2, then2, ID, IFCONTEXT
+                    // elements: then2, ID, IFCONTEXT, else2
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1638,7 +1638,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 96:5: -> ^( IFCONTEXT ID then2 else2 )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:96:8: ^( IFCONTEXT ID then2 else2 )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:96:8: ^( IFCONTEXT ID then2 else2 )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_IFCONTEXT.nextNode(), root_1);
@@ -1656,7 +1656,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 33 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:97:5: IF_ expr then2 ( elseif )* ( else2 )? ENDIF
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:97:5: IF_ expr then2 ( elseif )* ( else2 )? ENDIF
                     {
                     IF_78=(Token)match(input,IF_,FOLLOW_IF__in_stat763); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_IF_.add(IF_78);
@@ -1673,7 +1673,7 @@ public class PtmParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_then2.add(then280.getTree());
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:97:20: ( elseif )*
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:97:20: ( elseif )*
                     loop4:
                     do {
                         int alt4=2;
@@ -1686,7 +1686,7 @@ public class PtmParser extends Parser {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:0:0: elseif
+                    	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:0:0: elseif
                     	    {
                     	    pushFollow(FOLLOW_elseif_in_stat769);
                     	    elseif81=elseif();
@@ -1703,7 +1703,7 @@ public class PtmParser extends Parser {
                         }
                     } while (true);
 
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:97:28: ( else2 )?
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:97:28: ( else2 )?
                     int alt5=2;
                     int LA5_0 = input.LA(1);
 
@@ -1712,7 +1712,7 @@ public class PtmParser extends Parser {
                     }
                     switch (alt5) {
                         case 1 :
-                            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:0:0: else2
+                            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:0:0: else2
                             {
                             pushFollow(FOLLOW_else2_in_stat772);
                             else282=else2();
@@ -1732,7 +1732,7 @@ public class PtmParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: then2, expr, elseif, IF_, else2
+                    // elements: elseif, else2, IF_, then2, expr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1745,20 +1745,20 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 98:5: -> ^( IF_ expr then2 ( elseif )* ( else2 )? )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:98:8: ^( IF_ expr then2 ( elseif )* ( else2 )? )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:98:8: ^( IF_ expr then2 ( elseif )* ( else2 )? )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_IF_.nextNode(), root_1);
 
                         adaptor.addChild(root_1, stream_expr.nextTree());
                         adaptor.addChild(root_1, stream_then2.nextTree());
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:98:25: ( elseif )*
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:98:25: ( elseif )*
                         while ( stream_elseif.hasNext() ) {
                             adaptor.addChild(root_1, stream_elseif.nextTree());
 
                         }
                         stream_elseif.reset();
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:98:33: ( else2 )?
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:98:33: ( else2 )?
                         if ( stream_else2.hasNext() ) {
                             adaptor.addChild(root_1, stream_else2.nextTree());
 
@@ -1774,7 +1774,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 34 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:99:5: SET settable ASSIGN expr DLM
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:99:5: SET settable ASSIGN expr DLM
                     {
                     SET84=(Token)match(input,SET,FOLLOW_SET_in_stat801); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_SET.add(SET84);
@@ -1800,7 +1800,7 @@ public class PtmParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: SET, settable, expr
+                    // elements: settable, SET, expr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1813,7 +1813,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 100:5: -> ^( SET settable expr )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:100:8: ^( SET settable expr )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:100:8: ^( SET settable expr )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_SET.nextNode(), root_1);
@@ -1830,7 +1830,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 35 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:101:5: DLM expr DLM
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:101:5: DLM expr DLM
                     {
                     DLM89=(Token)match(input,DLM,FOLLOW_DLM_in_stat830); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_DLM.add(DLM89);
@@ -1860,7 +1860,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 102:5: -> ^( SUB expr )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:102:8: ^( SUB expr )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:102:8: ^( SUB expr )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SUB, "SUB"), root_1);
@@ -1876,7 +1876,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 36 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:103:5: ITERATE ID DLM ( stat )+ ENDITERATE
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:103:5: ITERATE ID DLM ( stat )+ ENDITERATE
                     {
                     ITERATE92=(Token)match(input,ITERATE,FOLLOW_ITERATE_in_stat853); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_ITERATE.add(ITERATE92);
@@ -1887,7 +1887,7 @@ public class PtmParser extends Parser {
                     DLM94=(Token)match(input,DLM,FOLLOW_DLM_in_stat857); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_DLM.add(DLM94);
 
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:103:20: ( stat )+
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:103:20: ( stat )+
                     int cnt6=0;
                     loop6:
                     do {
@@ -1901,7 +1901,7 @@ public class PtmParser extends Parser {
 
                         switch (alt6) {
                     	case 1 :
-                    	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:0:0: stat
+                    	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:0:0: stat
                     	    {
                     	    pushFollow(FOLLOW_stat_in_stat859);
                     	    stat95=stat();
@@ -1929,7 +1929,7 @@ public class PtmParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: ID, ITERATE, stat
+                    // elements: ITERATE, stat, ID
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1942,12 +1942,12 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 104:5: -> ^( ITERATE ^( ID ( stat )+ ) )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:104:8: ^( ITERATE ^( ID ( stat )+ ) )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:104:8: ^( ITERATE ^( ID ( stat )+ ) )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_ITERATE.nextNode(), root_1);
 
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:104:18: ^( ID ( stat )+ )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:104:18: ^( ID ( stat )+ )
                         {
                         CommonTree root_2 = (CommonTree)adaptor.nil();
                         root_2 = (CommonTree)adaptor.becomeRoot(stream_ID.nextNode(), root_2);
@@ -1973,7 +1973,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 37 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:105:5: LOOP expr DLM ( stat )+ ENDLOOP
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:105:5: LOOP expr DLM ( stat )+ ENDLOOP
                     {
                     LOOP97=(Token)match(input,LOOP,FOLLOW_LOOP_in_stat886); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LOOP.add(LOOP97);
@@ -1987,7 +1987,7 @@ public class PtmParser extends Parser {
                     DLM99=(Token)match(input,DLM,FOLLOW_DLM_in_stat890); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_DLM.add(DLM99);
 
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:105:19: ( stat )+
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:105:19: ( stat )+
                     int cnt7=0;
                     loop7:
                     do {
@@ -2001,7 +2001,7 @@ public class PtmParser extends Parser {
 
                         switch (alt7) {
                     	case 1 :
-                    	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:0:0: stat
+                    	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:0:0: stat
                     	    {
                     	    pushFollow(FOLLOW_stat_in_stat892);
                     	    stat100=stat();
@@ -2029,7 +2029,7 @@ public class PtmParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: expr, LOOP, stat
+                    // elements: stat, expr, LOOP
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2042,13 +2042,13 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 106:5: -> ^( LOOP expr ^( SUB ( stat )+ ) )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:106:8: ^( LOOP expr ^( SUB ( stat )+ ) )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:106:8: ^( LOOP expr ^( SUB ( stat )+ ) )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_LOOP.nextNode(), root_1);
 
                         adaptor.addChild(root_1, stream_expr.nextTree());
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:106:20: ^( SUB ( stat )+ )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:106:20: ^( SUB ( stat )+ )
                         {
                         CommonTree root_2 = (CommonTree)adaptor.nil();
                         root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SUB, "SUB"), root_2);
@@ -2102,7 +2102,7 @@ public class PtmParser extends Parser {
     };
 
     // $ANTLR start "then2"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:108:1: then2 : DLM ( stat )+ -> ^( THEN ( stat )+ ) ;
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:108:1: then2 : DLM ( stat )+ -> ^( THEN ( stat )+ ) ;
     public final PtmParser.then2_return then2() throws RecognitionException {
         PtmParser.then2_return retval = new PtmParser.then2_return();
         retval.start = input.LT(1);
@@ -2118,13 +2118,13 @@ public class PtmParser extends Parser {
         RewriteRuleSubtreeStream stream_stat=new RewriteRuleSubtreeStream(adaptor,"rule stat");
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:108:7: ( DLM ( stat )+ -> ^( THEN ( stat )+ ) )
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:109:3: DLM ( stat )+
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:108:7: ( DLM ( stat )+ -> ^( THEN ( stat )+ ) )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:109:3: DLM ( stat )+
             {
             DLM102=(Token)match(input,DLM,FOLLOW_DLM_in_then2925); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_DLM.add(DLM102);
 
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:109:7: ( stat )+
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:109:7: ( stat )+
             int cnt9=0;
             loop9:
             do {
@@ -2138,7 +2138,7 @@ public class PtmParser extends Parser {
 
                 switch (alt9) {
             	case 1 :
-            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:0:0: stat
+            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:0:0: stat
             	    {
             	    pushFollow(FOLLOW_stat_in_then2927);
             	    stat103=stat();
@@ -2176,7 +2176,7 @@ public class PtmParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 110:5: -> ^( THEN ( stat )+ )
             {
-                // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:110:8: ^( THEN ( stat )+ )
+                // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:110:8: ^( THEN ( stat )+ )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(THEN, "THEN"), root_1);
@@ -2225,7 +2225,7 @@ public class PtmParser extends Parser {
     };
 
     // $ANTLR start "else2"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:112:1: else2 : ELSE_ ( stat )+ -> ^( ELSE_ ( stat )+ ) ;
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:112:1: else2 : ELSE_ ( stat )+ -> ^( ELSE_ ( stat )+ ) ;
     public final PtmParser.else2_return else2() throws RecognitionException {
         PtmParser.else2_return retval = new PtmParser.else2_return();
         retval.start = input.LT(1);
@@ -2241,13 +2241,13 @@ public class PtmParser extends Parser {
         RewriteRuleSubtreeStream stream_stat=new RewriteRuleSubtreeStream(adaptor,"rule stat");
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:112:7: ( ELSE_ ( stat )+ -> ^( ELSE_ ( stat )+ ) )
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:113:3: ELSE_ ( stat )+
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:112:7: ( ELSE_ ( stat )+ -> ^( ELSE_ ( stat )+ ) )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:113:3: ELSE_ ( stat )+
             {
             ELSE_104=(Token)match(input,ELSE_,FOLLOW_ELSE__in_else2952); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_ELSE_.add(ELSE_104);
 
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:113:9: ( stat )+
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:113:9: ( stat )+
             int cnt10=0;
             loop10:
             do {
@@ -2261,7 +2261,7 @@ public class PtmParser extends Parser {
 
                 switch (alt10) {
             	case 1 :
-            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:0:0: stat
+            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:0:0: stat
             	    {
             	    pushFollow(FOLLOW_stat_in_else2954);
             	    stat105=stat();
@@ -2299,7 +2299,7 @@ public class PtmParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 114:5: -> ^( ELSE_ ( stat )+ )
             {
-                // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:114:8: ^( ELSE_ ( stat )+ )
+                // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:114:8: ^( ELSE_ ( stat )+ )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot(stream_ELSE_.nextNode(), root_1);
@@ -2348,7 +2348,7 @@ public class PtmParser extends Parser {
     };
 
     // $ANTLR start "elseif"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:116:1: elseif : ELSEIF_ expr then2 -> ^( ELSEIF_ expr then2 ) ;
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:116:1: elseif : ELSEIF_ expr then2 -> ^( ELSEIF_ expr then2 ) ;
     public final PtmParser.elseif_return elseif() throws RecognitionException {
         PtmParser.elseif_return retval = new PtmParser.elseif_return();
         retval.start = input.LT(1);
@@ -2367,8 +2367,8 @@ public class PtmParser extends Parser {
         RewriteRuleSubtreeStream stream_then2=new RewriteRuleSubtreeStream(adaptor,"rule then2");
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:116:8: ( ELSEIF_ expr then2 -> ^( ELSEIF_ expr then2 ) )
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:117:3: ELSEIF_ expr then2
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:116:8: ( ELSEIF_ expr then2 -> ^( ELSEIF_ expr then2 ) )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:117:3: ELSEIF_ expr then2
             {
             ELSEIF_106=(Token)match(input,ELSEIF_,FOLLOW_ELSEIF__in_elseif979); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_ELSEIF_.add(ELSEIF_106);
@@ -2388,7 +2388,7 @@ public class PtmParser extends Parser {
 
 
             // AST REWRITE
-            // elements: ELSEIF_, expr, then2
+            // elements: ELSEIF_, then2, expr
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2401,7 +2401,7 @@ public class PtmParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 118:5: -> ^( ELSEIF_ expr then2 )
             {
-                // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:118:8: ^( ELSEIF_ expr then2 )
+                // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:118:8: ^( ELSEIF_ expr then2 )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot(stream_ELSEIF_.nextNode(), root_1);
@@ -2444,7 +2444,7 @@ public class PtmParser extends Parser {
     };
 
     // $ANTLR start "types"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:120:1: types : TYPE ( stat )* ( NEWLINE )+ -> ^( TYPE ( stat )* ) ;
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:120:1: types : TYPE ( stat )* ( NEWLINE )+ -> ^( TYPE ( stat )* ) ;
     public final PtmParser.types_return types() throws RecognitionException {
         PtmParser.types_return retval = new PtmParser.types_return();
         retval.start = input.LT(1);
@@ -2463,13 +2463,13 @@ public class PtmParser extends Parser {
         RewriteRuleSubtreeStream stream_stat=new RewriteRuleSubtreeStream(adaptor,"rule stat");
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:120:7: ( TYPE ( stat )* ( NEWLINE )+ -> ^( TYPE ( stat )* ) )
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:121:5: TYPE ( stat )* ( NEWLINE )+
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:120:7: ( TYPE ( stat )* ( NEWLINE )+ -> ^( TYPE ( stat )* ) )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:121:5: TYPE ( stat )* ( NEWLINE )+
             {
             TYPE109=(Token)match(input,TYPE,FOLLOW_TYPE_in_types1010); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_TYPE.add(TYPE109);
 
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:121:10: ( stat )*
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:121:10: ( stat )*
             loop11:
             do {
                 int alt11=2;
@@ -2482,7 +2482,7 @@ public class PtmParser extends Parser {
 
                 switch (alt11) {
             	case 1 :
-            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:0:0: stat
+            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:0:0: stat
             	    {
             	    pushFollow(FOLLOW_stat_in_types1012);
             	    stat110=stat();
@@ -2499,7 +2499,7 @@ public class PtmParser extends Parser {
                 }
             } while (true);
 
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:121:16: ( NEWLINE )+
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:121:16: ( NEWLINE )+
             int cnt12=0;
             loop12:
             do {
@@ -2519,7 +2519,7 @@ public class PtmParser extends Parser {
 
                 switch (alt12) {
             	case 1 :
-            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:0:0: NEWLINE
+            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:0:0: NEWLINE
             	    {
             	    NEWLINE111=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_types1015); if (state.failed) return retval; 
             	    if ( state.backtracking==0 ) stream_NEWLINE.add(NEWLINE111);
@@ -2541,7 +2541,7 @@ public class PtmParser extends Parser {
 
 
             // AST REWRITE
-            // elements: stat, TYPE
+            // elements: TYPE, stat
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2554,12 +2554,12 @@ public class PtmParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 122:9: -> ^( TYPE ( stat )* )
             {
-                // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:122:12: ^( TYPE ( stat )* )
+                // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:122:12: ^( TYPE ( stat )* )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot(stream_TYPE.nextNode(), root_1);
 
-                // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:122:19: ( stat )*
+                // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:122:19: ( stat )*
                 while ( stream_stat.hasNext() ) {
                     adaptor.addChild(root_1, stream_stat.nextTree());
 
@@ -2601,7 +2601,7 @@ public class PtmParser extends Parser {
     };
 
     // $ANTLR start "types2"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:123:1: types2 : ( types | REM );
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:123:1: types2 : ( types | REM );
     public final PtmParser.types2_return types2() throws RecognitionException {
         PtmParser.types2_return retval = new PtmParser.types2_return();
         retval.start = input.LT(1);
@@ -2616,7 +2616,7 @@ public class PtmParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:123:8: ( types | REM )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:123:8: ( types | REM )
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -2635,7 +2635,7 @@ public class PtmParser extends Parser {
             }
             switch (alt13) {
                 case 1 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:124:5: types
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:124:5: types
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -2649,7 +2649,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:124:13: REM
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:124:13: REM
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -2690,7 +2690,7 @@ public class PtmParser extends Parser {
     };
 
     // $ANTLR start "settable"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:126:1: settable : ( ID ( array )* -> ^( ATTRIBUTE ID ( array )* ) | ID DOT ID ( array )* -> ^( ATTRIBUTE2 ID ID ( array )* ) | HASH ID ( array )* -> ^( VARIABLE ID ( array )* ) | ID HASH ID ( array )* -> ^( VARIABLE2 ID ID ( array )* ) );
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:126:1: settable : ( ID ( array )* -> ^( ATTRIBUTE ID ( array )* ) | ID DOT ID ( array )* -> ^( ATTRIBUTE2 ID ID ( array )* ) | HASH ID ( array )* -> ^( VARIABLE ID ( array )* ) | ID HASH ID ( array )* -> ^( VARIABLE2 ID ID ( array )* ) );
     public final PtmParser.settable_return settable() throws RecognitionException {
         PtmParser.settable_return retval = new PtmParser.settable_return();
         retval.start = input.LT(1);
@@ -2730,7 +2730,7 @@ public class PtmParser extends Parser {
         RewriteRuleSubtreeStream stream_array=new RewriteRuleSubtreeStream(adaptor,"rule array");
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:126:10: ( ID ( array )* -> ^( ATTRIBUTE ID ( array )* ) | ID DOT ID ( array )* -> ^( ATTRIBUTE2 ID ID ( array )* ) | HASH ID ( array )* -> ^( VARIABLE ID ( array )* ) | ID HASH ID ( array )* -> ^( VARIABLE2 ID ID ( array )* ) )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:126:10: ( ID ( array )* -> ^( ATTRIBUTE ID ( array )* ) | ID DOT ID ( array )* -> ^( ATTRIBUTE2 ID ID ( array )* ) | HASH ID ( array )* -> ^( VARIABLE ID ( array )* ) | ID HASH ID ( array )* -> ^( VARIABLE2 ID ID ( array )* ) )
             int alt18=4;
             int LA18_0 = input.LA(1);
 
@@ -2794,12 +2794,12 @@ public class PtmParser extends Parser {
             }
             switch (alt18) {
                 case 1 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:127:3: ID ( array )*
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:127:3: ID ( array )*
                     {
                     ID114=(Token)match(input,ID,FOLLOW_ID_in_settable1059); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_ID.add(ID114);
 
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:127:6: ( array )*
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:127:6: ( array )*
                     loop14:
                     do {
                         int alt14=2;
@@ -2812,7 +2812,7 @@ public class PtmParser extends Parser {
 
                         switch (alt14) {
                     	case 1 :
-                    	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:0:0: array
+                    	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:0:0: array
                     	    {
                     	    pushFollow(FOLLOW_array_in_settable1061);
                     	    array115=array();
@@ -2845,13 +2845,13 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 128:9: -> ^( ATTRIBUTE ID ( array )* )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:128:12: ^( ATTRIBUTE ID ( array )* )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:128:12: ^( ATTRIBUTE ID ( array )* )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ATTRIBUTE, "ATTRIBUTE"), root_1);
 
                         adaptor.addChild(root_1, stream_ID.nextNode());
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:128:27: ( array )*
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:128:27: ( array )*
                         while ( stream_array.hasNext() ) {
                             adaptor.addChild(root_1, stream_array.nextTree());
 
@@ -2867,7 +2867,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:129:7: ID DOT ID ( array )*
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:129:7: ID DOT ID ( array )*
                     {
                     ID116=(Token)match(input,ID,FOLLOW_ID_in_settable1090); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_ID.add(ID116);
@@ -2878,7 +2878,7 @@ public class PtmParser extends Parser {
                     ID118=(Token)match(input,ID,FOLLOW_ID_in_settable1094); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_ID.add(ID118);
 
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:129:17: ( array )*
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:129:17: ( array )*
                     loop15:
                     do {
                         int alt15=2;
@@ -2891,7 +2891,7 @@ public class PtmParser extends Parser {
 
                         switch (alt15) {
                     	case 1 :
-                    	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:0:0: array
+                    	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:0:0: array
                     	    {
                     	    pushFollow(FOLLOW_array_in_settable1096);
                     	    array119=array();
@@ -2924,14 +2924,14 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 130:9: -> ^( ATTRIBUTE2 ID ID ( array )* )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:130:12: ^( ATTRIBUTE2 ID ID ( array )* )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:130:12: ^( ATTRIBUTE2 ID ID ( array )* )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ATTRIBUTE2, "ATTRIBUTE2"), root_1);
 
                         adaptor.addChild(root_1, stream_ID.nextNode());
                         adaptor.addChild(root_1, stream_ID.nextNode());
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:130:31: ( array )*
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:130:31: ( array )*
                         while ( stream_array.hasNext() ) {
                             adaptor.addChild(root_1, stream_array.nextTree());
 
@@ -2947,7 +2947,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:131:7: HASH ID ( array )*
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:131:7: HASH ID ( array )*
                     {
                     HASH120=(Token)match(input,HASH,FOLLOW_HASH_in_settable1127); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_HASH.add(HASH120);
@@ -2955,7 +2955,7 @@ public class PtmParser extends Parser {
                     ID121=(Token)match(input,ID,FOLLOW_ID_in_settable1129); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_ID.add(ID121);
 
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:131:15: ( array )*
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:131:15: ( array )*
                     loop16:
                     do {
                         int alt16=2;
@@ -2968,7 +2968,7 @@ public class PtmParser extends Parser {
 
                         switch (alt16) {
                     	case 1 :
-                    	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:0:0: array
+                    	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:0:0: array
                     	    {
                     	    pushFollow(FOLLOW_array_in_settable1131);
                     	    array122=array();
@@ -2988,7 +2988,7 @@ public class PtmParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: ID, array
+                    // elements: array, ID
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3001,13 +3001,13 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 132:5: -> ^( VARIABLE ID ( array )* )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:132:8: ^( VARIABLE ID ( array )* )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:132:8: ^( VARIABLE ID ( array )* )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(VARIABLE, "VARIABLE"), root_1);
 
                         adaptor.addChild(root_1, stream_ID.nextNode());
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:132:22: ( array )*
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:132:22: ( array )*
                         while ( stream_array.hasNext() ) {
                             adaptor.addChild(root_1, stream_array.nextTree());
 
@@ -3023,7 +3023,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:133:5: ID HASH ID ( array )*
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:133:5: ID HASH ID ( array )*
                     {
                     ID123=(Token)match(input,ID,FOLLOW_ID_in_settable1154); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_ID.add(ID123);
@@ -3034,7 +3034,7 @@ public class PtmParser extends Parser {
                     ID125=(Token)match(input,ID,FOLLOW_ID_in_settable1158); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_ID.add(ID125);
 
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:133:16: ( array )*
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:133:16: ( array )*
                     loop17:
                     do {
                         int alt17=2;
@@ -3047,7 +3047,7 @@ public class PtmParser extends Parser {
 
                         switch (alt17) {
                     	case 1 :
-                    	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:0:0: array
+                    	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:0:0: array
                     	    {
                     	    pushFollow(FOLLOW_array_in_settable1160);
                     	    array126=array();
@@ -3080,14 +3080,14 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 134:5: -> ^( VARIABLE2 ID ID ( array )* )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:134:8: ^( VARIABLE2 ID ID ( array )* )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:134:8: ^( VARIABLE2 ID ID ( array )* )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(VARIABLE2, "VARIABLE2"), root_1);
 
                         adaptor.addChild(root_1, stream_ID.nextNode());
                         adaptor.addChild(root_1, stream_ID.nextNode());
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:134:26: ( array )*
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:134:26: ( array )*
                         while ( stream_array.hasNext() ) {
                             adaptor.addChild(root_1, stream_array.nextTree());
 
@@ -3131,7 +3131,7 @@ public class PtmParser extends Parser {
     };
 
     // $ANTLR start "array"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:136:1: array : LSQUARE expr RSQUARE -> ^( ARRAY expr ) ;
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:136:1: array : LSQUARE expr RSQUARE -> ^( ARRAY expr ) ;
     public final PtmParser.array_return array() throws RecognitionException {
         PtmParser.array_return retval = new PtmParser.array_return();
         retval.start = input.LT(1);
@@ -3150,8 +3150,8 @@ public class PtmParser extends Parser {
         RewriteRuleSubtreeStream stream_expr=new RewriteRuleSubtreeStream(adaptor,"rule expr");
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:136:6: ( LSQUARE expr RSQUARE -> ^( ARRAY expr ) )
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:137:1: LSQUARE expr RSQUARE
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:136:6: ( LSQUARE expr RSQUARE -> ^( ARRAY expr ) )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:137:1: LSQUARE expr RSQUARE
             {
             LSQUARE127=(Token)match(input,LSQUARE,FOLLOW_LSQUARE_in_array1187); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_LSQUARE.add(LSQUARE127);
@@ -3181,7 +3181,7 @@ public class PtmParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 138:6: -> ^( ARRAY expr )
             {
-                // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:138:9: ^( ARRAY expr )
+                // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:138:9: ^( ARRAY expr )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(ARRAY, "ARRAY"), root_1);
@@ -3223,7 +3223,7 @@ public class PtmParser extends Parser {
     };
 
     // $ANTLR start "readable"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:140:1: readable : ( settable | RESERVED ID -> ^( RESERVED ID ) | TYPED ID -> ^( TYPED ID ) );
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:140:1: readable : ( settable | RESERVED ID -> ^( RESERVED ID ) | TYPED ID -> ^( TYPED ID ) );
     public final PtmParser.readable_return readable() throws RecognitionException {
         PtmParser.readable_return retval = new PtmParser.readable_return();
         retval.start = input.LT(1);
@@ -3247,7 +3247,7 @@ public class PtmParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:140:10: ( settable | RESERVED ID -> ^( RESERVED ID ) | TYPED ID -> ^( TYPED ID ) )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:140:10: ( settable | RESERVED ID -> ^( RESERVED ID ) | TYPED ID -> ^( TYPED ID ) )
             int alt19=3;
             switch ( input.LA(1) ) {
             case ID:
@@ -3276,7 +3276,7 @@ public class PtmParser extends Parser {
 
             switch (alt19) {
                 case 1 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:141:3: settable
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:141:3: settable
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -3290,7 +3290,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:142:5: RESERVED ID
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:142:5: RESERVED ID
                     {
                     RESERVED131=(Token)match(input,RESERVED,FOLLOW_RESERVED_in_readable1220); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RESERVED.add(RESERVED131);
@@ -3301,7 +3301,7 @@ public class PtmParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: ID, RESERVED
+                    // elements: RESERVED, ID
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3314,7 +3314,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 143:5: -> ^( RESERVED ID )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:143:8: ^( RESERVED ID )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:143:8: ^( RESERVED ID )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_RESERVED.nextNode(), root_1);
@@ -3330,7 +3330,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:144:5: TYPED ID
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:144:5: TYPED ID
                     {
                     TYPED133=(Token)match(input,TYPED,FOLLOW_TYPED_in_readable1241); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_TYPED.add(TYPED133);
@@ -3354,7 +3354,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 145:5: -> ^( TYPED ID )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:145:8: ^( TYPED ID )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:145:8: ^( TYPED ID )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_TYPED.nextNode(), root_1);
@@ -3398,7 +3398,7 @@ public class PtmParser extends Parser {
     };
 
     // $ANTLR start "filepath"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:147:1: filepath : ( filepart )+ -> ^( PATH ( filepart )+ ) ;
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:147:1: filepath : ( filepart )+ -> ^( PATH ( filepart )+ ) ;
     public final PtmParser.filepath_return filepath() throws RecognitionException {
         PtmParser.filepath_return retval = new PtmParser.filepath_return();
         retval.start = input.LT(1);
@@ -3411,10 +3411,10 @@ public class PtmParser extends Parser {
         RewriteRuleSubtreeStream stream_filepart=new RewriteRuleSubtreeStream(adaptor,"rule filepart");
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:147:10: ( ( filepart )+ -> ^( PATH ( filepart )+ ) )
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:148:3: ( filepart )+
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:147:10: ( ( filepart )+ -> ^( PATH ( filepart )+ ) )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:148:3: ( filepart )+
             {
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:148:3: ( filepart )+
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:148:3: ( filepart )+
             int cnt20=0;
             loop20:
             do {
@@ -3462,7 +3462,7 @@ public class PtmParser extends Parser {
 
                 switch (alt20) {
             	case 1 :
-            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:0:0: filepart
+            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:0:0: filepart
             	    {
             	    pushFollow(FOLLOW_filepart_in_filepath1267);
             	    filepart135=filepart();
@@ -3500,7 +3500,7 @@ public class PtmParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 149:6: -> ^( PATH ( filepart )+ )
             {
-                // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:149:9: ^( PATH ( filepart )+ )
+                // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:149:9: ^( PATH ( filepart )+ )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(PATH, "PATH"), root_1);
@@ -3549,7 +3549,7 @@ public class PtmParser extends Parser {
     };
 
     // $ANTLR start "filepart"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:151:1: filepart : ( ( fileliteral )+ -> ^( LITERAL ( fileliteral )+ ) | DLM readable DLM -> ^( SUB readable ) | MACRO ID DLM -> ^( MACRO ID ) );
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:151:1: filepart : ( ( fileliteral )+ -> ^( LITERAL ( fileliteral )+ ) | DLM readable DLM -> ^( SUB readable ) | MACRO ID DLM -> ^( MACRO ID ) );
     public final PtmParser.filepart_return filepart() throws RecognitionException {
         PtmParser.filepart_return retval = new PtmParser.filepart_return();
         retval.start = input.LT(1);
@@ -3578,7 +3578,7 @@ public class PtmParser extends Parser {
         RewriteRuleSubtreeStream stream_fileliteral=new RewriteRuleSubtreeStream(adaptor,"rule fileliteral");
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:151:10: ( ( fileliteral )+ -> ^( LITERAL ( fileliteral )+ ) | DLM readable DLM -> ^( SUB readable ) | MACRO ID DLM -> ^( MACRO ID ) )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:151:10: ( ( fileliteral )+ -> ^( LITERAL ( fileliteral )+ ) | DLM readable DLM -> ^( SUB readable ) | MACRO ID DLM -> ^( MACRO ID ) )
             int alt22=3;
             switch ( input.LA(1) ) {
             case MINUS:
@@ -3610,9 +3610,9 @@ public class PtmParser extends Parser {
 
             switch (alt22) {
                 case 1 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:152:3: ( fileliteral )+
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:152:3: ( fileliteral )+
                     {
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:152:3: ( fileliteral )+
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:152:3: ( fileliteral )+
                     int cnt21=0;
                     loop21:
                     do {
@@ -3632,7 +3632,7 @@ public class PtmParser extends Parser {
 
                         switch (alt21) {
                     	case 1 :
-                    	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:0:0: fileliteral
+                    	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:0:0: fileliteral
                     	    {
                     	    pushFollow(FOLLOW_fileliteral_in_filepart1292);
                     	    fileliteral136=fileliteral();
@@ -3670,7 +3670,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 153:7: -> ^( LITERAL ( fileliteral )+ )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:153:10: ^( LITERAL ( fileliteral )+ )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:153:10: ^( LITERAL ( fileliteral )+ )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(LITERAL, "LITERAL"), root_1);
@@ -3693,7 +3693,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:154:7: DLM readable DLM
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:154:7: DLM readable DLM
                     {
                     DLM137=(Token)match(input,DLM,FOLLOW_DLM_in_filepart1316); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_DLM.add(DLM137);
@@ -3723,7 +3723,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 155:9: -> ^( SUB readable )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:155:12: ^( SUB readable )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:155:12: ^( SUB readable )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(SUB, "SUB"), root_1);
@@ -3739,7 +3739,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:156:7: MACRO ID DLM
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:156:7: MACRO ID DLM
                     {
                     MACRO140=(Token)match(input,MACRO,FOLLOW_MACRO_in_filepart1345); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_MACRO.add(MACRO140);
@@ -3766,7 +3766,7 @@ public class PtmParser extends Parser {
                     root_0 = (CommonTree)adaptor.nil();
                     // 157:9: -> ^( MACRO ID )
                     {
-                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:157:12: ^( MACRO ID )
+                        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:157:12: ^( MACRO ID )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(stream_MACRO.nextNode(), root_1);
@@ -3810,7 +3810,7 @@ public class PtmParser extends Parser {
     };
 
     // $ANTLR start "fileliteral"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:159:1: fileliteral : ( ID | INT | MINUS | DOT | SLASH );
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:159:1: fileliteral : ( ID | INT | MINUS | DOT | SLASH );
     public final PtmParser.fileliteral_return fileliteral() throws RecognitionException {
         PtmParser.fileliteral_return retval = new PtmParser.fileliteral_return();
         retval.start = input.LT(1);
@@ -3823,8 +3823,8 @@ public class PtmParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:159:13: ( ID | INT | MINUS | DOT | SLASH )
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:159:13: ( ID | INT | MINUS | DOT | SLASH )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -3870,7 +3870,7 @@ public class PtmParser extends Parser {
     };
 
     // $ANTLR start "expr"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:166:1: expr : choice ( QUESTION expr COLON expr )* ;
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:166:1: expr : choice ( QUESTION expr COLON expr )* ;
     public final PtmParser.expr_return expr() throws RecognitionException {
         PtmParser.expr_return retval = new PtmParser.expr_return();
         retval.start = input.LT(1);
@@ -3891,8 +3891,8 @@ public class PtmParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:166:6: ( choice ( QUESTION expr COLON expr )* )
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:167:3: choice ( QUESTION expr COLON expr )*
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:166:6: ( choice ( QUESTION expr COLON expr )* )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:167:3: choice ( QUESTION expr COLON expr )*
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -3902,7 +3902,7 @@ public class PtmParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, choice144.getTree());
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:167:10: ( QUESTION expr COLON expr )*
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:167:10: ( QUESTION expr COLON expr )*
             loop23:
             do {
                 int alt23=2;
@@ -3921,7 +3921,7 @@ public class PtmParser extends Parser {
 
                 switch (alt23) {
             	case 1 :
-            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:167:11: QUESTION expr COLON expr
+            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:167:11: QUESTION expr COLON expr
             	    {
             	    QUESTION145=(Token)match(input,QUESTION,FOLLOW_QUESTION_in_expr1423); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -3980,7 +3980,7 @@ public class PtmParser extends Parser {
     };
 
     // $ANTLR start "choice"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:169:1: choice : mult ( op1 mult )* ;
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:169:1: choice : mult ( op1 mult )* ;
     public final PtmParser.choice_return choice() throws RecognitionException {
         PtmParser.choice_return retval = new PtmParser.choice_return();
         retval.start = input.LT(1);
@@ -3997,8 +3997,8 @@ public class PtmParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 15) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:169:8: ( mult ( op1 mult )* )
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:170:3: mult ( op1 mult )*
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:169:8: ( mult ( op1 mult )* )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:170:3: mult ( op1 mult )*
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -4008,7 +4008,7 @@ public class PtmParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, mult149.getTree());
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:170:8: ( op1 mult )*
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:170:8: ( op1 mult )*
             loop24:
             do {
                 int alt24=2;
@@ -4021,7 +4021,7 @@ public class PtmParser extends Parser {
 
                 switch (alt24) {
             	case 1 :
-            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:170:9: op1 mult
+            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:170:9: op1 mult
             	    {
             	    pushFollow(FOLLOW_op1_in_choice1446);
             	    op1150=op1();
@@ -4074,7 +4074,7 @@ public class PtmParser extends Parser {
     };
 
     // $ANTLR start "op1"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:172:1: op1 : ( PLUS | MINUS | APPEND | OR | AND );
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:172:1: op1 : ( PLUS | MINUS | APPEND | OR | AND );
     public final PtmParser.op1_return op1() throws RecognitionException {
         PtmParser.op1_return retval = new PtmParser.op1_return();
         retval.start = input.LT(1);
@@ -4087,8 +4087,8 @@ public class PtmParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 16) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:172:5: ( PLUS | MINUS | APPEND | OR | AND )
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:172:5: ( PLUS | MINUS | APPEND | OR | AND )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -4134,7 +4134,7 @@ public class PtmParser extends Parser {
     };
 
     // $ANTLR start "mult"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:179:1: mult : not ( op2 not )* ;
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:179:1: mult : not ( op2 not )* ;
     public final PtmParser.mult_return mult() throws RecognitionException {
         PtmParser.mult_return retval = new PtmParser.mult_return();
         retval.start = input.LT(1);
@@ -4151,8 +4151,8 @@ public class PtmParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 17) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:179:6: ( not ( op2 not )* )
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:180:3: not ( op2 not )*
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:179:6: ( not ( op2 not )* )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:180:3: not ( op2 not )*
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -4162,7 +4162,7 @@ public class PtmParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, not153.getTree());
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:180:7: ( op2 not )*
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:180:7: ( op2 not )*
             loop25:
             do {
                 int alt25=2;
@@ -4175,7 +4175,7 @@ public class PtmParser extends Parser {
 
                 switch (alt25) {
             	case 1 :
-            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:180:8: op2 not
+            	    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:180:8: op2 not
             	    {
             	    pushFollow(FOLLOW_op2_in_mult1498);
             	    op2154=op2();
@@ -4228,7 +4228,7 @@ public class PtmParser extends Parser {
     };
 
     // $ANTLR start "op2"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:182:1: op2 : ( MULTIPLY | SLASH | TILDE | EQUAL | NE | GT | GE | LT | LE );
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:182:1: op2 : ( MULTIPLY | SLASH | TILDE | EQUAL | NE | GT | GE | LT | LE );
     public final PtmParser.op2_return op2() throws RecognitionException {
         PtmParser.op2_return retval = new PtmParser.op2_return();
         retval.start = input.LT(1);
@@ -4241,8 +4241,8 @@ public class PtmParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 18) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:182:5: ( MULTIPLY | SLASH | TILDE | EQUAL | NE | GT | GE | LT | LE )
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:182:5: ( MULTIPLY | SLASH | TILDE | EQUAL | NE | GT | GE | LT | LE )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -4288,7 +4288,7 @@ public class PtmParser extends Parser {
     };
 
     // $ANTLR start "not"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:193:1: not : ( NOT pow | pow );
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:193:1: not : ( NOT pow | pow );
     public final PtmParser.not_return not() throws RecognitionException {
         PtmParser.not_return retval = new PtmParser.not_return();
         retval.start = input.LT(1);
@@ -4305,7 +4305,7 @@ public class PtmParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 19) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:193:5: ( NOT pow | pow )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:193:5: ( NOT pow | pow )
             int alt26=2;
             int LA26_0 = input.LA(1);
 
@@ -4324,7 +4324,7 @@ public class PtmParser extends Parser {
             }
             switch (alt26) {
                 case 1 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:194:3: NOT pow
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:194:3: NOT pow
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -4343,7 +4343,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:195:5: pow
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:195:5: pow
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -4385,7 +4385,7 @@ public class PtmParser extends Parser {
     };
 
     // $ANTLR start "pow"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:197:1: pow : atom ( HAT pow )? ;
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:197:1: pow : atom ( HAT pow )? ;
     public final PtmParser.pow_return pow() throws RecognitionException {
         PtmParser.pow_return retval = new PtmParser.pow_return();
         retval.start = input.LT(1);
@@ -4402,8 +4402,8 @@ public class PtmParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 20) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:197:5: ( atom ( HAT pow )? )
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:198:3: atom ( HAT pow )?
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:197:5: ( atom ( HAT pow )? )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:198:3: atom ( HAT pow )?
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -4413,7 +4413,7 @@ public class PtmParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, atom160.getTree());
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:198:8: ( HAT pow )?
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:198:8: ( HAT pow )?
             int alt27=2;
             int LA27_0 = input.LA(1);
 
@@ -4422,7 +4422,7 @@ public class PtmParser extends Parser {
             }
             switch (alt27) {
                 case 1 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:198:9: HAT pow
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:198:9: HAT pow
                     {
                     HAT161=(Token)match(input,HAT,FOLLOW_HAT_in_pow1593); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
@@ -4471,7 +4471,7 @@ public class PtmParser extends Parser {
     };
 
     // $ANTLR start "atom"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:200:1: atom : ( ( PLUS | MINUS )? INT | LITERAL | readable | ( LPARAN expr RPARAN ) | function );
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:200:1: atom : ( ( PLUS | MINUS )? INT | LITERAL | readable | ( LPARAN expr RPARAN ) | function );
     public final PtmParser.atom_return atom() throws RecognitionException {
         PtmParser.atom_return retval = new PtmParser.atom_return();
         retval.start = input.LT(1);
@@ -4498,7 +4498,7 @@ public class PtmParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 21) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:200:6: ( ( PLUS | MINUS )? INT | LITERAL | readable | ( LPARAN expr RPARAN ) | function )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:200:6: ( ( PLUS | MINUS )? INT | LITERAL | readable | ( LPARAN expr RPARAN ) | function )
             int alt29=5;
             switch ( input.LA(1) ) {
             case MINUS:
@@ -4554,11 +4554,11 @@ public class PtmParser extends Parser {
 
             switch (alt29) {
                 case 1 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:201:3: ( PLUS | MINUS )? INT
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:201:3: ( PLUS | MINUS )? INT
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:201:3: ( PLUS | MINUS )?
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:201:3: ( PLUS | MINUS )?
                     int alt28=2;
                     int LA28_0 = input.LA(1);
 
@@ -4567,7 +4567,7 @@ public class PtmParser extends Parser {
                     }
                     switch (alt28) {
                         case 1 :
-                            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:
+                            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:
                             {
                             set163=(Token)input.LT(1);
                             if ( input.LA(1)==MINUS||input.LA(1)==PLUS ) {
@@ -4596,7 +4596,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:206:5: LITERAL
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:206:5: LITERAL
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -4609,7 +4609,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:207:5: readable
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:207:5: readable
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -4623,12 +4623,12 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:208:5: ( LPARAN expr RPARAN )
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:208:5: ( LPARAN expr RPARAN )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:208:5: ( LPARAN expr RPARAN )
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:208:6: LPARAN expr RPARAN
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:208:5: ( LPARAN expr RPARAN )
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:208:6: LPARAN expr RPARAN
                     {
                     LPARAN167=(Token)match(input,LPARAN,FOLLOW_LPARAN_in_atom1647); if (state.failed) return retval;
                     pushFollow(FOLLOW_expr_in_atom1650);
@@ -4645,7 +4645,7 @@ public class PtmParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:209:5: function
+                    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:209:5: function
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -4687,7 +4687,7 @@ public class PtmParser extends Parser {
     };
 
     // $ANTLR start "function"
-    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:211:1: function : ID LPARAN expr RPARAN -> ^( FUNCTION ID expr ) ;
+    // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:211:1: function : ID LPARAN expr RPARAN -> ^( FUNCTION ID expr ) ;
     public final PtmParser.function_return function() throws RecognitionException {
         PtmParser.function_return retval = new PtmParser.function_return();
         retval.start = input.LT(1);
@@ -4709,8 +4709,8 @@ public class PtmParser extends Parser {
         RewriteRuleSubtreeStream stream_expr=new RewriteRuleSubtreeStream(adaptor,"rule expr");
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 22) ) { return retval; }
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:211:10: ( ID LPARAN expr RPARAN -> ^( FUNCTION ID expr ) )
-            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:212:1: ID LPARAN expr RPARAN
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:211:10: ( ID LPARAN expr RPARAN -> ^( FUNCTION ID expr ) )
+            // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:212:1: ID LPARAN expr RPARAN
             {
             ID171=(Token)match(input,ID,FOLLOW_ID_in_function1670); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_ID.add(ID171);
@@ -4730,7 +4730,7 @@ public class PtmParser extends Parser {
 
 
             // AST REWRITE
-            // elements: expr, ID
+            // elements: ID, expr
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -4743,7 +4743,7 @@ public class PtmParser extends Parser {
             root_0 = (CommonTree)adaptor.nil();
             // 213:3: -> ^( FUNCTION ID expr )
             {
-                // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:213:6: ^( FUNCTION ID expr )
+                // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:213:6: ^( FUNCTION ID expr )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(FUNCTION, "FUNCTION"), root_1);
@@ -4782,8 +4782,8 @@ public class PtmParser extends Parser {
 
     // $ANTLR start synpred34_PtmParser
     public final void synpred34_PtmParser_fragment() throws RecognitionException {   
-        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:93:5: ( IFCONTEXT ID then2 ENDIF )
-        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:93:5: IFCONTEXT ID then2 ENDIF
+        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:93:5: ( IFCONTEXT ID then2 ENDIF )
+        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:93:5: IFCONTEXT ID then2 ENDIF
         {
         match(input,IFCONTEXT,FOLLOW_IFCONTEXT_in_synpred34_PtmParser705); if (state.failed) return ;
         match(input,ID,FOLLOW_ID_in_synpred34_PtmParser707); if (state.failed) return ;
@@ -4800,8 +4800,8 @@ public class PtmParser extends Parser {
 
     // $ANTLR start synpred35_PtmParser
     public final void synpred35_PtmParser_fragment() throws RecognitionException {   
-        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:95:5: ( IFCONTEXT ID then2 else2 ENDIF )
-        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:95:5: IFCONTEXT ID then2 else2 ENDIF
+        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:95:5: ( IFCONTEXT ID then2 else2 ENDIF )
+        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:95:5: IFCONTEXT ID then2 else2 ENDIF
         {
         match(input,IFCONTEXT,FOLLOW_IFCONTEXT_in_synpred35_PtmParser732); if (state.failed) return ;
         match(input,ID,FOLLOW_ID_in_synpred35_PtmParser734); if (state.failed) return ;
@@ -4823,8 +4823,8 @@ public class PtmParser extends Parser {
 
     // $ANTLR start synpred47_PtmParser
     public final void synpred47_PtmParser_fragment() throws RecognitionException {   
-        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:121:16: ( NEWLINE )
-        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:121:16: NEWLINE
+        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:121:16: ( NEWLINE )
+        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:121:16: NEWLINE
         {
         match(input,NEWLINE,FOLLOW_NEWLINE_in_synpred47_PtmParser1015); if (state.failed) return ;
 
@@ -4834,8 +4834,8 @@ public class PtmParser extends Parser {
 
     // $ANTLR start synpred58_PtmParser
     public final void synpred58_PtmParser_fragment() throws RecognitionException {   
-        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:148:3: ( filepart )
-        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:148:3: filepart
+        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:148:3: ( filepart )
+        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:148:3: filepart
         {
         pushFollow(FOLLOW_filepart_in_synpred58_PtmParser1267);
         filepart();
@@ -4849,8 +4849,8 @@ public class PtmParser extends Parser {
 
     // $ANTLR start synpred59_PtmParser
     public final void synpred59_PtmParser_fragment() throws RecognitionException {   
-        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:152:3: ( fileliteral )
-        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:152:3: fileliteral
+        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:152:3: ( fileliteral )
+        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:152:3: fileliteral
         {
         pushFollow(FOLLOW_fileliteral_in_synpred59_PtmParser1292);
         fileliteral();
@@ -4864,8 +4864,8 @@ public class PtmParser extends Parser {
 
     // $ANTLR start synpred66_PtmParser
     public final void synpred66_PtmParser_fragment() throws RecognitionException {   
-        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:167:11: ( QUESTION expr COLON expr )
-        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\grammar\\PtmParser.g:167:11: QUESTION expr COLON expr
+        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:167:11: ( QUESTION expr COLON expr )
+        // C:\\git\\PersHomeProjects\\xtend_gen\\src\\main\\java\\no\\esito\\genova\\io\\antlr\\PtmParser.g:167:11: QUESTION expr COLON expr
         {
         match(input,QUESTION,FOLLOW_QUESTION_in_synpred66_PtmParser1423); if (state.failed) return ;
         pushFollow(FOLLOW_expr_in_synpred66_PtmParser1426);
