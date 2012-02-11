@@ -5,7 +5,7 @@ import no.esito.genova.io.convert.EXPSTATE
 
 import static no.esito.genova.io.antlr.PtmParser.*
 
-class Ptm2Xtend extends AbstractPtm2Xtend  {
+class Ptm2Xtend extends AbstractPtm2Xtend {
 	def what(){
 		'''
 		<«node.token.text»>
