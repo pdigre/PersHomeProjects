@@ -1,11 +1,13 @@
-package no.pdigre.droidchess;
+package no.pdigre.chess.rules;
+
 
 
 public class Move {
     PieceType type;
     PieceType beats;
-    int from;
-    int to;
+    public int from;
+    public int to;
+    public Move parent;
     
     public Move(int from, int to, PieceType type, PieceType beats) {
         super();

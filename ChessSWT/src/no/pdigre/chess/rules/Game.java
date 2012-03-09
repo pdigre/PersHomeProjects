@@ -1,7 +1,10 @@
-package no.pdigre.droidchess;
+package no.pdigre.chess.rules;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Stack;
+
 
 public class Game {
 
@@ -148,6 +151,14 @@ public class Game {
 		int x = i % 8;
 		int y = (i - x) / 8;
 		return String.valueOf("abcdefgh".charAt(x)) + String.valueOf(y + 1);
+	}
+
+	public List<Integer> getMoves(Piece piece) {
+        PieceType[] board = getCurrentBoard();
+		Move last = log.isEmpty()?null:log.peek();
+        List<Integer> moves = new ArrayList<Integer>();
+		piece.findMoves(board, moves, last, pieces);
+		return moves;
 	}
 
 }

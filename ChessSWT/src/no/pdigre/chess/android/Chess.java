@@ -1,22 +1,18 @@
-package no.pdigre.droidchess;
+package no.pdigre.chess.android;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import org.eclipse.swt.SWT; 
+import no.pdigre.chess.rules.Game;
+import no.pdigre.chess.rules.Piece;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.GC;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.printing.Printer;
-import org.eclipse.swt.printing.PrinterData;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -32,7 +28,7 @@ public class Chess extends ChessGraphics {
 
     private void init() {
 
-    	PrinterData data=new PrinterData();
+//    	PrinterData data=new PrinterData();
 //		Printer printer=new Printer(data);
 //    	Point dpi = printer.getDPI();
 //    	FontData[] fontList = printer.getFontList("Arial", true);
@@ -72,14 +68,12 @@ public class Chess extends ChessGraphics {
                 int i = findSquare(canvas, e.x, e.y);
                 if (e.button == 1) {
                     markers.clear();
-                    List<int[]> moves = new ArrayList<int[]>();
-                    for (Piece piece : game.pieces) {
+                    HashSet<Piece> pieces = game.pieces;
+					for (Piece piece : pieces) {
                         if (piece.pos == i) {
-                            piece.findMoves(game.getCurrentBoard(), moves, game.log.isEmpty()?null:game.log.peek(), game.pieces);
-                            for (int[] move : moves) {
-                                if(move[0]==i)
-                                markers.add(move[1]);
-                            } 
+                        	List<Integer> moves=game.getMoves(piece);
+                            for (Integer to : moves)
+                                markers.add(to);
                         }
                     }
                     canvas.redraw();

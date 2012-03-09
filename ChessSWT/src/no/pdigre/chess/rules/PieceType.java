@@ -1,4 +1,4 @@
-package no.pdigre.droidchess;
+package no.pdigre.chess.rules;
 
 
 
@@ -17,7 +17,7 @@ public enum PieceType {
     BlackKing(-100, 'k'); 
 
     final int weight;
-    final char fen;
+    public final char fen;
 
     PieceType(int weight, char fen) {
         this.weight = weight;

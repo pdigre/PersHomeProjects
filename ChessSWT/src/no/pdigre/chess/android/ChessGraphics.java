@@ -1,4 +1,6 @@
-package no.pdigre.droidchess;
+package no.pdigre.chess.android;
+
+import no.pdigre.chess.rules.PieceType;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
