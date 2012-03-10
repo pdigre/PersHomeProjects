@@ -31,4 +31,8 @@ public enum PieceType {
 		}
     	return null;
     }
+
+	public boolean white() {
+		return weight>0;
+	}
 }

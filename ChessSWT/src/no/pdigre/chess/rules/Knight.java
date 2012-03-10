@@ -7,12 +7,8 @@ import java.util.List;
 
 public class Knight extends Piece {
 
-    Knight(int pos, PieceType type) {
-        super(pos, type); 
-    }
-
     @Override
-    public void findMoves(PieceType[] board, List<Integer> moves, Move last, Collection<Piece> pieces) {
+    public void findMoves(PieceType[] board, List<Integer> moves, Collection<Piece> pieces) {
         addMove(board, moves, 6);
         addMove(board, moves, 10);
         addMove(board, moves, 15);

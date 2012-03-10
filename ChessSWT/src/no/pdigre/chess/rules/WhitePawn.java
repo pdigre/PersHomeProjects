@@ -4,48 +4,16 @@ import java.util.Collection;
 import java.util.List;
 
 
-public class WhitePawn extends Piece {
-
-    WhitePawn(int pos, PieceType type) {
-        super(pos, type);
-    }
+public class WhitePawn extends Pawn {
 
     @Override
-    public void findMoves(PieceType[] board, List<Integer> moves, Move last, Collection<Piece> pieces) {
-        int forward = pos + 8;
-        if (onBoard(forward)) {
-            if (board[forward] == null) {
-                moves.add(forward);
-                if (pos > 7 && pos < 16) {
-                    int forward2 = pos + 16;
-                    if (onBoard(forward2)) {
-                        if (board[forward2] == null)
-                            moves.add(forward2);
-                    }
-                }
-            }
-        }
-        int left = pos + 7;
-        if (onBoard(left)) {
-            PieceType piece = board[left];
-            if (piece != null) {
-                if (!sameColor(piece))
-                    moves.add(left);
-            } else {
-                if (last != null && last.from == left + 8 && last.to == left - 8)
-                    moves.add(left);
-            }
-        }
-        int right = pos + 9;
-        if (onBoard(right)) {
-            PieceType piece = board[right];
-            if (piece != null) {
-                if (!sameColor(piece))
-                    moves.add(right);
-            } else {
-                if (last != null && last.from == right + 8 && last.to == right - 8)
-                    moves.add(right);
-            }
-        }
+    public void findMoves(PieceType[] board, List<Integer> moves, int enpassant, Collection<Piece> pieces) {
+        forward(board, moves,8);
+        beat(board, moves, enpassant,8,7);
+        beat(board, moves, enpassant,8,9);
     }
+
+	public boolean isHome() {
+		return pos > 7 && pos < 16;
+	}
 }

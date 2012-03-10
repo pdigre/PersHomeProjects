@@ -1,6 +1,5 @@
 package no.pdigre.chess.rules;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -9,45 +8,48 @@ public abstract class Piece implements Cloneable {
 
     public int pos;
 
-    public final PieceType type;
+    public PieceType type;
 
-    public static Piece newPiece(int pos, PieceType type) {
-        switch (type) {
+    public static Piece create(int pos, PieceType type) {
+        Piece create = factory(type);
+        create.pos=pos;
+        create.type=type;
+		return create;
+    }
+
+	public static Piece factory(PieceType type) {
+		switch (type) {
             case WhiteKnight:
             case BlackKnight:
-                return new Knight(pos, type);
+                return new Knight();
             case WhiteBishop:
             case BlackBishop:
-                return new Bishop(pos, type);
+                return new Bishop();
             case WhiteRook:
             case BlackRook:
-                return new Rook(pos, type);
+                return new Rook();
             case WhiteQueen:
             case BlackQueen:
-                return new Queen(pos, type);
+                return new Queen();
             case WhiteKing:
-                return new WhiteKing(pos, type);
+                return new WhiteKing();
             case BlackKing:
-                return new BlackKing(pos, type);
+                return new BlackKing();
             case WhitePawn:
-                return new WhitePawn(pos, type);
+                return new WhitePawn();
             case BlackPawn:
-                return new BlackPawn(pos, type);
+                return new BlackPawn();
         }
         return null;
-    }
-
-    public Piece(final int pos, final PieceType type) {
-        this.pos = pos;
-        this.type = type;
-    }
+	}
 
     @Override
     protected Object clone() throws CloneNotSupportedException {
-        return newPiece(pos, type);
+        return create(pos, type);
     }
 
-    public abstract void findMoves(PieceType[] board, List<Integer> moves, Move last, Collection<Piece> pieces);
+    public void findMoves(PieceType[] board, List<Integer> moves, Collection<Piece> pieces){
+    }
 
     public void repeatMove(PieceType[] board, List<Integer> moves, int offset) {
         for (int i = pos; addMove(board, moves, offset, i); i += offset)
@@ -104,35 +106,5 @@ public abstract class Piece implements Cloneable {
         pos = to;
     }
 
-    public boolean addKingMove(PieceType[] board, List<Integer> moves, int offset, Collection<Piece> pieces) {
-        int i = pos + offset;
-        if (!onBoard(i, pos))
-            return false;
-        PieceType type2 = board[i];
-        if (type2 != null) {
-            if (!sameColor(type2) && checkKing(board, pieces, i))
-                moves.add(i);
-            return false;
-        }
-        if (checkKing(board, pieces, i)) {
-            moves.add(i);
-            return true;
-        }
-        return false;
-    }
-
-    public boolean checkKing(PieceType[] board, Collection<Piece> pieces, int i) {
-        for (Piece piece : pieces) {
-            if (!sameColor(piece.type) && piece.type != PieceType.BlackKing && piece.type != PieceType.WhiteKing) {
-                ArrayList<Integer> other = new ArrayList<Integer>();
-                piece.findMoves(board, other, null, pieces);
-                for (int move : other) {
-                    if (move == i)
-                        return false;
-                }
-            }
-        }
-        return true;
-    }
 
 }
