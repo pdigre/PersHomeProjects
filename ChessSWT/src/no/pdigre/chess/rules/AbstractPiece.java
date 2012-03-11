@@ -4,51 +4,16 @@ import java.util.Collection;
 import java.util.List;
 
 
-public abstract class Piece implements Cloneable {
+public abstract class AbstractPiece implements Cloneable {
 
     public int pos;
 
-    public PieceType type;
-
-    public static Piece create(int pos, PieceType type) {
-        Piece create = factory(type);
-        create.pos=pos;
-        create.type=type;
-		return create;
-    }
-
-	public static Piece factory(PieceType type) {
-		switch (type) {
-            case WhiteKnight:
-            case BlackKnight:
-                return new Knight();
-            case WhiteBishop:
-            case BlackBishop:
-                return new Bishop();
-            case WhiteRook:
-            case BlackRook:
-                return new Rook();
-            case WhiteQueen:
-            case BlackQueen:
-                return new Queen();
-            case WhiteKing:
-                return new WhiteKing();
-            case BlackKing:
-                return new BlackKing();
-            case WhitePawn:
-                return new WhitePawn();
-            case BlackPawn:
-                return new BlackPawn();
-        }
-        return null;
-	}
-
     @Override
     protected Object clone() throws CloneNotSupportedException {
-        return create(pos, type);
+        return getType().create(pos);
     }
 
-    public void findMoves(PieceType[] board, List<Integer> moves, Collection<Piece> pieces){
+    public void findMoves(PieceType[] board, List<Integer> moves, Collection<AbstractPiece> pieces){
     }
 
     public void repeatMove(PieceType[] board, List<Integer> moves, int offset) {
@@ -85,7 +50,7 @@ public abstract class Piece implements Cloneable {
     }
 
     public boolean sameColor(PieceType type2) {
-        return (type2.weight > 0) == (type.weight > 0);
+        return (type2.weight > 0) == (getType().weight > 0);
     }
 
     public boolean onBoard(int i, int orig) {
@@ -105,6 +70,8 @@ public abstract class Piece implements Cloneable {
     public void move(int to) {
         pos = to;
     }
+
+	public abstract PieceType getType();
 
 
 }

@@ -3,12 +3,12 @@ package no.pdigre.chess.rules;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class Pawn extends Piece {
+public abstract class AbstractPawn extends AbstractPiece {
 
-	public abstract void findMoves(PieceType[] board, List<Integer> moves, int enpassant, Collection<Piece> pieces);
+	public abstract void findMoves(PieceType[] board, List<Integer> moves, int enpassant, Collection<AbstractPiece> pieces);
 
 	@Override
-	public void findMoves(PieceType[] board, List<Integer> moves, Collection<Piece> pieces) {
+	public void findMoves(PieceType[] board, List<Integer> moves, Collection<AbstractPiece> pieces) {
 		findMoves(board, moves, -1,pieces);
 	}
 	

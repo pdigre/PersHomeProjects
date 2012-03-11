@@ -5,9 +5,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-public abstract class King extends Piece {
+public abstract class AbstractKing extends AbstractPiece {
 
-	public boolean addKingMove(PieceType[] board, List<Integer> moves, int offset, Collection<Piece> pieces) {
+	public boolean addKingMove(PieceType[] board, List<Integer> moves, int offset, Collection<AbstractPiece> pieces) {
 		int i = pos + offset;
 		if (!onBoard(i, pos))
 			return false;
@@ -24,9 +24,9 @@ public abstract class King extends Piece {
 		return false;
 	}
 
-	public boolean checkKing(PieceType[] board, Collection<Piece> pieces, int i) {
-		for (Piece piece : pieces) {
-			if (!sameColor(piece.type) && piece.type != PieceType.BlackKing && piece.type != PieceType.WhiteKing) {
+	public boolean checkKing(PieceType[] board, Collection<AbstractPiece> pieces, int i) {
+		for (AbstractPiece piece : pieces) {
+			if (!sameColor(piece.getType()) && piece.getType() != PieceType.BLACK_KING && piece.getType() != PieceType.WHITE_KING) {
 				ArrayList<Integer> other = new ArrayList<Integer>();
 				piece.findMoves(board, other, pieces);
 				for (int move : other) {
@@ -38,6 +38,6 @@ public abstract class King extends Piece {
 		return true;
 	}
 
-	public abstract void findMoves(PieceType[] board, List<Integer> moves, Collection<Piece> pieces, boolean castleKing, boolean castleQueen);
+	public abstract void findMoves(PieceType[] board, List<Integer> moves, Collection<AbstractPiece> pieces, boolean castleKing, boolean castleQueen);
 
 }

@@ -5,10 +5,10 @@ import java.util.List;
 
 
 
-public class Bishop extends Piece {
+public abstract class AbstractBishop extends AbstractPiece {
 
     @Override
-    public void findMoves(PieceType[] board, List<Integer> moves, Collection<Piece> pieces) {
+    public void findMoves(PieceType[] board, List<Integer> moves, Collection<AbstractPiece> pieces) {
         repeatMove(board, moves, 7);
         repeatMove(board, moves, 9);
         repeatMove(board, moves, -7);

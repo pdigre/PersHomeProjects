@@ -25,8 +25,8 @@ public class StartGame extends AbstractMove {
 		return pieces2board(getPieces());
 	}
 	
-	public HashSet<Piece> getPieces() {
-		HashSet<Piece> pieces = new HashSet<Piece>();
+	public HashSet<AbstractPiece> getPieces() {
+		HashSet<AbstractPiece> pieces = new HashSet<AbstractPiece>();
 		int y = 56;
 		int x = 0;
 		for (int i = 0; i < board.length(); i++) {
@@ -39,7 +39,7 @@ public class StartGame extends AbstractMove {
 			} else if (c >= '1' && c <= '0') {
 				x += Integer.parseInt(String.valueOf(c));
 			} else if (c >= 'A' && c <= 'z') {
-				pieces.add(Piece.create(x+y, PieceType.getPieceType(c)));
+				pieces.add(PieceType.getPieceType(c).create(x+y));
 				x++;
 			}
 		}
@@ -49,13 +49,13 @@ public class StartGame extends AbstractMove {
 	@Override
 	public boolean canCastle(PieceType type) {
 		switch (type) {
-		case WhiteKing:
+		case WHITE_KING:
 			return castling.contains("K");
-		case WhiteQueen:
+		case WHITE_QUEEN:
 			return castling.contains("Q");
-		case BlackKing:
+		case BLACK_KING:
 			return castling.contains("k");
-		case BlackQueen:
+		case BLACK_QUEEN:
 			return castling.contains("q");
 		}
 		return false;

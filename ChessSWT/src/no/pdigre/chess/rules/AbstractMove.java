@@ -12,7 +12,7 @@ public abstract class AbstractMove {
 
 	public abstract int halfMoves();
 
-	public abstract HashSet<Piece> getPieces();
+	public abstract HashSet<AbstractPiece> getPieces();
 
 	public abstract PieceType[] getBoard();
 
@@ -41,13 +41,13 @@ public abstract class AbstractMove {
 
 	public String getFenCastling() {
 		StringBuilder sb = new StringBuilder();
-		if (canCastle(PieceType.WhiteKing))
+		if (canCastle(PieceType.WHITE_KING))
 			sb.append("K");
-		if (canCastle(PieceType.WhiteQueen))
+		if (canCastle(PieceType.WHITE_QUEEN))
 			sb.append("Q");
-		if (canCastle(PieceType.BlackKing))
+		if (canCastle(PieceType.BLACK_KING))
 			sb.append("k");
-		if (canCastle(PieceType.BlackQueen))
+		if (canCastle(PieceType.BLACK_QUEEN))
 			sb.append("q");
 		return sb.toString();
 	}
@@ -90,10 +90,10 @@ public abstract class AbstractMove {
 		return "abcdefgh".indexOf(pos.charAt(0))+8*(pos.charAt(1)-'1');
 	}
 
-	public PieceType[] pieces2board(HashSet<Piece> pieces) {
+	public PieceType[] pieces2board(HashSet<AbstractPiece> pieces) {
 		PieceType[] board = new PieceType[64];
-		for (Piece piece : pieces)
-			board[piece.pos] = piece.type;
+		for (AbstractPiece piece : pieces)
+			board[piece.pos] = piece.getType();
 		return board;
 	}
 

@@ -5,16 +5,16 @@ import java.util.HashSet;
 import java.util.List;
 
 import no.pdigre.chess.rules.AbstractMove;
-import no.pdigre.chess.rules.King;
+import no.pdigre.chess.rules.AbstractKing;
 import no.pdigre.chess.rules.Move;
-import no.pdigre.chess.rules.Pawn;
-import no.pdigre.chess.rules.Piece;
+import no.pdigre.chess.rules.AbstractPawn;
+import no.pdigre.chess.rules.AbstractPiece;
 import no.pdigre.chess.rules.PieceType;
 
 public class EvalMove {
 
 	public AbstractMove move;
-	public HashSet<Piece> pieces;
+	public HashSet<AbstractPiece> pieces;
 	public PieceType[] board;
 	public ArrayList<EvalMove> moves;
 	boolean castlingWhiteKing;
@@ -29,19 +29,19 @@ public class EvalMove {
 	@SuppressWarnings("unchecked")
 	public void init() {
 		this.board = move.getBoard().clone();
-		this.pieces = (HashSet<Piece>) move.getPieces().clone();
+		this.pieces = (HashSet<AbstractPiece>) move.getPieces().clone();
 	}
 
 	@SuppressWarnings("unchecked")
 	public void init(EvalMove eval) {
 		this.board = eval.board.clone();
-		this.pieces = (HashSet<Piece>) eval.pieces.clone();
+		this.pieces = (HashSet<AbstractPiece>) eval.pieces.clone();
 		((Move) move).applyMove(board);
 		((Move) move).applyMove(pieces);
-		castlingWhiteKing = applyCastling(eval.castlingWhiteKing, PieceType.WhiteKing);
-		castlingWhiteQueen = applyCastling(eval.castlingWhiteQueen, PieceType.WhiteQueen);
-		castlingBlackKing = applyCastling(eval.castlingBlackKing, PieceType.BlackKing);
-		castlingBlackQueen = applyCastling(eval.castlingBlackQueen, PieceType.BlackQueen);
+		castlingWhiteKing = applyCastling(eval.castlingWhiteKing, PieceType.WHITE_KING);
+		castlingWhiteQueen = applyCastling(eval.castlingWhiteQueen, PieceType.WHITE_QUEEN);
+		castlingBlackKing = applyCastling(eval.castlingBlackKing, PieceType.BLACK_KING);
+		castlingBlackQueen = applyCastling(eval.castlingBlackQueen, PieceType.BLACK_QUEEN);
 	}
 
 	private boolean applyCastling(boolean castling, PieceType type) {
@@ -53,24 +53,24 @@ public class EvalMove {
 			init();
 		moves = new ArrayList<EvalMove>();
 		boolean whiteTurn = move.whiteTurn();
-		for (Piece piece : pieces) {
-			if (piece.type.white() != whiteTurn)
+		for (AbstractPiece piece : pieces) {
+			if (piece.getType().white() != whiteTurn)
 				continue;
 			List<Integer> next = new ArrayList<Integer>();
-			if (piece instanceof Pawn) {
-				((Pawn) piece).findMoves(board, next, move.getEnpassant(), pieces);
-			} else if (piece instanceof King) {
+			if (piece instanceof AbstractPawn) {
+				((AbstractPawn) piece).findMoves(board, next, move.getEnpassant(), pieces);
+			} else if (piece instanceof AbstractKing) {
 				boolean castleKing = whiteTurn ? castlingWhiteKing : castlingBlackKing;
 				boolean castleQueen = whiteTurn ? castlingWhiteQueen : castlingBlackQueen;
-				((King) piece).findMoves(board, next, pieces, castleKing, castleQueen);
+				((AbstractKing) piece).findMoves(board, next, pieces, castleKing, castleQueen);
 			} else
 				piece.findMoves(board, next, pieces);
 
 			for (int to : next) {
 				PieceType victim = board[to];
-				if (victim == PieceType.WhiteKing || victim == PieceType.BlackKing)
+				if (victim == PieceType.WHITE_KING || victim == PieceType.BLACK_KING)
 					return false;
-				moves.add(new EvalMove(Move.create(piece.pos, to, piece.type, victim, move)));
+				moves.add(new EvalMove(Move.create(piece.pos, to, piece.getType(), victim, move)));
 			}
 		}
 		return true;
@@ -90,14 +90,14 @@ public class EvalMove {
 
 	public boolean isCheck() {
 		boolean white1 = !move.whiteTurn();
-		PieceType otherKing = white1 ? PieceType.BlackKing : PieceType.WhiteKing;
-		for (Piece piece : pieces) {
-			boolean white2 = piece.type.white();
-			if (white1 == white2 && piece.type != PieceType.BlackKing && piece.type != PieceType.WhiteKing) {
+		PieceType otherKing = white1 ? PieceType.BLACK_KING : PieceType.WHITE_KING;
+		for (AbstractPiece piece : pieces) {
+			boolean white2 = piece.getType().white();
+			if (white1 == white2 && piece.getType() != PieceType.BLACK_KING && piece.getType() != PieceType.WHITE_KING) {
 				ArrayList<Integer> other = new ArrayList<Integer>();
-				if (piece instanceof Pawn) {
-					((Pawn) piece).findMoves(board, other, move.getEnpassant(), pieces);
-				} else if (piece instanceof King) {
+				if (piece instanceof AbstractPawn) {
+					((AbstractPawn) piece).findMoves(board, other, move.getEnpassant(), pieces);
+				} else if (piece instanceof AbstractKing) {
 				} else {
 					piece.findMoves(board, other, pieces);
 				}
@@ -110,7 +110,7 @@ public class EvalMove {
 		return false;
 	}
 
-	public List<Integer> getMoves(Piece piece) {
+	public List<Integer> getMoves(AbstractPiece piece) {
 		if (moves == null)
 			findLegalMoves();
 
@@ -141,14 +141,14 @@ public class EvalMove {
 	}
 
 	public EvalMove move(int from, int to) {
-		Piece victim = null;
-		for (Piece piece : pieces) {
+		AbstractPiece victim = null;
+		for (AbstractPiece piece : pieces) {
 			if (piece.pos == from) {
-				for (Piece other : pieces) {
+				for (AbstractPiece other : pieces) {
 					if (other.pos == to)
 						victim = other;
 				}
-				Move last = Move.create(from, to, piece.type,victim==null?null:victim.type, move);
+				Move last = Move.create(from, to, piece.getType(),victim==null?null:victim.getType(), move);
 				EvalMove lasteval = new EvalMove((Move) last);
 				lasteval.init(this);
 				lasteval.findLegalMoves();

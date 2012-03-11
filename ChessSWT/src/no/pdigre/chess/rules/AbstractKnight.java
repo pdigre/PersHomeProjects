@@ -3,12 +3,10 @@ package no.pdigre.chess.rules;
 import java.util.Collection;
 import java.util.List;
 
-
-
-public class Knight extends Piece {
+public abstract class AbstractKnight extends AbstractPiece {
 
     @Override
-    public void findMoves(PieceType[] board, List<Integer> moves, Collection<Piece> pieces) {
+    public void findMoves(PieceType[] board, List<Integer> moves, Collection<AbstractPiece> pieces) {
         addMove(board, moves, 6);
         addMove(board, moves, 10);
         addMove(board, moves, 15);
