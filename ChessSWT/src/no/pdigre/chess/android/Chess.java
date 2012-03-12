@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import no.pdigre.chess.evaluate.EvalMove;
-import no.pdigre.chess.rules.Piece;
+import no.pdigre.chess.rules.AbstractPiece;
 import no.pdigre.chess.rules.StartGame;
 
 import org.eclipse.swt.SWT;
@@ -71,8 +71,8 @@ public class Chess extends ChessGraphics {
 					} else {
 						from = i;
 						markers.clear();
-						for (Piece piece : lasteval.pieces) {
-							if (piece.pos == i) {
+						for (AbstractPiece piece : lasteval.pieces) {
+							if (piece.from == i) {
 								List<Integer> moves = lasteval.getMoves(piece);
 								;
 								for (Integer to : moves)
@@ -127,8 +127,8 @@ public class Chess extends ChessGraphics {
 			if (i == from)
 				drawFrame(gc, i, SWT.COLOR_RED);
 		}
-		for (Piece piece : lasteval.pieces)
-			drawPiece(gc, piece.pos, piece.type);
+		for (AbstractPiece piece : lasteval.pieces)
+			drawPiece(gc, piece.from, piece.getType());
 	}
 
 }

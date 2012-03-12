@@ -1,24 +1,26 @@
 package no.pdigre.chess.rules;
 
-import java.util.Collection;
-import java.util.List;
-
-public class BlackKing extends King {
+public class BlackKing extends AbstractKing {
 
 	@Override
-	public void findMoves(PieceType[] board, List<Integer> moves, Collection<Piece> pieces, boolean castleKing,
+	public PieceType getType() {
+		return PieceType.BLACK_KING;
+	}
+
+	@Override
+	public void findMoves(IMoves moves, PieceType[] board, int from, boolean castleKing,
 			boolean castleQueen) {
-		boolean right = addKingMove(board, moves, 1, pieces);
-		boolean left = addKingMove(board, moves, -1, pieces);
-		addKingMove(board, moves, 8, pieces);
-		addKingMove(board, moves, -8, pieces);
-		addKingMove(board, moves, 7, pieces);
-		addKingMove(board, moves, 9, pieces);
-		addKingMove(board, moves, -7, pieces);
-		addKingMove(board, moves, -9, pieces);
-		if (castleKing && right && board[62] == null && board[63] == PieceType.BlackRook)
-			addKingMove(board, moves, 2, pieces);
-		if (castleQueen && left && board[58] == null && board[57] == null && board[56] == PieceType.BlackRook)
-			addKingMove(board, moves, -2, pieces);
+		boolean right = addMove(moves, board, from, 1);
+		boolean left = addMove(moves, board, from, -1);
+		addMove(moves, board, from, 8);
+		addMove(moves, board, from, -8);
+		addMove(moves, board, from, 7);
+		addMove(moves, board, from, 9);
+		addMove(moves, board, from, -7);
+		addMove(moves, board, from, -9);
+		if (castleKing && right && board[62] == null && board[63] == PieceType.BLACK_ROOK)
+			addMove(moves, board, from, 2);
+		if (castleQueen && left && board[58] == null && board[57] == null && board[56] == PieceType.BLACK_ROOK)
+			addMove(moves, board, from, -2);
 	}
 }

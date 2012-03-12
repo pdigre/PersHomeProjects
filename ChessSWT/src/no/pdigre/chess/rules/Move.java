@@ -1,6 +1,5 @@
 package no.pdigre.chess.rules;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Move extends AbstractMove {
@@ -36,8 +35,8 @@ public class Move extends AbstractMove {
 		return new Move(from, to, type, parent);
 	}
 
-	public static Move create(int from, Piece piece, Piece victim, AbstractMove last) {
-		return create(from, piece.pos, piece.type, victim == null ? null : victim.type, last);
+	public static Move create(int from, AbstractPiece piece, AbstractPiece victim, AbstractMove last) {
+		return create(from, piece.from, piece.getType(), victim == null ? null : victim.getType(), last);
 	}
 
 	public boolean whiteTurn() {
@@ -52,14 +51,14 @@ public class Move extends AbstractMove {
 
 	public boolean breakCastle(PieceType castling) {
 		switch (castling) {
-		case WhiteKing:
-			return type == PieceType.WhiteKing || (type == PieceType.WhiteRook && from == 7);
-		case WhiteQueen:
-			return type == PieceType.WhiteKing || (type == PieceType.WhiteRook && from == 0);
-		case BlackKing:
-			return type == PieceType.BlackKing || (type == PieceType.BlackRook && from == 63);
-		case BlackQueen:
-			return type == PieceType.BlackKing || (type == PieceType.BlackRook && from == 56);
+		case WHITE_KING:
+			return type == PieceType.WHITE_KING || (type == PieceType.WHITE_ROOK && from == 7);
+		case WHITE_QUEEN:
+			return type == PieceType.WHITE_KING || (type == PieceType.WHITE_ROOK && from == 0);
+		case BLACK_KING:
+			return type == PieceType.BLACK_KING || (type == PieceType.BLACK_ROOK && from == 63);
+		case BLACK_QUEEN:
+			return type == PieceType.BLACK_KING || (type == PieceType.BLACK_ROOK && from == 56);
 		}
 		return true;
 	}
@@ -72,7 +71,7 @@ public class Move extends AbstractMove {
 	}
 
 	public int halfMoves() {
-		if (type == PieceType.WhitePawn || type == PieceType.BlackPawn)
+		if (type == PieceType.WHITE_PAWN || type == PieceType.BLACK_PAWN)
 			return 0;
 		return parent.halfMoves() + 1;
 	}
@@ -82,33 +81,33 @@ public class Move extends AbstractMove {
 	}
 
 	public int getEnpassant() {
-		if (type == PieceType.WhitePawn && from - to == -16)
+		if (type == PieceType.WHITE_PAWN && from - to == -16)
 			return from + 8;
-		if (type == PieceType.BlackPawn && from - to == 16)
+		if (type == PieceType.BLACK_PAWN && from - to == 16)
 			return from - 8;
 		return -1;
 	}
 
 	@Override
-	public HashSet<Piece> getPieces() {
-		HashSet<Piece> pieces = parent.getPieces();
+	public HashSet<AbstractPiece> getPieces() {
+		HashSet<AbstractPiece> pieces = parent.getPieces();
 		applyMove(pieces);
 		return pieces;
 	}
 
-	public void applyMove(HashSet<Piece> pieces) {
-		Piece pfrom = null;
-		Piece pto = null;
-		for (Piece piece : pieces) {
-			if (piece.pos == from)
+	public void applyMove(HashSet<AbstractPiece> pieces) {
+		AbstractPiece pfrom = null;
+		AbstractPiece pto = null;
+		for (AbstractPiece piece : pieces) {
+			if (piece.from == from)
 				pfrom = piece;
-			if (piece.pos == to)
+			if (piece.from == to)
 				pto = piece;
 		}
 		if (pto != null)
 			pieces.remove(pto);
 		if (pfrom != null)
-			pfrom.pos = to;
+			pfrom.from = to;
 		else 
 			System.out.println("hi");
 	}

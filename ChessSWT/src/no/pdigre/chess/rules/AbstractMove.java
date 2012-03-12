@@ -12,7 +12,7 @@ public abstract class AbstractMove {
 
 	public abstract int halfMoves();
 
-	public abstract HashSet<Piece> getPieces();
+	public abstract HashSet<AbstractPiece> getPieces();
 
 	public abstract PieceType[] getBoard();
 
@@ -41,18 +41,18 @@ public abstract class AbstractMove {
 
 	public String getFenCastling() {
 		StringBuilder sb = new StringBuilder();
-		if (canCastle(PieceType.WhiteKing))
+		if (canCastle(PieceType.WHITE_KING))
 			sb.append("K");
-		if (canCastle(PieceType.WhiteQueen))
+		if (canCastle(PieceType.WHITE_QUEEN))
 			sb.append("Q");
-		if (canCastle(PieceType.BlackKing))
+		if (canCastle(PieceType.BLACK_KING))
 			sb.append("k");
-		if (canCastle(PieceType.BlackQueen))
+		if (canCastle(PieceType.BLACK_QUEEN))
 			sb.append("q");
 		return sb.toString();
 	}
 
-	public String board2String(PieceType[] board) {
+	public static String board2String(PieceType[] board) {
 		StringBuilder fen = new StringBuilder();
 		for (int y = 8; y-- > 0;) {
 			int i = 0;
@@ -76,7 +76,7 @@ public abstract class AbstractMove {
 		return fen.toString();
 	}
 
-	public String pos2text(int i) {
+	public static String pos2text(int i) {
 		if(i<0)
 			return "-";
 		int x = i % 8;
@@ -84,16 +84,16 @@ public abstract class AbstractMove {
 		return String.valueOf("abcdefgh".charAt(x)) + String.valueOf(y + 1);
 	}
 
-	public int text2pos(String pos) {
+	public static int text2pos(String pos) {
 		if(pos==null || pos.length()!=2)
 			return -1;
 		return "abcdefgh".indexOf(pos.charAt(0))+8*(pos.charAt(1)-'1');
 	}
 
-	public PieceType[] pieces2board(HashSet<Piece> pieces) {
+	public static PieceType[] pieces2board(HashSet<AbstractPiece> pieces) {
 		PieceType[] board = new PieceType[64];
-		for (Piece piece : pieces)
-			board[piece.pos] = piece.type;
+		for (AbstractPiece piece : pieces)
+			board[piece.from] = piece.getType();
 		return board;
 	}
 
