@@ -27,8 +27,8 @@ public class XtendPlugin extends AbstractUIPlugin {
     public void start(BundleContext context) throws Exception {
         super.start(context);
         Bundle bundle = getBundle();
-        if (GPlugin.getDefault().checkUpdate(bundle))
-            GPlugin.getDefault().installJars(bundle, GPlugin.JARS_TARGETS);
+//        if (GPlugin.getDefault().checkUpdate(bundle))
+//            GPlugin.getDefault().installJars(bundle, JARS_TARGETS);
     }
 
     public static XtendPlugin getDefault() {
