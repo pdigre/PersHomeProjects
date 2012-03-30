@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/EMF1/src"
+    modelPluginID="EMF1" modelName="Appmodel" importerID="org.eclipse.emf.importer.ecore"
+    copyrightFields="false">
+  <foreignModel>appmodel.ecore</foreignModel>
+  <genPackages prefix="Appmodel" disposableProviderFactory="true" ecorePackage="appmodel.ecore#/">
+    <genClasses ecoreClass="appmodel.ecore#//Application">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute appmodel.ecore#//Application/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference appmodel.ecore#//Application/Contains"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference appmodel.ecore#//Application/Attaches"/>
+    </genClasses>
+    <genClasses ecoreClass="appmodel.ecore#//Dialog">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute appmodel.ecore#//Dialog/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference appmodel.ecore#//Dialog/Activates"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference appmodel.ecore#//Dialog/Attaches"/>
+    </genClasses>
+    <genClasses ecoreClass="appmodel.ecore#//DataObject">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute appmodel.ecore#//DataObject/name"/>
+    </genClasses>
+    <genClasses ecoreClass="appmodel.ecore#//Role">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute appmodel.ecore#//Role/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference appmodel.ecore#//Role/Overrides"/>
+    </genClasses>
+    <genClasses ecoreClass="appmodel.ecore#//Attribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute appmodel.ecore#//Attribute/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute appmodel.ecore#//Attribute/exclude"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
