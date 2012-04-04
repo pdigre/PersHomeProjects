@@ -12,6 +12,7 @@ import java.util.concurrent.Callable;
 import no.esito.genova.io.generator.IGeneratorEngine;
 import no.esito.genova.model.core.ModelManager;
 import no.esito.genova.model.core.QObject;
+import no.esito.genova.model.core.QObjectRoot;
 import no.esito.genova.model.generator.QGeneratorTarget;
 import no.esito.genova.model.util.Logger;
 import no.esito.genova.ui.ide.GProject;
@@ -108,9 +109,7 @@ public class XtendEngine implements IGeneratorEngine {
     }
 
     @Override
-    public void createBuildArea(WorkspaceType type) {
+    public void createBuildArea(WorkspaceType type, QObjectRoot modelRoot) {
         // TODO Auto-generated method stub
-
     }
-
 }
