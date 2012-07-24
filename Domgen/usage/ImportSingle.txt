@@ -1,0 +1,36 @@
+                    1:IsJavaContainer,JavaContainer,MappedJavaContainerType,NodeType,TypePackageName
+                    2:appendTransportSuffix,impSinPack,impSinPackOverridden,impSinType,impSinTypeOverridden,javaType,tmpSkip,typePackageName
+Class               1:PackageName
+Class               2:Imports,SubImports
+Interface           1:PackageName
+Interface           2:Imports
+SuperClass          1:Name,PackageName
+SuperClass          2:
+-->"JavaType.ptm":
+-->"ImportSingle.ptm":
+<--Class:Attribute
+<--Class:Association
+<--Class:Association
+<--Class:Association
+<--Class:Association
+<--Class:Method
+<--Class:Method,Parameter
+<--Class:Generalization
+<--Class:
+<--Class:
+<--Class:
+<--Class:
+<--Class:
+<--Class:
+<--Class:
+<--ImportRecursive:Member
+<--Interface:Attribute
+<--Interface:Method
+<--Interface:Method,Parameter
+<--Interface:Generalization
+<--SubClass:Method
+<--SubClass:Method,Parameter
+<--ImportSingle:
+==================================================================================================================
+Direct:
+Root:Domain

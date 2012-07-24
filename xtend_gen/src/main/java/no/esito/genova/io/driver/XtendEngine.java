@@ -10,12 +10,14 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import no.esito.genova.io.generator.IGeneratorEngine;
+import no.esito.genova.io.generator.IGeneratorEventHandler;
 import no.esito.genova.model.core.ModelManager;
 import no.esito.genova.model.core.QObject;
 import no.esito.genova.model.core.QObjectRoot;
+import no.esito.genova.model.generator.QGeneratorObject;
 import no.esito.genova.model.generator.QGeneratorTarget;
 import no.esito.genova.model.util.Logger;
-import no.esito.genova.ui.ide.GProject;
+import no.esito.genova.ui.model.GProject;
 
 import org.eclipse.core.resources.IProject;
 
@@ -45,7 +47,7 @@ public class XtendEngine implements IGeneratorEngine {
     }
 
     @Override
-    public void setModelManager(ModelManager modelManager) {
+    public void setModelManager(ModelManager modelManager, IGeneratorEventHandler handler) {
         this.gpro = (GProject) modelManager;
         Logger.GSN.fine("Velocity initializing");
     }
@@ -54,7 +56,8 @@ public class XtendEngine implements IGeneratorEngine {
     public void setTarget(QGeneratorTarget gt) {
         this.gt = gt;
         templatedir = XtendPlugin.getDefault().getTemplateLocation(gt.getGeneratorModel()) + "/";
-        templatefile = gt.getTemplateFile().replace('/', '\\');
+        String templateFile = gt.getGeneratorRoot().getLocalProperty(QGeneratorObject.Property.TEMPLATE_FILE);
+        templatefile = templateFile.replace('/', '\\');
         outputdir = gpro.getTargetPath(gt) + "/";
     }
 

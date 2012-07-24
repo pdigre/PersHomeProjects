@@ -1,0 +1,14 @@
+                    1:MappedModelType,MemberType,NodeType,StartRoleNamePath
+                    2:
+Class               1:IsPersistent/B
+Class               2:
+iterate:Member
+-->"HashCodeRecursive.ptm":Member
+<--HashCode:Attribute
+<--HashCode:Group,Member
+<--HashCode:Attribute
+<--HashCode:Group,Member
+<--HashCodeRecursive:Member
+==================================================================================================================
+Direct:Member
+Root:Group

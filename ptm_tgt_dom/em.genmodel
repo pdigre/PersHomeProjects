@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/ptm_tgt_dom/src"
+    modelPluginID="ptm_tgt_dom" modelName="Em" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false">
+  <foreignModel>em.ecore</foreignModel>
+  <genPackages prefix="No" disposableProviderFactory="true" ecorePackage="em.ecore#/">
+    <nestedGenPackages prefix="Esito" disposableProviderFactory="true" ecorePackage="em.ecore#//esito">
+      <nestedGenPackages prefix="Genova" disposableProviderFactory="true" ecorePackage="em.ecore#//esito/genova">
+        <nestedGenPackages prefix="Em" disposableProviderFactory="true" ecorePackage="em.ecore#//esito/genova/em">
+          <nestedGenPackages prefix="Domain" disposableProviderFactory="true" ecorePackage="em.ecore#//esito/genova/em/domain">
+            <genClasses ecoreClass="em.ecore#//esito/genova/em/domain/XClazz">
+              <genFeatures createChild="false" ecoreFeature="ecore:EAttribute em.ecore#//esito/genova/em/domain/XClazz/Abstract"/>
+              <genFeatures createChild="false" ecoreFeature="ecore:EAttribute em.ecore#//esito/genova/em/domain/XClazz/DefaultDomainKey"/>
+              <genFeatures createChild="false" ecoreFeature="ecore:EAttribute em.ecore#//esito/genova/em/domain/XClazz/ImplementSerializable"/>
+              <genFeatures createChild="false" ecoreFeature="ecore:EAttribute em.ecore#//esito/genova/em/domain/XClazz/Imports"/>
+              <genFeatures createChild="false" ecoreFeature="ecore:EAttribute em.ecore#//esito/genova/em/domain/XClazz/IsPersistent"/>
+              <genFeatures createChild="false" ecoreFeature="ecore:EAttribute em.ecore#//esito/genova/em/domain/XClazz/Methods"/>
+              <genFeatures createChild="false" ecoreFeature="ecore:EAttribute em.ecore#//esito/genova/em/domain/XClazz/MethodVisibility"/>
+              <genFeatures createChild="false" ecoreFeature="ecore:EAttribute em.ecore#//esito/genova/em/domain/XClazz/Name"/>
+              <genFeatures createChild="false" ecoreFeature="ecore:EAttribute em.ecore#//esito/genova/em/domain/XClazz/PackageName"/>
+              <genFeatures createChild="false" ecoreFeature="ecore:EAttribute em.ecore#//esito/genova/em/domain/XClazz/PrimaryKey"/>
+              <genFeatures createChild="false" ecoreFeature="ecore:EAttribute em.ecore#//esito/genova/em/domain/XClazz/Serializable"/>
+              <genFeatures createChild="false" ecoreFeature="ecore:EAttribute em.ecore#//esito/genova/em/domain/XClazz/SubImports"/>
+              <genFeatures createChild="false" ecoreFeature="ecore:EAttribute em.ecore#//esito/genova/em/domain/XClazz/SuperClassName"/>
+              <genFeatures createChild="false" ecoreFeature="ecore:EAttribute em.ecore#//esito/genova/em/domain/XClazz/SuperClassPackage"/>
+              <genOperations ecoreOperation="em.ecore#//esito/genova/em/domain/XClazz/iterateAssociation"/>
+              <genOperations ecoreOperation="em.ecore#//esito/genova/em/domain/XClazz/iterateAttribute"/>
+              <genOperations ecoreOperation="em.ecore#//esito/genova/em/domain/XClazz/iterateGeneralization"/>
+              <genOperations ecoreOperation="em.ecore#//esito/genova/em/domain/XClazz/iterateGroup"/>
+              <genOperations ecoreOperation="em.ecore#//esito/genova/em/domain/XClazz/iterateMethod"/>
+              <genOperations ecoreOperation="em.ecore#//esito/genova/em/domain/XClazz/iterateRealization"/>
+            </genClasses>
+            <genClasses ecoreClass="em.ecore#//esito/genova/em/domain/XConverter"/>
+            <genClasses ecoreClass="em.ecore#//esito/genova/em/domain/XInterfaze"/>
+            <genClasses ecoreClass="em.ecore#//esito/genova/em/domain/XGroup"/>
+            <genClasses ecoreClass="em.ecore#//esito/genova/em/domain/XAssociation"/>
+            <genClasses ecoreClass="em.ecore#//esito/genova/em/domain/XMember"/>
+            <genClasses ecoreClass="em.ecore#//esito/genova/em/domain/XRealization"/>
+            <genClasses ecoreClass="em.ecore#//esito/genova/em/domain/XGeneralization"/>
+            <genClasses ecoreClass="em.ecore#//esito/genova/em/domain/XEnumerator"/>
+            <genClasses ecoreClass="em.ecore#//esito/genova/em/domain/XEnumValue"/>
+          </nestedGenPackages>
+        </nestedGenPackages>
+      </nestedGenPackages>
+    </nestedGenPackages>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,27 @@
+                    1:CommentFile,GeneratedWith,HasDescription/B,Name,PackageName
+                    2:Generalization
+Attribute           1:HasDescription/B,InitialValue,Name
+Attribute           2:
+Interface           1:Name
+Interface           2:Generalization
+Method              1:HasDescription/B,ModelType,Name
+Method              2:
+Parameter           1:Description,IsLast/B,Name
+Parameter           2:
+SubClass            1:Name
+SubClass            2:
+SuperClass          1:Name
+SuperClass          2:
+iterate:Attribute
+iterate:Generalization
+iterate:Method
+iterate:Method,Parameter
+-->:
+-->"ImportSingle.ptm":Attribute
+-->"ImportSingle.ptm":Method
+-->"ImportSingle.ptm":Method,Parameter
+-->"ImportSingle.ptm":Generalization
+<--ClassModel:Interface
+==================================================================================================================
+Direct:Attribute,Generalization,Method
+Root:Interfaze

@@ -1,0 +1,16 @@
+                    1:Abstract/B,HasDescription/B,ModelType,ModelTypeIsJavaPrimitive/B,Name,Visibility
+                    2:javaType,parameterType,returnType,skip,tmpAddJavaDoc,tmpIsAbstract
+Class               1:Name
+Class               2:Methods
+Parameter           1:Description,IsFirst/B,Name
+Parameter           2:javaType
+iterate:Parameter
+-->"JavaType.ptm":
+-->"JavaType.ptm":Parameter
+<--Class:Method
+<--Class:Method
+<--SubClass:Method
+<--SubClass:Method
+==================================================================================================================
+Direct:Parameter
+Root:Method

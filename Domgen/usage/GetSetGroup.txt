@@ -1,0 +1,12 @@
+                    1:MemberType,Name,OwnerClassName,RestRoleNamePath,StartRoleNamePath
+                    2:javaType,tmpGetName,tmpSetName,tmpVarPostfix,tmpVisibility
+Class               1:IsPersistent/B,Name
+Class               2:MethodVisibility,Methods
+iterate:Member
+-->"JavaType.ptm":
+-->"GetSetGroup.ptm":Member
+<--GetSetGroup:Member
+<--Class:Group,Member
+==================================================================================================================
+Direct:Member
+Root:Group

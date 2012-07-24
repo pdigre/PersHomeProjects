@@ -7,7 +7,7 @@ import no.esito.genova.model.core.ModelManager;
 import no.esito.genova.model.generator.GeneratorModel;
 import no.esito.genova.model.util.Logger;
 import no.esito.genova.ui.ide.GPlugin;
-import no.esito.genova.ui.ide.GProject;
+import no.esito.genova.ui.model.GProject;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Platform;

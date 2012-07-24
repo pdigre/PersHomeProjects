@@ -1,0 +1,12 @@
+                    1:CommentFile,GenerateJavaStyleEnums,GeneratedWith,HasDescription/B,Name,PackageName
+                    2:lastAssignedOrdinal
+EnumValue           1:Description,DisplayText,HasDescription/B,IsLast/B,Name,OrdinalNumber
+EnumValue           2:
+Parent              1:Name
+Parent              2:
+iterate:EnumValue
+-->:
+<--ClassModel:Enumerator
+==================================================================================================================
+Direct:EnumValue
+Root:Enumerator

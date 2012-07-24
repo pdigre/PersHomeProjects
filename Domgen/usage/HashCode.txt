@@ -1,0 +1,17 @@
+Attribute           1:IsDefaultDomainKey/B,IsPrimaryKey/B
+Attribute           2:
+Class               1:Name
+Class               2:Methods
+Group               1:IsDefaultDomainKey/B,IsPrimaryKey/B
+Group               2:
+iterate:Attribute
+iterate:Group
+iterate:Group,Member
+-->"HashCodeRecursive.ptm":Attribute
+-->"HashCodeRecursive.ptm":Group,Member
+-->"HashCodeRecursive.ptm":Attribute
+-->"HashCodeRecursive.ptm":Group,Member
+<--Class:
+==================================================================================================================
+Direct:Attribute,Group
+Root:Clazz

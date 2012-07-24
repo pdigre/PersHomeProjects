@@ -1,6 +1,7 @@
 package no.esito.genova.io.driver;
 
 import no.esito.genova.io.generator.IGeneratorEngine;
+import no.esito.genova.io.generator.IGeneratorEventHandler;
 import no.esito.genova.io.sync.ISyncEngine;
 import no.esito.genova.io.util.IModelUpdateEngine;
 import no.esito.genova.model.core.ModelManager;
@@ -14,7 +15,7 @@ public class XtendDriver implements IDriver, IBuilder {
     }
 
     @Override
-    public IGeneratorEngine getGeneratorEngine(ModelManager mm) {
+    public IGeneratorEngine getGeneratorEngine(ModelManager mm, IGeneratorEventHandler eventhandler) {
         return getPTMEngine(mm);
     }
 
@@ -23,25 +24,26 @@ public class XtendDriver implements IDriver, IBuilder {
      * @return
      */
     private XtendEngine getPTMEngine(ModelManager mm) {
-        if (engine == null){
+        if (engine == null) {
             engine = new XtendEngine();
-            engine.setModelManager(mm);
+            engine.setModelManager(mm, (IGeneratorEventHandler) mm);
         }
         return engine;
     }
 
     @Override
-    public IModelUpdateEngine getModelUpdateEngine(ModelManager mm) {
+    public IModelUpdateEngine getModelUpdateEngine(ModelManager mm, IGeneratorEventHandler eventhandler) {
         return null;
     }
 
     @Override
-    public ISyncEngine getSyncEngine(ModelManager mm) {
+    public ISyncEngine getSyncEngine(ModelManager mm, IGeneratorEventHandler eventhandler) {
         return null;
     }
 
     @Override
     public void build(Object[] objarray) {
+        //
     }
 
     @Override
@@ -52,7 +54,7 @@ public class XtendDriver implements IDriver, IBuilder {
     @Override
     public void closeGeneratorEngine(ModelManager mm) {
         // TODO Auto-generated method stub
-        
+
     }
 
 }

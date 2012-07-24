@@ -1,0 +1,8 @@
+                    1:GenerateIsAsBooleanPrefix
+                    2:pName,pSkipGenerateSetter,pType,pTypeStripGen,pVisibility,tmpGetName,tmpSetName,tmpVisibility
+<--Class:Attribute
+<--Class:Association
+<--Class:Association
+==================================================================================================================
+Direct:
+Root:Domain

@@ -1,0 +1,15 @@
+Attribute           1:IsPrimaryKey/B
+Attribute           2:
+Class               1:Name
+Class               2:Methods
+Group               1:IsPrimaryKey/B
+Group               2:
+iterate:Attribute
+iterate:Group
+iterate:Group,Member
+-->"PrimaryKeyRecursive.ptm":Attribute
+-->"PrimaryKeyRecursive.ptm":Group,Member
+<--Class:
+==================================================================================================================
+Direct:Attribute,Group
+Root:Clazz

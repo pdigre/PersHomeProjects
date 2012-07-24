@@ -1,0 +1,13 @@
+                    1:Description,MemberRoleName,Name,OwnerRoleName,PackageName,RestRoleNamePath,StartRoleNamePath,Visibility
+                    2:
+iterate:Class
+iterate:Enumerator
+iterate:Interface
+-->"JavaUtility.ptm":
+-->"JavaType.ptm":
+-->"Class.ptm":Class
+-->"Interface.ptm":Interface
+-->"Enumerator.ptm":Enumerator
+==================================================================================================================
+Direct:Class,Enumerator,Interface
+Root:Object

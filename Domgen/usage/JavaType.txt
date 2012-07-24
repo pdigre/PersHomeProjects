@@ -1,0 +1,12 @@
+                    1:ModelType
+                    2:javaType
+<--GetSetGroup:
+<--ClassModel:
+<--Class:Method,Parameter
+<--Class:Attribute
+<--ImportSingle:
+<--Method:
+<--Method:Parameter
+==================================================================================================================
+Direct:
+Root:Domain

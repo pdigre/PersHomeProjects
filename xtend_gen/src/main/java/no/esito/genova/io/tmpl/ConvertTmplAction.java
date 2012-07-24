@@ -3,9 +3,7 @@ package no.esito.genova.io.tmpl;
 import java.io.IOException;
 
 import no.esito.genova.io.antlr.TmplParseUnit;
-import no.esito.genova.io.convert.AbstractSupport;
 import no.esito.genova.io.convert.Convert2XtendAction;
-import no.esito.genova.io.driver.XtendEngine;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.eclipse.core.resources.IContainer;
@@ -17,7 +15,7 @@ import org.eclipse.jface.action.IAction;
 public class ConvertTmplAction extends Convert2XtendAction {
 
 	@Override
-	public void run(IAction action) {
+	public void run() {
 		try {
 //			XtendEngine engine = new XtendEngine();
 //			engine.setModelManager(getGProject());

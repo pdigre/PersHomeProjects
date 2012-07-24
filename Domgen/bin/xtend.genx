@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ModelExport>
+	<Exporter>Genova</Exporter>
+	<ExporterVersion>900</ExporterVersion>
+	<ExporterTime>Sun Dec 06 15:12:48 CET 2009</ExporterTime>
+	<ModelType>GeneratorTarget</ModelType>
+	<GeneratorRoot>
+		<Generator Description="Java Domain target" Engine="XTEND"
+			Entry="ClassModel.xtend" Image="xtend/xtend.png" name="XtendDomain" SubDir="src/main"
+			TopLevel="False" Type="DomainModel">
+			<GenSetup Default="False" name="Skip generation of .new files"
+				Type="Bool" />
+			<GenSetup Default="True" name="Create full Generated tag"
+				Type="Bool" />
+			<GenSetup Default="True"
+				name="Give warning for undefined parser variables" Type="Bool" />
+			<GenSetup Default="False" name="Suppress information messages"
+				Type="Bool" />
+			<GenParam Default="java" name="JavaDirectory" Type="String" />
+			<GenParam Default="no.genova.domain.PersistentClass" name="PersistentClass"
+				Type="String" />
+			<GenParam Default="False" name="PersistentSerializable"
+				Type="Bool" />
+			<GenParam name="TransientClass" Type="String" />
+			<GenParam name="CommentFile" Type="String" />
+			<GenParam Default="False" name="GenerateSingleClass" Type="Bool" />
+			<GenParam Default="False" name="GenerateJavaStyleEnums"
+				Type="Bool" />
+			<GenParam Default="False" name="GenerateIsAsBooleanPrefix"
+				Type="Bool" />
+			<GenParam Default="False" name="GenerateAttributeInfo" Type="Bool" />
+			<GenParam Default="True" name="GeneratePublicSetGet" Type="Bool" />
+			<GenParam Default="False" name="GenerateClassNameString"
+				Type="Bool" />
+			<GenParam Default="False" name="GenerateAttributeNameString"
+				Type="Bool" />
+			<GenParam Default="False" name="GenerateGetStaticClassNameMethod"
+				Type="Bool" />
+			<GenParam Default="" name="TransientClass" Type="String" />
+			<GenParam name="SerialVersionUID" />
+		</Generator>
+	</GeneratorRoot>
+</ModelExport>

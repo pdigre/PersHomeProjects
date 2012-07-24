@@ -2,18 +2,17 @@ package no.esito.genova.io.convert;
 
 import java.util.HashSet;
 
+import no.esito.genova.ui.action.menubar.AbstractMenuAction;
+import no.esito.genova.ui.ide.GPlugin;
+import no.esito.genova.ui.model.GProject;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectNature;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.TreeSelection;
 
-import no.esito.genova.io.ptm.Ptm2Xtend;
-import no.esito.genova.ui.action.menubar.GMenuAction;
-import no.esito.genova.ui.ide.GPlugin;
-import no.esito.genova.ui.ide.GProject;
-
-public abstract class Convert2XtendAction extends GMenuAction {
+public abstract class Convert2XtendAction extends AbstractMenuAction {
 
 	public static final String PATH_EM_INPUT = "em";
 	public static final String PATH_USAGE = "usage";
@@ -35,17 +34,6 @@ public abstract class Convert2XtendAction extends GMenuAction {
 
 	public Convert2XtendAction() {
 		super();
-	}
-
-	@Override
-	public void selectionChanged(IAction action, ISelection selection) {
-		super.selectionChanged(action, selection);
-		if (selection instanceof TreeSelection) {
-			TreeSelection sel = (TreeSelection) selection;
-			Object el = sel.getFirstElement();
-			if (el instanceof IProjectNature)
-				iproject = ((IProjectNature) el).getProject();
-		}
 	}
 
 	@Override

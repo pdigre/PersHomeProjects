@@ -1,0 +1,6 @@
+                    1:CastorMappingDirectory,ConfigDirectory,ConverterDirectory,GeneratePublicSetGet,GenerateSingleClass,GeneratedPackage,JavaDirectory,MappingDirectory,PrintDirectory,SuppressAllWarnings,TransportDirectory,WebDirectory
+                    2:
+<--ClassModel:
+==================================================================================================================
+Direct:
+Root:Domain
