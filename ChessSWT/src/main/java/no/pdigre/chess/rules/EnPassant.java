@@ -1,11 +1,9 @@
 package no.pdigre.chess.rules;
 
-public class EnPassant extends Beat {
-	public int enpassant;
+public class EnPassant extends Capture {
 
-	public EnPassant(int from, int to, PieceType type, AbstractMove parent, PieceType victim,int enpassant) {
-		super(from, to, type,parent, victim);
-		this.enpassant=enpassant;
+	public EnPassant(int from, int to, int type, AbstractMove parent, int victim) {
+		super(from, to, type|AbstractMove.ENPASSANT,parent, victim);
 	}
 
 	@Override
@@ -13,25 +11,27 @@ public class EnPassant extends Beat {
 		return super.toString() + " enpassant ";
 	}
 
+	@Override
 	public int halfMoves() {
 		return 0;
 	}
 
+	@Override
 	public Piece apply(Piece piece) {
 		if(piece==null)
 			return null;
 		int pos=piece.pos;
-		if(pos==enpassant-type.forward)
+		if(pos==getFrom()-PieceType.forward(bitmap))
 			return apply(piece.link);
-		if(pos==from)
-			pos=to;
+		if(pos==getFrom())
+			pos=getTo();
 		return new Piece(piece.type, pos, apply(piece.link));
 	}
 
-	public void apply(PieceType[] board) {
-		board[from] = null;
-		board[enpassant-type.forward]=null;
-		board[to] = type;
+	@Override
+	public void apply(int[] board) {
+		board[getFrom()] = 0;
+		board[getFrom()-PieceType.forward(bitmap)]=0;
+		board[getTo()] = bitmap & PIECE;
 	}
-
 }

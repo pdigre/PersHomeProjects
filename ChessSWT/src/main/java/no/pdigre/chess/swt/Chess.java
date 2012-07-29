@@ -3,7 +3,8 @@ package no.pdigre.chess.swt;
 import java.util.HashSet;
 import java.util.List;
 
-import no.pdigre.chess.evaluate.EvalMove;
+import no.pdigre.chess.rules.EvalMove;
+import no.pdigre.chess.rules.Move;
 import no.pdigre.chess.rules.Piece;
 import no.pdigre.chess.rules.StartGame;
 
@@ -36,8 +37,9 @@ public class Chess extends ChessGraphics {
 	}
 
 	public void startGame() {
-		lasteval = new EvalMove(new StartGame(StartingGames.FEN_GAMES[0]));
-		System.out.println(lasteval.move.getFen());
+		StartGame move = new StartGame(StartingGames.FEN_GAMES[0]);
+		lasteval = new EvalMove(move);
+		System.out.println(move.getFen());
 	}
 
 	HashSet<Integer> markers = new HashSet<Integer>();
@@ -64,12 +66,14 @@ public class Chess extends ChessGraphics {
 
 			@Override
 			public void mouseDown(MouseEvent e) {
-				int i = findSquare(canvas, e.x, e.y);
+				int i = findSquare(e.x, e.y);
 				if (e.button == 1) {
 					if (markers.contains(i)) {
-						lasteval = lasteval.move(from, i);
+						Move move = lasteval.move(from, i);
+						lasteval = new EvalMove(lasteval.state, move);
+						lasteval.searchLegalMoves();
 						System.out.println(lasteval.toString());
-						System.out.println(lasteval.move.getFen());
+						System.out.println(move.getFen());
 						from=-1;
 						markers.clear();
 						canvas.redraw();
@@ -77,11 +81,10 @@ public class Chess extends ChessGraphics {
 					} else {
 						from = i;
 						markers.clear();
-						Piece piece = lasteval.pieces;
+						Piece piece = lasteval.move.getPieces();
 						while (piece != null) {
 							if (piece.pos == i) {
 								List<Integer> moves = lasteval.getLegalMoves(piece);
-								;
 								for (Integer to : moves)
 									markers.add(to);
 							}
@@ -140,6 +143,7 @@ public class Chess extends ChessGraphics {
 			
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
+				// not
 			}
 		});
 		shell.open();
@@ -153,7 +157,7 @@ public class Chess extends ChessGraphics {
 		display.dispose();
 	}
 
-	private void drawBoard(GC gc, Canvas canvas) {
+	void drawBoard(GC gc, Canvas canvas) {
 		Rectangle area = canvas.getClientArea();
 		gc.drawRectangle(area.x + 1, area.y + 1, area.width - 2, area.height - 2);
 		for (int i = 0; i < 64; i++) {
@@ -163,7 +167,7 @@ public class Chess extends ChessGraphics {
 			if (i == from)
 				drawFrame(gc, i, SWT.COLOR_RED);
 		}
-		Piece piece = lasteval.pieces;
+		Piece piece = lasteval.move.getPieces();
 		while (piece != null) {
 			drawPiece(gc, piece.pos, piece.getType());
 			piece=piece.link;
