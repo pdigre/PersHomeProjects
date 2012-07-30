@@ -1,0 +1,11 @@
+ToDo
+
+1. add validity check on move
+  - Castling check three spaces for safe
+  - is King safe
+
+2. add check/mate status detector
+  
+3. fix promotions
+
+  

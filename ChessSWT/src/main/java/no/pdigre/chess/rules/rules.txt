@@ -1,0 +1,20 @@
+Chess Rules:
+============
+This is a simple class hierarchy that represents the Movement Rules.
+It also implements FEN positions.
+
+It is not optimized.
+
+Possible optimization techniques...
+1. Use int[] + counter instead of ArrayList<Integer> -> no need for autoboxing
+2. encode from(6), to(6), type(3), color(1) into a char
+3. 
+
+
+TODO:
+1. moves Castling
+2x moves TradeUp Queen / Knight
+3. Think(3)  -> test button
+4x Evaluation -> position
+5. Iterative Evaluation
+ 
