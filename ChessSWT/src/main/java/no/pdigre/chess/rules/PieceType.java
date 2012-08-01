@@ -1,42 +1,51 @@
 package no.pdigre.chess.rules;
 
 public enum PieceType {
-	WHITE_PAWN(100, 'P'),
-	WHITE_KNIGHT(300, 'N'),
-	WHITE_BISHOP(300, 'B'),
-	WHITE_ROOK(500, 'R'),
-	WHITE_QUEEN(900, 'Q'),
-	WHITE_KING(10000, 'K'),
-	BLACK_PAWN(-100, 'p'),
-	BLACK_KNIGHT(-300, 'n'),
-	BLACK_BISHOP(-300, 'b'),
-	BLACK_ROOK(-500, 'r'),
-	BLACK_QUEEN(-900, 'q'),
-	BLACK_KING(-10000, 'k');
+	WHITE_PAWN(100, 'P', 1), WHITE_KNIGHT(300, 'N', 2), WHITE_BISHOP(300, 'B',
+			3), WHITE_ROOK(500, 'R', 4), WHITE_QUEEN(900, 'Q', 5), WHITE_KING(
+			10000, 'K', 6), BLACK_PAWN(-100, 'p', 9), BLACK_KNIGHT(-300, 'n',
+			10), BLACK_BISHOP(-300, 'b', 11), BLACK_ROOK(-500, 'r', 12), BLACK_QUEEN(
+			-900, 'q', 13), BLACK_KING(-10000, 'k', 14);
 
 	final public int weight;
 	final public char fen;
-	final public boolean white;
-	final public int home;
-	final public int forward;
-	final public int pawnline;
-	final public int goalline;
+	final public int bitmap;
 	final public static int LEFT = -1;
 	final public static int RIGHT = 1;
 	final public static int UP = 8;
 	final public static int DOWN = -8;
+	final public static PieceType[] types = new PieceType[] { null, WHITE_PAWN,
+			WHITE_KNIGHT, WHITE_BISHOP, WHITE_ROOK, WHITE_QUEEN, WHITE_KING,
+			null, null, BLACK_PAWN, BLACK_KNIGHT, BLACK_BISHOP, BLACK_ROOK,
+			BLACK_QUEEN, BLACK_KING, null };
 
-	<T extends Piece> PieceType(int weight, char fen) {
+	<T extends Piece> PieceType(int weight, char fen, int bitmap) {
 		this.weight = weight;
 		this.fen = fen;
-		this.white = weight > 0;
-		this.home = weight > 0 ? 0 : 56;
-		this.forward = weight > 0 ? 8 : -8;
-		this.pawnline = weight > 0 ? 8 : 48;
-		this.goalline = weight > 0 ? 56 : 0;
+		this.bitmap = bitmap;
 	}
 
-	public static PieceType getPieceType(char fen) {
+	final static boolean white(int bitmap) {
+		return (bitmap & AbstractMove.ISBLACK) == 0;
+	}
+
+	final private static int home(int bitmap) {
+		return white(bitmap) ? 0 : 56;
+	}
+
+	final static int forward(int bitmap) {
+		return white(bitmap) ? 8 : -8;
+	}
+
+	final static int pawnline(int bitmap) {
+		return white(bitmap) ? 8 : 48;
+	}
+
+	final static int goalline(int bitmap) {
+		return white(bitmap) ? 56 : 0;
+	}
+
+	final public static PieceType getPieceType(char fen) {
 		for (PieceType type : PieceType.values()) {
 			if (type.fen == fen)
 				return type;
@@ -44,99 +53,59 @@ public enum PieceType {
 		return null;
 	}
 
-	public boolean white() {
-		return white;
-	}
-
-	public void addAll(IMoves moves, PieceType[] board, int from) {
-		switch (this) {
-		case BLACK_PAWN:
-		case WHITE_PAWN: {
-			pawnForward(moves, board, from, forward);
+	final public static void addAll(int bitmap, IMoves moves, int[] board,
+			int from) {
+		switch (bitmap & 7) {
+		case AbstractMove.PAWN:
+			int fwd = forward(bitmap);
+			pawnForward(moves, board, from, fwd, bitmap);
 			int enpassant = moves.getEnpassant();
-			pawnBeat(moves, board, from, enpassant, forward, forward + LEFT);
-			pawnBeat(moves, board, from, enpassant, forward, forward + RIGHT);
-		}
+			pawnBeat(moves, board, from, enpassant, fwd + LEFT, bitmap);
+			pawnBeat(moves, board, from, enpassant, fwd + RIGHT, bitmap);
 			break;
-		case BLACK_KNIGHT:
-		case WHITE_KNIGHT: {
-			add(moves, board, from, UP + LEFT + LEFT);
-			add(moves, board, from, UP + UP + LEFT);
-			add(moves, board, from, UP + RIGHT + RIGHT);
-			add(moves, board, from, UP + UP + RIGHT);
-			add(moves, board, from, DOWN + LEFT + LEFT);
-			add(moves, board, from, DOWN + DOWN + LEFT);
-			add(moves, board, from, DOWN + RIGHT + RIGHT);
-			add(moves, board, from, DOWN + DOWN + RIGHT);
-		}
+		case AbstractMove.KNIGHT:
+			addSimple(moves, board, BaseMoves.KNIGHT_MOVES[from], bitmap);
 			break;
-		case BLACK_BISHOP:
-		case WHITE_BISHOP: {
-			slide(moves, board, from, UP + LEFT);
-			slide(moves, board, from, UP + RIGHT);
-			slide(moves, board, from, DOWN + LEFT);
-			slide(moves, board, from, DOWN + RIGHT);
-		}
+		case AbstractMove.BISHOP:
+			addSlider(moves, board, BaseMoves.BISHOP_MOVES[from], bitmap);
 			break;
-		case BLACK_ROOK:
-		case WHITE_ROOK: {
-			slide(moves, board, from, UP);
-			slide(moves, board, from, DOWN);
-			slide(moves, board, from, LEFT);
-			slide(moves, board, from, RIGHT);
-		}
+		case AbstractMove.ROOK:
+			addSlider(moves, board, BaseMoves.ROOK_MOVES[from], bitmap);
 			break;
-		case BLACK_QUEEN:
-		case WHITE_QUEEN: {
-			slide(moves, board, from, UP);
-			slide(moves, board, from, DOWN);
-			slide(moves, board, from, LEFT);
-			slide(moves, board, from, RIGHT);
-			slide(moves, board, from, UP + LEFT);
-			slide(moves, board, from, UP + RIGHT);
-			slide(moves, board, from, DOWN + LEFT);
-			slide(moves, board, from, DOWN + RIGHT);
-		}
+		case AbstractMove.QUEEN:
+			addSlider(moves, board, BaseMoves.QUEEN_MOVES[from], bitmap);
 			break;
-		case BLACK_KING:
-			add(moves, board, from, UP);
-			add(moves, board, from, DOWN);
-			add(moves, board, from, UP + LEFT);
-			add(moves, board, from, UP + RIGHT);
-			add(moves, board, from, DOWN + LEFT);
-			add(moves, board, from, DOWN + RIGHT);
-			if (add(moves, board, from, RIGHT) && moves.getCastling(BLACK_QUEEN))
-				castlingQueen(moves, board, from, BLACK_ROOK);
-			if (add(moves, board, from, LEFT) && moves.getCastling(BLACK_KING))
-				castlingKing(moves, board, from, BLACK_ROOK);
-		case WHITE_KING: {
-			add(moves, board, from, UP);
-			add(moves, board, from, DOWN);
-			add(moves, board, from, UP + LEFT);
-			add(moves, board, from, UP + RIGHT);
-			add(moves, board, from, DOWN + LEFT);
-			add(moves, board, from, DOWN + RIGHT);
-			if (add(moves, board, from, RIGHT) && moves.getCastling(WHITE_QUEEN))
-				castlingQueen(moves, board, from, WHITE_ROOK);
-			if (add(moves, board, from, LEFT) && moves.getCastling(WHITE_KING))
-				castlingKing(moves, board, from, WHITE_ROOK);
-		}
+		case AbstractMove.KING:
+			addSimple(moves, board, BaseMoves.KING_MOVES[from], bitmap);
+			if(white(bitmap)){
+				if ((moves.getState() & EvalMove.NOCASTLE_BLACKQUEEN) == 0)
+					castlingQueen(moves, board, from, AbstractMove.BLACK_ROOK,bitmap);
+				if ((moves.getState() & EvalMove.NOCASTLE_BLACKKING) == 0)
+					castlingKing(moves, board, from, AbstractMove.BLACK_ROOK,bitmap);
+			} else {
+				if ((moves.getState() & EvalMove.NOCASTLE_WHITEQUEEN) == 0)
+					castlingQueen(moves, board, from, AbstractMove.ROOK, bitmap);
+				if ((moves.getState() & EvalMove.NOCASTLE_WHITEKING) == 0)
+					castlingKing(moves, board, from, AbstractMove.ROOK, bitmap);
+			}
 			break;
-
 		}
 	}
 
-	/**
-	 * Repeated moves like rook and queen
-	 * 
-	 * @param moves
-	 * @param board
-	 * @param from
-	 * @param offset
-	 */
-	private void slide(IMoves moves, PieceType[] board, int from, int offset) {
-		for (int i = from; add(moves, board, i, offset); i += offset)
-			;
+	final private static void addSlider(IMoves imoves, int[] board,
+			int[][] moves, int bitmap) {
+		for (int[] slide : moves) {
+			for (int i = 0; i < slide.length
+					&& add(imoves, board, slide[i], bitmap); i++) {
+				// not
+			}
+		}
+	}
+
+	final private static void addSimple(IMoves imoves, int[] board,
+			int[] moves, int bitmap) {
+		for (int to : moves)
+			add(imoves, board, to, bitmap);
 	}
 
 	/**
@@ -149,18 +118,16 @@ public enum PieceType {
 	 * 
 	 * @return
 	 */
-	private boolean add(IMoves moves, PieceType[] board, int from, int offset) {
-		int i = from + offset;
-		if (!inside(i, from))
-			return false;
-		PieceType victim = board[i];
-		if (victim == null)
-			moves.move(i);
-		else if (victim.white != white)
-			moves.beat(i);
+	final private static boolean add(IMoves moves, int[] board, int to,
+			int bitmap) {
+		int victim = board[to];
+		if (victim == 0)
+			moves.move(to);
+		else if (((victim & AbstractMove.ISBLACK) == 0) != white(bitmap))
+			moves.beat(to);
 		else
-			moves.support(i);
-		return victim == null;
+			moves.support(to);
+		return victim == 0;
 	}
 
 	/**
@@ -170,7 +137,7 @@ public enum PieceType {
 	 * @param from
 	 * @return
 	 */
-	private boolean inside(int i, int from) {
+	final private static boolean inside(int i, int from) {
 		if (i < 0 || i > 63)
 			return false;
 		int x1 = i % 8;
@@ -180,14 +147,15 @@ public enum PieceType {
 		return true;
 	}
 
-	private void pawnBeat(IMoves moves, PieceType[] board, int from, int enpassant, int updown, int leftright) {
+	final private static void pawnBeat(IMoves moves, int[] board, int from,
+			int enpassant, int leftright, int bitmap) {
 		int to = from + leftright;
 		if (inside(to, from)) {
-			PieceType piece = board[to];
-			if (piece != null) {
-				if (piece.white == white)
+			int piece = board[to];
+			if (piece != 0) {
+				if (((piece & AbstractMove.ISBLACK) == 0) == white(bitmap))
 					moves.support(to);
-				else if (to >= goalline && to < goalline + 8)
+				else if (to >= goalline(bitmap) && to < goalline(bitmap) + 8)
 					moves.beatTrade(to);
 				else
 					moves.beat(to);
@@ -198,18 +166,19 @@ public enum PieceType {
 		}
 	}
 
-	private void pawnForward(IMoves moves, PieceType[] board, int from, int mv) {
+	final private static void pawnForward(IMoves moves, int[] board, int from,
+			int mv, int bitmap) {
 		int to1 = from + mv;
 		if (inside(to1, from)) {
-			if (board[to1] == null) {
-				if (to1 >= goalline && to1 < goalline + 8)
+			if (board[to1] == 0) {
+				if (to1 >= goalline(bitmap) && to1 < goalline(bitmap) + 8)
 					moves.moveTrade(to1);
 				else
 					moves.move(to1);
-				if (from >= pawnline && from < pawnline + 8) {
+				if (from >= pawnline(bitmap) && from < pawnline(bitmap) + 8) {
 					int to2 = from + mv + mv;
 					if (inside(to2, from)) {
-						if (board[to2] == null)
+						if (board[to2] == 0)
 							moves.move(to2);
 					}
 				}
@@ -217,14 +186,27 @@ public enum PieceType {
 		}
 	}
 
-	private void castlingKing(IMoves moves, PieceType[] board, int from, PieceType rook) {
-		if (board[home + 6] == null && board[home + 7] == rook)
-			add(moves, board, from, 2);
+	final private static void castlingKing(IMoves moves, int[] board, int from,
+			int rook, int bitmap) {
+		if (board[home(bitmap) + 5] == 0 && board[home(bitmap) + 6] == 0
+				&& board[home(bitmap) + 7] == rook) {
+			if (checkSafe(home(bitmap) + 4) && checkSafe(home(bitmap) + 5))
+				add(moves, board, from, 2);
+		}
 	}
 
-	private void castlingQueen(final IMoves moves, final PieceType[] board, int from, PieceType rook) {
-		if (board[home + 2] == null && board[home + 1] == null && board[home + 0] == rook)
-			add(moves, board, from, -2);
+	final private static void castlingQueen(final IMoves moves,
+			final int[] board, int from, int rook, int bitmap) {
+		if (board[home(bitmap) + 3] == 0 && board[home(bitmap) + 2] == 0
+				&& board[home(bitmap) + 1] == 0
+				&& board[home(bitmap) + 0] == rook) {
+			if (checkSafe(home(bitmap) + 3) && checkSafe(home(bitmap) + 4))
+				add(moves, board, from, -2);
+		}
+	}
+
+	final public static boolean checkSafe(int i) {
+		return true;
 	}
 
 }

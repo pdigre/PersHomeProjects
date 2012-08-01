@@ -8,7 +8,6 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.widgets.Canvas;
 
 public class ChessGraphics {
 	public static final int PIECE_HEIGHT = 32;
@@ -23,10 +22,11 @@ public class ChessGraphics {
 		super();
 	}
 
-	public void drawPiece(GC gc, int i, PieceType type) {
+	public void drawPiece(GC gc, int i, int type) {
+		PieceType ptype = PieceType.types[type];
 		int x = i % 8;
 		int y = (i - x) / 8;
-		String filename = (type.fen > 'Z' ? "b" + type.fen + ".gif" : "w" + type.fen + ".gif").toLowerCase();
+		String filename = (ptype.fen > 'Z' ? "b" + ptype.fen + ".gif" : "w" + ptype.fen + ".gif").toLowerCase();
 		Image img = new Image(gc.getDevice(), new ImageData(getClass().getClassLoader().getResourceAsStream(filename)));
 		gc.drawImage(img, BOARD_MARGIN + x * PIECE_WIDTH, BOARD_OFFSET - y * PIECE_HEIGHT);
 	}
@@ -57,7 +57,7 @@ public class ChessGraphics {
 		return new Rectangle(BOARD_MARGIN + x * PIECE_WIDTH, BOARD_OFFSET - ((i - x) / 8) * PIECE_HEIGHT, PIECE_WIDTH-1, PIECE_HEIGHT-1);
 	}
 
-	public int findSquare(Canvas canvas, int ex, int ey) {
+	public int findSquare(int ex, int ey) {
 		int x = (ex - BOARD_MARGIN) / PIECE_WIDTH;
 		int y = (BOARD_OFFSET - ey + PIECE_HEIGHT) / PIECE_HEIGHT;
 		if (x < 0 || x > 7 || y < 0 || y > 7)

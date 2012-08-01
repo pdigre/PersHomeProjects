@@ -1,6 +1,12 @@
 package no.pdigre.chess.rules;
 
 public interface IMoves {
+	
+	
+	
+	
+	
+	
 	// Moves relative
 	public final static int UP=8;
 	public final static int DOWN=-8;
@@ -20,5 +26,5 @@ public interface IMoves {
 	public abstract void castling(final int to); 
 	public abstract void enpassant(final int to);
 	public abstract int getEnpassant();
-	public abstract boolean getCastling(PieceType castling);
+	public abstract int getState();
 }
