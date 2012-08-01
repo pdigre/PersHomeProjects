@@ -1,0 +1,14 @@
+                    1:MemberType,ModelType,ModelTypeIsJavaPrimitive/B,NodeType,StartRoleNamePath
+                    2:
+Class               1:IsPersistent/B
+Class               2:
+iterate:Member
+-->"EqualsRecursive.ptm":Member
+<--EqualsRecursive:Member
+<--Equals:Attribute
+<--Equals:Group,Member
+<--Equals:Attribute
+<--Equals:Group,Member
+==================================================================================================================
+Direct:Member
+Root:Group

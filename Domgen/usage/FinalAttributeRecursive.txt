@@ -1,0 +1,9 @@
+Member              1:MemberType,Visibility
+Member              2:
+iterate:Member
+-->"FinalAttributeRecursive.ptm":Member
+<--Class:Group,Member
+<--FinalAttributeRecursive:Member
+==================================================================================================================
+Direct:Member
+Root:Group

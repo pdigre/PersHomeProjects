@@ -1,0 +1,12 @@
+                    1:MemberType,ModelTypeIsJavaPrimitive/B,NodeType,StartRoleNamePath
+                    2:
+Class               1:IsPersistent/B
+Class               2:
+iterate:Member
+-->"PrimaryKeyRecursive.ptm":Member
+<--PrimaryKey:Attribute
+<--PrimaryKey:Group,Member
+<--PrimaryKeyRecursive:Member
+==================================================================================================================
+Direct:Member
+Root:Group

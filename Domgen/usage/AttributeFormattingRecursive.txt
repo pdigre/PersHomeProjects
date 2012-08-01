@@ -1,0 +1,10 @@
+                    1:Displayrule,GenerateAttributeNameString,InputJustification,IsBlankWhenZero/B,MemberType,Name,NodeType,OutputJustification
+                    2:
+iterate:Member
+-->"AttributeFormattingRecursive.ptm":Member
+<--AttributeFormatting:Attribute
+<--AttributeFormatting:Group,Member
+<--AttributeFormattingRecursive:Member
+==================================================================================================================
+Direct:Member
+Root:Group

@@ -2,7 +2,6 @@ package no.pdigre.chess.rules;
 
 import java.util.ArrayList;
 
-
 public class StartGame extends AbstractMove {
 
 	private final String board;

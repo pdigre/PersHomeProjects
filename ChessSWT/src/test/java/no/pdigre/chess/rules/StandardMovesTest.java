@@ -32,7 +32,7 @@ public class StandardMovesTest {
 	}
 
 	@Test
-	public void testPromotion() {
+	public void testPromotions() {
 		String fen = "n1n5/PPPk4/8/8/8/8/4Kppp/5N1N b - - 0 1";
 		assertEquals("Pawn", "p g1 g1 g1 g1 f1 f1 f1 f1 h1 h1 h1 h1", getMoves("g2", new StartGame(fen)));
 	}

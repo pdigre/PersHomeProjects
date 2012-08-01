@@ -21,7 +21,7 @@ import org.eclipse.jface.action.IAction;
 public class ConvertPtmAction extends Convert2XtendAction {
 
 	@Override
-	public void run(IAction action) {
+	public void run() {
 		try {
 			loadPtmFiles();
 			analyzeUsage();

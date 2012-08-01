@@ -1,0 +1,10 @@
+Member              1:MemberType
+Member              2:
+iterate:Member
+-->"ImportSingle.ptm":Member
+-->"ImportRecursive.ptm":Member
+<--Class:Group
+<--ImportRecursive:Member
+==================================================================================================================
+Direct:Member
+Root:Group

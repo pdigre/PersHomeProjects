@@ -1,0 +1,14 @@
+                    1:MemberType,NodeType,StartRoleNamePath
+                    2:
+Class               1:IsPersistent/B
+Class               2:
+iterate:Member
+-->"StringRepRecursive.ptm":Member
+<--StringRep:Attribute
+<--StringRep:Group,Member
+<--StringRep:Attribute
+<--StringRep:Group,Member
+<--StringRepRecursive:Member
+==================================================================================================================
+Direct:Member
+Root:Group

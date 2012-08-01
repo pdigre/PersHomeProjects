@@ -1,0 +1,17 @@
+                    1:Abstract/B,CommentFile,GeneratedWith,HasDescription/B,Name,PackageName,SerialVersionUID
+                    2:tmpVisibility
+Class               1:Abstract/B,Name
+Class               2:
+Method              1:Abstract/B,Name
+Method              2:
+iterate:Method
+iterate:Method,Parameter
+-->:
+-->"ImportSingle.ptm":Method
+-->"ImportSingle.ptm":Method,Parameter
+-->"Method.ptm":Method
+-->"Method.ptm":Method
+<--Class:
+==================================================================================================================
+Direct:Method
+Root:Interfaze

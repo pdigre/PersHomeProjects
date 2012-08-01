@@ -1,0 +1,15 @@
+Attribute           1:IsPrimaryKey/B
+Attribute           2:KeyFound
+Group               1:IsPrimaryKey/B
+Group               2:
+Member              1:MemberType
+Member              2:
+iterate:Attribute
+iterate:Group
+iterate:Group,Member
+-->"AttributeFormattingRecursive.ptm":Attribute
+-->"AttributeFormattingRecursive.ptm":Group,Member
+<--Class:
+==================================================================================================================
+Direct:Attribute,Group
+Root:Clazz

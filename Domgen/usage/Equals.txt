@@ -1,0 +1,19 @@
+                    1:Name
+                    2:KeyFound,instanceClass
+Attribute           1:IsDefaultDomainKey/B,IsPrimaryKey/B
+Attribute           2:
+Class               1:Name
+Class               2:Methods
+Group               1:IsDefaultDomainKey/B,IsPrimaryKey/B
+Group               2:
+iterate:Attribute
+iterate:Group
+iterate:Group,Member
+-->"EqualsRecursive.ptm":Attribute
+-->"EqualsRecursive.ptm":Group,Member
+-->"EqualsRecursive.ptm":Attribute
+-->"EqualsRecursive.ptm":Group,Member
+<--Class:
+==================================================================================================================
+Direct:Attribute,Group
+Root:Clazz

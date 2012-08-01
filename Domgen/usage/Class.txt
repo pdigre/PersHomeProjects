@@ -1,0 +1,72 @@
+                    1:Abstract/B,CommentFile,CountRealization/I,GenerateAttributeInfo,GenerateAttributeNameString,GenerateClassNameString,GenerateGetStaticClassNameMethod,GeneratedWith,HasDescription/B,IsPersistent/B,Name,PackageName,PersistentClass,PersistentSerializable,SerialVersionUID,SkipNewFiles/B,TransientClass
+                    2:GeneralizationName,SuperClassName,impSinPack,impSinType,tmpVisibility
+Association         1:Description,HasDescription/B,IsMemberMany/B,IsMemberNavigable/B,IsOwnerMany/B,IsOwnerNavigable/B,MemberClassName,MemberRoleName,OwnerClassName,OwnerRoleName
+Association         2:impSinPack,impSinType,pName,pType,pTypeStripGen,pVisibility
+Attribute           1:HasDescription/B,HasInitialValue/B,InitialValue,IsDefaultDomainKey/B,IsPrimaryKey/B,IsStatic/B,Name,Visibility
+Attribute           2:javaType,pName,pType,pTypeStripGen,pVisibility
+Class               1:Abstract/B,IsPersistent/B,Name,PackageName
+Class               2:DefaultDomainKey,ImplementSerializable,MethodVisibility,Methods,PrimaryKey,Serializable,SuperClassName,SuperClassPackage
+Group               1:IsDefaultDomainKey/B,IsPrimaryKey/B,Name
+Group               2:
+Interface           1:Name,PackageName
+Interface           2:
+Member              1:MemberType
+Member              2:
+MemberClass         1:Name,PackageName
+MemberClass         2:
+Method              1:Abstract/B,Name,Visibility
+Method              2:parameters
+OwnerClass          1:Name,PackageName
+OwnerClass          2:
+Parameter           1:IsFirst/B
+Parameter           2:javaType
+Realization         1:IsLast/B
+Realization         2:
+SubClass            1:Name
+SubClass            2:
+SuperClass          1:Name,PackageName
+SuperClass          2:
+iterate:Association
+iterate:Attribute
+iterate:Generalization
+iterate:Group
+iterate:Group,Member
+iterate:Method
+iterate:Method,Parameter
+iterate:Realization
+-->"JavaType.ptm":Method,Parameter
+-->:
+-->"ImportSingle.ptm":Attribute
+-->"ImportRecursive.ptm":Group
+-->"ImportSingle.ptm":Association
+-->"ImportSingle.ptm":Association
+-->"ImportSingle.ptm":Association
+-->"ImportSingle.ptm":Association
+-->"ImportSingle.ptm":Method
+-->"ImportSingle.ptm":Method,Parameter
+-->"ImportSingle.ptm":Generalization
+-->"ImportSingle.ptm":
+-->"ImportSingle.ptm":
+-->"ImportSingle.ptm":
+-->"ImportSingle.ptm":
+-->"ImportSingle.ptm":
+-->"ImportSingle.ptm":
+-->"ImportSingle.ptm":
+-->"FinalAttributeRecursive.ptm":Group,Member
+-->"AttributeFormatting.ptm":
+-->"Method.ptm":Method
+-->"JavaType.ptm":Attribute
+-->"GetSetSingle.ptm":Attribute
+-->"GetSetSingle.ptm":Association
+-->"GetSetSingle.ptm":Association
+-->"GetSetGroup.ptm":Group,Member
+-->"Method.ptm":Method
+-->"Equals.ptm":
+-->"HashCode.ptm":
+-->"StringRep.ptm":
+-->"PrimaryKey.ptm":
+-->"SubClass.ptm":
+<--ClassModel:Class
+==================================================================================================================
+Direct:Association,Attribute,Generalization,Group,Method,Realization
+Root:Clazz
