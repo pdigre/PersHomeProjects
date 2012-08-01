@@ -1,28 +1,31 @@
 package no.pdigre.chess.rules;
 
+import java.util.Collection;
+
 
 public class EvaluateBoard implements IEvaluator {
 	final int[] board;
 	final EvalMove eval;
 
-	public EvaluateBoard(final EvalMove eval,final int[] board,Piece piece) {
+	public EvaluateBoard(final EvalMove eval,final int[] board,int[] pieces) {
 		this.board = board;
 		this.eval = eval;
-		evaluate(piece);
+		evaluate(pieces);
 	}
 
-	private void evaluate(Piece piece) {
-		while (piece != null) {
-			final int type = piece.getType();
+	private void evaluate(int[] pieces) {
+	    for (int piece : pieces) {
+			final int type = Move.getType(piece);
 			PieceType t = PieceType.types[type];
+			if(t==null)
+			    throw new AssertionError("null");
 			if(Move.isBlack(type)) {
 				bPieceVal -= t.weight;
-				PieceType.addAll(type,addblack, board, piece.pos);
+				FindMoves.addMovesForPiece(type,addblack, board, Move.getPos(piece));
 			}else {
 				wPieceVal += t.weight;
-				PieceType.addAll(type,addwhite, board, piece.pos);
+				FindMoves.addMovesForPiece(type,addwhite, board, Move.getPos(piece));
 			}
-			piece = piece.link;
 		}
 	}
 
@@ -55,7 +58,7 @@ public class EvaluateBoard implements IEvaluator {
 		return bPieceVal + bMove + 2 * bSupport + 3 * bBeat;
 	}
 
-	final IMoves addwhite = new IMoves() {
+	final IAdder addwhite = new IAdder() {
 
 		@Override
 		public void move(int to) {
@@ -69,7 +72,7 @@ public class EvaluateBoard implements IEvaluator {
 
 		@Override
 		public void beat(int to) {
-			if (board[to] == AbstractMove.BLACK_KING)
+			if (board[to] == IMove.BLACK_KING)
 				wCheck = true;
 			else
 				wBeat++;
@@ -77,7 +80,7 @@ public class EvaluateBoard implements IEvaluator {
 
 		@Override
 		public void beatTrade(int to) {
-			if (board[to] == AbstractMove.BLACK_KING)
+			if (board[to] == IMove.BLACK_KING)
 				wCheck = true;
 			else
 				wBeat++;
@@ -104,13 +107,19 @@ public class EvaluateBoard implements IEvaluator {
 		}
 
 		@Override
-		public int getState() {
+		public int getCastlingState() {
 			return eval.state;
 		}
 
+        @Override
+        public Collection<Move> getMoves() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
 	};
 
-	final IMoves addblack = new IMoves() {
+	final IAdder addblack = new IAdder() {
 
 		@Override
 		public void move(int to) {
@@ -124,7 +133,7 @@ public class EvaluateBoard implements IEvaluator {
 
 		@Override
 		public void beat(int to) {
-			if (board[to] == AbstractMove.KING)
+			if (board[to] == IMove.KING)
 				bCheck = true;
 			else
 				bBeat++;
@@ -132,7 +141,7 @@ public class EvaluateBoard implements IEvaluator {
 
 		@Override
 		public void beatTrade(int to) {
-			if (board[to] == AbstractMove.KING)
+			if (board[to] == IMove.KING)
 				bCheck = true;
 			else
 				bBeat++;
@@ -159,9 +168,15 @@ public class EvaluateBoard implements IEvaluator {
 		}
 
 		@Override
-		public int getState() {
+		public int getCastlingState() {
 			return eval.state;
 		}
+
+        @Override
+        public Collection<Move> getMoves() {
+            // TODO Auto-generated method stub
+            return null;
+        }
 
 	};
 

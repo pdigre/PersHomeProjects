@@ -1,20 +1,14 @@
 package no.pdigre.chess.rules;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class EvalMove {
 
-	public final static int NOCASTLE_WHITEKING = 1 << 1;
-	public final static int NOCASTLE_WHITEQUEEN = 1 << 2;
-	public final static int NOCASTLE_BLACKKING = 1 << 3;
-	public final static int NOCASTLE_BLACKQUEEN = 1 << 4;
-	public final static int ILLEGAL = 1 << 5;
-	public final static int CHECK = 1 << 6;
-	public final static int MATE = 1 << 7;
 
 	public int state;
-	public final AbstractMove move;
+	public final IMove move;
 	public float score;
 
 	public EvalMove(int pstate, final Move move) {
@@ -27,98 +21,29 @@ public class EvalMove {
 		this.move = move;
 	}
 
-	public ArrayList<Move> findMoves(final int[] board, Piece pieces) {
+	public ArrayList<Move> findMoves(final int[] board, int[] pieces) {
 		final ArrayList<Move> moves = new ArrayList<Move>();
 		final boolean whiteTurn = move.whiteTurn();
-		while (pieces != null) {
-			final int type = pieces.getType();
-			final int from = pieces.pos;
-			if (((type & AbstractMove.ISBLACK) == 0)== whiteTurn) {
-				final ArrayList<Move> next = new ArrayList<Move>();
-				IMoves adder = new IMoves() {
-
-					@Override
-					public void move(int to) {
-						next.add(new Move(from, to, type, move));
-					}
-
-					@Override
-					public void moveTrade(int to) {
-						next.add(new MovePromote(from, to, type, move,
-								whiteTurn ? AbstractMove.QUEEN
-										: AbstractMove.BLACK_QUEEN));
-						next.add(new MovePromote(from, to, type, move,
-								whiteTurn ? AbstractMove.KNIGHT
-										: AbstractMove.BLACK_KNIGHT));
-						next.add(new MovePromote(from, to, type, move,
-								whiteTurn ?AbstractMove.ROOK
-										: AbstractMove.BLACK_ROOK));
-						next.add(new MovePromote(from, to, type, move,
-								whiteTurn ? AbstractMove.BISHOP
-										: AbstractMove.BLACK_BISHOP));
-					}
-
-					@Override
-					public void support(int to) {
-						// not
-					}
-
-					@Override
-					public void beat(int to) {
-						next.add(new Capture(from, to, type, move, board[to]));
-					}
-
-					@Override
-					public void beatTrade(int to) {
-						int victim = board[to];
-						next.add(new CapturePromote(from, to, type, move,
-								victim, whiteTurn ? AbstractMove.QUEEN : AbstractMove.BLACK_QUEEN));
-						next.add(new CapturePromote(from, to, type, move,
-								victim, whiteTurn ? AbstractMove.KNIGHT : AbstractMove.BLACK_KNIGHT));
-						next.add(new CapturePromote(from, to, type, move,
-								victim, whiteTurn ? AbstractMove.ROOK : AbstractMove.BLACK_ROOK));
-						next.add(new CapturePromote(from, to, type, move,
-								victim, whiteTurn ? AbstractMove.BISHOP : AbstractMove.BLACK_BISHOP));
-					}
-
-					@Override
-					public void enpassant(int to) {
-						int enpassant = getEnpassant();
-						next.add(new EnPassant(from, to, type, move,
-								board[enpassant - PieceType.forward(type)]));
-					}
-
-					@Override
-					public void castling(int to) {
-						next.add(new Castling(from, to, type, move));
-					}
-
-					@Override
-					public int getEnpassant() {
-						return move.getEnpassant();
-					}
-
-					@Override
-					public int getState() {
-						return state;
-					}
-
-				};
-				PieceType.addAll(type,adder, board, pieces.pos);
+        Adder adder = new Adder(board, move);
+		for (final int piece : pieces) {
+			final int type = Move.getType(piece);
+			if (((type & IMove.ISBLACK) == 0)== whiteTurn) {
+			    adder.setPiece(piece);
+				FindMoves.addMovesForPiece(type,adder, board, piece);
 
 				// Check King in check position
-				for (Move to : next) {
+				Collection<Move> moves2 = adder.getMoves();
+                for (Move to : moves2) {
 					if (to instanceof Capture) {
 						int victim = (to.bitmap>>4)&7;
-						if (victim == AbstractMove.KING) {
-							state |= ILLEGAL;
+						if (victim == IMove.KING) {
+							state |= IMove.ILLEGAL;
 							return moves;
 						}
 					}
 					moves.add(to);
 				}
 			}
-			pieces = pieces.link;
 		}
 		return moves;
 	}
@@ -127,7 +52,7 @@ public class EvalMove {
 		if (level == 0)
 			return true;
 		ArrayList<Move> moves = findMoves(move.getBoard(), move.getPieces());
-		if ((state & ILLEGAL) != 0)
+		if ((state & IMove.ILLEGAL) != 0)
 			return false;
 		for (Move mv : new ArrayList<Move>(moves)) {
 			EvalMove eval = new EvalMove(state, mv);
@@ -146,11 +71,12 @@ public class EvalMove {
 		return move.toString();
 	}
 
-	public List<Integer> getLegalMoves(Piece piece) {
+	public List<Integer> getLegalMoves(int piece) {
 		ArrayList<Move> moves = searchLegalMoves();
 		ArrayList<Integer> list = new ArrayList<Integer>();
+        int pos = Move.getPos(piece);
 		for (Move mv : moves) {
-			if (mv.getFrom() == piece.pos)
+            if (mv.getFrom() == pos)
 				list.add(mv.getTo());
 		}
 		return list;
@@ -158,17 +84,17 @@ public class EvalMove {
 
 	public ArrayList<Move> searchLegalMoves() {
 		int[] board = move.getBoard();
-		Piece pieces = move.getPieces();
+		int[] pieces = move.getPieces();
 		ArrayList<Move> moves = findMoves(board, pieces);
-		if ((ILLEGAL & state) == 0) {
+		if ((IMove.ILLEGAL & state) == 0) {
 			for (Move mv : new ArrayList<Move>(moves)) {
 				EvalMove eval = new EvalMove(state, mv);
 				eval.findMoves(mv.getBoard(), mv.getPieces());
-				if ((ILLEGAL & eval.state) != 0)
+				if ((IMove.ILLEGAL & eval.state) != 0)
 					moves.remove(mv);
 			}
 		}
-		if ((ILLEGAL & state) != 0 || moves.size() == 0) {
+		if ((IMove.ILLEGAL & state) != 0 || moves.size() == 0) {
 			System.out.println("No moves");
 			EvaluateBoard score = new EvaluateBoard(this, board, pieces);
 			if (score.wCheck || score.bCheck)

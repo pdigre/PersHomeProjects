@@ -1,14 +1,17 @@
 package no.pdigre.chess.rules;
 
-import static no.pdigre.chess.rules.PieceType.DOWN;
-import static no.pdigre.chess.rules.PieceType.LEFT;
-import static no.pdigre.chess.rules.PieceType.RIGHT;
-import static no.pdigre.chess.rules.PieceType.UP;
-
 import java.util.ArrayList;
 
 public class BaseMoves {
 	
+    final public static int LEFT = -1;
+
+    final public static int RIGHT = 1;
+
+    final public static int UP = 8;
+
+    final public static int DOWN = -8;
+
 	final static int[][] KNIGHT_MOVES = new int[64][];
 	static {
 		for (int i = 0; i < 64; i++) {
