@@ -18,6 +18,6 @@ public class Piece {
 
 	@Override
 	public String toString() {
-		return PieceType.types[type].toString()+" "+AbstractMove.pos2text(pos);
+		return PieceType.types[type].toString()+" "+FEN.pos2text(pos);
 	}
 }

@@ -31,33 +31,33 @@ public class ChessGraphics {
 		gc.drawImage(img, BOARD_MARGIN + x * PIECE_WIDTH, BOARD_OFFSET - y * PIECE_HEIGHT);
 	}
 
-	public void drawSquare(GC gc, int i, int color) {
+	public static void drawSquare(GC gc, int i, int color) {
 		gc.setBackground(getBGColor(gc, i, color));
 		gc.fillRectangle(getRectangle(i));
 	}
 
-	public void drawFrame(GC gc, int i, int color) {
+	public static void drawFrame(GC gc, int i, int color) {
 		gc.setForeground(getBGColor(gc, i, color));
 		gc.drawRectangle(getRectangle(i));
 	}
 
-	public Color getBGColor(GC gc, int i, int color) {
+	public static Color getBGColor(GC gc, int i, int color) {
 		if (color == 0)
 			color = isBlack(i) ? SWT.COLOR_DARK_GRAY : SWT.COLOR_GRAY;
 		Color col = gc.getDevice().getSystemColor(color);
 		return col;
 	}
 
-	public boolean isBlack(int i) {
+	public static boolean isBlack(int i) {
 		return (i % 8 + (i - i % 8) / 8) % 2 == 0;
 	}
 
-	public Rectangle getRectangle(int i) {
+	public static Rectangle getRectangle(int i) {
 		int x = i % 8;
 		return new Rectangle(BOARD_MARGIN + x * PIECE_WIDTH, BOARD_OFFSET - ((i - x) / 8) * PIECE_HEIGHT, PIECE_WIDTH-1, PIECE_HEIGHT-1);
 	}
 
-	public int findSquare(int ex, int ey) {
+	public static int findSquare(int ex, int ey) {
 		int x = (ex - BOARD_MARGIN) / PIECE_WIDTH;
 		int y = (BOARD_OFFSET - ey + PIECE_HEIGHT) / PIECE_HEIGHT;
 		if (x < 0 || x > 7 || y < 0 || y > 7)

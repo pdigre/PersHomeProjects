@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 
 import no.pdigre.chess.rules.EvalMove;
+import no.pdigre.chess.rules.FEN;
 import no.pdigre.chess.rules.Move;
-import no.pdigre.chess.rules.Piece;
 import no.pdigre.chess.rules.StartGame;
 
 import org.eclipse.swt.SWT;
@@ -29,157 +29,158 @@ import org.eclipse.swt.widgets.Shell;
 
 public class Chess extends ChessGraphics {
 
-	public EvalMove lasteval;
-	public Integer from = -1;
+    public EvalMove lasteval;
 
-	public static void main(String[] args) {
-		new Chess().init();
-	}
+    public Integer from = -1;
 
-	public void startGame() {
-		StartGame move = new StartGame(StartingGames.FEN_GAMES[0]);
-		lasteval = new EvalMove(move);
-		System.out.println(move.getFen());
-	}
+    public static void main(String[] args) {
+        new Chess().init();
+    }
 
-	HashSet<Integer> markers = new HashSet<Integer>();
+    public void startGame() {
+        StartGame move = new StartGame(StartingGames.FEN_GAMES[0]);
+        lasteval = new EvalMove(move);
+        System.out.println(FEN.getFen(move));
+    }
 
-	private void init() {
-		startGame();
-		Display display = new Display();
-		Shell shell = new Shell(display);
-		final Canvas canvas = new Canvas(shell, SWT.None);
-		canvas.addPaintListener(new PaintListener() {
+    HashSet<Integer> markers = new HashSet<Integer>();
 
-			@Override
-			public void paintControl(PaintEvent e) {
-				drawBoard(e.gc, (Canvas) e.widget);
-			}
-		});
-		canvas.addMouseListener(new MouseListener() {
+    private void init() {
+        startGame();
+        Display display = new Display();
+        Shell shell = new Shell(display);
+        final Canvas canvas = new Canvas(shell, SWT.None);
+        canvas.addPaintListener(new PaintListener() {
 
-			@Override
-			public void mouseUp(MouseEvent e) {
-				// TODO Auto-generated method stub
+            @Override
+            public void paintControl(PaintEvent e) {
+                drawBoard(e.gc, (Canvas) e.widget);
+            }
+        });
+        canvas.addMouseListener(new MouseListener() {
 
-			}
+            @Override
+            public void mouseUp(MouseEvent e) {
+                // TODO Auto-generated method stub
 
-			@Override
-			public void mouseDown(MouseEvent e) {
-				int i = findSquare(e.x, e.y);
-				if (e.button == 1) {
-					if (markers.contains(i)) {
-						Move move = lasteval.move(from, i);
-						lasteval = new EvalMove(lasteval.state, move);
-						lasteval.searchLegalMoves();
-						System.out.println(lasteval.toString());
-						System.out.println(move.getFen());
-						from=-1;
-						markers.clear();
-						canvas.redraw();
-						canvas.update();
-					} else {
-						from = i;
-						markers.clear();
-						Piece piece = lasteval.move.getPieces();
-						while (piece != null) {
-							if (piece.pos == i) {
-								List<Integer> moves = lasteval.getLegalMoves(piece);
-								for (Integer to : moves)
-									markers.add(to);
-							}
-							piece=piece.link;
-						}
-						canvas.redraw();
-						canvas.update();
-					}
-				} else if (e.button == 3) {
-					if (from == -1) {
-						from = i;
-						markers.add(from);
-						canvas.redraw();
-						canvas.update();
-					} else {
-						markers.remove(from);
-						lasteval.move(from, i);
-						canvas.redraw();
-						canvas.update();
-						from = -1;
-					}
-				}
-			}
+            }
 
-			@Override
-			public void mouseDoubleClick(MouseEvent e) {
-				// TODO Auto-generated method stub
+            @Override
+            public void mouseDown(MouseEvent e) {
+                int i = findSquare(e.x, e.y);
+                if (e.button == 1) {
+                    if (markers.contains(i)) {
+                        Move move = lasteval.move(from, i);
+                        lasteval = new EvalMove(lasteval.state, move);
+                        lasteval.getLegalMoves();
+                        System.out.println(lasteval.toString());
+                        System.out.println(FEN.getFen(move));
+                        FEN.printBoard(move.getBoard());
+                        from = -1;
+                        markers.clear();
+                        canvas.redraw();
+                        canvas.update();
+                    } else {
+                        from = i;
+                        markers.clear();
+                        int[] pieces = lasteval.move.getPieces();
+                        for (int piece : pieces) {
+                            if (Move.getPos(piece) == i) {
+                                FEN.printPiece(piece);
+                                List<Move> moves = lasteval.getLegalMovesForPiece(piece);
+                                for (Move move : moves){
+                                	System.out.println(move.toString());
+                                    markers.add(move.getTo());
+                                }
+                            }
+                        }
+                        canvas.redraw();
+                        canvas.update();
+                    }
+                } else if (e.button == 3) {
+                    if (from == -1) {
+                        from = i;
+                        markers.add(from);
+                        canvas.redraw();
+                        canvas.update();
+                    } else {
+                        markers.remove(from);
+                        lasteval.move(from, i);
+                        canvas.redraw();
+                        canvas.update();
+                        from = -1;
+                    }
+                }
+            }
 
-			}
-		});
-		shell.setLayout(new GridLayout(2, false));
-		canvas.setLayoutData(new GridData(270,270));
-		shell.setSize(500, 350);
-		Composite contoller = new Composite(shell,SWT.NONE);
-		contoller.setLayoutData(new GridData());
-		final CCombo cc = new CCombo(shell, SWT.BORDER);
-		cc.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, false, 2, 1));
-		cc.setItems(StartingGames.FEN_GAMES);
-		cc.addModifyListener(new ModifyListener() {
-			
-			@Override
-			public void modifyText(ModifyEvent e) {
-				startGame(canvas, cc.getText());
-			}
-		});
-		cc.addSelectionListener(new SelectionListener() {
-			
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				int i = cc.getSelectionIndex();
-				if(i<0)
-					return;
-				startGame(canvas, cc.getText());
-			}
+            @Override
+            public void mouseDoubleClick(MouseEvent e) {
+                // TODO Auto-generated method stub
 
-			
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// not
-			}
-		});
-		shell.open();
-		canvas.redraw();
-		canvas.update();
-		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch())
-				display.sleep();
+            }
+        });
+        shell.setLayout(new GridLayout(2, false));
+        canvas.setLayoutData(new GridData(270, 270));
+        shell.setSize(500, 350);
+        Composite contoller = new Composite(shell, SWT.NONE);
+        contoller.setLayoutData(new GridData());
+        final CCombo cc = new CCombo(shell, SWT.BORDER);
+        cc.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, false, 2, 1));
+        cc.setItems(StartingGames.FEN_GAMES);
+        cc.addModifyListener(new ModifyListener() {
 
-		}
-		display.dispose();
-	}
+            @Override
+            public void modifyText(ModifyEvent e) {
+                startGame(canvas, cc.getText());
+            }
+        });
+        cc.addSelectionListener(new SelectionListener() {
 
-	void drawBoard(GC gc, Canvas canvas) {
-		Rectangle area = canvas.getClientArea();
-		gc.drawRectangle(area.x + 1, area.y + 1, area.width - 2, area.height - 2);
-		for (int i = 0; i < 64; i++) {
-			drawSquare(gc, i, 0);
-			if (markers.contains(i))
-				drawFrame(gc, i, SWT.COLOR_GREEN);
-			if (i == from)
-				drawFrame(gc, i, SWT.COLOR_RED);
-		}
-		Piece piece = lasteval.move.getPieces();
-		while (piece != null) {
-			drawPiece(gc, piece.pos, piece.getType());
-			piece=piece.link;
-		}
-	}
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                int i = cc.getSelectionIndex();
+                if (i < 0)
+                    return;
+                startGame(canvas, cc.getText());
+            }
 
-	public void startGame(final Canvas canvas, String text) {
-		lasteval=new EvalMove(new StartGame(text));
-		from=-1;
-		markers.clear();
-		canvas.redraw();
-		canvas.update();
-	}
+            @Override
+            public void widgetDefaultSelected(SelectionEvent e) {
+                // not
+            }
+        });
+        shell.open();
+        canvas.redraw();
+        canvas.update();
+        while (!shell.isDisposed()) {
+            if (!display.readAndDispatch())
+                display.sleep();
+
+        }
+        display.dispose();
+    }
+
+    void drawBoard(GC gc, Canvas canvas) {
+        Rectangle area = canvas.getClientArea();
+        gc.drawRectangle(area.x + 1, area.y + 1, area.width - 2, area.height - 2);
+        for (int i = 0; i < 64; i++) {
+            drawSquare(gc, i, 0);
+            if (markers.contains(i))
+                drawFrame(gc, i, SWT.COLOR_GREEN);
+            if (i == from)
+                drawFrame(gc, i, SWT.COLOR_RED);
+        }
+        int[] pieces = lasteval.move.getPieces();
+        for (int piece : pieces)
+            drawPiece(gc, Move.getPos(piece), Move.getType(piece));
+    }
+
+    public void startGame(final Canvas canvas, String text) {
+        lasteval = new EvalMove(new StartGame(text));
+        from = -1;
+        markers.clear();
+        canvas.redraw();
+        canvas.update();
+    }
 
 }
