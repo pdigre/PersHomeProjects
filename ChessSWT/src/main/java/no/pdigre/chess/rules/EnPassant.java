@@ -16,6 +16,18 @@ public class EnPassant extends Capture {
 		return 0;
 	}
 
+//	@Override
+//	public Piece apply(Piece piece) {
+//		if(piece==null)
+//			return null;
+//		int pos=piece.pos;
+//		if(pos==getFrom()-PieceType.forward(bitmap))
+//			return apply(piece.link);
+//		if(pos==getFrom())
+//			pos=getTo();
+//		return new Piece(piece.type, pos, apply(piece.link));
+//	}
+
 	@Override
 	public int[] applyPieces(final int[] in) {
 		final int current = bitmap & CURRENT;
@@ -40,7 +52,7 @@ public class EnPassant extends Capture {
 		int to = getTo();
 		return to + (to > getFrom() ? -8 : 8);
 	}
-
+	
 	@Override
 	public int[] applyBoard(int[] in) {
 		int[] board = in.clone();

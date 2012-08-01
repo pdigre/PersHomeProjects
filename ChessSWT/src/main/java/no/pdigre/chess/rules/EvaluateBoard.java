@@ -1,6 +1,5 @@
 package no.pdigre.chess.rules;
 
-import java.util.Collection;
 
 
 public class EvaluateBoard implements IEvaluator {
@@ -166,6 +165,6 @@ public class EvaluateBoard implements IEvaluator {
 			return eval.state;
 		}
 
-	};
+  	};
 
 }
