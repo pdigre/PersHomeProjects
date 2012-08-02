@@ -21,29 +21,29 @@ public class EvalMove {
 		this.move = move;
 	}
 
-	public ArrayList<Move> findMoves(final int[] board, int[] pieces) {
+	public ArrayList<Move> getMoves(final int[] board, int[] pieces) {
 		final ArrayList<Move> moves = new ArrayList<Move>();
 		final boolean whiteTurn = move.whiteTurn();
         Adder adder = new Adder(board, move);
 		for (final int piece : pieces) {
 			final int type = Move.getType(piece);
-			if (((type & IMove.ISBLACK) == 0)== whiteTurn) {
+			if (FindMoves.white(type)== whiteTurn) {
 			    adder.setPiece(piece);
-				FindMoves.addMovesForPiece(type,adder, board, piece);
+				FindMoves.addMovesForPiece(adder, board, piece);
 
-				// Check King in check position
-				Collection<Move> moves2 = adder.getMoves();
-                for (Move to : moves2) {
-					if (to instanceof Capture) {
-						int victim = (to.bitmap>>4)&7;
-						if (victim == IMove.KING) {
-							state |= IMove.ILLEGAL;
-							return moves;
-						}
-					}
-					moves.add(to);
+			}
+		}
+		// Check King in check position
+		Collection<Move> moves2 = adder.getMoves();
+        for (Move to : moves2) {
+			if (to instanceof Capture) {
+				int victim = (to.bitmap>>4)&7;
+				if (victim == IMove.KING) {
+					state |= IMove.ILLEGAL;
+					return moves;
 				}
 			}
+			moves.add(to);
 		}
 		return moves;
 	}
@@ -51,7 +51,7 @@ public class EvalMove {
 	public boolean think(int level) {
 		if (level == 0)
 			return true;
-		ArrayList<Move> moves = findMoves(move.getBoard(), move.getPieces());
+		ArrayList<Move> moves = getMoves(move.getBoard(), move.getPieces());
 		if ((state & IMove.ILLEGAL) != 0)
 			return false;
 		for (Move mv : new ArrayList<Move>(moves)) {
@@ -71,30 +71,23 @@ public class EvalMove {
 		return move.toString();
 	}
 
-	public List<Integer> getLegalMoves(int piece) {
-		ArrayList<Move> moves = searchLegalMoves();
-		ArrayList<Integer> list = new ArrayList<Integer>();
+	public List<Move> getLegalMovesForPiece(int piece) {
+		ArrayList<Move> moves = getLegalMoves();
+		ArrayList<Move> list = new ArrayList<Move>();
         int pos = Move.getPos(piece);
 		for (Move mv : moves) {
             if (mv.getFrom() == pos)
-				list.add(mv.getTo());
+				list.add(mv);
 		}
 		return list;
 	}
 
-	public ArrayList<Move> searchLegalMoves() {
+	public ArrayList<Move> getLegalMoves() {
 		int[] board = move.getBoard();
 		int[] pieces = move.getPieces();
-		ArrayList<Move> moves = findMoves(board, pieces);
-		if ((IMove.ILLEGAL & state) == 0) {
-			for (Move mv : new ArrayList<Move>(moves)) {
-				EvalMove eval = new EvalMove(state, mv);
-				eval.findMoves(mv.getBoard(), mv.getPieces());
-				if ((IMove.ILLEGAL & eval.state) != 0)
-					moves.remove(mv);
-			}
-		}
-		if ((IMove.ILLEGAL & state) != 0 || moves.size() == 0) {
+		ArrayList<Move> moves = getMoves(board, pieces);
+		ArrayList<Move> lmoves = getLegalMoves(moves,board, pieces);
+		if (!legal() || lmoves.size() == 0) {
 			System.out.println("No moves");
 			EvaluateBoard score = new EvaluateBoard(this, board, pieces);
 			if (score.wCheck || score.bCheck)
@@ -102,11 +95,32 @@ public class EvalMove {
 			else
 				System.out.println("Stale mate!");
 		}
-		return moves;
+		return lmoves;
+	}
+
+	private ArrayList<Move> getLegalMoves(ArrayList<Move> moves, int[] board, int[] pieces) {
+		ArrayList<Move> lmoves = new ArrayList<Move>();
+		if (legal()) {
+			for (Move mv : moves) {
+				if (checkLegal(mv,mv.applyBoard(board), mv.applyPieces(pieces)))
+					lmoves.add(mv);
+			}
+		}
+		return lmoves;
+	}
+
+	private boolean legal() {
+		return (IMove.ILLEGAL & state) == 0;
+	}
+
+	private boolean checkLegal(Move mv, int[] board, int[] pieces) {
+		EvalMove eval = new EvalMove(state, mv);
+		eval.getMoves(board, pieces);
+		return eval.legal();
 	}
 
 	public Move move(int from, int to) {
-		for (Move mv : findMoves(move.getBoard(), move.getPieces())) {
+		for (Move mv : getMoves(move.getBoard(), move.getPieces())) {
 			if (mv.getFrom() == from && mv.getTo() == to)
 				return mv;
 		}

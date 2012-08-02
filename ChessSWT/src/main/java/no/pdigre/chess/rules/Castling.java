@@ -14,16 +14,6 @@ public class Castling extends Move {
         return board;
     }
 
-    // @Override
-    // public Piece apply(Piece piece) {
-    // if(piece==null)
-    // return null;
-    // int pos=piece.pos;
-    // if(pos==getFrom())
-    // pos=getTo();
-    // return new Piece(bitmap & PIECE, pos, apply(piece.link));
-    // }
-
     @Override
     public int[] applyPieces(final int[] in) {
         int[] out = in.clone();

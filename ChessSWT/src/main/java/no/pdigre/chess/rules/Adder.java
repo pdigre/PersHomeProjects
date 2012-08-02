@@ -5,19 +5,19 @@ import java.util.Collection;
 
 public final class Adder implements IAdder {
 
-    private int piece;
-
-    private int type;
-
     private final ArrayList<Move> next = new ArrayList<Move>();
 
     private final int[] board;
 
-    private int from;
-
     private final boolean whiteTurn;
     
-    private IMove parent;
+    private final IMove parent;
+
+    private int from;
+
+    private int piece;
+
+    private int type;
 
     public Adder(int[] board, IMove parent) {
         this.board = board;
@@ -37,7 +37,7 @@ public final class Adder implements IAdder {
     }
 
     @Override
-    public void moveTrade(int to) {
+    public void movePromote(int to) {
     	next.add(new MovePromote(from, to, type, parent,
     			whiteTurn ? IMove.QUEEN
     					: IMove.BLACK_QUEEN));
@@ -63,7 +63,7 @@ public final class Adder implements IAdder {
     }
 
     @Override
-    public void beatTrade(int to) {
+    public void capturePromote(int to) {
     	int victim = board[to];
     	next.add(new CapturePromote(from, to, type, parent,
     			victim, whiteTurn ? IMove.QUEEN : IMove.BLACK_QUEEN));
@@ -79,7 +79,7 @@ public final class Adder implements IAdder {
     public void enpassant(int to) {
     	int enpassant = getEnpassant();
     	next.add(new EnPassant(from, to, type, parent,
-    			board[enpassant - FindMoves.forward(type)]));
+    			board[enpassant - FindMoves.forward(FindMoves.white(type))]));
     }
 
     @Override
@@ -102,7 +102,6 @@ public final class Adder implements IAdder {
         return PieceType.types[Move.getType(piece)] + " " + Move.pos2string(Move.getType(piece));
     }
 
-    @Override
     public Collection<Move> getMoves() {
         return next;
     }

@@ -1,6 +1,5 @@
 package no.pdigre.chess.rules;
 
-import java.util.Collection;
 
 
 public class EvaluateBoard implements IEvaluator {
@@ -21,10 +20,10 @@ public class EvaluateBoard implements IEvaluator {
 			    throw new AssertionError("null");
 			if(Move.isBlack(type)) {
 				bPieceVal -= t.weight;
-				FindMoves.addMovesForPiece(type,addblack, board, Move.getPos(piece));
+				FindMoves.addMovesForPiece(addblack, board, piece);
 			}else {
 				wPieceVal += t.weight;
-				FindMoves.addMovesForPiece(type,addwhite, board, Move.getPos(piece));
+				FindMoves.addMovesForPiece(addwhite, board, piece);
 			}
 		}
 	}
@@ -66,7 +65,7 @@ public class EvaluateBoard implements IEvaluator {
 		}
 
 		@Override
-		public void moveTrade(int to) {
+		public void movePromote(int to) {
 			wMove++;
 		}
 
@@ -79,7 +78,7 @@ public class EvaluateBoard implements IEvaluator {
 		}
 
 		@Override
-		public void beatTrade(int to) {
+		public void capturePromote(int to) {
 			if (board[to] == IMove.BLACK_KING)
 				wCheck = true;
 			else
@@ -111,12 +110,6 @@ public class EvaluateBoard implements IEvaluator {
 			return eval.state;
 		}
 
-        @Override
-        public Collection<Move> getMoves() {
-            // TODO Auto-generated method stub
-            return null;
-        }
-
 	};
 
 	final IAdder addblack = new IAdder() {
@@ -127,7 +120,7 @@ public class EvaluateBoard implements IEvaluator {
 		}
 
 		@Override
-		public void moveTrade(int to) {
+		public void movePromote(int to) {
 			bMove++;
 		}
 
@@ -140,7 +133,7 @@ public class EvaluateBoard implements IEvaluator {
 		}
 
 		@Override
-		public void beatTrade(int to) {
+		public void capturePromote(int to) {
 			if (board[to] == IMove.KING)
 				bCheck = true;
 			else
@@ -172,12 +165,6 @@ public class EvaluateBoard implements IEvaluator {
 			return eval.state;
 		}
 
-        @Override
-        public Collection<Move> getMoves() {
-            // TODO Auto-generated method stub
-            return null;
-        }
-
-	};
+  	};
 
 }

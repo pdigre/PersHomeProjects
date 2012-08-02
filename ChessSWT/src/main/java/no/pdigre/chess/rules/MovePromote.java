@@ -1,6 +1,6 @@
 package no.pdigre.chess.rules;
 
-public class MovePromote extends Move implements IPromotion {
+public class MovePromote extends Move {
 
     public MovePromote(int from, int to, int type, IMove parent, int promotion) {
         super(from, to, type | (promotion << 7), parent);
@@ -10,19 +10,9 @@ public class MovePromote extends Move implements IPromotion {
     public int[] applyBoard(int[] in) {
         int[] board = in.clone();
         board[getFrom()] = 0;
-        board[getTo()] = getPromotionType();
+        board[getTo()] = promotion(bitmap);
         return board;
     }
-
-    // @Override
-    // public Piece apply(Piece piece) {
-    // if(piece==null)
-    // return null;
-    // int pos=piece.pos;
-    // if(pos==getFrom())
-    // pos=getTo();
-    // return new Piece(getPromotionType(), pos, apply(piece.link));
-    // }
 
     @Override
     public int[] applyPieces(final int[] in) {
@@ -37,12 +27,12 @@ public class MovePromote extends Move implements IPromotion {
     }
 
     public static int promoted(int moved, int bitmap) {
-        return (moved & ~PIECE) | (bitmap >> 7) & 7;
+        return (moved & ~PIECE) | promotion(bitmap);
     }
 
-    @Override
-    public int getPromotionType() {
-        return (bitmap >> 7) & 7;
-    }
+	public static int promotion(int bitmap) {
+		return ((bitmap >> 7) & 7) | (bitmap & ISBLACK);
+	}
+
 
 }

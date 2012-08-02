@@ -72,9 +72,10 @@ public class Chess extends ChessGraphics {
                     if (markers.contains(i)) {
                         Move move = lasteval.move(from, i);
                         lasteval = new EvalMove(lasteval.state, move);
-                        lasteval.searchLegalMoves();
+                        lasteval.getLegalMoves();
                         System.out.println(lasteval.toString());
                         System.out.println(FEN.getFen(move));
+                        FEN.printBoard(move.getBoard());
                         from = -1;
                         markers.clear();
                         canvas.redraw();
@@ -85,9 +86,12 @@ public class Chess extends ChessGraphics {
                         int[] pieces = lasteval.move.getPieces();
                         for (int piece : pieces) {
                             if (Move.getPos(piece) == i) {
-                                List<Integer> moves = lasteval.getLegalMoves(piece);
-                                for (Integer to : moves)
-                                    markers.add(to);
+                                FEN.printPiece(piece);
+                                List<Move> moves = lasteval.getLegalMovesForPiece(piece);
+                                for (Move move : moves){
+                                	System.out.println(move.toString());
+                                    markers.add(move.getTo());
+                                }
                             }
                         }
                         canvas.redraw();
