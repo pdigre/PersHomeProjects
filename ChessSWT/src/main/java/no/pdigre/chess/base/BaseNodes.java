@@ -1,8 +1,8 @@
-package no.pdigre.chess.rules;
+package no.pdigre.chess.base;
 
 import java.util.ArrayList;
 
-public class BaseMoves {
+public class BaseNodes {
 	
     final public static int LEFT = -1;
 

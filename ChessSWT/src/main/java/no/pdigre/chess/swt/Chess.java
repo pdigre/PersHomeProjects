@@ -3,10 +3,10 @@ package no.pdigre.chess.swt;
 import java.util.HashSet;
 import java.util.List;
 
-import no.pdigre.chess.rules.EvalMove;
-import no.pdigre.chess.rules.FEN;
-import no.pdigre.chess.rules.Move;
-import no.pdigre.chess.rules.StartGame;
+import no.pdigre.chess.eval.EvalMove;
+import no.pdigre.chess.moves.FEN;
+import no.pdigre.chess.moves.Move;
+import no.pdigre.chess.moves.StartGame;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
@@ -72,7 +72,8 @@ public class Chess extends ChessGraphics {
                     if (markers.contains(i)) {
                         Move move = lasteval.move(from, i);
                         lasteval = new EvalMove(lasteval.state, move);
-                        lasteval.getLegalMoves();
+                        int[] board = lasteval.move.getBoard();
+                        lasteval.getLegalMoves(board);
                         System.out.println(lasteval.toString());
                         System.out.println(FEN.getFen(move));
                         FEN.printBoard(move.getBoard());
@@ -83,16 +84,12 @@ public class Chess extends ChessGraphics {
                     } else {
                         from = i;
                         markers.clear();
-                        int[] pieces = lasteval.move.getPieces();
-                        for (int piece : pieces) {
-                            if (Move.getPos(piece) == i) {
-                                FEN.printPiece(piece);
-                                List<Move> moves = lasteval.getLegalMovesForPiece(piece);
-                                for (Move move : moves){
-                                	System.out.println(move.toString());
-                                    markers.add(move.getTo());
-                                }
-                            }
+                        int[] board = lasteval.move.getBoard();
+                        FEN.printPiece(board[i], i);
+                        List<Move> moves = lasteval.getLegalMovesForPiece(board, i);
+                        for (Move move : moves) {
+                            System.out.println(move.toString());
+                            markers.add(move.getTo());
                         }
                         canvas.redraw();
                         canvas.update();
@@ -170,9 +167,12 @@ public class Chess extends ChessGraphics {
             if (i == from)
                 drawFrame(gc, i, SWT.COLOR_RED);
         }
-        int[] pieces = lasteval.move.getPieces();
-        for (int piece : pieces)
-            drawPiece(gc, Move.getPos(piece), Move.getType(piece));
+        int[] board = lasteval.move.getBoard();
+        for (int i = 0; i < board.length; i++) {
+            int type = board[i];
+            if (type != 0)
+                drawPiece(gc, i, type);
+        }
     }
 
     public void startGame(final Canvas canvas, String text) {

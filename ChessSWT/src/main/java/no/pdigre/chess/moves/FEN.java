@@ -1,4 +1,6 @@
-package no.pdigre.chess.rules;
+package no.pdigre.chess.moves;
+
+import no.pdigre.chess.base.INode;
 
 public class FEN {
 
@@ -7,7 +9,7 @@ public class FEN {
 	 * 
 	 * @return
 	 */
-	final public static String getFen(IMove move) {
+	final public static String getFen(INode move) {
 		StringBuilder fen = new StringBuilder();
 		fen.append(FEN.board2String(move.getBoard()));
 		fen.append(" ");
@@ -15,7 +17,7 @@ public class FEN {
 		fen.append(" ");
 		fen.append(FEN.getFenCastling(move));
 		fen.append(" ");
-		fen.append(FEN.pos2text(move.getEnpassant()));
+		fen.append(FEN.pos2string(move.getEnpassant()));
 		fen.append(" ");
 		fen.append(move.halfMoves());
 		fen.append(" ");
@@ -23,13 +25,13 @@ public class FEN {
 		return fen.toString();
 	}
 
-	final public static String pos2text(int i) {
-		if (i < 0)
-			return "-";
-		int x = i % 8;
-		int y = (i - x) / 8;
-		return String.valueOf("abcdefgh".charAt(x)) + String.valueOf(y + 1);
-	}
+    final public static String pos2string(int pos) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("abcdefgh".charAt(pos & 7));
+        sb.append("12345678".charAt(pos >> 3));
+        return sb.toString();
+    }
+
 
 	final public static int text2pos(String pos) {
 		if (pos == null || pos.length() != 2)
@@ -68,16 +70,16 @@ public class FEN {
 		return fen.toString();
 	}
 
-	final public static String getFenCastling(IMove move) {
+	final public static String getFenCastling(INode move) {
 		StringBuilder sb = new StringBuilder();
 		int state = move.getCastlingState();
-		if ((state & IMove.NOCASTLE_WHITEKING) == 0)
+		if ((state & INode.NOCASTLE_WHITEKING) == 0)
 			sb.append("K");
-		if ((state & IMove.NOCASTLE_WHITEQUEEN) == 0)
+		if ((state & INode.NOCASTLE_WHITEQUEEN) == 0)
 			sb.append("Q");
-		if ((state & IMove.NOCASTLE_BLACKKING) == 0)
+		if ((state & INode.NOCASTLE_BLACKKING) == 0)
 			sb.append("k");
-		if ((state & IMove.NOCASTLE_BLACKQUEEN) == 0)
+		if ((state & INode.NOCASTLE_BLACKQUEEN) == 0)
 			sb.append("q");
 		return sb.toString();
 	}
@@ -94,13 +96,9 @@ public class FEN {
 		System.out.println(sb);
 	}
 
-	public static void printPiece(int piece) {
-		System.out.println(PieceType.types[Move.getType(piece)].toString()
-				+ " " + pos2text(Move.getPos(piece)));
+	public static void printPiece(int type,int pos) {
+		System.out.println(PieceType.types[type].toString()
+				+ " " + pos2string(pos));
 	}
 
-	public static void printPieces(int[] pieces) {
-		for (int piece : pieces)
-			printPiece(piece);
-	}
 }

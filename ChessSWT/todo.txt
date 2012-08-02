@@ -3,12 +3,20 @@ To Do
 
 Must:
 
+MOVES
+======
+Fix castling
+
 1. add validity check on move
   - Castling check three spaces for safe
   - King safe check routine
 
 2. add check/mate status detector
 
+
+Execution:
+=========
+1. "state" include halfmoves
 
 3. removefluff
 

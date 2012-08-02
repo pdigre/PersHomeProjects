@@ -1,4 +1,4 @@
-package no.pdigre.chess.rules;
+package no.pdigre.chess.base;
 
 
 public interface IAdder {
@@ -7,7 +7,7 @@ public interface IAdder {
 
     public abstract void movePromote(final int to);
 
-    public abstract void beat(final int to);
+    public abstract void capture(final int to);
 
     public abstract void capturePromote(final int to);
 
@@ -16,8 +16,4 @@ public interface IAdder {
     public abstract void castling(final int to);
 
     public abstract void enpassant(final int to);
-
-    public abstract int getEnpassant();
-
-    public abstract int getCastlingState();
 }
