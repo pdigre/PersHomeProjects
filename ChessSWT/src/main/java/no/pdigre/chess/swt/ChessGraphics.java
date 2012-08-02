@@ -1,6 +1,6 @@
 package no.pdigre.chess.swt;
 
-import no.pdigre.chess.rules.PieceType;
+import no.pdigre.chess.moves.PieceType;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;

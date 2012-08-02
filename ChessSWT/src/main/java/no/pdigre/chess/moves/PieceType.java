@@ -1,4 +1,5 @@
-package no.pdigre.chess.rules;
+package no.pdigre.chess.moves;
+
 
 public enum PieceType {
     WHITE_PAWN(100, 'P', 1),
@@ -25,7 +26,7 @@ public enum PieceType {
         WHITE_ROOK, WHITE_QUEEN, WHITE_KING, null, null, BLACK_PAWN, BLACK_KNIGHT, BLACK_BISHOP, BLACK_ROOK,
         BLACK_QUEEN, BLACK_KING, null };
 
-    <T extends Piece> PieceType(int weight, char fen, int bitmap) {
+    PieceType(int weight, char fen, int bitmap) {
         this.weight = weight;
         this.fen = fen;
         this.bitmap = bitmap;
