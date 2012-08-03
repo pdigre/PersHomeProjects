@@ -65,7 +65,7 @@ public class FindNodes {
                 int type = board[pos];
                 if(type==0)
                     continue;
-                if(((type&INode.ISBLACK)==0)==white)
+                if(((type&INode.BLACK)==0)==white)
                     break;
                 int t = type&INode.PIECETYPE;
                 if(t==INode.QUEEN || t==INode.BISHOP)
@@ -78,7 +78,7 @@ public class FindNodes {
                 int type = board[pos];
                 if(type==0)
                     continue;
-                if(((type&INode.ISBLACK)==0)==white)
+                if(((type&INode.BLACK)==0)==white)
                     break;
                 int t = type&INode.PIECETYPE;
                 if(t==INode.QUEEN || t==INode.ROOK)
@@ -111,7 +111,7 @@ public class FindNodes {
     }
 
     public final static boolean white(int bitmap) {
-        return (bitmap & INode.ISBLACK) == 0;
+        return (bitmap & INode.BLACK) == 0;
     }
 
     final private static int home(boolean white) {
@@ -164,7 +164,7 @@ public class FindNodes {
         int victim = board[to];
         if (victim == 0)
             moves.move(to);
-        else if (((victim & INode.ISBLACK) == 0) != white)
+        else if (((victim & INode.BLACK) == 0) != white)
             moves.capture(to);
         else
             moves.support(to);
@@ -194,7 +194,7 @@ public class FindNodes {
         if (inside(to, from)) {
             int piece = board[to];
             if (piece != 0) {
-                if (((piece & INode.ISBLACK) == 0) == white)
+                if (((piece & INode.BLACK) == 0) == white)
                     moves.support(to);
                 else if (to >= goalline(white) && to < goalline(white) + 8)
                     moves.capturePromote(to);

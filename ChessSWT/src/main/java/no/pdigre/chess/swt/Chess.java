@@ -75,6 +75,7 @@ public class Chess extends ChessGraphics {
                         int[] board = lasteval.move.getBoard();
                         lasteval.getLegalMoves(board);
                         System.out.println(lasteval.move);
+                        System.out.println(FEN.getFen(lasteval.move));
                         from = -1;
                         markers.clear();
                         canvas.redraw();

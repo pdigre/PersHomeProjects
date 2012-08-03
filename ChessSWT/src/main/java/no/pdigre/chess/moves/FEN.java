@@ -41,13 +41,6 @@ public class FEN {
 		return "abcdefgh".indexOf(pos.charAt(0)) + 8 * (pos.charAt(1) - '1');
 	}
 
-	final public static int[] array2board(int[] pieces) {
-		int[] board = new int[64];
-		for (int piece : pieces)
-			board[Move.getPos(piece)] = Move.getType(piece);
-		return board;
-	}
-
 	final public static String board2String(int[] board) {
 		StringBuilder fen = new StringBuilder();
 		for (int y = 8; y-- > 0;) {
