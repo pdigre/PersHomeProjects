@@ -1,7 +1,8 @@
-package no.pdigre.chess.moves;
+package no.pdigre.chess.eval;
 
 import no.pdigre.chess.base.INode;
-import no.pdigre.chess.eval.FindMoves;
+import no.pdigre.chess.fen.FEN;
+import no.pdigre.chess.fen.PieceType;
 
 public final class Move implements INode {
 

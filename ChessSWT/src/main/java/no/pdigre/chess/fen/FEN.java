@@ -1,4 +1,4 @@
-package no.pdigre.chess.moves;
+package no.pdigre.chess.fen;
 
 import no.pdigre.chess.base.INode;
 
@@ -96,5 +96,7 @@ public class FEN {
         System.out.println(pt==null?"<none>":pt.toString()
 				+ " " + pos2string(pos));
 	}
+
+
 
 }

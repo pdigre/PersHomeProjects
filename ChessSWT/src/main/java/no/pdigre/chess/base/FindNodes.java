@@ -1,7 +1,5 @@
 package no.pdigre.chess.base;
 
-import no.pdigre.chess.moves.PieceType;
-
 public class FindNodes {
 
     /**
@@ -128,14 +126,6 @@ public class FindNodes {
 
     final static int goalline(boolean white) {
         return white ? 56 : 0;
-    }
-
-    final public static PieceType getPieceType(char fen) {
-        for (PieceType type : PieceType.values()) {
-            if (type.fen == fen)
-                return type;
-        }
-        return null;
     }
 
     final private static void addSlider(IAdder imoves, int[] board, int[][] moves, boolean white) {

@@ -2,13 +2,11 @@ package no.pdigre.chess.eval;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import no.pdigre.chess.base.FindNodes;
 import no.pdigre.chess.base.IAdder;
 import no.pdigre.chess.base.INode;
-import no.pdigre.chess.moves.FEN;
-import no.pdigre.chess.moves.Move;
-import no.pdigre.chess.moves.PieceType;
 
 public final class FindMoves implements IAdder {
 
@@ -32,6 +30,32 @@ public final class FindMoves implements IAdder {
             }
         }
         return adder.next;
+    }
+    
+    public static List<Move> filterPieces(Collection<Move> moves,int from) {
+        ArrayList<Move> list = new ArrayList<Move>();
+        for (Move mv : moves) {
+            if (mv.getFrom() == from)
+                list.add(mv);
+        }
+        return list;
+    }
+
+    public static List<Move> filterPieces(Collection<Move> moves,int from,int to) {
+        ArrayList<Move> list = new ArrayList<Move>();
+        for (Move mv : moves) {
+            if (mv.getFrom() == from && mv.getTo()==to)
+                list.add(mv);
+        }
+        return list;
+    }
+
+    public static ArrayList<Move> getLegalMoves(final INode parent) {
+        return getLegalMoves(parent.getBoard(), parent);
+    }
+
+    public static ArrayList<Move> getLegalMoves(int[] board,final INode parent) {
+        return getLegalMoves(getMoves(board, parent), board, parent);
     }
 
     public static ArrayList<Move> getLegalMoves(Collection<Move> moves, int[] board, final INode parent) {
@@ -132,6 +156,6 @@ public final class FindMoves implements IAdder {
 
     @Override
     public String toString() {
-        return PieceType.types[type] + " " + FEN.pos2string(from);
+        return parent.toString();
     }
 }

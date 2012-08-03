@@ -1,13 +1,12 @@
-package no.pdigre.chess.rules;
+package no.pdigre.chess.test;
 
 import static org.junit.Assert.assertEquals;
 import no.pdigre.chess.base.INode;
-import no.pdigre.chess.eval.EvalMove;
 import no.pdigre.chess.eval.FindMoves;
-import no.pdigre.chess.moves.FEN;
-import no.pdigre.chess.moves.Move;
-import no.pdigre.chess.moves.PieceType;
-import no.pdigre.chess.moves.StartGame;
+import no.pdigre.chess.eval.Move;
+import no.pdigre.chess.fen.FEN;
+import no.pdigre.chess.fen.PieceType;
+import no.pdigre.chess.fen.StartGame;
 
 import org.junit.Test;
 
@@ -70,14 +69,13 @@ public class StandardMovesTest {
     }
 
     public static String getLegalMovesFromPos(String from, StartGame start) {
-        EvalMove eval = new EvalMove(start);
         int pos = FEN.text2pos(from);
         int[] board = start.getBoard();
         int type = board[pos];
         FEN.printPiece(type, pos);
         StringBuffer sb = new StringBuffer();
         sb.append(PieceType.types[type].fen);
-        for (Move move : eval.getLegalMovesForPiece(board, pos)) {
+        for (Move move : FindMoves.filterPieces(FindMoves.getLegalMoves(board, start), pos)) {
             sb.append(" ");
             sb.append(FEN.pos2string(move.getTo()));
         }

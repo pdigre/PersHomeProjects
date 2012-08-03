@@ -1,12 +1,14 @@
 package no.pdigre.chess.swt;
 
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 
-import no.pdigre.chess.eval.EvalMove;
-import no.pdigre.chess.moves.FEN;
-import no.pdigre.chess.moves.Move;
-import no.pdigre.chess.moves.StartGame;
+import no.pdigre.chess.base.INode;
+import no.pdigre.chess.eval.FindMoves;
+import no.pdigre.chess.eval.Move;
+import no.pdigre.chess.fen.FEN;
+import no.pdigre.chess.fen.StartGame;
+import no.pdigre.chess.fen.StartingGames;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
@@ -29,7 +31,7 @@ import org.eclipse.swt.widgets.Shell;
 
 public class Chess extends ChessGraphics {
 
-    public EvalMove lasteval;
+    public INode lastmove;
 
     public Integer from = -1;
 
@@ -38,9 +40,8 @@ public class Chess extends ChessGraphics {
     }
 
     public void startGame() {
-        StartGame move = new StartGame(StartingGames.FEN_GAMES[0]);
-        lasteval = new EvalMove(move);
-        System.out.println(FEN.getFen(move));
+        lastmove = new StartGame(StartingGames.FEN_GAMES[0]);
+        System.out.println(FEN.getFen(lastmove));
     }
 
     HashSet<Integer> markers = new HashSet<Integer>();
@@ -70,12 +71,10 @@ public class Chess extends ChessGraphics {
                 int i = findSquare(e.x, e.y);
                 if (e.button == 1) {
                     if (markers.contains(i)) {
-                        Move move = lasteval.move(from, i);
-                        lasteval = new EvalMove(lasteval.state, move);
-                        int[] board = lasteval.move.getBoard();
-                        lasteval.getLegalMoves(board);
-                        System.out.println(lasteval.move);
-                        System.out.println(FEN.getFen(lasteval.move));
+                        Collection<Move> moves = FindMoves.filterPieces(FindMoves.getLegalMoves(lastmove), from, i);
+                        lastmove=moves.iterator().next();
+                        System.out.println(lastmove);
+                        System.out.println(FEN.getFen(lastmove));
                         from = -1;
                         markers.clear();
                         canvas.redraw();
@@ -83,9 +82,7 @@ public class Chess extends ChessGraphics {
                     } else {
                         from = i;
                         markers.clear();
-                        int[] board = lasteval.move.getBoard();
-                        List<Move> moves = lasteval.getLegalMovesForPiece(board, i);
-                        for (Move move : moves) {
+                        for (Move move : FindMoves.filterPieces(FindMoves.getLegalMoves(lastmove), i)) {
                             System.out.println("> " + move.toString());
                             markers.add(move.getTo());
                         }
@@ -93,18 +90,7 @@ public class Chess extends ChessGraphics {
                         canvas.update();
                     }
                 } else if (e.button == 3) {
-                    if (from == -1) {
-                        from = i;
-                        markers.add(from);
-                        canvas.redraw();
-                        canvas.update();
-                    } else {
-                        markers.remove(from);
-                        lasteval.move(from, i);
-                        canvas.redraw();
-                        canvas.update();
-                        from = -1;
-                    }
+                    // right click
                 }
             }
 
@@ -165,7 +151,7 @@ public class Chess extends ChessGraphics {
             if (i == from)
                 drawFrame(gc, i, SWT.COLOR_RED);
         }
-        int[] board = lasteval.move.getBoard();
+        int[] board = lastmove.getBoard();
         for (int i = 0; i < board.length; i++) {
             int type = board[i];
             if (type != 0)
@@ -174,7 +160,7 @@ public class Chess extends ChessGraphics {
     }
 
     public void startGame(final Canvas canvas, String text) {
-        lasteval = new EvalMove(new StartGame(text));
+        lastmove = new StartGame(text);
         from = -1;
         markers.clear();
         canvas.redraw();

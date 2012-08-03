@@ -1,4 +1,4 @@
-package no.pdigre.chess.moves;
+package no.pdigre.chess.fen;
 
 
 public enum PieceType {
@@ -30,6 +30,14 @@ public enum PieceType {
         this.weight = weight;
         this.fen = fen;
         this.bitmap = bitmap;
+    }
+
+    final public static PieceType lookup(char fen) {
+        for (PieceType type : PieceType.values()) {
+            if (type.fen == fen)
+                return type;
+        }
+        return null;
     }
 
 

@@ -1,6 +1,5 @@
-package no.pdigre.chess.moves;
+package no.pdigre.chess.fen;
 
-import no.pdigre.chess.base.FindNodes;
 import no.pdigre.chess.base.INode;
 
 public class StartGame implements INode {
@@ -36,7 +35,7 @@ public class StartGame implements INode {
         	} else if (c >= '0' && c <= '9') {
         		x += Integer.parseInt(String.valueOf(c));
         	} else if (c >= 'A' && c <= 'z') {
-                board[x + y]=FindNodes.getPieceType(c).bitmap;
+                board[x + y]=PieceType.lookup(c).bitmap;
         		x++;
         	}
         }

@@ -1,7 +1,7 @@
-package no.pdigre.chess.swt;
+package no.pdigre.chess.fen;
 
 public class StartingGames {
-	static final String[] FEN_GAMES = new String[]{
+	public static final String[] FEN_GAMES = new String[]{
 		"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
 		"rnbqkb1r/p1p2ppp/1p2pn2/3p4/3P1B2/2N5/PPPQPPPP/R3KBNR w KQkq - 2 5",
 		"rnbqkbnr/ppp1pppp/8/8/1PpP4/8/P3PPPP/RNBQKBNR b KQkq b3 0 3",
