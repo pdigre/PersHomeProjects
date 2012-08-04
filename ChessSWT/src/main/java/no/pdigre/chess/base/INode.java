@@ -77,5 +77,11 @@ public abstract interface INode {
     public abstract int[] getBoard();
 
     public abstract int getEnpassant();
+    
+    /**
+     * Returns the castling and halfmoves state
+     * @return
+     */
+    public abstract int getBitmap();
 
 }

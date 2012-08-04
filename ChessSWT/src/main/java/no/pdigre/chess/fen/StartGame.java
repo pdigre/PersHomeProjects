@@ -74,4 +74,9 @@ public class StartGame implements INode {
 				| (castling.contains("q") ? 0 : INode.NOCASTLE_BLACKQUEEN);
 	}
 
+    @Override
+    public int getBitmap() {
+        return (halfMoves<<_HALFMOVES)&(getCastlingState()<<_CASTLING);
+    }
+
 }

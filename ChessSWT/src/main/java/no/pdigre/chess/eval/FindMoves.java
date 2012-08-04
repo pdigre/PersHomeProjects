@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import no.pdigre.chess.base.FindNodes;
+import no.pdigre.chess.base.NodeGenerator;
 import no.pdigre.chess.base.IAdder;
 import no.pdigre.chess.base.INode;
 
@@ -23,16 +23,23 @@ public final class FindMoves implements IAdder {
         FindMoves adder = new FindMoves(board, node);
         for (int i = 0; i < 64; i++) {
             int type = board[i];
-            if (type != 0 && FindNodes.white(type) == adder.whiteTurn) {
+            boolean white = MoveBitmap.white(type);
+            if (type != 0 && white == adder.whiteTurn) {
                 adder.type = type;
                 adder.from = i;
-                FindNodes.addMovesForPiece(adder, board, i, type, enpassant, castling);
+                NodeGenerator.addMovesForPiece(adder, board, i, type & 7, white, enpassant, castling);
             }
         }
         return adder.next;
     }
-    
-    public static List<Move> filterPieces(Collection<Move> moves,int from) {
+
+    public static Collection<Move> getMoves2(final int[] board, final INode node) {
+        FindMoves adder = new FindMoves(board, node);
+        NodeGenerator.loopLegalMoves(adder, board, node.getBitmap());
+        return adder.next;
+    }
+
+    public static List<Move> filterPieces(Collection<Move> moves, int from) {
         ArrayList<Move> list = new ArrayList<Move>();
         for (Move mv : moves) {
             if (mv.getFrom() == from)
@@ -41,21 +48,26 @@ public final class FindMoves implements IAdder {
         return list;
     }
 
-    public static List<Move> filterPieces(Collection<Move> moves,int from,int to) {
+    public static List<Move> filterPieces(Collection<Move> moves, int from, int to) {
         ArrayList<Move> list = new ArrayList<Move>();
         for (Move mv : moves) {
-            if (mv.getFrom() == from && mv.getTo()==to)
+            if (mv.getFrom() == from && mv.getTo() == to)
                 list.add(mv);
         }
         return list;
     }
 
     public static ArrayList<Move> getLegalMoves(final INode parent) {
-        return getLegalMoves(parent.getBoard(), parent);
+        return getLegalMoves(moves(parent), parent);
     }
 
-    public static ArrayList<Move> getLegalMoves(int[] board,final INode parent) {
-        return getLegalMoves(getMoves(board, parent), board, parent);
+    private static int[] moves(final INode parent) {
+        return parent.getBoard();
+    }
+
+    public static ArrayList<Move> getLegalMoves(int[] board, final INode parent) {
+        Collection<Move> moves = getMoves(board, parent);
+        return getLegalMoves(moves, board, parent);
     }
 
     public static ArrayList<Move> getLegalMoves(Collection<Move> moves, int[] board, final INode parent) {
@@ -71,27 +83,15 @@ public final class FindMoves implements IAdder {
         ArrayList<Move> lmoves = new ArrayList<Move>();
         for (Move mv : moves) {
             int pos = mv.getFrom() == kingpos ? mv.getTo() : kingpos;
-            if (FindNodes.checkSafe(mv.apply(board), pos, white))
+            if (NodeGenerator.checkSafe(mv.apply(board), pos, white))
                 lmoves.add(mv);
         }
         return lmoves;
     }
 
     public static boolean isMate(INode move, int[] board) {
-        return FindMoves.getLegalMoves(FindMoves.getMoves(board, move),board, move).isEmpty();
-    }
-
-    public static boolean isCheck(INode move, int[] board) {
-        boolean white = move.whiteTurn();
-        int enemyking = white?INode.KING:INode.BLACK_KING;
-        int kingpos = 0;
-        for (int i = 0; i < board.length; i++) {
-            if (board[i] == enemyking) {
-                kingpos = i;
-                break;
-            }
-        }
-        return !FindNodes.checkSafe(board, kingpos, white);
+        Collection<Move> moves = FindMoves.getMoves(board, move);
+        return FindMoves.getLegalMoves(moves, board, move).isEmpty();
     }
 
     private final ArrayList<Move> next = new ArrayList<Move>();
@@ -113,49 +113,61 @@ public final class FindMoves implements IAdder {
     }
 
     @Override
-    public void move(int to) {
-        next.add(Move.createMove(from, to, parent, type));
+    public void move(int to, int from) {
+        add(MoveBitmap.mapMove(from, to, parent.halfMoves(),
+            type | MoveBitmap.updateCastling(type, parent.getCastlingState())));
+    }
+
+    private boolean add(int bitmap) {
+        return next.add(new Move(parent, bitmap));
     }
 
     @Override
-    public void movePromote(int to) {
-        next.add(Move.createMovePromote(from, to, parent, type, INode.QUEEN));
-        next.add(Move.createMovePromote(from, to, parent, type, INode.KNIGHT));
-        next.add(Move.createMovePromote(from, to, parent, type, INode.ROOK));
-        next.add(Move.createMovePromote(from, to, parent, type, INode.BISHOP));
+    public void movePromote(int to, int from) {
+        add(movepromo(to, INode.QUEEN));
+        add(movepromo(to, INode.KNIGHT));
+        add(movepromo(to, INode.ROOK));
+        add(movepromo(to, INode.BISHOP));
+    }
+
+    public int movepromo(int to, int promo) {
+        return MoveBitmap.mapPromote(from, to, type | MoveBitmap.updateCastling(type, parent.getCastlingState()),
+            promo);
     }
 
     @Override
-    public void support(int to) {
-        // not
+    public void capture(int to, int from) {
+        int bm = MoveBitmap.mapCreature(from, to,
+            type | MoveBitmap.updateCastling(type, parent.getCastlingState()), board[to] & 7);
+        add(bm);
     }
 
     @Override
-    public void capture(int to) {
-        next.add(Move.createCapture(from, to, parent, type, board[to] & 7));
+    public void capturePromote(int to, int from) {
+        add(capturepromo(to, INode.QUEEN));
+        add(capturepromo(to, INode.KNIGHT));
+        add(capturepromo(to, INode.ROOK));
+        add(capturepromo(to, INode.BISHOP));
+    }
+
+    private int capturepromo(int to, int promo) {
+        return MoveBitmap.mapCapturePromote(from, to,
+            type | MoveBitmap.updateCastling(type, parent.getCastlingState()), board[to] & 7, promo);
     }
 
     @Override
-    public void capturePromote(int to) {
-        int victim = board[to] & 7;
-        next.add(Move.createCapturePromote(from, to, parent, type, victim, INode.QUEEN));
-        next.add(Move.createCapturePromote(from, to, parent, type, victim, INode.KNIGHT));
-        next.add(Move.createCapturePromote(from, to, parent, type, victim, INode.ROOK));
-        next.add(Move.createCapturePromote(from, to, parent, type, victim, INode.BISHOP));
+    public void enpassant(int to, int from) {
+        add(MoveBitmap.mapEnpassant(from, to, type | MoveBitmap.updateCastling(type, parent.getCastlingState())));
     }
 
     @Override
-    public void enpassant(int to) {
-        next.add(Move.createEnPassant(from, to, parent, type));
-    }
-
-    @Override
-    public void castling(int to) {
-        next.add(Move.createCastling(from, to, parent, type));
+    public void castling(int to, int from) {
+        add(MoveBitmap.mapCastling(from, to, type | MoveBitmap.updateCastling(type, parent.getCastlingState())));
     }
 
     @Override
     public String toString() {
         return parent.toString();
     }
+
 }

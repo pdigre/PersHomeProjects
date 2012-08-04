@@ -2,6 +2,8 @@ package no.pdigre.chess.test;
 
 import static org.junit.Assert.assertEquals;
 import no.pdigre.chess.base.INode;
+import no.pdigre.chess.base.NodeGenerator;
+import no.pdigre.chess.base.TestGenerator;
 import no.pdigre.chess.eval.FindMoves;
 import no.pdigre.chess.eval.Move;
 import no.pdigre.chess.fen.FEN;
@@ -113,7 +115,7 @@ public class StandardMovesTest {
                 }
             }
             int[] brd = ((Move)move).apply(board);
-            if(FindMoves.isCheck(move, brd)){
+            if(NodeGenerator.isCheck(brd,move.whiteTurn())){
                 checks++;
                 if(FindMoves.isMate(move, brd))
                     mates++;
@@ -135,6 +137,23 @@ public class StandardMovesTest {
         for (int i = 0; i < MAXDEPTH; i++)
             counters[i] = new Counter();
         countFirst(new StartGame(fen));
+        printCounter();
+        assertEquals(counters[4].moves, 4865609);
+        assertEquals(counters[4].captures, 82719);
+        assertEquals(counters[4].enpassants, 258);
+    }
+
+    /**
+     * Takes 22.5 sec with 28.07.2012 Takes 2.1 sec with 02.08.2012 Takes 60.0
+     * sec with 02.08.2012 for 6 levels
+     */
+    @Test
+    public void testThink3() {
+        String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+        counters = new Counter[MAXDEPTH];
+        for (int i = 0; i < MAXDEPTH; i++)
+            counters[i] = new Counter();
+        countFirst2(new StartGame(fen));
         printCounter();
         assertEquals(counters[4].moves, 4865609);
         assertEquals(counters[4].captures, 82719);
@@ -189,6 +208,10 @@ public class StandardMovesTest {
             for (Move move : FindMoves.getLegalMoves(FindMoves.getMoves(brd, parent), brd, parent))
                 countDepth(move, depth, brd);
         }
+    }
+
+    private void countFirst2(final StartGame start) {
+        TestGenerator.run(start.getBitmap(),start.getBoard(),counters);
     }
 
 }
