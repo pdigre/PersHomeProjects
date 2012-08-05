@@ -77,7 +77,7 @@ public class StandardMovesTest {
         FEN.printPiece(type, pos);
         StringBuffer sb = new StringBuffer();
         sb.append(PieceType.types[type].fen);
-        for (Move move : FindMoves.filterPieces(FindMoves.getLegalMoves(board, start), pos)) {
+        for (Move move : FindMoves.filterPieces(FindMoves.getMoves(board, start), pos)) {
             sb.append(" ");
             sb.append(FEN.pos2string(move.getTo()));
         }
@@ -131,7 +131,7 @@ public class StandardMovesTest {
      * sec with 02.08.2012 for 6 levels
      */
     @Test
-    public void testThink1() {
+    public void testThinkStart1() {
         String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
         counters = new Counter[MAXDEPTH];
         for (int i = 0; i < MAXDEPTH; i++)
@@ -146,14 +146,16 @@ public class StandardMovesTest {
     /**
      * Takes 22.5 sec with 28.07.2012 Takes 2.1 sec with 02.08.2012 Takes 60.0
      * sec with 02.08.2012 for 6 levels
+     * Takes 4.1 secs with 05.08.2012
      */
     @Test
-    public void testThink3() {
+    public void testThinkStart2() {
         String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
         counters = new Counter[MAXDEPTH];
         for (int i = 0; i < MAXDEPTH; i++)
             counters[i] = new Counter();
-        countFirst2(new StartGame(fen));
+        StartGame start = new StartGame(fen);
+        TestGenerator.run(start.getBitmap(),start.getBoard(),counters);
         printCounter();
         assertEquals(counters[4].moves, 4865609);
         assertEquals(counters[4].captures, 82719);
@@ -180,7 +182,7 @@ public class StandardMovesTest {
     }
 
     @Test
-    public void testThink2() {
+    public void testThinkPromo1() {
         String fen = "n1n5/PPPk4/8/8/8/8/4Kppp/5N1N b - - 0 1";
         counters = new Counter[MAXDEPTH];
         for (int i = 0; i < MAXDEPTH; i++)
@@ -194,9 +196,25 @@ public class StandardMovesTest {
         assertEquals(counters[4].moves, 3605103);
     }
 
+    @Test
+    public void testThinkPromo2() {
+        String fen = "n1n5/PPPk4/8/8/8/8/4Kppp/5N1N b - - 0 1";
+        counters = new Counter[MAXDEPTH];
+        for (int i = 0; i < MAXDEPTH; i++)
+            counters[i] = new Counter();
+        StartGame start = new StartGame(fen);
+        TestGenerator.run(start.getBitmap(),start.getBoard(),counters);
+        printCounter();
+        assertEquals(counters[0].moves, 24);
+        assertEquals(counters[1].moves, 496);
+        assertEquals(counters[2].moves, 9483);
+        assertEquals(counters[3].moves, 182838);
+        assertEquals(counters[4].moves, 3605103);
+    }
+
     private void countFirst(final StartGame start) {
         final int[] board = start.getBoard();
-        for (Move move : FindMoves.getLegalMoves(FindMoves.getMoves(board, start), board, start))
+        for (Move move : FindMoves.getMoves(board, start))
             countDepth(move, 0, board);
     }
 
@@ -205,13 +223,9 @@ public class StandardMovesTest {
         depth++;
         if (depth < MAXDEPTH) {
             final int[] brd = parent.apply(board);
-            for (Move move : FindMoves.getLegalMoves(FindMoves.getMoves(brd, parent), brd, parent))
+            for (Move move : FindMoves.getMoves(brd, parent))
                 countDepth(move, depth, brd);
         }
-    }
-
-    private void countFirst2(final StartGame start) {
-        TestGenerator.run(start.getBitmap(),start.getBoard(),counters);
     }
 
 }

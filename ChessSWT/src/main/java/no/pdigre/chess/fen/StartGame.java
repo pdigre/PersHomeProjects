@@ -68,15 +68,23 @@ public class StartGame implements INode {
 
 	@Override
 	public int getCastlingState() {
-		return (castling.contains("K") ? 0 : INode.NOCASTLE_WHITEKING)
-				| (castling.contains("Q") ? 0 : INode.NOCASTLE_WHITEQUEEN)
-				| (castling.contains("k") ? 0 : INode.NOCASTLE_BLACKKING)
-				| (castling.contains("q") ? 0 : INode.NOCASTLE_BLACKQUEEN);
+		return (castling.contains("K") ? 0 : NOCASTLE_WHITEKING)
+				| (castling.contains("Q") ? 0 : NOCASTLE_WHITEQUEEN)
+				| (castling.contains("k") ? 0 : NOCASTLE_BLACKKING)
+				| (castling.contains("q") ? 0 : NOCASTLE_BLACKQUEEN);
 	}
 
     @Override
     public int getBitmap() {
-        return (halfMoves<<_HALFMOVES)&(getCastlingState()<<_CASTLING);
+        int enp=0;
+        if(enpassant!=-1){
+            if(white){
+                enp=SPECIAL|PAWN|(enpassant+8)<<_FROM|(enpassant-8)<<_TO;
+            }else {
+                enp=SPECIAL|PAWN|(enpassant-8)<<_FROM|(enpassant+8)<<_TO;
+            }
+        }
+        return (halfMoves<<_HALFMOVES)&(getCastlingState()<<_CASTLING)|(white?BLACK:0)|enp;
     }
 
 }

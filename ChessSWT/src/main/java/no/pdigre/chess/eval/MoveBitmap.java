@@ -1,6 +1,10 @@
 package no.pdigre.chess.eval;
 
+import no.pdigre.chess.base.CheckMate;
 import no.pdigre.chess.base.INode;
+import no.pdigre.chess.base.NodeGenerator;
+import no.pdigre.chess.fen.FEN;
+import no.pdigre.chess.fen.PieceType;
 
 public class MoveBitmap implements INode {
 
@@ -166,18 +170,40 @@ public class MoveBitmap implements INode {
     }
 
     public static int getEnpassant(final int bitmap) {
+        int from2 = MoveBitmap.getFrom(bitmap);
+        int to2 = MoveBitmap.getTo(bitmap);
         switch (bitmap & PIECE) {
             case PAWN:
-                if (MoveBitmap.getFrom(bitmap) - MoveBitmap.getTo(bitmap) == -16)
-                    return MoveBitmap.getFrom(bitmap) + 8;
+                if (from2 - to2 == -16)
+                    return from2 + 8;
                 return -1;
             case PAWN | BLACK:
-                if (MoveBitmap.getFrom(bitmap) - MoveBitmap.getTo(bitmap) == 16)
-                    return MoveBitmap.getFrom(bitmap) - 8;
+                if (from2 - to2 == 16)
+                    return from2 - 8;
                 return -1;
             default:
                 return -1;
         }
     }
 
+    public static String printMove(int bitmap,int[] board) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(PieceType.types[bitmap & PIECE]);
+        sb.append(" from " + FEN.pos2string(MoveBitmap.getFrom(bitmap)) + " to " + FEN.pos2string(MoveBitmap.getTo(bitmap)));
+        int capture = ((bitmap >> _CAPTURE) & 7);
+        if (capture != 0)
+            sb.append(" beats " + PieceType.types[capture | ((bitmap & BLACK) ^ BLACK)]);
+        if (MoveBitmap.isEnpassant(bitmap))
+            sb.append(" enpassant");
+        if (MoveBitmap.isCastling(bitmap))
+            sb.append(" castling");
+        if (NodeGenerator.isCheck(board,MoveBitmap.white(bitmap))) {
+            sb.append(" check");
+            if (CheckMate.isMate(bitmap, board))
+                sb.append("mate");
+        }
+        return sb.toString();
+    }
+
+ 
 }

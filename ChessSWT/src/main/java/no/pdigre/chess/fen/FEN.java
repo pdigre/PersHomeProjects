@@ -79,7 +79,7 @@ public class FEN {
 		return sb.toString();
 	}
 
-	public static void printBoard(int[] board) {
+	public static String printBoard(int[] board) {
 		StringBuffer sb = new StringBuffer();
 		for (int y = 56; y >= 0; y -= 8) {
 			for (int x = 0; x < 8; x++) {
@@ -88,7 +88,7 @@ public class FEN {
 			}
 			sb.append("\n");
 		}
-		System.out.println(sb);
+		return  sb.toString();
 	}
 
 	public static void printPiece(int type,int pos) {

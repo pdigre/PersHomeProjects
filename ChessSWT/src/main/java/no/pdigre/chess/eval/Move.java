@@ -1,5 +1,6 @@
 package no.pdigre.chess.eval;
 
+import no.pdigre.chess.base.CheckMate;
 import no.pdigre.chess.base.INode;
 import no.pdigre.chess.base.NodeGenerator;
 import no.pdigre.chess.fen.FEN;
@@ -22,27 +23,10 @@ public final class Move implements INode {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        int bitmap = getBitmap();
-        sb.append(PieceType.types[bitmap & PIECE]);
-        sb.append(" from " + FEN.pos2string(getFrom()) + " to " + FEN.pos2string(getTo()));
-        int capture = ((bitmap >> _CAPTURE) & 7);
-        if (capture != 0)
-            sb.append(" beats " + PieceType.types[capture | ((bitmap & BLACK) ^ BLACK)]);
-        if (isEnpassant())
-            sb.append(" enpassant");
-        if (isCastling())
-            sb.append(" castling");
-        int[] board = getBoard();
-        if (NodeGenerator.isCheck(board,whiteTurn())) {
-            sb.append(" check");
-            if (FindMoves.isMate(this, board))
-                sb.append("mate");
-        }
-        return sb.toString();
+        return MoveBitmap.printMove(getBitmap(),getBoard());
     }
 
-    @Override
+   @Override
     final public boolean whiteTurn() {
         return (getBitmap() & BLACK) != 0;
     }

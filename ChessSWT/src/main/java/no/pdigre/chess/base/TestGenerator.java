@@ -1,8 +1,8 @@
 package no.pdigre.chess.base;
 
-import no.pdigre.chess.eval.FindMoves;
 import no.pdigre.chess.eval.Move;
 import no.pdigre.chess.eval.MoveBitmap;
+import no.pdigre.chess.fen.FEN;
 import no.pdigre.chess.test.StandardMovesTest.Counter;
 
 public class TestGenerator implements IAdder {
@@ -17,8 +17,6 @@ public class TestGenerator implements IAdder {
 
     final private int[] board;
 
-    private int from;
-
     public TestGenerator(int bitmap, int level, Counter[] counters, int[] board) {
         this.bitmap = bitmap;
         this.level = level;
@@ -27,67 +25,62 @@ public class TestGenerator implements IAdder {
         this.board = MoveBitmap.apply(board, bitmap);
     }
 
-    private void run() {
-        int enpassant = 0;
-        for (from = 0; from < 64; from++) {
-            int type = board[from];
-            if (type == 0)
-                continue;
-            boolean white = MoveBitmap.white(type);
-            if (white == MoveBitmap.white(bitmap)) {
-                NodeGenerator.addMovesForPiece(this, board, from, type, white, enpassant,
-                    MoveBitmap.getCastlingState(bitmap));
-            }
-        }
-    }
-
-    @Override
-    public void move(int to, int from) {
-        if(!NodeGenerator.checkSafe(board, to, MoveBitmap.white(bitmap)))
-            return;
-//        loop(to);
-    }
-
-    private void loop(int to) {
-        int bitmap2 = MoveBitmap.mapMove(from, to, MoveBitmap.halfMoves(bitmap), bitmap);
-        int[] board2 = MoveBitmap.apply(board,bitmap2);
-        if(NodeGenerator.isCheck(board2,MoveBitmap.white(bitmap))){
-            counter.checks++;
-//            if(FindMoves.isMate(move, board2))
-//                counter.mates++;
-        }
-        if (level + 1 < counters.length)
-            new TestGenerator(bitmap, level + 1, counters, board).run();
-    }
-
-    @Override
-    public void movePromote(int to, int from) {
-        counter.promotions++;
-    }
-
-    @Override
-    public void capture(int to, int from) {
-        counter.captures++;
-    }
-
-    @Override
-    public void capturePromote(int to, int from) {
-        counter.promotions++;
-        counter.captures++;
-    }
-
-    @Override
-    public void castling(int to, int from) {
-        counter.castlings++;
-    }
-
-    @Override
-    public void enpassant(int to, int from) {
-        counter.enpassants++;
-    }
 
     public static void run(int bitmap, int[] board, Counter[] counters) {
         new TestGenerator(bitmap, 0, counters, board).run();
     }
 
+    private void loop(int bitmap2) {
+        counter.moves++;
+        int[] board2 = MoveBitmap.apply(board,bitmap2);
+        if(NodeGenerator.isCheck(board2,MoveBitmap.white(bitmap))){
+            counter.checks++;
+//            String printMove = MoveBitmap.printMove(bitmap2, board2);
+//            String brd=FEN.printBoard(board2);
+            if(CheckMate.isMate(bitmap2, board2))
+                counter.mates++;
+        }
+        if (level + 1 < counters.length)
+            new TestGenerator(bitmap2, level + 1, counters, board2).run();
+    }
+
+    public void run() {
+        NodeGenerator.loopLegalMoves(this, board, bitmap);
+    }
+
+    @Override
+    public void move(int bitmap) {
+        loop(bitmap);
+    }
+
+    @Override
+    public void movePromote(int bitmap) {
+        counter.promotions++;
+        loop(bitmap);
+    }
+
+    @Override
+    public void capture(int bitmap) {
+        counter.captures++;
+        loop(bitmap);
+    }
+
+    @Override
+    public void capturePromote(int bitmap) {
+        counter.promotions++;
+        counter.captures++;
+        loop(bitmap);
+    }
+
+    @Override
+    public void castling(int bitmap) {
+        counter.castlings++;
+        loop(bitmap);
+    }
+
+    @Override
+    public void enpassant(int bitmap) {
+        counter.enpassants++;
+        loop(bitmap);
+    }
 }
