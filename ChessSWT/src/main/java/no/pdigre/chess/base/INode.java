@@ -66,18 +66,12 @@ public abstract interface INode {
 
     public final static int BLACK_KING = KING | BLACK;
 
-    public abstract int getCastlingState();
-
     public abstract boolean whiteTurn();
 
     public abstract int totalMoves();
 
-    public abstract int halfMoves();
-
     public abstract int[] getBoard();
 
-    public abstract int getEnpassant();
-    
     /**
      * Returns the castling and halfmoves state
      * @return

@@ -159,11 +159,6 @@ public class MoveBitmap implements INode {
 
 
     @Override
-    public int getCastlingState() {
-        return 0;
-    }
-
-    @Override
     public boolean whiteTurn() {
         return false;
     }
@@ -174,18 +169,8 @@ public class MoveBitmap implements INode {
     }
 
     @Override
-    public int halfMoves() {
-        return 0;
-    }
-
-    @Override
     public int[] getBoard() {
         return null;
-    }
-
-    @Override
-    public int getEnpassant() {
-        return 0;
     }
 
     @Override

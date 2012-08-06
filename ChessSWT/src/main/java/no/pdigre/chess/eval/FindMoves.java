@@ -19,7 +19,7 @@ public final class FindMoves implements IAdder {
     public static List<Move> filterPieces(Collection<Move> moves, int from) {
         ArrayList<Move> list = new ArrayList<Move>();
         for (Move mv : moves) {
-            if (mv.getFrom() == from)
+            if (MoveBitmap.getFrom(mv.getBitmap()) == from)
                 list.add(mv);
         }
         return list;
@@ -28,7 +28,7 @@ public final class FindMoves implements IAdder {
     public static List<Move> filterPieces(Collection<Move> moves, int from, int to) {
         ArrayList<Move> list = new ArrayList<Move>();
         for (Move mv : moves) {
-            if (mv.getFrom() == from && mv.getTo() == to)
+            if (MoveBitmap.getFrom(mv.getBitmap()) == from && MoveBitmap.getTo(mv.getBitmap()) == to)
                 list.add(mv);
         }
         return list;

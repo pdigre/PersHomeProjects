@@ -6,6 +6,7 @@ import no.pdigre.chess.base.NodeGenerator;
 import no.pdigre.chess.base.TestGenerator;
 import no.pdigre.chess.eval.FindMoves;
 import no.pdigre.chess.eval.Move;
+import no.pdigre.chess.eval.MoveBitmap;
 import no.pdigre.chess.fen.FEN;
 import no.pdigre.chess.fen.PieceType;
 import no.pdigre.chess.fen.StartGame;
@@ -79,7 +80,7 @@ public class StandardMovesTest {
         sb.append(PieceType.types[type].fen);
         for (Move move : FindMoves.filterPieces(FindMoves.getMoves(board, start), pos)) {
             sb.append(" ");
-            sb.append(FEN.pos2string(move.getTo()));
+            sb.append(FEN.pos2string(MoveBitmap.getTo(move.getBitmap())));
         }
         return sb.toString();
     }
@@ -102,19 +103,19 @@ public class StandardMovesTest {
 
         public void count(INode move, int[] board) {
             moves++;
-            if (((Move) move).isCastling()) {
+            if (MoveBitmap.isCastling(((Move) move).getBitmap())) {
                 castlings++;
             }
-            if (((Move) move).isPromotion()) {
+            if (MoveBitmap.isPromotion(((Move) move).getBitmap())) {
                 promotions++;
             }
-            if (((Move) move).isCapture()) {
+            if (MoveBitmap.isCapture(((Move) move).getBitmap())) {
                 captures++;
-                if (((Move) move).isEnpassant()) {
+                if (MoveBitmap.isEnpassant(((Move) move).getBitmap())) {
                     enpassants++;
                 }
             }
-            int[] brd = ((Move)move).apply(board);
+            int[] brd = MoveBitmap.apply(board, ((Move)move).getBitmap());
             if(NodeGenerator.isCheck(brd,move.whiteTurn())){
                 checks++;
                 if(FindMoves.isMate(move, brd))
@@ -222,7 +223,7 @@ public class StandardMovesTest {
         counters[depth].count(parent, board);
         depth++;
         if (depth < MAXDEPTH) {
-            final int[] brd = parent.apply(board);
+            final int[] brd = MoveBitmap.apply(board, parent.getBitmap());
             for (Move move : FindMoves.getMoves(brd, parent))
                 countDepth(move, depth, brd);
         }
