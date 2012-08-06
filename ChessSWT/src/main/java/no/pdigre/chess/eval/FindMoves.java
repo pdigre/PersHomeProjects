@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import no.pdigre.chess.base.CheckMate;
 import no.pdigre.chess.base.IAdder;
 import no.pdigre.chess.base.INode;
 import no.pdigre.chess.base.NodeGenerator;
@@ -40,7 +39,7 @@ public final class FindMoves implements IAdder {
     }
 
     public static boolean isMate(INode move, int[] board) {
-        return CheckMate.isMate(move.getBitmap(), board);
+        return !NodeGenerator.hasLegalMoves(board, move.getBitmap());
     }
 
     private final ArrayList<Move> next = new ArrayList<Move>();

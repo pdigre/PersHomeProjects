@@ -1,8 +1,6 @@
 package no.pdigre.chess.base;
 
-import no.pdigre.chess.eval.Move;
 import no.pdigre.chess.eval.MoveBitmap;
-import no.pdigre.chess.fen.FEN;
 import no.pdigre.chess.test.StandardMovesTest.Counter;
 
 public class TestGenerator implements IAdder {
@@ -37,7 +35,7 @@ public class TestGenerator implements IAdder {
             counter.checks++;
 //            String printMove = MoveBitmap.printMove(bitmap2, board2);
 //            String brd=FEN.printBoard(board2);
-            if(CheckMate.isMate(bitmap2, board2))
+            if(!NodeGenerator.hasLegalMoves(board2, bitmap2))
                 counter.mates++;
         }
         if (level + 1 < counters.length)
