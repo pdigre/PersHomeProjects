@@ -1,7 +1,8 @@
 package no.pdigre.chess.fen;
 
-import no.pdigre.chess.base.INode;
-import no.pdigre.chess.eval.MoveBitmap;
+import no.pdigre.chess.base.ICallBack;
+import no.pdigre.chess.base.Bitmap;
+import no.pdigre.chess.base.IConst;
 
 public class FEN {
 
@@ -10,7 +11,7 @@ public class FEN {
 	 * 
 	 * @return
 	 */
-	final public static String getFen(INode move) {
+	final public static String getFen(ICallBack move) {
 		StringBuilder fen = new StringBuilder();
 		fen.append(FEN.board2String(move.getBoard()));
 		fen.append(" ");
@@ -18,9 +19,9 @@ public class FEN {
 		fen.append(" ");
 		fen.append(FEN.getFenCastling(move));
 		fen.append(" ");
-		fen.append(FEN.pos2string(MoveBitmap.getEnpassant(move.getBitmap())));
+		fen.append(FEN.pos2string(Bitmap.getEnpassant(move.getInherit())));
 		fen.append(" ");
-		fen.append(MoveBitmap.halfMoves(move.getBitmap()));
+		fen.append(Bitmap.halfMoves(move.getInherit()));
 		fen.append(" ");
 		fen.append(move.totalMoves());
 		return fen.toString();
@@ -66,16 +67,16 @@ public class FEN {
 		return fen.toString();
 	}
 
-	final public static String getFenCastling(INode move) {
+	final public static String getFenCastling(ICallBack move) {
 		StringBuilder sb = new StringBuilder();
-		int state = MoveBitmap.getCastlingState(move.getBitmap());
-		if ((state & INode.NOCASTLE_WHITEKING) == 0)
+		int state = Bitmap.getCastlingState(move.getInherit());
+		if ((state & IConst.NOCASTLE_WHITEKING) == 0)
 			sb.append("K");
-		if ((state & INode.NOCASTLE_WHITEQUEEN) == 0)
+		if ((state & IConst.NOCASTLE_WHITEQUEEN) == 0)
 			sb.append("Q");
-		if ((state & INode.NOCASTLE_BLACKKING) == 0)
+		if ((state & IConst.NOCASTLE_BLACKKING) == 0)
 			sb.append("k");
-		if ((state & INode.NOCASTLE_BLACKQUEEN) == 0)
+		if ((state & IConst.NOCASTLE_BLACKQUEEN) == 0)
 			sb.append("q");
 		return sb.toString();
 	}

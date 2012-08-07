@@ -1,7 +1,7 @@
 package no.pdigre.chess.base;
 
-public abstract interface INode {
 
+public interface IConst {
     public final static int PIECETYPE = 7 << 0;
 
     public final static int BLACK = 1 << 3;
@@ -65,17 +65,5 @@ public abstract interface INode {
     public final static int BLACK_QUEEN = QUEEN | BLACK;
 
     public final static int BLACK_KING = KING | BLACK;
-
-    public abstract boolean whiteTurn();
-
-    public abstract int totalMoves();
-
-    public abstract int[] getBoard();
-
-    /**
-     * Returns the castling and halfmoves state
-     * @return
-     */
-    public abstract int getBitmap();
 
 }

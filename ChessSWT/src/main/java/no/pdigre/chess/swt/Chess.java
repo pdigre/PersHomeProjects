@@ -3,10 +3,10 @@ package no.pdigre.chess.swt;
 import java.util.Collection;
 import java.util.HashSet;
 
-import no.pdigre.chess.base.INode;
+import no.pdigre.chess.base.ICallBack;
+import no.pdigre.chess.base.Bitmap;
 import no.pdigre.chess.eval.FindMoves;
 import no.pdigre.chess.eval.Move;
-import no.pdigre.chess.eval.MoveBitmap;
 import no.pdigre.chess.fen.FEN;
 import no.pdigre.chess.fen.StartGame;
 import no.pdigre.chess.fen.StartingGames;
@@ -32,7 +32,7 @@ import org.eclipse.swt.widgets.Shell;
 
 public class Chess extends ChessGraphics {
 
-    public INode lastmove;
+    public ICallBack lastmove;
 
     public Integer from = -1;
 
@@ -85,7 +85,7 @@ public class Chess extends ChessGraphics {
                         markers.clear();
                         for (Move move : FindMoves.filterPieces(FindMoves.getLegalMoves(lastmove), i)) {
                             System.out.println("> " + move.toString());
-                            markers.add(MoveBitmap.getTo(move.getBitmap()));
+                            markers.add(Bitmap.getTo(move.getInherit()));
                         }
                         canvas.redraw();
                         canvas.update();

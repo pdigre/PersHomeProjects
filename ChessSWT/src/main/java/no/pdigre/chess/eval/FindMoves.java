@@ -5,21 +5,22 @@ import java.util.Collection;
 import java.util.List;
 
 import no.pdigre.chess.base.IAdder;
-import no.pdigre.chess.base.INode;
+import no.pdigre.chess.base.ICallBack;
+import no.pdigre.chess.base.Bitmap;
 import no.pdigre.chess.base.NodeGenerator;
 
 public final class FindMoves implements IAdder {
 
-    public static Collection<Move> getMoves(final int[] board, final INode node) {
+    public static Collection<Move> getMoves(final int[] board, final ICallBack node) {
         FindMoves adder = new FindMoves(node);
-        NodeGenerator.loopLegalMoves(adder, board, node.getBitmap());
+        NodeGenerator.loopLegalMoves(adder, board, node.getInherit());
         return adder.next;
     }
 
     public static List<Move> filterPieces(Collection<Move> moves, int from) {
         ArrayList<Move> list = new ArrayList<Move>();
         for (Move mv : moves) {
-            if (MoveBitmap.getFrom(mv.getBitmap()) == from)
+            if (Bitmap.getFrom(mv.getInherit()) == from)
                 list.add(mv);
         }
         return list;
@@ -28,25 +29,25 @@ public final class FindMoves implements IAdder {
     public static List<Move> filterPieces(Collection<Move> moves, int from, int to) {
         ArrayList<Move> list = new ArrayList<Move>();
         for (Move mv : moves) {
-            if (MoveBitmap.getFrom(mv.getBitmap()) == from && MoveBitmap.getTo(mv.getBitmap()) == to)
+            if (Bitmap.getFrom(mv.getInherit()) == from && Bitmap.getTo(mv.getInherit()) == to)
                 list.add(mv);
         }
         return list;
     }
 
-    public static Collection<Move> getLegalMoves(final INode parent) {
+    public static Collection<Move> getLegalMoves(final ICallBack parent) {
         return getMoves(parent.getBoard(), parent);
     }
 
-    public static boolean isMate(INode move, int[] board) {
-        return !NodeGenerator.hasLegalMoves(board, move.getBitmap());
+    public static boolean isMate(ICallBack move, int[] board) {
+        return !NodeGenerator.hasLegalMoves(board, move.getInherit());
     }
 
     private final ArrayList<Move> next = new ArrayList<Move>();
 
-    private final INode parent;
+    private final ICallBack parent;
 
-    private FindMoves(INode parent) {
+    private FindMoves(ICallBack parent) {
         this.parent = parent;
     }
 

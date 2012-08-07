@@ -1,6 +1,5 @@
 package no.pdigre.chess.base;
 
-import no.pdigre.chess.eval.MoveBitmap;
 import no.pdigre.chess.test.StandardMovesTest.Counter;
 
 public class TestGenerator implements IAdder {
@@ -20,22 +19,18 @@ public class TestGenerator implements IAdder {
         this.level = level;
         this.counters = counters;
         this.counter = counters[level];
-        this.board = MoveBitmap.apply(board, bitmap);
+        this.board = board;
     }
-
 
     public static void run(int bitmap, int[] board, Counter[] counters) {
         new TestGenerator(bitmap, 0, counters, board).run();
     }
 
-    private void loop(int bitmap2) {
+    private void loop(int bitmap2, int[] board2) {
         counter.moves++;
-        int[] board2 = MoveBitmap.apply(board,bitmap2);
-        if(NodeGenerator.isCheck(board2,MoveBitmap.white(bitmap))){
+        if (NodeGenerator.isCheck(board2, Bitmap.white(bitmap))) {
             counter.checks++;
-//            String printMove = MoveBitmap.printMove(bitmap2, board2);
-//            String brd=FEN.printBoard(board2);
-            if(!NodeGenerator.hasLegalMoves(board2, bitmap2))
+            if (!NodeGenerator.hasLegalMoves(board2, bitmap2 & (IConst.CASTLING_STATE | IConst.HALFMOVES)))
                 counter.mates++;
         }
         if (level + 1 < counters.length)
@@ -48,37 +43,38 @@ public class TestGenerator implements IAdder {
 
     @Override
     public void move(int bitmap) {
-        loop(bitmap);
+        loop(bitmap, Bitmap.apply(board, bitmap));
     }
 
     @Override
     public void movePromote(int bitmap) {
         counter.promotions++;
-        loop(bitmap);
+        loop(bitmap, Bitmap.apply(board, bitmap));
     }
 
     @Override
     public void capture(int bitmap) {
         counter.captures++;
-        loop(bitmap);
+        loop(bitmap, Bitmap.apply(board, bitmap));
     }
 
     @Override
     public void capturePromote(int bitmap) {
         counter.promotions++;
         counter.captures++;
-        loop(bitmap);
+        loop(bitmap, Bitmap.apply(board, bitmap));
     }
 
     @Override
     public void castling(int bitmap) {
         counter.castlings++;
-        loop(bitmap);
+        loop(bitmap, Bitmap.apply(board, bitmap));
     }
 
     @Override
     public void enpassant(int bitmap) {
         counter.enpassants++;
-        loop(bitmap);
+        counter.captures++;
+        loop(bitmap, Bitmap.apply(board, bitmap));
     }
 }

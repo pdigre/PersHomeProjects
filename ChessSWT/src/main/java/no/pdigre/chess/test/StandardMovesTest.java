@@ -1,12 +1,12 @@
 package no.pdigre.chess.test;
 
 import static org.junit.Assert.assertEquals;
-import no.pdigre.chess.base.INode;
+import no.pdigre.chess.base.ICallBack;
+import no.pdigre.chess.base.Bitmap;
 import no.pdigre.chess.base.NodeGenerator;
 import no.pdigre.chess.base.TestGenerator;
 import no.pdigre.chess.eval.FindMoves;
 import no.pdigre.chess.eval.Move;
-import no.pdigre.chess.eval.MoveBitmap;
 import no.pdigre.chess.fen.FEN;
 import no.pdigre.chess.fen.PieceType;
 import no.pdigre.chess.fen.StartGame;
@@ -80,7 +80,7 @@ public class StandardMovesTest {
         sb.append(PieceType.types[type].fen);
         for (Move move : FindMoves.filterPieces(FindMoves.getMoves(board, start), pos)) {
             sb.append(" ");
-            sb.append(FEN.pos2string(MoveBitmap.getTo(move.getBitmap())));
+            sb.append(FEN.pos2string(Bitmap.getTo(move.getInherit())));
         }
         return sb.toString();
     }
@@ -101,21 +101,21 @@ public class StandardMovesTest {
 
         public int promotions;
 
-        public void count(INode move, int[] board) {
+        public void count(ICallBack move, int[] board) {
             moves++;
-            if (MoveBitmap.isCastling(((Move) move).getBitmap())) {
+            if (Bitmap.isCastling(((Move) move).getInherit())) {
                 castlings++;
             }
-            if (MoveBitmap.isPromotion(((Move) move).getBitmap())) {
+            if (Bitmap.isPromotion(((Move) move).getInherit())) {
                 promotions++;
             }
-            if (MoveBitmap.isCapture(((Move) move).getBitmap())) {
+            if (Bitmap.isCapture(((Move) move).getInherit())) {
                 captures++;
-                if (MoveBitmap.isEnpassant(((Move) move).getBitmap())) {
+                if (Bitmap.isEnpassant(((Move) move).getInherit())) {
                     enpassants++;
                 }
             }
-            int[] brd = MoveBitmap.apply(board, ((Move)move).getBitmap());
+            int[] brd = Bitmap.apply(board, ((Move)move).getInherit());
             if(NodeGenerator.isCheck(brd,move.whiteTurn())){
                 checks++;
                 if(FindMoves.isMate(move, brd))
@@ -130,33 +130,17 @@ public class StandardMovesTest {
     /**
      * Takes 22.5 sec with 28.07.2012 Takes 2.1 sec with 02.08.2012 Takes 60.0
      * sec with 02.08.2012 for 6 levels
-     */
-    @Test
-    public void testThinkStart1() {
-        String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-        counters = new Counter[MAXDEPTH];
-        for (int i = 0; i < MAXDEPTH; i++)
-            counters[i] = new Counter();
-        countFirst(new StartGame(fen));
-        printCounter();
-        assertEquals(counters[4].moves, 4865609);
-        assertEquals(counters[4].captures, 82719);
-        assertEquals(counters[4].enpassants, 258);
-    }
-
-    /**
-     * Takes 22.5 sec with 28.07.2012 Takes 2.1 sec with 02.08.2012 Takes 60.0
-     * sec with 02.08.2012 for 6 levels
      * Takes 4.1 secs with 05.08.2012
+     * Takes 3.9 secs with 07.08.2012
      */
     @Test
-    public void testThinkStart2() {
+    public void testThinkStart() {
         String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
         counters = new Counter[MAXDEPTH];
         for (int i = 0; i < MAXDEPTH; i++)
             counters[i] = new Counter();
         StartGame start = new StartGame(fen);
-        TestGenerator.run(start.getBitmap(),start.getBoard(),counters);
+        TestGenerator.run(start.getInherit(),start.getBoard(),counters);
         printCounter();
         assertEquals(counters[4].moves, 4865609);
         assertEquals(counters[4].captures, 82719);
@@ -183,50 +167,19 @@ public class StandardMovesTest {
     }
 
     @Test
-    public void testThinkPromo1() {
-        String fen = "n1n5/PPPk4/8/8/8/8/4Kppp/5N1N b - - 0 1";
-        counters = new Counter[MAXDEPTH];
-        for (int i = 0; i < MAXDEPTH; i++)
-            counters[i] = new Counter();
-        countFirst(new StartGame(fen));
-        printCounter();
-        assertEquals(counters[0].moves, 24);
-        assertEquals(counters[1].moves, 496);
-        assertEquals(counters[2].moves, 9483);
-        assertEquals(counters[3].moves, 182838);
-        assertEquals(counters[4].moves, 3605103);
-    }
-
-    @Test
-    public void testThinkPromo2() {
+    public void testThinkPromo() {
         String fen = "n1n5/PPPk4/8/8/8/8/4Kppp/5N1N b - - 0 1";
         counters = new Counter[MAXDEPTH];
         for (int i = 0; i < MAXDEPTH; i++)
             counters[i] = new Counter();
         StartGame start = new StartGame(fen);
-        TestGenerator.run(start.getBitmap(),start.getBoard(),counters);
+        TestGenerator.run(start.getInherit(),start.getBoard(),counters);
         printCounter();
         assertEquals(counters[0].moves, 24);
         assertEquals(counters[1].moves, 496);
         assertEquals(counters[2].moves, 9483);
         assertEquals(counters[3].moves, 182838);
         assertEquals(counters[4].moves, 3605103);
-    }
-
-    private void countFirst(final StartGame start) {
-        final int[] board = start.getBoard();
-        for (Move move : FindMoves.getMoves(board, start))
-            countDepth(move, 0, board);
-    }
-
-    private void countDepth(final Move parent, int depth, int[] board) {
-        counters[depth].count(parent, board);
-        depth++;
-        if (depth < MAXDEPTH) {
-            final int[] brd = MoveBitmap.apply(board, parent.getBitmap());
-            for (Move move : FindMoves.getMoves(brd, parent))
-                countDepth(move, depth, brd);
-        }
     }
 
 }

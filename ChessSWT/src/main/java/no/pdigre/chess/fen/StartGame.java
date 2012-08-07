@@ -1,8 +1,8 @@
 package no.pdigre.chess.fen;
 
-import no.pdigre.chess.base.INode;
+import no.pdigre.chess.base.ICallBack;
 
-public class StartGame implements INode {
+public class StartGame implements ICallBack {
 
 	private final String castling;
 	private final boolean white;
@@ -64,7 +64,7 @@ public class StartGame implements INode {
 	}
 
     @Override
-    public int getBitmap() {
+    public int getInherit() {
         int enp=0;
         if(enpassant!=-1){
             if(white){
@@ -73,7 +73,7 @@ public class StartGame implements INode {
                 enp=SPECIAL|PAWN|(enpassant-8)<<_FROM|(enpassant+8)<<_TO;
             }
         }
-        return (halfMoves<<_HALFMOVES)&(getCastlingState()<<_CASTLING)|(white?BLACK:0)|enp;
+        return (halfMoves<<_HALFMOVES)|(getCastlingState()<<_CASTLING)|(white?BLACK:0)|enp;
     }
 
 }
