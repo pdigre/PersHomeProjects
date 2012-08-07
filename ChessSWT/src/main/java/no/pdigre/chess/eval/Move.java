@@ -13,10 +13,6 @@ public final class Move implements INode {
         this.bitmap = bitmap;
     }
 
-    final public int[] apply(int[] in) {
-        return MoveBitmap.apply(in, getBitmap());
-    }
-
     @Override
     public String toString() {
         return MoveBitmap.printMove(getBitmap(),getBoard());
@@ -30,59 +26,19 @@ public final class Move implements INode {
     @Override
     final public int totalMoves() {
         int i = parent.totalMoves();
-        if (whiteTurn())
+        if ((getBitmap() & BLACK) != 0)
             i++;
         return i;
     }
 
     @Override
-    final public int halfMoves() {
-        return MoveBitmap.halfMoves(getBitmap());
-    }
-
-    @Override
-    final public int getEnpassant() {
-        return MoveBitmap.getEnpassant(getBitmap());
-    }
-
-
-    @Override
     final public int[] getBoard() {
-        return apply(parent.getBoard());
-    }
-
-    @Override
-    final public int getCastlingState() {
-        return MoveBitmap.getCastlingState(getBitmap());
+        return MoveBitmap.apply(parent.getBoard(), getBitmap());
     }
 
     @Override
     public int getBitmap() {
         return bitmap;
-    }
-
-    final public int getFrom() {
-        return MoveBitmap.getFrom(getBitmap());
-    }
-
-    final public int getTo() {
-        return MoveBitmap.getTo(getBitmap());
-    }
-
-    final public boolean isCapture() {
-        return MoveBitmap.isCapture(getBitmap());
-    }
-
-    final public boolean isCastling() {
-        return MoveBitmap.isCastling(getBitmap());
-    }
-
-    final public boolean isEnpassant() {
-        return MoveBitmap.isEnpassant(getBitmap());
-    }
-
-    final public boolean isPromotion() {
-        return MoveBitmap.isPromotion(getBitmap());
     }
 
 }

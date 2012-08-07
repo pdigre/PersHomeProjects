@@ -56,18 +56,7 @@ public class StartGame implements INode {
 		return fullMoves;
 	}
 
-	@Override
-	public int halfMoves() {
-		return halfMoves;
-	}
-
-	@Override
-	public int getEnpassant() {
-		return enpassant;
-	}
-
-	@Override
-	public int getCastlingState() {
+	final private int getCastlingState() {
 		return (castling.contains("K") ? 0 : NOCASTLE_WHITEKING)
 				| (castling.contains("Q") ? 0 : NOCASTLE_WHITEQUEEN)
 				| (castling.contains("k") ? 0 : NOCASTLE_BLACKKING)

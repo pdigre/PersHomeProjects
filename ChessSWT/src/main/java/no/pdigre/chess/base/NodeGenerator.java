@@ -8,15 +8,14 @@ public class NodeGenerator {
         final boolean white = !MoveBitmap.white(inherit);
         final int kingpos = getKingPos(board, white);
         final int enpassant = MoveBitmap.getEnpassant(inherit);
-        final int castling = MoveBitmap.getCastlingState(inherit);
         final int pawn_fwd = forward(white);
         final int pawn_left = pawn_fwd + BaseNodes.LEFT;
         final int pawn_right = pawn_fwd + BaseNodes.RIGHT;
         final int goalline = goalline(white);
         final int home = home(white);
         final int castle_rook = white ? INode.ROOK : INode.BLACK_ROOK;
-        final boolean castle_queen = (castling & (white ? INode.NOCASTLE_WHITEQUEEN : INode.NOCASTLE_BLACKQUEEN)) == 0;
-        final boolean castle_king = (castling & (white ? INode.NOCASTLE_WHITEKING : INode.NOCASTLE_BLACKKING)) == 0;
+        final boolean castle_queen = (inherit & (white ? INode.NOCASTLE_WHITEQUEEN : INode.NOCASTLE_BLACKQUEEN)) == 0;
+        final boolean castle_king = (inherit & (white ? INode.NOCASTLE_WHITEKING : INode.NOCASTLE_BLACKKING)) == 0;
 
         for (int from = 0; from < 64; from++) {
             int sqr = board[from];

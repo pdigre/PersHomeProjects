@@ -1,6 +1,7 @@
 package no.pdigre.chess.fen;
 
 import no.pdigre.chess.base.INode;
+import no.pdigre.chess.eval.MoveBitmap;
 
 public class FEN {
 
@@ -17,9 +18,9 @@ public class FEN {
 		fen.append(" ");
 		fen.append(FEN.getFenCastling(move));
 		fen.append(" ");
-		fen.append(FEN.pos2string(move.getEnpassant()));
+		fen.append(FEN.pos2string(MoveBitmap.getEnpassant(move.getBitmap())));
 		fen.append(" ");
-		fen.append(move.halfMoves());
+		fen.append(MoveBitmap.halfMoves(move.getBitmap()));
 		fen.append(" ");
 		fen.append(move.totalMoves());
 		return fen.toString();
@@ -67,7 +68,7 @@ public class FEN {
 
 	final public static String getFenCastling(INode move) {
 		StringBuilder sb = new StringBuilder();
-		int state = move.getCastlingState();
+		int state = MoveBitmap.getCastlingState(move.getBitmap());
 		if ((state & INode.NOCASTLE_WHITEKING) == 0)
 			sb.append("K");
 		if ((state & INode.NOCASTLE_WHITEQUEEN) == 0)

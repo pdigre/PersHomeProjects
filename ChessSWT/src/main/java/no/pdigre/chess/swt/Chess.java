@@ -6,6 +6,7 @@ import java.util.HashSet;
 import no.pdigre.chess.base.INode;
 import no.pdigre.chess.eval.FindMoves;
 import no.pdigre.chess.eval.Move;
+import no.pdigre.chess.eval.MoveBitmap;
 import no.pdigre.chess.fen.FEN;
 import no.pdigre.chess.fen.StartGame;
 import no.pdigre.chess.fen.StartingGames;
@@ -84,7 +85,7 @@ public class Chess extends ChessGraphics {
                         markers.clear();
                         for (Move move : FindMoves.filterPieces(FindMoves.getLegalMoves(lastmove), i)) {
                             System.out.println("> " + move.toString());
-                            markers.add(move.getTo());
+                            markers.add(MoveBitmap.getTo(move.getBitmap()));
                         }
                         canvas.redraw();
                         canvas.update();

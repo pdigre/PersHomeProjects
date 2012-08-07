@@ -27,35 +27,6 @@ public class MoveBitmap implements INode {
         return out;
     }
 
-    final public static int updateCastling(int bitmap, int inherit) {
-        switch (bitmap & PIECE) {
-            case KING:
-                return inherit | NOCASTLE_WHITEKING | NOCASTLE_WHITEQUEEN;
-            case ROOK:
-                switch ((bitmap >> _FROM) & 63) {
-                    case 0:
-                        return inherit | NOCASTLE_WHITEQUEEN;
-                    case 7:
-                        return inherit | NOCASTLE_WHITEKING;
-                    default:
-                        return inherit;
-                }
-            case KING | BLACK:
-                return inherit | NOCASTLE_BLACKKING | NOCASTLE_BLACKQUEEN;
-            case ROOK | BLACK:
-                switch ((bitmap >> _FROM) & 63) {
-                    case 56:
-                        return inherit | NOCASTLE_BLACKQUEEN;
-                    case 63:
-                        return inherit | NOCASTLE_BLACKKING;
-                    default:
-                        return inherit;
-                }
-            default:
-                return inherit;
-        }
-    }
-
     final public static int[] undo(int[] in, int bitmap) {
         int[] out = in.clone();
         out[getFrom(bitmap)] = 0;
@@ -96,13 +67,8 @@ public class MoveBitmap implements INode {
         return ((bitmap & SPECIAL) != 0) && (bitmap & PIECETYPE) != KING && (bitmap & PIECETYPE) != PAWN;
     }
 
-    final public static int addHalf(int bitmap, int halmoves) {
-        return (bitmap & 7) == PAWN ? bitmap : ((halmoves + 1) << _HALFMOVES) | bitmap;
-    }
-
     final public static int mapMove(final int from, final int to, final int halmoves, int bitmap) {
-        int bm = (bitmap & 7) == PAWN ? bitmap : ((halmoves + 1) << _HALFMOVES) | bitmap;
-        return bm | (from << _FROM) | (to << _TO);
+        return ((bitmap & 7) == PAWN ? bitmap : ((halmoves + 1) << _HALFMOVES) | bitmap) | (from << _FROM) | (to << _TO);
     }
 
     final public static int mapCastling(final int from, final int to, int bitmap) {
@@ -126,41 +92,56 @@ public class MoveBitmap implements INode {
     }
 
     final public static int bitPawnEnpassant(int[] board, int from, int inherit, int to) {
-        return MoveBitmap.mapEnpassant(from, to,
-            board[from] | MoveBitmap.updateCastling(board[from], MoveBitmap.getCastlingState(inherit)));
+        return castling(mapEnpassant(from, to, board[from])| (inherit & CASTLING_STATE));
     }
 
     final public static int bitPawnCapture(int[] board, int from, int inherit, int to) {
-        return MoveBitmap.mapCapture(from, to,
-            board[from] | MoveBitmap.updateCastling(board[from], MoveBitmap.getCastlingState(inherit)),
-            board[to] & 7);
+        return castling(mapCapture(from, to, board[from], board[to] & 7)| (inherit & CASTLING_STATE));
     }
 
     final public static int bitPawnCapturePromote(int[] board, int from, int inherit, int to) {
-        return MoveBitmap.mapCapturePromote(from, to,
-            board[from] | MoveBitmap.updateCastling(board[from], MoveBitmap.getCastlingState(inherit)),
-            board[to] & 7, 0);
+        return castling(mapCapturePromote(from, to, board[from], board[to] & 7, 0)| (inherit & CASTLING_STATE));
     }
 
     final public static int bitPawnPromote(int[] board, int from, int inherit, int to) {
-        return MoveBitmap.mapPromote(from, to,
-            board[from] | MoveBitmap.updateCastling(board[from], MoveBitmap.getCastlingState(inherit)), 0);
+        return castling(mapPromote(from, to, board[from], 0)| (inherit & CASTLING_STATE));
     }
 
-    final public static int bitMove(int from, int inherit, int to2, int type) {
-        return MoveBitmap.mapMove(from, to2, MoveBitmap.halfMoves(inherit),
-            type | MoveBitmap.updateCastling(type, MoveBitmap.getCastlingState(inherit)));
+    final public static int bitMove(int from, int inherit, int to, int bitmap) {
+        return castling(mapMove(from, to, MoveBitmap.halfMoves(inherit), bitmap)| (inherit & CASTLING_STATE));
     }
 
     final public static int bitCastling(final int[] board, int from, int inherit, int to) {
-        return MoveBitmap.mapCastling(from, to,
-            board[from] | MoveBitmap.updateCastling(board[from], MoveBitmap.getCastlingState(inherit)));
+        return castling(mapCastling(from, to, board[from])| (inherit & CASTLING_STATE));
     }
 
-
-    @Override
-    public int getCastlingState() {
-        return 0;
+    private static int castling(int bitmap) {
+        switch (bitmap & PIECE) {
+            case KING:
+                return bitmap | NOCASTLE_WHITEKING | NOCASTLE_WHITEQUEEN;
+            case ROOK:
+                switch ((bitmap >> _FROM) & 63) {
+                    case 0:
+                        return bitmap | NOCASTLE_WHITEQUEEN;
+                    case 7:
+                        return bitmap | NOCASTLE_WHITEKING;
+                    default:
+                        return bitmap;
+                }
+            case KING | BLACK:
+                return bitmap | NOCASTLE_BLACKKING | NOCASTLE_BLACKQUEEN;
+            case ROOK | BLACK:
+                switch ((bitmap >> _FROM) & 63) {
+                    case 56:
+                        return bitmap | NOCASTLE_BLACKQUEEN;
+                    case 63:
+                        return bitmap | NOCASTLE_BLACKKING;
+                    default:
+                        return bitmap;
+                }
+            default:
+                return bitmap;
+        }
     }
 
     @Override
@@ -174,18 +155,8 @@ public class MoveBitmap implements INode {
     }
 
     @Override
-    public int halfMoves() {
-        return 0;
-    }
-
-    @Override
     public int[] getBoard() {
         return null;
-    }
-
-    @Override
-    public int getEnpassant() {
-        return 0;
     }
 
     @Override
@@ -218,10 +189,11 @@ public class MoveBitmap implements INode {
         }
     }
 
-    public static String printMove(int bitmap,int[] board) {
+    public static String printMove(int bitmap, int[] board) {
         StringBuilder sb = new StringBuilder();
         sb.append(PieceType.types[bitmap & PIECE]);
-        sb.append(" from " + FEN.pos2string(MoveBitmap.getFrom(bitmap)) + " to " + FEN.pos2string(MoveBitmap.getTo(bitmap)));
+        sb.append(" from " + FEN.pos2string(MoveBitmap.getFrom(bitmap)) + " to "
+            + FEN.pos2string(MoveBitmap.getTo(bitmap)));
         int capture = ((bitmap >> _CAPTURE) & 7);
         if (capture != 0)
             sb.append(" beats " + PieceType.types[capture | ((bitmap & BLACK) ^ BLACK)]);
@@ -229,7 +201,7 @@ public class MoveBitmap implements INode {
             sb.append(" enpassant");
         if (MoveBitmap.isCastling(bitmap))
             sb.append(" castling");
-        if (NodeGenerator.isCheck(board,MoveBitmap.white(bitmap))) {
+        if (NodeGenerator.isCheck(board, MoveBitmap.white(bitmap))) {
             sb.append(" check");
             if (!NodeGenerator.hasLegalMoves(board, bitmap))
                 sb.append("mate");
@@ -237,5 +209,4 @@ public class MoveBitmap implements INode {
         return sb.toString();
     }
 
- 
 }
