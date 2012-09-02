@@ -1,5 +1,9 @@
-package no.pdigre.chess.base;
+package no.pdigre.chess.test;
 
+import no.pdigre.chess.base.Bitmap;
+import no.pdigre.chess.base.IAdder;
+import no.pdigre.chess.base.IConst;
+import no.pdigre.chess.base.NodeGenerator;
 import no.pdigre.chess.test.StandardMovesTest.Counter;
 
 public class TestGenerator implements IAdder {
@@ -28,7 +32,10 @@ public class TestGenerator implements IAdder {
 
     private void loop(int bitmap2, int[] board2) {
         counter.moves++;
-        if (NodeGenerator.isCheck(board2, Bitmap.white(bitmap))) {
+        boolean white = Bitmap.white(bitmap);
+        int kpos = NodeGenerator.getKingPos(board2, white);
+        boolean check = !NodeGenerator.checkSafe(board2, kpos, white);
+        if (check) {
             counter.checks++;
             if (!NodeGenerator.hasLegalMoves(board2, bitmap2 & (IConst.CASTLING_STATE | IConst.HALFMOVES)))
                 counter.mates++;

@@ -70,7 +70,7 @@ public class Bitmap implements IConst {
     }
 
     final public static int mapMove(final int from, final int to, final int halmoves, int bitmap) {
-        return setFromTo(((bitmap & 7) == PAWN ? bitmap : ((halmoves + 1) << _HALFMOVES) | bitmap),from,to);
+        return setFromTo(((bitmap & 7) == PAWN ? bitmap : ((halmoves + 1) << _HALFMOVES) | bitmap), from, to);
     }
 
     final public static int mapCastling(final int from, final int to, int bitmap) {
@@ -187,7 +187,8 @@ public class Bitmap implements IConst {
             sb.append(" enpassant");
         if (Bitmap.isCastling(bitmap))
             sb.append(" castling");
-        if (NodeGenerator.isCheck(board, Bitmap.white(bitmap))) {
+        boolean white = Bitmap.white(bitmap);
+        if (!NodeGenerator.checkSafe(board, NodeGenerator.getKingPos(board, white), white)) {
             sb.append(" check");
             if (!NodeGenerator.hasLegalMoves(board, bitmap))
                 sb.append("mate");
@@ -195,4 +196,34 @@ public class Bitmap implements IConst {
         return sb.toString();
     }
 
+    public static int value(final int type) {
+        switch (type) {
+            case PAWN:
+                return 100;
+            case KNIGHT:
+                return 300;
+            case BISHOP:
+                return 325;
+            case ROOK:
+                return 500;
+            case QUEEN:
+                return 900;
+            case KING:
+                return 100000;
+            case BLACK_PAWN:
+                return -100;
+            case BLACK_KNIGHT:
+                return -300;
+            case BLACK_BISHOP:
+                return -325;
+            case BLACK_ROOK:
+                return -500;
+            case BLACK_QUEEN:
+                return -900;
+            case BLACK_KING:
+                return -100000;
+            default:
+                return 0;
+        }
+    }
 }

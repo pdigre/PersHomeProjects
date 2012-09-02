@@ -1,10 +1,10 @@
 package no.pdigre.chess.swt;
 
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.List;
 
-import no.pdigre.chess.base.ICallBack;
 import no.pdigre.chess.base.Bitmap;
+import no.pdigre.chess.base.ICallBack;
 import no.pdigre.chess.eval.FindMoves;
 import no.pdigre.chess.eval.Move;
 import no.pdigre.chess.fen.FEN;
@@ -35,7 +35,11 @@ public class Chess extends ChessGraphics {
     public ICallBack lastmove;
 
     public Integer from = -1;
+    
+    public int hintnum=0;
 
+    public int[] board = new int[64];
+    
     public static void main(String[] args) {
         new Chess().init();
     }
@@ -44,8 +48,6 @@ public class Chess extends ChessGraphics {
         lastmove = new StartGame(StartingGames.FEN_GAMES[0]);
         System.out.println(FEN.getFen(lastmove));
     }
-
-    HashSet<Integer> markers = new HashSet<Integer>();
 
     private void init() {
         startGame();
@@ -71,24 +73,34 @@ public class Chess extends ChessGraphics {
             public void mouseDown(MouseEvent e) {
                 int i = findSquare(e.x, e.y);
                 if (e.button == 1) {
-                    if (markers.contains(i)) {
-                        Collection<Move> moves = FindMoves.filterPieces(FindMoves.getLegalMoves(lastmove), from, i);
+                    Collection<Move> legalmoves = FindMoves.getLegalMoves(lastmove);
+                    if (board[i]!=0) {
+                        Collection<Move> moves = FindMoves.filterPieces(legalmoves, from, i);
                         lastmove=moves.iterator().next();
                         System.out.println(lastmove);
                         System.out.println(FEN.getFen(lastmove));
                         from = -1;
-                        markers.clear();
+                        board=new int[64];
                         canvas.redraw();
                         canvas.update();
                     } else {
+                        if(from == i)
+                            hintnum++;
+                        else 
+                            hintnum=0;
                         from = i;
-                        markers.clear();
-                        for (Move move : FindMoves.filterPieces(FindMoves.getLegalMoves(lastmove), i)) {
-                            System.out.println("> " + move.toString());
-                            markers.add(Bitmap.getTo(move.getInherit()));
+                        board=new int[64];
+                        List<Move> movesfrom = FindMoves.filterPieces(legalmoves, i);
+                        for (Move move : movesfrom){
+                            board[Bitmap.getTo(move.getInherit())]=Bitmap.type(move.getInherit());
                         }
                         canvas.redraw();
                         canvas.update();
+//                        if(hintnum>0){
+//                            for (Move move : movesfrom) {
+//                                markers.add(Bitmap.getTo(move.getInherit()));
+//                            }
+//                        }
                     }
                 } else if (e.button == 3) {
                     // right click
@@ -147,7 +159,7 @@ public class Chess extends ChessGraphics {
         gc.drawRectangle(area.x + 1, area.y + 1, area.width - 2, area.height - 2);
         for (int i = 0; i < 64; i++) {
             drawSquare(gc, i, 0);
-            if (markers.contains(i))
+            if (board[i]!=0)
                 drawFrame(gc, i, SWT.COLOR_GREEN);
             if (i == from)
                 drawFrame(gc, i, SWT.COLOR_RED);
@@ -163,7 +175,7 @@ public class Chess extends ChessGraphics {
     public void startGame(final Canvas canvas, String text) {
         lastmove = new StartGame(text);
         from = -1;
-        markers.clear();
+        board=new int[64];
         canvas.redraw();
         canvas.update();
     }

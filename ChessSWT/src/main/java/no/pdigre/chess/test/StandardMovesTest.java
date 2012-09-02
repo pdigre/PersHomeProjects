@@ -1,10 +1,9 @@
 package no.pdigre.chess.test;
 
 import static org.junit.Assert.assertEquals;
-import no.pdigre.chess.base.ICallBack;
 import no.pdigre.chess.base.Bitmap;
+import no.pdigre.chess.base.ICallBack;
 import no.pdigre.chess.base.NodeGenerator;
-import no.pdigre.chess.base.TestGenerator;
 import no.pdigre.chess.eval.FindMoves;
 import no.pdigre.chess.eval.Move;
 import no.pdigre.chess.fen.FEN;
@@ -22,23 +21,23 @@ public class StandardMovesTest {
     public void testWhiteStart() {
         String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
         StartGame move = new StartGame(fen);
-        assertEquals("Knight1", "N a3 c3", getLegalMovesFromPos("b1", move));
-        assertEquals("Knight2", "N f3 h3", getLegalMovesFromPos("g1", move));
-        assertEquals("Pawn1", "P a3 a4", getLegalMovesFromPos("a2", move));
+        assertEquals("Knight1", "N c3 a3", getLegalMovesFromPos("b1", move));
+        assertEquals("Knight2", "N h3 f3", getLegalMovesFromPos("g1", move));
+        assertEquals("Pawn1", "P a4 a3", getLegalMovesFromPos("a2", move));
     }
 
     @SuppressWarnings("static-method")
     @Test
     public void testEnpassant() {
         String fen = "rnbqkbnr/ppp1pppp/8/8/1PpP4/8/P3PPPP/RNBQKBNR b KQkq b3 0 3";
-        assertEquals("Pawn", "p c3 b3", getLegalMovesFromPos("c4", new StartGame(fen)));
+        assertEquals("Pawn", "p b3 c3", getLegalMovesFromPos("c4", new StartGame(fen)));
     }
 
     @SuppressWarnings("static-method")
     @Test
     public void testOpening1() {
         String fen = "rnbqkb1r/pppp1ppp/5n2/4p3/3PP3/8/PPP2PPP/RNBQKBNR w KQkq - 1 3";
-        assertEquals("Queen", "Q d2 d3 e2 f3 g4 h5", getLegalMovesFromPos("d1", new StartGame(fen)));
+        assertEquals("Queen", "Q h5 g4 f3 e2 d3 d2", getLegalMovesFromPos("d1", new StartGame(fen)));
     }
 
     @SuppressWarnings("static-method")
@@ -46,7 +45,7 @@ public class StandardMovesTest {
     public void testPromotions() {
         String fen = "n1n5/PPPk4/8/8/8/8/4Kppp/5N1N b - - 0 1";
         String moves = getLegalMovesFromPos("g2", new StartGame(fen));
-        assertEquals("Pawn", "p g1 g1 g1 g1 f1 f1 f1 f1 h1 h1 h1 h1", moves);
+        assertEquals("Pawn", "p h1 h1 h1 h1 f1 f1 f1 f1 g1 g1 g1 g1", moves);
     }
 
     @SuppressWarnings("static-method")
@@ -116,7 +115,9 @@ public class StandardMovesTest {
                 }
             }
             int[] brd = Bitmap.apply(board, ((Move)move).getInherit());
-            if(NodeGenerator.isCheck(brd,move.whiteTurn())){
+            boolean white = move.whiteTurn();
+            int kpos = NodeGenerator.getKingPos(brd, white);
+            if(!NodeGenerator.checkSafe(brd, kpos, white)){
                 checks++;
                 if(FindMoves.isMate(move, brd))
                     mates++;
@@ -141,6 +142,20 @@ public class StandardMovesTest {
             counters[i] = new Counter();
         StartGame start = new StartGame(fen);
         TestGenerator.run(start.getInherit(),start.getBoard(),counters);
+        printCounter();
+        assertEquals(counters[4].moves, 4865609);
+        assertEquals(counters[4].captures, 82719);
+        assertEquals(counters[4].enpassants, 258);
+    }
+
+    @Test
+    public void testThinkStart2() {
+        String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+        counters = new Counter[MAXDEPTH];
+        for (int i = 0; i < MAXDEPTH; i++)
+            counters[i] = new Counter();
+        StartGame start = new StartGame(fen);
+        TestGenerator2.run(start.getInherit(),start.getBoard(),counters);
         printCounter();
         assertEquals(counters[4].moves, 4865609);
         assertEquals(counters[4].captures, 82719);
