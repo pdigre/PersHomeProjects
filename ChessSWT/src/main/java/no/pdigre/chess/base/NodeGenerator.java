@@ -45,32 +45,45 @@ public class NodeGenerator {
                 continue;
             switch (sqr & 7) {
                 case IConst.KNIGHT:
-                    if (hasSimple(board, BaseNodes.KNIGHT_MOVES[from], white, from, kingpos, inherit))
-                        return true;
+                    for (int to : BaseNodes.KNIGHT_MOVES[from])
+                        if (has(board, to, white, from, inherit, kingpos))
+                            return true;
                     break;
                 case IConst.BISHOP:
-                    if (hasSlider(board, BaseNodes.BISHOP_MOVES[from], white, from, kingpos, inherit))
-                        return true;
+                    for (int[] slide : BaseNodes.BISHOP_MOVES[from]) {
+                        for (int i = 0; i < slide.length; i++) {
+                            if (has(board, slide[i], white, from, inherit, kingpos))
+                                return true;
+                        }
+                    }
                     break;
                 case IConst.ROOK:
-                    if (hasSlider(board, BaseNodes.ROOK_MOVES[from], white, from, kingpos, inherit))
-                        return true;
+                    for (int[] slide : BaseNodes.ROOK_MOVES[from]) {
+                        for (int i = 0; i < slide.length; i++) {
+                            if (has(board, slide[i], white, from, inherit, kingpos))
+                                return true;
+                        }
+                    }
                     break;
                 case IConst.QUEEN:
-                    if (hasSlider(board, BaseNodes.QUEEN_MOVES[from], white, from, kingpos, inherit))
-                        return true;
+                    for (int[] slide : BaseNodes.QUEEN_MOVES[from]) {
+                        for (int i = 0; i < slide.length; i++) {
+                            if (has(board, slide[i], white, from, inherit, kingpos))
+                                return true;
+                        }
+                    }
                     break;
                 case IConst.KING:
-                    if (hasSimple(board, BaseNodes.KING_MOVES[from], white, from, kingpos, inherit))
-                        return true;
+                    for (int to : BaseNodes.KNIGHT_MOVES[from])
+                        if (has(board, to, white, from, inherit, kingpos))
+                            return true;
                     if (castle_queen) {
                         int to4 = home + 2;
                         if (board[home + 3] == 0 && board[to4] == 0 && board[home + 1] == 0
                             && board[home + 0] == castle_rook) {
                             if (checkSafe(board, home + 3, white) && checkSafe(board, home + 4, white)) {
                                 int bitmap = Bitmap.bitCastling(board, from, inherit, to4);
-                                boolean safe = isSafe(board, from, kingpos, to4, bitmap);
-                                if (safe)
+                                if (NodeGenerator.checkSafe(Bitmap.apply(board, bitmap), from == kingpos ? to4 : kingpos, Bitmap.white(bitmap)))
                                     return true;
                             }
                         }
@@ -80,8 +93,7 @@ public class NodeGenerator {
                         if (board[home + 5] == 0 && board[to] == 0 && board[home + 7] == castle_rook) {
                             if (checkSafe(board, home + 4, white) && checkSafe(board, home + 5, white)) {
                                 int bitmap = Bitmap.bitCastling(board, from, inherit, to);
-                                boolean safe = isSafe(board, from, kingpos, to, bitmap);
-                                if (safe)
+                                if (NodeGenerator.checkSafe(Bitmap.apply(board, bitmap), from == kingpos ? to : kingpos, Bitmap.white(bitmap)))
                                     return true;
                             }
                         }
@@ -92,22 +104,19 @@ public class NodeGenerator {
                     if (board[to1] == 0) {
                         if (to1 >= goalline && to1 < goalline + 8) {
                             int bitmap = Bitmap.bitPawnPromote(board, from, inherit, to1);
-                            boolean safe = isSafe(board, from, kingpos, to1, bitmap);
-                            if (safe) {
+                            if (NodeGenerator.checkSafe(Bitmap.apply(board, bitmap), from == kingpos ? to1 : kingpos, Bitmap.white(bitmap))) {
                                 return true;
                             }
                         } else {
                             int bitmap = Bitmap.bitMove(from, inherit, to1, board[from]);
-                            boolean safe = isSafe(board, from, kingpos, to1, bitmap);
-                            if (safe)
+                            if (NodeGenerator.checkSafe(Bitmap.apply(board, bitmap), from == kingpos ? to1 : kingpos, Bitmap.white(bitmap)))
                                 return true;
                         }
                         if (from >= pawnline(white) && from < pawnline(white) + 8) {
                             int to2 = to1 + pawn_fwd;
                             if (board[to2] == 0) {
                                 int bitmap = Bitmap.bitMove(from, inherit, to2, board[from]);
-                                boolean safe = isSafe(board, from, kingpos, to2, bitmap);
-                                if (safe)
+                                if (NodeGenerator.checkSafe(Bitmap.apply(board, bitmap), from == kingpos ? to2 : kingpos, Bitmap.white(bitmap)))
                                     return true;
                             }
                         }
@@ -118,23 +127,23 @@ public class NodeGenerator {
                         int piece = board[to2];
                         if (piece != 0) {
                             if (((piece & IConst.BLACK) != 0) == white) {
+                                int kpos = from == kingpos ? to2 : kingpos;
                                 if (to2 >= goalline && to2 < goalline + 8) {
                                     int bitmap = Bitmap.bitPawnCapturePromote(board, from, inherit, to2);
-                                    boolean safe = isSafe(board, from, kingpos, to2, bitmap);
-                                    if (safe) {
+                                    if (NodeGenerator.checkSafe(Bitmap.apply(board, bitmap), kpos, Bitmap.white(bitmap))) {
                                         return true;
                                     }
                                 } else {
                                     int bitmap = Bitmap.bitPawnCapture(board, from, inherit, to2);
-                                    boolean safe = isSafe(board, from, kingpos, to2, bitmap);
-                                    if (safe)
+                                    if (NodeGenerator.checkSafe(Bitmap.apply(board, bitmap), kpos, Bitmap.white(bitmap)))
                                         return true;
                                 }
                             }
                         } else {
                             if (enpassant == to2) {
+                                int kpos = from == kingpos ? to2 : kingpos;
                                 int bitmap = Bitmap.bitPawnEnpassant(board, from, inherit, to2);
-                                boolean safe = isSafe(board, from, kingpos, to2, bitmap);
+                                boolean safe = NodeGenerator.checkSafe(Bitmap.apply(board, bitmap), kpos, Bitmap.white(bitmap));
                                 if (safe)
                                     return true;
                             }
@@ -147,22 +156,19 @@ public class NodeGenerator {
                             if (((piece & IConst.BLACK) != 0) == white) {
                                 if (to3 >= goalline && to3 < goalline + 8) {
                                     int bitmap = Bitmap.bitPawnCapturePromote(board, from, inherit, to3);
-                                    boolean safe = isSafe(board, from, kingpos, to3, bitmap);
-                                    if (safe) {
+                                    if (NodeGenerator.checkSafe(Bitmap.apply(board, bitmap), from == kingpos ? to3 : kingpos, Bitmap.white(bitmap))) {
                                         return true;
                                     }
                                 } else {
                                     int bitmap = Bitmap.bitPawnCapture(board, from, inherit, to3);
-                                    boolean safe = isSafe(board, from, kingpos, to3, bitmap);
-                                    if (safe)
+                                    if (NodeGenerator.checkSafe(Bitmap.apply(board, bitmap), from == kingpos ? to3 : kingpos, Bitmap.white(bitmap)))
                                         return true;
                                 }
                             }
                         } else {
                             if (enpassant == to3) {
                                 int bitmap = Bitmap.bitPawnEnpassant(board, from, inherit, to3);
-                                boolean safe = isSafe(board, from, kingpos, to3, bitmap);
-                                if (safe)
+                                if (NodeGenerator.checkSafe(Bitmap.apply(board, bitmap), from == kingpos ? to3 : kingpos, Bitmap.white(bitmap)))
                                     return true;
                             }
                         }
@@ -255,25 +261,6 @@ public class NodeGenerator {
         return white ? 56 : 0;
     }
 
-    final private static boolean hasSlider(int[] board, int[][] moves, boolean white, int from, int kingpos,
-        int inherit) {
-        for (int[] slide : moves) {
-            for (int i = 0; i < slide.length; i++) {
-                if (has(board, slide[i], white, from, inherit, kingpos))
-                    return true;
-            }
-        }
-        return false;
-    }
-
-    final private static boolean hasSimple(int[] board, int[] moves, boolean white, int from, int kingpos,
-        int inherit) {
-        for (int to : moves)
-            if (has(board, to, white, from, inherit, kingpos))
-                return true;
-        return false;
-    }
-
     final private static boolean has(int[] board, int to, boolean white, int from, int inherit, int kingpos) {
         int victim = board[to];
         if (victim == 0) {
@@ -286,9 +273,5 @@ public class NodeGenerator {
                 return true;
         }
         return false;
-    }
-
-    final private static boolean isSafe(int[] board, int from, int kingpos, int to, int bitmap) {
-        return NodeGenerator.checkSafe(Bitmap.apply(board, bitmap), from == kingpos ? to : kingpos, Bitmap.white(bitmap));
     }
 }
