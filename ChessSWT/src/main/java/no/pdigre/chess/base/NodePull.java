@@ -322,4 +322,19 @@ public class NodePull {
         imoves++;
     }
 
+    public static int[] getAllNodes(final int[] board, int parent) {
+        int length = 0;
+        int[] array = new int[100];
+        NodePull pull = new NodePull(board, parent);
+        int bitmap = pull.next();
+        while (bitmap != 0) {
+            array[length] = bitmap;
+            length++;
+            bitmap = pull.next();
+        }
+        int[] ret = new int[length];
+        System.arraycopy(array, 0, ret, 0, length);
+        return ret;
+    }
+
 }
