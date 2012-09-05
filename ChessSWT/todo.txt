@@ -5,21 +5,21 @@ Must:
 
 MOVES
 ======
-Fix castling
-
-1. add validity check on move
-  - Castling check three spaces for safe
-  - King safe check routine
-
-2. add check/mate status detector
-
+1. Add halfmoves check
 
 Execution:
 =========
-1. "state" include halfmoves
+3. improve Pull mechanism
+4. Negamax processor
+5. try multi processing
 
-3. removefluff
 
-4. try multi processing
-
+GAME:
+=====
+1. Opening games datanase
+2.   with history narrative
+3. AppCloud 
+    - remember game
+    - get rating
+4. Personas (Jakob, Marianne, Leif, Per)
   
