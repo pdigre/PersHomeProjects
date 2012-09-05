@@ -1,6 +1,5 @@
 package no.pdigre.chess.fen;
 
-import no.pdigre.chess.base.ICallBack;
 import no.pdigre.chess.base.Bitmap;
 import no.pdigre.chess.base.IConst;
 

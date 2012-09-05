@@ -1,4 +1,6 @@
-package no.pdigre.chess.base;
+package no.pdigre.chess.fen;
+
+import no.pdigre.chess.base.IConst;
 
 public abstract interface ICallBack extends IConst{
 

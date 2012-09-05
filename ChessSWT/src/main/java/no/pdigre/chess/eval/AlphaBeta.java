@@ -10,7 +10,7 @@ public class AlphaBeta {
     public final static int negamax( int alpha, int beta, int depthleft, int[] board0, int move0, int score0 ) {
         int score1=evaluate(move0, score0);
         if( depthleft == 0 ) return score1;
-        for (int move : NodePull.getAllNodes(board0, move0))  {
+        for (int move : NodePull.getAllMoves(board0, move0))  {
            int score = -negamax( -beta, -alpha, depthleft - 1,Bitmap.apply(board0, move0),move, score1 );
            if( score >= beta )
               return beta;   //  fail hard beta-cutoff
@@ -22,7 +22,7 @@ public class AlphaBeta {
     
     public final static int alphaBetaMax( int alpha, int beta, int depthleft, int[] board0, int move0, int score0 ) {
         if ( depthleft == 0 ) return evaluate(move0, score0);
-        for (int move : NodePull.getAllNodes(board0, move0)) {
+        for (int move : NodePull.getAllMoves(board0, move0)) {
            int score = alphaBetaMin( alpha, beta, depthleft - 1,Bitmap.apply(board0, move0),move, score0 );
            if( score >= beta )
               return beta;   // fail hard beta-cutoff
@@ -34,7 +34,7 @@ public class AlphaBeta {
       
     public final static int alphaBetaMin( int alpha, int beta, int depthleft, int[] board0, int move0, int score0  ) {
         if ( depthleft == 0 ) return -evaluate(move0, score0);
-        for (int move : NodePull.getAllNodes(board0, move0)) {
+        for (int move : NodePull.getAllMoves(board0, move0)) {
            int score = alphaBetaMax( alpha, beta, depthleft - 1,Bitmap.apply(board0, move0),move, score0 );
            if( score <= alpha )
               return alpha; // fail hard alpha-cutoff

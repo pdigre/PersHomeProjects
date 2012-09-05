@@ -188,9 +188,9 @@ public class Bitmap implements IConst {
         if (Bitmap.isCastling(bitmap))
             sb.append(" castling");
         boolean white = Bitmap.white(bitmap);
-        if (!NodeGenerator.checkSafe(board, NodeGenerator.getKingPos(board, white), white)) {
+        if (!NodePull.checkSafe(board, NodePull.getKingPos(board, white), white)) {
             sb.append(" check");
-            if (!NodeGenerator.hasLegalMoves(board, bitmap))
+            if (!(new NodePull(board, bitmap).next()!=0))
                 sb.append("mate");
         }
         return sb.toString();

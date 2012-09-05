@@ -3,7 +3,7 @@ package no.pdigre.chess.test;
 import no.pdigre.chess.base.Bitmap;
 import no.pdigre.chess.base.IAdder;
 import no.pdigre.chess.base.IConst;
-import no.pdigre.chess.base.NodeGenerator;
+import no.pdigre.chess.base.NodePull;
 import no.pdigre.chess.test.StandardMovesTest.Counter;
 
 public class TestGenerator implements IAdder {
@@ -33,11 +33,11 @@ public class TestGenerator implements IAdder {
     private void loop(int bitmap2, int[] board2) {
         counter.moves++;
         boolean white = Bitmap.white(bitmap);
-        int kpos = NodeGenerator.getKingPos(board2, white);
-        boolean check = !NodeGenerator.checkSafe(board2, kpos, white);
+        int kpos = NodePull.getKingPos(board2, white);
+        boolean check = !NodePull.checkSafe(board2, kpos, white);
         if (check) {
             counter.checks++;
-            if (!NodeGenerator.hasLegalMoves(board2, bitmap2 & (IConst.CASTLING_STATE | IConst.HALFMOVES)))
+            if (!(new NodePull(board2, bitmap2 & (IConst.CASTLING_STATE | IConst.HALFMOVES)).next()!=0))
                 counter.mates++;
         }
         if (level + 1 < counters.length)
@@ -45,7 +45,26 @@ public class TestGenerator implements IAdder {
     }
 
     public void run() {
-        NodeGenerator.loopLegalMoves(this, board, bitmap);
+        NodePull pull = new NodePull(board, bitmap);
+        int bitmap1 = pull.next();
+        while (bitmap1 != 0) {
+            if (Bitmap.isCapture(bitmap1)) {
+                if (Bitmap.isEnpassant(bitmap1))
+                    this.enpassant(bitmap1);
+                else if (Bitmap.isPromotion(bitmap1))
+                    this.capturePromote(bitmap1);
+                else
+                    this.capture(bitmap1);
+            } else {
+                if (Bitmap.isCastling(bitmap1))
+                    this.castling(bitmap1);
+                else if (Bitmap.isPromotion(bitmap1))
+                    this.movePromote(bitmap1);
+                else
+                    this.move(bitmap1);
+            }
+            bitmap1 = pull.next();
+        }
     }
 
     @Override

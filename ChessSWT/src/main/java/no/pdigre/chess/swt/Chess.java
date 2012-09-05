@@ -1,13 +1,10 @@
 package no.pdigre.chess.swt;
 
-import java.util.Collection;
-import java.util.List;
-
 import no.pdigre.chess.base.Bitmap;
-import no.pdigre.chess.base.ICallBack;
-import no.pdigre.chess.eval.FindMoves;
-import no.pdigre.chess.eval.Move;
+import no.pdigre.chess.base.NodePull;
 import no.pdigre.chess.fen.FEN;
+import no.pdigre.chess.fen.ICallBack;
+import no.pdigre.chess.fen.Move;
 import no.pdigre.chess.fen.StartGame;
 import no.pdigre.chess.fen.StartingGames;
 
@@ -73,10 +70,10 @@ public class Chess extends ChessGraphics {
             public void mouseDown(MouseEvent e) {
                 int i = findSquare(e.x, e.y);
                 if (e.button == 1) {
-                    Collection<Move> legalmoves = FindMoves.getLegalMoves(lastmove);
+                    int[] legalmoves=NodePull.getAllMoves(lastmove.getBoard(), lastmove.getInherit());
                     if (board[i]!=0) {
-                        Collection<Move> moves = FindMoves.filterPieces(legalmoves, from, i);
-                        lastmove=moves.iterator().next();
+                        int[] moves = NodePull.filterTo(NodePull.filterFrom(legalmoves, from), i);
+                        lastmove=new Move(lastmove,moves[0]);
                         System.out.println(lastmove);
                         System.out.println(FEN.getFen(lastmove));
                         from = -1;
@@ -90,9 +87,9 @@ public class Chess extends ChessGraphics {
                             hintnum=0;
                         from = i;
                         board=new int[64];
-                        List<Move> movesfrom = FindMoves.filterPieces(legalmoves, i);
-                        for (Move move : movesfrom){
-                            board[Bitmap.getTo(move.getInherit())]=Bitmap.type(move.getInherit());
+                        int[] movesfrom = NodePull.filterFrom(legalmoves, i);
+                        for (int bitmap : movesfrom){
+                            board[Bitmap.getTo(bitmap)]=Bitmap.type(bitmap);
                         }
                         canvas.redraw();
                         canvas.update();

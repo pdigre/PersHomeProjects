@@ -2,11 +2,10 @@ package no.pdigre.chess.test;
 
 import static org.junit.Assert.assertEquals;
 import no.pdigre.chess.base.Bitmap;
-import no.pdigre.chess.base.ICallBack;
-import no.pdigre.chess.base.NodeGenerator;
-import no.pdigre.chess.eval.FindMoves;
-import no.pdigre.chess.eval.Move;
+import no.pdigre.chess.base.NodePull;
 import no.pdigre.chess.fen.FEN;
+import no.pdigre.chess.fen.ICallBack;
+import no.pdigre.chess.fen.Move;
 import no.pdigre.chess.fen.PieceType;
 import no.pdigre.chess.fen.StartGame;
 
@@ -70,16 +69,16 @@ public class StandardMovesTest {
         return getLegalMovesFromPos(from, new StartGame(fen));
     }
 
-    public static String getLegalMovesFromPos(String from, StartGame start) {
-        int pos = FEN.text2pos(from);
+    public static String getLegalMovesFromPos(String from_txt, StartGame start) {
+        int from = FEN.text2pos(from_txt);
         int[] board = start.getBoard();
-        int type = board[pos];
-        FEN.printPiece(type, pos);
+        int type = board[from];
+        FEN.printPiece(type, from);
         StringBuffer sb = new StringBuffer();
         sb.append(PieceType.types[type].fen);
-        for (Move move : FindMoves.filterPieces(FindMoves.getMoves(board, start), pos)) {
+        for (int bitmap : NodePull.filterFrom(NodePull.getAllMoves(board, start.getInherit()), from)) {
             sb.append(" ");
-            sb.append(FEN.pos2string(Bitmap.getTo(move.getInherit())));
+            sb.append(FEN.pos2string(Bitmap.getTo(bitmap)));
         }
         return sb.toString();
     }
@@ -116,10 +115,10 @@ public class StandardMovesTest {
             }
             int[] brd = Bitmap.apply(board, ((Move)move).getInherit());
             boolean white = move.whiteTurn();
-            int kpos = NodeGenerator.getKingPos(brd, white);
-            if(!NodeGenerator.checkSafe(brd, kpos, white)){
+            int kpos = NodePull.getKingPos(brd, white);
+            if(!NodePull.checkSafe(brd, kpos, white)){
                 checks++;
-                if(FindMoves.isMate(move, brd))
+                if(!(new NodePull(brd, move.getInherit()).next()!=0))
                     mates++;
             }
         }

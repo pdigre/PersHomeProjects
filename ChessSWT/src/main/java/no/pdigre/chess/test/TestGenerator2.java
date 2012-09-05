@@ -2,7 +2,6 @@ package no.pdigre.chess.test;
 
 import no.pdigre.chess.base.Bitmap;
 import no.pdigre.chess.base.IConst;
-import no.pdigre.chess.base.NodeGenerator;
 import no.pdigre.chess.base.NodePull;
 import no.pdigre.chess.test.StandardMovesTest.Counter;
 
@@ -33,11 +32,11 @@ public class TestGenerator2 {
     private void loop(int bitmap2, int[] board2) {
         counter.moves++;
         boolean white = Bitmap.white(bitmap);
-        int kpos = NodeGenerator.getKingPos(board2, white);
-        boolean check = !NodeGenerator.checkSafe(board2, kpos, white);
+        int kpos = NodePull.getKingPos(board2, white);
+        boolean check = !NodePull.checkSafe(board2, kpos, white);
         if (check) {
             counter.checks++;
-            if (!NodeGenerator.hasLegalMoves(board2, bitmap2 & (IConst.CASTLING_STATE | IConst.HALFMOVES)))
+            if (!(new NodePull(board2, bitmap2 & (IConst.CASTLING_STATE | IConst.HALFMOVES)).next()!=0))
                 counter.mates++;
         }
         if (level + 1 < counters.length)

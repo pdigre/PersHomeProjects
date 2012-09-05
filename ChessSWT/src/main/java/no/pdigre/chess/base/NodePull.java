@@ -2,7 +2,7 @@ package no.pdigre.chess.base;
 
 public class NodePull {
 
-    final private int[] moves=new int[28];
+    final private int[] moves = new int[28];
 
     final boolean white;
 
@@ -53,8 +53,12 @@ public class NodePull {
     }
 
     public int next() {
-        if (imoves > 0)
-            return moves[--imoves];
+        if (imoves > 0) {
+            int bitmap = moves[--imoves];
+            if (isSafe(board, from, kingpos, Bitmap.getTo(bitmap), bitmap))
+                return bitmap;
+            return next();
+        }
         do {
             from++;
             if (from == 64)
@@ -68,27 +72,25 @@ public class NodePull {
     private void nextPiece() {
         switch (sqr & 7) {
             case IConst.KNIGHT:
-                addSimple(board, BaseNodes.KNIGHT_MOVES[from], white, from, kingpos, inherit);
+                addSimple(board, BaseNodes.KNIGHT_MOVES[from], white, from, inherit);
                 break;
             case IConst.BISHOP:
-                addSlider(board, BaseNodes.BISHOP_MOVES[from], white, from, kingpos, inherit);
+                addSlider(board, BaseNodes.BISHOP_MOVES[from], white, from, inherit);
                 break;
             case IConst.ROOK:
-                addSlider(board, BaseNodes.ROOK_MOVES[from], white, from, kingpos, inherit);
+                addSlider(board, BaseNodes.ROOK_MOVES[from], white, from, inherit);
                 break;
             case IConst.QUEEN:
-                addSlider(board, BaseNodes.QUEEN_MOVES[from], white, from, kingpos, inherit);
+                addSlider(board, BaseNodes.QUEEN_MOVES[from], white, from, inherit);
                 break;
             case IConst.KING:
-                addSimple(board, BaseNodes.KING_MOVES[from], white, from, kingpos, inherit);
+                addSimple(board, BaseNodes.KING_MOVES[from], white, from, inherit);
                 if (castle_queen) {
                     int to4 = home + 2;
                     if (board[home + 3] == 0 && board[to4] == 0 && board[home + 1] == 0
                         && board[home + 0] == castle_rook) {
                         if (checkSafe(board, home + 3, white) && checkSafe(board, home + 4, white)) {
-                            int bitmap = Bitmap.bitCastling(board, from, inherit, to4);
-                            if (isSafe(board, from, kingpos, to4, bitmap))
-                                add(bitmap);
+                            add(Bitmap.bitCastling(board, from, inherit, to4));
                         }
                     }
                 }
@@ -96,9 +98,7 @@ public class NodePull {
                     int to = home + 6;
                     if (board[home + 5] == 0 && board[to] == 0 && board[home + 7] == castle_rook) {
                         if (checkSafe(board, home + 4, white) && checkSafe(board, home + 5, white)) {
-                            int bitmap = Bitmap.bitCastling(board, from, inherit, to);
-                            if (isSafe(board, from, kingpos, to, bitmap))
-                                add(bitmap);
+                            add(Bitmap.bitCastling(board, from, inherit, to));
                         }
                     }
                 }
@@ -108,23 +108,17 @@ public class NodePull {
                 if (board[to1] == 0) {
                     if (to1 >= goalline && to1 < goalline + 8) {
                         int bitmap = Bitmap.bitPawnPromote(board, from, inherit, to1);
-                        if (isSafe(board, from, kingpos, to1, bitmap)) {
-                            add(bitmap | IConst.QUEEN);
-                            add(bitmap | IConst.ROOK);
-                            add(bitmap | IConst.KNIGHT);
-                            add(bitmap | IConst.BISHOP);
-                        }
+                        add(bitmap | IConst.QUEEN);
+                        add(bitmap | IConst.ROOK);
+                        add(bitmap | IConst.KNIGHT);
+                        add(bitmap | IConst.BISHOP);
                     } else {
-                        int bitmap = Bitmap.bitMove(from, inherit, to1, board[from]);
-                        if (isSafe(board, from, kingpos, to1, bitmap))
-                            add(bitmap);
+                        add(Bitmap.bitMove(from, inherit, to1, board[from]));
                     }
                     if (from >= pawnline(white) && from < pawnline(white) + 8) {
                         int to2 = to1 + pawn_fwd;
                         if (board[to2] == 0) {
-                            int bitmap = Bitmap.bitMove(from, inherit, to2, board[from]);
-                            if (isSafe(board, from, kingpos, to2, bitmap))
-                                add(bitmap);
+                            add(Bitmap.bitMove(from, inherit, to2, board[from]));
                         }
                     }
                 }
@@ -136,23 +130,17 @@ public class NodePull {
                         if (((piece & IConst.BLACK) != 0) == white) {
                             if (to2 >= goalline && to2 < goalline + 8) {
                                 int bitmap = Bitmap.bitPawnCapturePromote(board, from, inherit, to2);
-                                if (isSafe(board, from, kingpos, to2, bitmap)) {
-                                    add(bitmap | IConst.QUEEN);
-                                    add(bitmap | IConst.ROOK);
-                                    add(bitmap | IConst.KNIGHT);
-                                    add(bitmap | IConst.BISHOP);
-                                }
+                                add(bitmap | IConst.QUEEN);
+                                add(bitmap | IConst.ROOK);
+                                add(bitmap | IConst.KNIGHT);
+                                add(bitmap | IConst.BISHOP);
                             } else {
-                                int bitmap = Bitmap.bitPawnCapture(board, from, inherit, to2);
-                                if (isSafe(board, from, kingpos, to2, bitmap))
-                                    add(bitmap);
+                                add(Bitmap.bitPawnCapture(board, from, inherit, to2));
                             }
                         }
                     } else {
                         if (enpassant == to2) {
-                            int bitmap = Bitmap.bitPawnEnpassant(board, from, inherit, to2);
-                            if (isSafe(board, from, kingpos, to2, bitmap))
-                                add(bitmap);
+                            add(Bitmap.bitPawnEnpassant(board, from, inherit, to2));
                         }
                     }
                 }
@@ -163,23 +151,17 @@ public class NodePull {
                         if (((piece & IConst.BLACK) != 0) == white) {
                             if (to3 >= goalline && to3 < goalline + 8) {
                                 int bitmap = Bitmap.bitPawnCapturePromote(board, from, inherit, to3);
-                                if (isSafe(board, from, kingpos, to3, bitmap)) {
-                                    add(bitmap | IConst.QUEEN);
-                                    add(bitmap | IConst.ROOK);
-                                    add(bitmap | IConst.KNIGHT);
-                                    add(bitmap | IConst.BISHOP);
-                                }
+                                add(bitmap | IConst.QUEEN);
+                                add(bitmap | IConst.ROOK);
+                                add(bitmap | IConst.KNIGHT);
+                                add(bitmap | IConst.BISHOP);
                             } else {
-                                int bitmap = Bitmap.bitPawnCapture(board, from, inherit, to3);
-                                if (isSafe(board, from, kingpos, to3, bitmap))
-                                    add(bitmap);
+                                add(Bitmap.bitPawnCapture(board, from, inherit, to3));
                             }
                         }
                     } else {
                         if (enpassant == to3) {
-                            int bitmap = Bitmap.bitPawnEnpassant(board, from, inherit, to3);
-                            if (isSafe(board, from, kingpos, to3, bitmap))
-                                add(bitmap);
+                            add(Bitmap.bitPawnEnpassant(board, from, inherit, to3));
                         }
                     }
                 }
@@ -269,41 +251,38 @@ public class NodePull {
         return white ? 56 : 0;
     }
 
-    final private void addSlider(int[] board, int[][] moves, boolean white, int from, int kingpos, int inherit) {
+    final private void addSlider(int[] board, int[][] moves, boolean white, int from, int inherit) {
         for (int[] slide : moves) {
-            for (int i = 0; i < slide.length && add(board, slide[i], white, from, inherit, kingpos); i++) {
+            for (int i = 0; i < slide.length && add(board, slide[i], white, from, inherit); i++) {
                 // not
             }
         }
     }
 
-    final private void addSimple(int[] board, int[] moves, boolean white, int from, int kingpos, int inherit) {
+    final private void addSimple(int[] board, int[] moves, boolean white, int from, int inherit) {
         for (int to : moves)
-            add(board, to, white, from, inherit, kingpos);
+            add(board, to, white, from, inherit);
     }
 
     /**
      * Calculate is move is within borders return true if can continue like
      * queen
      * 
-     * @param moves
      * @param from TODO
      * @param inherit TODO
-     * @param kingpos TODO
+     * @param moves
      * @param offset
      * @param pieces
      * @return
      */
-    final private boolean add(int[] board, int to, boolean white, int from, int inherit, int kingpos) {
+    final private boolean add(int[] board, int to, boolean white, int from, int inherit) {
         int victim = board[to];
         if (victim == 0) {
             int bitmap = Bitmap.bitMove(from, inherit, to, board[from]);
-            if (isSafe(board, from, kingpos, to, bitmap))
-                add(bitmap);
+            add(bitmap);
         } else if (((victim & IConst.BLACK) == 0) != white) {
             int bitmap = Bitmap.bitPawnCapture(board, from, inherit, to);
-            if (isSafe(board, from, kingpos, to, bitmap))
-                add(bitmap);
+            add(bitmap);
         }
         return victim == 0;
     }
@@ -322,7 +301,7 @@ public class NodePull {
         imoves++;
     }
 
-    public static int[] getAllNodes(final int[] board, int parent) {
+    public static int[] getAllMoves(final int[] board, int parent) {
         int length = 0;
         int[] array = new int[100];
         NodePull pull = new NodePull(board, parent);
@@ -331,6 +310,36 @@ public class NodePull {
             array[length] = bitmap;
             length++;
             bitmap = pull.next();
+        }
+        int[] ret = new int[length];
+        System.arraycopy(array, 0, ret, 0, length);
+        return ret;
+    }
+
+    public static int[] filterFrom(int[] moves, int from) {
+        int length = 0;
+        int[] array = new int[moves.length];
+        for (int i = 0; i < moves.length; i++) {
+            int bitmap = moves[i];
+            if (Bitmap.getFrom(bitmap) == from) {
+                array[length] = bitmap;
+                length++;
+            }
+        }
+        int[] ret = new int[length];
+        System.arraycopy(array, 0, ret, 0, length);
+        return ret;
+    }
+
+    public static int[] filterTo(int[] moves, int to) {
+        int length = 0;
+        int[] array = new int[moves.length];
+        for (int i = 0; i < moves.length; i++) {
+            int bitmap = moves[i];
+            if (Bitmap.getTo(bitmap) == to) {
+                array[length] = bitmap;
+                length++;
+            }
         }
         int[] ret = new int[length];
         System.arraycopy(array, 0, ret, 0, length);

@@ -1,6 +1,5 @@
 package no.pdigre.chess.fen;
 
-import no.pdigre.chess.base.ICallBack;
 
 public class StartGame implements ICallBack {
 

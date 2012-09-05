@@ -1,6 +1,5 @@
-package no.pdigre.chess.eval;
+package no.pdigre.chess.fen;
 
-import no.pdigre.chess.base.ICallBack;
 import no.pdigre.chess.base.Bitmap;
 
 public final class Move implements ICallBack {
@@ -9,7 +8,7 @@ public final class Move implements ICallBack {
 
     final private int bitmap;
 
-    protected Move(final ICallBack parent, final int bitmap) {
+    public Move(final ICallBack parent, final int bitmap) {
         this.parent = parent;
         this.bitmap = bitmap;
     }
