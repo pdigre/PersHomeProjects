@@ -3,7 +3,7 @@ package no.pdigre.chess.swt;
 import no.pdigre.chess.base.Bitmap;
 import no.pdigre.chess.base.NodePull;
 import no.pdigre.chess.fen.FEN;
-import no.pdigre.chess.fen.ICallBack;
+import no.pdigre.chess.fen.IPosition;
 import no.pdigre.chess.fen.Move;
 import no.pdigre.chess.fen.StartGame;
 import no.pdigre.chess.fen.StartingGames;
@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Shell;
 
 public class Chess extends ChessGraphics {
 
-    public ICallBack lastmove;
+    public IPosition lastmove;
 
     public Integer from = -1;
     

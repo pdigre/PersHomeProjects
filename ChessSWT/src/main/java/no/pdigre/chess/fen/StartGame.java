@@ -1,7 +1,7 @@
 package no.pdigre.chess.fen;
 
 
-public class StartGame implements ICallBack {
+public class StartGame implements IPosition {
 
 	private final String castling;
 	private final boolean white;

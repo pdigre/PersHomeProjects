@@ -2,20 +2,20 @@ package no.pdigre.chess.fen;
 
 import no.pdigre.chess.base.Bitmap;
 
-public final class Move implements ICallBack {
+public final class Move implements IPosition {
 
-    final private ICallBack parent;
+    final private IPosition parent;
 
     final private int bitmap;
 
-    public Move(final ICallBack parent, final int bitmap) {
+    public Move(final IPosition parent, final int bitmap) {
         this.parent = parent;
         this.bitmap = bitmap;
     }
 
     @Override
     public String toString() {
-        return Bitmap.printMove(getInherit(),getBoard());
+        return FEN.printMove(getInherit(),getBoard());
     }
 
    @Override

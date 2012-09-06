@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import no.pdigre.chess.base.Bitmap;
 import no.pdigre.chess.base.NodePull;
 import no.pdigre.chess.fen.FEN;
-import no.pdigre.chess.fen.ICallBack;
+import no.pdigre.chess.fen.IPosition;
 import no.pdigre.chess.fen.Move;
 import no.pdigre.chess.fen.PieceType;
 import no.pdigre.chess.fen.StartGame;
@@ -99,7 +99,7 @@ public class StandardMovesTest {
 
         public int promotions;
 
-        public void count(ICallBack move, int[] board) {
+        public void count(IPosition move, int[] board) {
             moves++;
             if (Bitmap.isCastling(((Move) move).getInherit())) {
                 castlings++;
@@ -134,27 +134,13 @@ public class StandardMovesTest {
      * Takes 3.9 secs with 07.08.2012
      */
     @Test
-    public void testThinkStart() {
+    public void testThinkStart1() {
         String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
         counters = new Counter[MAXDEPTH];
         for (int i = 0; i < MAXDEPTH; i++)
             counters[i] = new Counter();
         StartGame start = new StartGame(fen);
-        TestGenerator.run(start.getInherit(),start.getBoard(),counters);
-        printCounter();
-        assertEquals(counters[4].moves, 4865609);
-        assertEquals(counters[4].captures, 82719);
-        assertEquals(counters[4].enpassants, 258);
-    }
-
-    @Test
-    public void testThinkStart2() {
-        String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-        counters = new Counter[MAXDEPTH];
-        for (int i = 0; i < MAXDEPTH; i++)
-            counters[i] = new Counter();
-        StartGame start = new StartGame(fen);
-        TestGenerator2.run(start.getInherit(),start.getBoard(),counters);
+        new TestCount(start.getInherit(), 0, counters, start.getBoard()).run();
         printCounter();
         assertEquals(counters[4].moves, 4865609);
         assertEquals(counters[4].captures, 82719);
@@ -187,7 +173,7 @@ public class StandardMovesTest {
         for (int i = 0; i < MAXDEPTH; i++)
             counters[i] = new Counter();
         StartGame start = new StartGame(fen);
-        TestGenerator.run(start.getInherit(),start.getBoard(),counters);
+        new TestCount(start.getInherit(), 0, counters, start.getBoard()).run();
         printCounter();
         assertEquals(counters[0].moves, 24);
         assertEquals(counters[1].moves, 496);

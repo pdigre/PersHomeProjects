@@ -2,15 +2,16 @@ package no.pdigre.chess.fen;
 
 import no.pdigre.chess.base.Bitmap;
 import no.pdigre.chess.base.IConst;
+import no.pdigre.chess.base.NodePull;
 
-public class FEN {
+public class FEN implements IConst{
 
 	/**
 	 * Standard Forsyth–Edwards Notation
 	 * 
 	 * @return
 	 */
-	final public static String getFen(ICallBack move) {
+	final public static String getFen(IPosition move) {
 		StringBuilder fen = new StringBuilder();
 		fen.append(FEN.board2String(move.getBoard()));
 		fen.append(" ");
@@ -66,7 +67,7 @@ public class FEN {
 		return fen.toString();
 	}
 
-	final public static String getFenCastling(ICallBack move) {
+	final public static String getFenCastling(IPosition move) {
 		StringBuilder sb = new StringBuilder();
 		int state = Bitmap.getCastlingState(move.getInherit());
 		if ((state & IConst.NOCASTLE_WHITEKING) == 0)
@@ -98,6 +99,27 @@ public class FEN {
 				+ " " + pos2string(pos));
 	}
 
+
+    public static String printMove(int bitmap, int[] board) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(PieceType.types[bitmap & PIECE]);
+        sb.append(" from " + FEN.pos2string(Bitmap.getFrom(bitmap)) + " to "
+            + FEN.pos2string(Bitmap.getTo(bitmap)));
+        int capture = ((bitmap >> _CAPTURE) & 7);
+        if (capture != 0)
+            sb.append(" beats " + PieceType.types[capture | ((bitmap & BLACK) ^ BLACK)]);
+        if (Bitmap.isEnpassant(bitmap))
+            sb.append(" enpassant");
+        if (Bitmap.isCastling(bitmap))
+            sb.append(" castling");
+        boolean white = Bitmap.white(bitmap);
+        if (!NodePull.checkSafe(board, NodePull.getKingPos(board, white), white)) {
+            sb.append(" check");
+            if (!(new NodePull(board, bitmap).next()!=0))
+                sb.append("mate");
+        }
+        return sb.toString();
+    }
 
 
 }

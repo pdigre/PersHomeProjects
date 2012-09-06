@@ -1,8 +1,5 @@
 package no.pdigre.chess.base;
 
-import no.pdigre.chess.fen.FEN;
-import no.pdigre.chess.fen.PieceType;
-
 public class Bitmap implements IConst {
 
     final static public int[] apply(final int[] in, final int bitmap) {
@@ -173,27 +170,6 @@ public class Bitmap implements IConst {
             default:
                 return -1;
         }
-    }
-
-    public static String printMove(int bitmap, int[] board) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(PieceType.types[bitmap & PIECE]);
-        sb.append(" from " + FEN.pos2string(Bitmap.getFrom(bitmap)) + " to "
-            + FEN.pos2string(Bitmap.getTo(bitmap)));
-        int capture = ((bitmap >> _CAPTURE) & 7);
-        if (capture != 0)
-            sb.append(" beats " + PieceType.types[capture | ((bitmap & BLACK) ^ BLACK)]);
-        if (Bitmap.isEnpassant(bitmap))
-            sb.append(" enpassant");
-        if (Bitmap.isCastling(bitmap))
-            sb.append(" castling");
-        boolean white = Bitmap.white(bitmap);
-        if (!NodePull.checkSafe(board, NodePull.getKingPos(board, white), white)) {
-            sb.append(" check");
-            if (!(new NodePull(board, bitmap).next()!=0))
-                sb.append("mate");
-        }
-        return sb.toString();
     }
 
     public static int value(final int type) {

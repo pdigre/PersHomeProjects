@@ -2,7 +2,7 @@ package no.pdigre.chess.fen;
 
 import no.pdigre.chess.base.IConst;
 
-public abstract interface ICallBack extends IConst{
+public abstract interface IPosition extends IConst{
 
 
     public abstract boolean whiteTurn();

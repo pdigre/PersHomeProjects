@@ -5,7 +5,7 @@ import no.pdigre.chess.base.IConst;
 import no.pdigre.chess.base.NodePull;
 
 
-public class AlphaBeta {
+public class NegaMax {
     
     public final static int negamax( int alpha, int beta, int depthleft, int[] board0, int move0, int score0 ) {
         int score1=evaluate(move0, score0);

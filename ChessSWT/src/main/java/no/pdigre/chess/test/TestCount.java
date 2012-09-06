@@ -5,19 +5,19 @@ import no.pdigre.chess.base.IConst;
 import no.pdigre.chess.base.NodePull;
 import no.pdigre.chess.test.StandardMovesTest.Counter;
 
-public class TestGenerator2 {
+public class TestCount {
 
-    final private int bitmap;
+    final protected int bitmap;
 
-    final private int level;
+    final protected int level;
 
-    final private Counter[] counters;
+    final protected Counter[] counters;
 
-    final private Counter counter;
+    final protected Counter counter;
 
-    final private int[] board;
+    final protected int[] board;
 
-    public TestGenerator2(int bitmap, int level, Counter[] counters, int[] board) {
+    public TestCount(int bitmap, int level, Counter[] counters, int[] board) {
         this.bitmap = bitmap;
         this.level = level;
         this.counters = counters;
@@ -25,34 +25,29 @@ public class TestGenerator2 {
         this.board = board;
     }
 
-    public static void run(int bitmap, int[] board, Counter[] counters) {
-        new TestGenerator2(bitmap, 0, counters, board).run();
-    }
-
     private void loop(int bitmap2, int[] board2) {
         counter.moves++;
         boolean white = Bitmap.white(bitmap);
-        int kpos = NodePull.getKingPos(board2, white);
-        boolean check = !NodePull.checkSafe(board2, kpos, white);
-        if (check) {
+        if (!NodePull.checkSafe(board2, NodePull.getKingPos(board2, white), white)) {
             counter.checks++;
             if (!(new NodePull(board2, bitmap2 & (IConst.CASTLING_STATE | IConst.HALFMOVES)).next()!=0))
                 counter.mates++;
         }
         if (level + 1 < counters.length)
-            new TestGenerator2(bitmap2, level + 1, counters, board2).run();
+            new TestCount(bitmap2, level + 1, counters, board2).run();
     }
 
     public void run() {
         NodePull pull = new NodePull(board, bitmap);
-        int next=pull.next();
-        while(next!=0){
-            move(next);
-            next=pull.next();
+        int bitmap=pull.next();
+        while(bitmap!=0){
+            count(bitmap);
+            loop(bitmap, Bitmap.apply(board, bitmap));
+            bitmap=pull.next();
         }
     }
 
-    public void move(int bitmap) {
+    public void count(int bitmap) {
         if(Bitmap.isCapture(bitmap)){
             counter.captures++;
             if(Bitmap.isEnpassant(bitmap))
@@ -63,7 +58,6 @@ public class TestGenerator2 {
         }
         if(Bitmap.isPromotion(bitmap))
             counter.promotions++;
-        loop(bitmap, Bitmap.apply(board, bitmap));
     }
 
 }
