@@ -2,6 +2,7 @@ package no.pdigre.chess.swt;
 
 import no.pdigre.chess.base.Bitmap;
 import no.pdigre.chess.base.NodePull;
+import no.pdigre.chess.eval.NegaMax;
 import no.pdigre.chess.fen.FEN;
 import no.pdigre.chess.fen.IPosition;
 import no.pdigre.chess.fen.Move;
@@ -32,11 +33,13 @@ public class Chess extends ChessGraphics {
     public IPosition lastmove;
 
     public Integer from = -1;
-    
-    public int hintnum=0;
 
-    public int[] board = new int[64];
-    
+    public int hintnum = 0;
+
+    public int[] draw_pieces = new int[64];
+
+    public int[] draw_score = new int[64];
+
     public static void main(String[] args) {
         new Chess().init();
     }
@@ -70,34 +73,36 @@ public class Chess extends ChessGraphics {
             public void mouseDown(MouseEvent e) {
                 int i = findSquare(e.x, e.y);
                 if (e.button == 1) {
-                    int[] legalmoves=NodePull.getAllMoves(lastmove.getBoard(), lastmove.getInherit());
-                    if (board[i]!=0) {
+                    int[] board = lastmove.getBoard();
+                    int[] legalmoves = NodePull.getAllMoves(board, lastmove.getInherit());
+                    if (draw_pieces[i] != 0) {
                         int[] moves = NodePull.filterTo(NodePull.filterFrom(legalmoves, from), i);
-                        lastmove=new Move(lastmove,moves[0]);
+                        lastmove = new Move(lastmove, moves[0]);
                         System.out.println(lastmove);
                         System.out.println(FEN.getFen(lastmove));
                         from = -1;
-                        board=new int[64];
+                        draw_pieces = new int[64];
                         canvas.redraw();
                         canvas.update();
                     } else {
-                        if(from == i)
+                        if (from == i)
                             hintnum++;
-                        else 
-                            hintnum=0;
+                        else
+                            hintnum = 0;
                         from = i;
-                        board=new int[64];
+                        draw_pieces = new int[64];
                         int[] movesfrom = NodePull.filterFrom(legalmoves, i);
-                        for (int bitmap : movesfrom){
-                            board[Bitmap.getTo(bitmap)]=Bitmap.type(bitmap);
+                        for (int bitmap : movesfrom) {
+                            int to = Bitmap.getTo(bitmap);
+                            draw_pieces[to] = Bitmap.type(bitmap);
+                            if (hintnum > 0) {
+                                draw_score[to] = NegaMax.negamax(0, 1000, hintnum, Bitmap.apply(board, bitmap),
+                                    bitmap, hintnum);
+                            }
                         }
                         canvas.redraw();
                         canvas.update();
-//                        if(hintnum>0){
-//                            for (Move move : movesfrom) {
-//                                markers.add(Bitmap.getTo(move.getInherit()));
-//                            }
-//                        }
+                        draw_score = new int[64];
                     }
                 } else if (e.button == 3) {
                     // right click
@@ -156,7 +161,7 @@ public class Chess extends ChessGraphics {
         gc.drawRectangle(area.x + 1, area.y + 1, area.width - 2, area.height - 2);
         for (int i = 0; i < 64; i++) {
             drawSquare(gc, i, 0);
-            if (board[i]!=0)
+            if (draw_pieces[i] != 0)
                 drawFrame(gc, i, SWT.COLOR_GREEN);
             if (i == from)
                 drawFrame(gc, i, SWT.COLOR_RED);
@@ -164,15 +169,19 @@ public class Chess extends ChessGraphics {
         int[] board = lastmove.getBoard();
         for (int i = 0; i < board.length; i++) {
             int type = board[i];
-            if (type != 0)
+            if (type != 0) {
                 drawPiece(gc, i, type);
+            }
+            int score = draw_score[i];
+            if (score != 0)
+                drawScore(gc, i, score);
         }
     }
 
     public void startGame(final Canvas canvas, String text) {
         lastmove = new StartGame(text);
         from = -1;
-        board=new int[64];
+        draw_pieces = new int[64];
         canvas.redraw();
         canvas.update();
     }
