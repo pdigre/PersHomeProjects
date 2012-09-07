@@ -34,9 +34,9 @@ public class Chess extends ChessGraphics {
 
     public Integer from = -1;
 
-    public int hintnum = 0;
+    public int hintnum = -1;
 
-    public int[] draw_pieces = new int[64];
+    public int[] draw_targets = new int[64];
 
     public int[] draw_score = new int[64];
 
@@ -75,34 +75,33 @@ public class Chess extends ChessGraphics {
                 if (e.button == 1) {
                     int[] board = lastmove.getBoard();
                     int[] legalmoves = NodePull.getAllMoves(board, lastmove.getInherit());
-                    if (draw_pieces[i] != 0) {
+                    if (draw_targets[i] != 0) {
                         int[] moves = NodePull.filterTo(NodePull.filterFrom(legalmoves, from), i);
                         lastmove = new Move(lastmove, moves[0]);
                         System.out.println(lastmove);
                         System.out.println(FEN.getFen(lastmove));
                         from = -1;
-                        draw_pieces = new int[64];
+                        draw_targets = new int[64];
                         canvas.redraw();
                         canvas.update();
                     } else {
                         if (from == i)
                             hintnum++;
                         else
-                            hintnum = 0;
+                            hintnum = -1;
                         from = i;
-                        draw_pieces = new int[64];
+                        draw_targets = new int[64];
+                        draw_score = new int[64];
                         int[] movesfrom = NodePull.filterFrom(legalmoves, i);
                         for (int bitmap : movesfrom) {
                             int to = Bitmap.getTo(bitmap);
-                            draw_pieces[to] = Bitmap.type(bitmap);
-                            if (hintnum > 0) {
-                                draw_score[to] = NegaMax.negamax(0, 1000, hintnum, Bitmap.apply(board, bitmap),
-                                    bitmap, hintnum);
+                            draw_targets[to] = Bitmap.type(bitmap);
+                            if (hintnum >= 0) {
+                                draw_score[to] = NegaMax.negaMax(hintnum, board, bitmap);
                             }
                         }
                         canvas.redraw();
                         canvas.update();
-                        draw_score = new int[64];
                     }
                 } else if (e.button == 3) {
                     // right click
@@ -161,7 +160,7 @@ public class Chess extends ChessGraphics {
         gc.drawRectangle(area.x + 1, area.y + 1, area.width - 2, area.height - 2);
         for (int i = 0; i < 64; i++) {
             drawSquare(gc, i, 0);
-            if (draw_pieces[i] != 0)
+            if (draw_targets[i] != 0)
                 drawFrame(gc, i, SWT.COLOR_GREEN);
             if (i == from)
                 drawFrame(gc, i, SWT.COLOR_RED);
@@ -172,16 +171,15 @@ public class Chess extends ChessGraphics {
             if (type != 0) {
                 drawPiece(gc, i, type);
             }
-            int score = draw_score[i];
-            if (score != 0)
-                drawScore(gc, i, score);
+            if (hintnum>=0 && draw_targets[i] != 0)
+                drawScore(gc, i, draw_score[i]);
         }
     }
 
     public void startGame(final Canvas canvas, String text) {
         lastmove = new StartGame(text);
         from = -1;
-        draw_pieces = new int[64];
+        draw_targets = new int[64];
         canvas.redraw();
         canvas.update();
     }
