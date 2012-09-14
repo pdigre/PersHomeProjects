@@ -186,6 +186,18 @@ public class Bitmap implements IConst {
                 return 900;
             case KING:
                 return 100000;
+            case BLACK_PAWN:
+                return -100;
+            case BLACK_KNIGHT:
+                return -300;
+            case BLACK_BISHOP:
+                return -325;
+            case BLACK_ROOK:
+                return -500;
+            case BLACK_QUEEN:
+                return -900;
+            case BLACK_KING:
+                return -100000;
             default:
                 return 0;
         }

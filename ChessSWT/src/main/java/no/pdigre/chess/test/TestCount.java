@@ -2,7 +2,7 @@ package no.pdigre.chess.test;
 
 import no.pdigre.chess.base.Bitmap;
 import no.pdigre.chess.base.IConst;
-import no.pdigre.chess.base.NodePull;
+import no.pdigre.chess.base.NodeGen;
 import no.pdigre.chess.test.StandardMovesTest.Counter;
 
 public class TestCount {
@@ -28,9 +28,9 @@ public class TestCount {
     private void loop(int bitmap2, int[] board2) {
         counter.moves++;
         boolean white = Bitmap.white(bitmap);
-        if (!NodePull.checkSafe(board2, NodePull.getKingPos(board2, white), white)) {
+        if (!NodeGen.checkSafe(board2, NodeGen.getKingPos(board2, white), white)) {
             counter.checks++;
-            if (!(new NodePull(board2, bitmap2 & (IConst.CASTLING_STATE | IConst.HALFMOVES)).next()!=0))
+            if (!(new NodeGen(board2, bitmap2 & (IConst.CASTLING_STATE | IConst.HALFMOVES)).nextSafe()!=0))
                 counter.mates++;
         }
         if (level + 1 < counters.length)
@@ -38,12 +38,12 @@ public class TestCount {
     }
 
     public void run() {
-        NodePull pull = new NodePull(board, bitmap);
-        int bitmap=pull.next();
+        NodeGen pull = new NodeGen(board, bitmap);
+        int bitmap=pull.nextSafe();
         while(bitmap!=0){
             count(bitmap);
             loop(bitmap, Bitmap.apply(board, bitmap));
-            bitmap=pull.next();
+            bitmap=pull.nextSafe();
         }
     }
 

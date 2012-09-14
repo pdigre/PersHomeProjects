@@ -1,8 +1,8 @@
 package no.pdigre.chess.swt;
 
 import no.pdigre.chess.base.Bitmap;
-import no.pdigre.chess.base.NodePull;
-import no.pdigre.chess.eval.NegaMax;
+import no.pdigre.chess.base.NodeGen;
+import no.pdigre.chess.eval.AlphaBeta;
 import no.pdigre.chess.fen.FEN;
 import no.pdigre.chess.fen.IPosition;
 import no.pdigre.chess.fen.Move;
@@ -74,9 +74,9 @@ public class Chess extends ChessGraphics {
                 int i = findSquare(e.x, e.y);
                 if (e.button == 1) {
                     int[] board = lastmove.getBoard();
-                    int[] legalmoves = NodePull.getAllMoves(board, lastmove.getInherit());
+                    int[] legalmoves = NodeGen.getAllMoves(board, lastmove.getInherit());
                     if (draw_targets[i] != 0) {
-                        int[] moves = NodePull.filterTo(NodePull.filterFrom(legalmoves, from), i);
+                        int[] moves = NodeGen.filterTo(NodeGen.filterFrom(legalmoves, from), i);
                         lastmove = new Move(lastmove, moves[0]);
                         System.out.println(lastmove);
                         System.out.println(FEN.getFen(lastmove));
@@ -92,12 +92,13 @@ public class Chess extends ChessGraphics {
                         from = i;
                         draw_targets = new int[64];
                         draw_score = new int[64];
-                        int[] movesfrom = NodePull.filterFrom(legalmoves, i);
+                        int[] movesfrom = NodeGen.filterFrom(legalmoves, i);
                         for (int bitmap : movesfrom) {
                             int to = Bitmap.getTo(bitmap);
                             draw_targets[to] = Bitmap.type(bitmap);
-                            if (hintnum >= 0) {
-                                draw_score[to] = NegaMax.negaMax(hintnum, board, bitmap);
+                            if (hintnum >= 0){
+                                System.out.println("\n=="+FEN.printMove(bitmap, board));
+                                draw_score[to] = AlphaBeta.alphaBeta(hintnum, board, bitmap);
                             }
                         }
                         canvas.redraw();

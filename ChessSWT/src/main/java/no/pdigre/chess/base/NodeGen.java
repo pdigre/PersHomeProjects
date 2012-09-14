@@ -1,6 +1,6 @@
 package no.pdigre.chess.base;
 
-public class NodePull {
+public class NodeGen {
 
     final private int[] moves = new int[28];
 
@@ -36,7 +36,9 @@ public class NodePull {
 
     private int imoves;
 
-    public NodePull(int[] board, int inherit) {
+    final private int pawnline;
+
+    public NodeGen(int[] board, int inherit) {
         this.inherit = inherit;
         this.board = board;
         white = !Bitmap.white(inherit);
@@ -47,18 +49,22 @@ public class NodePull {
         pawn_right = pawn_fwd + BaseNodes.RIGHT;
         goalline = goalline(white);
         home = home(white);
+        pawnline=pawnline(white);
         castle_rook = white ? IConst.ROOK : IConst.BLACK_ROOK;
         castle_queen = (inherit & (white ? IConst.NOCASTLE_WHITEQUEEN : IConst.NOCASTLE_BLACKQUEEN)) == 0;
         castle_king = (inherit & (white ? IConst.NOCASTLE_WHITEKING : IConst.NOCASTLE_BLACKKING)) == 0;
     }
 
-    public int next() {
-        if (imoves > 0) {
-            int bitmap = moves[--imoves];
-            if (isSafe(board, from, kingpos, Bitmap.getTo(bitmap), bitmap))
-                return bitmap;
-            return next();
-        }
+    final public int nextSafe() {
+        int bitmap = nextUnsafe();
+        if (bitmap==0 || isSafe(board, from, kingpos, Bitmap.getTo(bitmap), bitmap))
+            return bitmap;
+        return nextSafe();
+    }
+
+    final public int nextUnsafe() {
+        if (imoves > 0)
+            return moves[--imoves];
         do {
             from++;
             if (from == 64)
@@ -66,10 +72,10 @@ public class NodePull {
             sqr = board[from];
         } while (sqr == 0 || white != Bitmap.white(sqr));
         nextPiece();
-        return next();
+        return nextUnsafe();
     }
 
-    private void nextPiece() {
+    final private void nextPiece() {
         switch (sqr & 7) {
             case IConst.KNIGHT:
                 addSimple(board, BaseNodes.KNIGHT_MOVES[from], white, from, inherit);
@@ -86,19 +92,17 @@ public class NodePull {
             case IConst.KING:
                 addSimple(board, BaseNodes.KING_MOVES[from], white, from, inherit);
                 if (castle_queen) {
-                    int to4 = home + 2;
-                    if (board[home + 3] == 0 && board[to4] == 0 && board[home + 1] == 0
+                    if (board[home + 3] == 0 && board[home + 2] == 0 && board[home + 1] == 0
                         && board[home + 0] == castle_rook) {
                         if (checkSafe(board, home + 3, white) && checkSafe(board, home + 4, white)) {
-                            add(Bitmap.bitCastling(board, from, inherit, to4));
+                            add(Bitmap.bitCastling(board, from, inherit, home + 2));
                         }
                     }
                 }
                 if (castle_king) {
-                    int to = home + 6;
-                    if (board[home + 5] == 0 && board[to] == 0 && board[home + 7] == castle_rook) {
+                    if (board[home + 5] == 0 && board[home + 6] == 0 && board[home + 7] == castle_rook) {
                         if (checkSafe(board, home + 4, white) && checkSafe(board, home + 5, white)) {
-                            add(Bitmap.bitCastling(board, from, inherit, to));
+                            add(Bitmap.bitCastling(board, from, inherit, home + 6));
                         }
                     }
                 }
@@ -115,7 +119,7 @@ public class NodePull {
                     } else {
                         add(Bitmap.bitMove(from, inherit, to1, board[from]));
                     }
-                    if (from >= pawnline(white) && from < pawnline(white) + 8) {
+                    if (from >= pawnline && from < pawnline + 8) {
                         int to2 = to1 + pawn_fwd;
                         if (board[to2] == 0) {
                             add(Bitmap.bitMove(from, inherit, to2, board[from]));
@@ -288,12 +292,12 @@ public class NodePull {
     }
 
     final private static boolean isSafe(int[] board, int from, int kingpos, int to, int bitmap) {
-        return NodePull.checkSafe(Bitmap.apply(board, bitmap), from == kingpos ? to : kingpos,
-            Bitmap.white(bitmap));
+        return NodeGen
+            .checkSafe(Bitmap.apply(board, bitmap), from == kingpos ? to : kingpos, Bitmap.white(bitmap));
     }
 
     final public static boolean isCheck(int[] board, boolean white) {
-        return !NodePull.checkSafe(board, getKingPos(board, white), white);
+        return !NodeGen.checkSafe(board, getKingPos(board, white), white);
     }
 
     final private void add(int bitmap) {
@@ -304,12 +308,12 @@ public class NodePull {
     public static int[] getAllMoves(final int[] board, int parent) {
         int length = 0;
         int[] array = new int[100];
-        NodePull pull = new NodePull(board, parent);
-        int bitmap = pull.next();
+        NodeGen pull = new NodeGen(board, parent);
+        int bitmap = pull.nextSafe();
         while (bitmap != 0) {
             array[length] = bitmap;
             length++;
-            bitmap = pull.next();
+            bitmap = pull.nextSafe();
         }
         int[] ret = new int[length];
         System.arraycopy(array, 0, ret, 0, length);

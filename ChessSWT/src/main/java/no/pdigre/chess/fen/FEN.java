@@ -2,7 +2,7 @@ package no.pdigre.chess.fen;
 
 import no.pdigre.chess.base.Bitmap;
 import no.pdigre.chess.base.IConst;
-import no.pdigre.chess.base.NodePull;
+import no.pdigre.chess.base.NodeGen;
 
 public class FEN implements IConst{
 
@@ -113,9 +113,9 @@ public class FEN implements IConst{
         if (Bitmap.isCastling(bitmap))
             sb.append(" castling");
         boolean white = Bitmap.white(bitmap);
-        if (!NodePull.checkSafe(board, NodePull.getKingPos(board, white), white)) {
+        if (!NodeGen.checkSafe(board, NodeGen.getKingPos(board, white), white)) {
             sb.append(" check");
-            if (!(new NodePull(board, bitmap).next()!=0))
+            if (!(new NodeGen(board, bitmap).nextSafe()!=0))
                 sb.append("mate");
         }
         return sb.toString();

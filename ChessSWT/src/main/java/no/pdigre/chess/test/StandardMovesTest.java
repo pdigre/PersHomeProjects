@@ -2,7 +2,7 @@ package no.pdigre.chess.test;
 
 import static org.junit.Assert.assertEquals;
 import no.pdigre.chess.base.Bitmap;
-import no.pdigre.chess.base.NodePull;
+import no.pdigre.chess.base.NodeGen;
 import no.pdigre.chess.fen.FEN;
 import no.pdigre.chess.fen.IPosition;
 import no.pdigre.chess.fen.Move;
@@ -76,7 +76,7 @@ public class StandardMovesTest {
         FEN.printPiece(type, from);
         StringBuffer sb = new StringBuffer();
         sb.append(PieceType.types[type].fen);
-        for (int bitmap : NodePull.filterFrom(NodePull.getAllMoves(board, start.getInherit()), from)) {
+        for (int bitmap : NodeGen.filterFrom(NodeGen.getAllMoves(board, start.getInherit()), from)) {
             sb.append(" ");
             sb.append(FEN.pos2string(Bitmap.getTo(bitmap)));
         }
@@ -115,10 +115,10 @@ public class StandardMovesTest {
             }
             int[] brd = Bitmap.apply(board, ((Move)move).getInherit());
             boolean white = move.whiteTurn();
-            int kpos = NodePull.getKingPos(brd, white);
-            if(!NodePull.checkSafe(brd, kpos, white)){
+            int kpos = NodeGen.getKingPos(brd, white);
+            if(!NodeGen.checkSafe(brd, kpos, white)){
                 checks++;
-                if(!(new NodePull(brd, move.getInherit()).next()!=0))
+                if(!(new NodeGen(brd, move.getInherit()).nextSafe()!=0))
                     mates++;
             }
         }
