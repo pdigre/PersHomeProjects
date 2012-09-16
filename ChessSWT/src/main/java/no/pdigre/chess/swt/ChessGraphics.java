@@ -25,6 +25,8 @@ public class ChessGraphics {
     }
 
     public void drawPiece(GC gc, int i, int type) {
+        if (type == 0)
+            return;
         PieceType ptype = PieceType.types[type];
         int x = i % 8;
         int y = (i - x) / 8;
@@ -53,8 +55,7 @@ public class ChessGraphics {
     public static Color getBGColor(GC gc, int i, int color) {
         if (color == 0)
             color = isBlack(i) ? SWT.COLOR_DARK_GRAY : SWT.COLOR_GRAY;
-        Color col = gc.getDevice().getSystemColor(color);
-        return col;
+        return gc.getDevice().getSystemColor(color);
     }
 
     public static boolean isBlack(int i) {

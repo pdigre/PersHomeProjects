@@ -3,6 +3,7 @@ package no.pdigre.chess.swt;
 import no.pdigre.chess.base.Bitmap;
 import no.pdigre.chess.base.NodeGen;
 import no.pdigre.chess.eval.AlphaBeta;
+import no.pdigre.chess.eval.MoveEval;
 import no.pdigre.chess.fen.FEN;
 import no.pdigre.chess.fen.IPosition;
 import no.pdigre.chess.fen.Move;
@@ -10,179 +11,105 @@ import no.pdigre.chess.fen.StartGame;
 import no.pdigre.chess.fen.StartingGames;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
-import org.eclipse.swt.events.PaintEvent;
-import org.eclipse.swt.events.PaintListener;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.GC;
-import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Canvas;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 
-public class Chess extends ChessGraphics {
+public class Chess extends BoardHandler {
 
     public IPosition lastmove;
 
-    public Integer from = -1;
-
-    public int hintnum = -1;
-
-    public int[] draw_targets = new int[64];
-
-    public int[] draw_score = new int[64];
+    AlphaBeta eval;
 
     public static void main(String[] args) {
-        new Chess().init();
+        new Chess();
     }
 
-    public void startGame() {
-        lastmove = new StartGame(StartingGames.FEN_GAMES[0]);
-        System.out.println(FEN.getFen(lastmove));
+    public Chess(){
+        createDialog();
+        setup(new StartGame(StartingGames.FEN_GAMES[0]));
+        runDialog();
     }
 
-    private void init() {
-        startGame();
-        Display display = new Display();
-        Shell shell = new Shell(display);
-        final Canvas canvas = new Canvas(shell, SWT.None);
-        canvas.addPaintListener(new PaintListener() {
+    @Override
+  public void setup(IPosition startGame) {
+        lastmove = startGame;
+        board = lastmove.getBoard();
+        from = -1;
+        updateBoard();
+        analyzeMarkers();
+    }
 
+    public void analyzeMarkers() {
+        new Thread(new Runnable() {
+            
             @Override
-            public void paintControl(PaintEvent e) {
-                drawBoard(e.gc, (Canvas) e.widget);
+            public void run() {
+                eval = new AlphaBeta(lastmove.getBoard(), lastmove.getInherit(), 5);
+                System.out.println(FEN.getFen(lastmove));
+                draw_targets = new int[64];
+                draw_score = new int[64];
+                MoveEval[] moves = eval.moves;
+                int best = moves[0].bitmap;
+                best_from = Bitmap.getFrom(best);
+                best_to = Bitmap.getTo(best);
+                for (MoveEval move : moves) {
+                    int from = Bitmap.getFrom(move.bitmap);
+                    if (draw_score[from] == 0)
+                        draw_score[from] = move.score;
+                }
+                updateMarkers();
             }
-        });
-        canvas.addMouseListener(new MouseListener() {
+        }).run();
+    }
 
-            @Override
-            public void mouseUp(MouseEvent e) {
-                // TODO Auto-generated method stub
+    @Override
+    public void leftClick(final Canvas canvas, MouseEvent e) {
+        int i = findSquare(e.x, e.y);
+        int[] bitmaps = eval.getBitmaps();
+        if (draw_targets[i] != 0) {
+            setup(new Move(lastmove, NodeGen.filterTo(NodeGen.filterFrom(bitmaps, from), i)[0]));
+        } else {
+            from = i;
+            markToMoves(i, bitmaps);
+        }
+        updateAll();
+    }
 
+    public void markToMoves(int from, int[] bitmaps) {
+        draw_targets = new int[64];
+        draw_score = new int[64];
+        int[] movesfrom = NodeGen.filterFrom(bitmaps, from);
+        for (int bitmap : movesfrom) {
+            int to = Bitmap.getTo(bitmap);
+            draw_targets[to] = Bitmap.type(bitmap);
+            System.out.println("\n==" + FEN.printMove(bitmap, board));
+            draw_score[to] = eval.getMove(bitmap).score;
+        }
+    }
+
+    @Override
+    public void drawMarkers(GC gc) {
+        MoveEval[] moves = eval.moves;
+        if(from==-1){
+            int best = Bitmap.getFrom(moves[0].bitmap);
+            for (MoveEval move : moves) {
+                int fr = Bitmap.getFrom(move.bitmap);
+                drawFrame(gc, fr, fr==best?SWT.COLOR_YELLOW:SWT.COLOR_GREEN);
             }
-
-            @Override
-            public void mouseDown(MouseEvent e) {
-                int i = findSquare(e.x, e.y);
-                if (e.button == 1) {
-                    int[] board = lastmove.getBoard();
-                    int[] legalmoves = NodeGen.getAllMoves(board, lastmove.getInherit());
-                    if (draw_targets[i] != 0) {
-                        int[] moves = NodeGen.filterTo(NodeGen.filterFrom(legalmoves, from), i);
-                        lastmove = new Move(lastmove, moves[0]);
-                        System.out.println(lastmove);
-                        System.out.println(FEN.getFen(lastmove));
-                        from = -1;
-                        draw_targets = new int[64];
-                        canvas.redraw();
-                        canvas.update();
-                    } else {
-                        if (from == i)
-                            hintnum++;
-                        else
-                            hintnum = -1;
-                        from = i;
-                        draw_targets = new int[64];
-                        draw_score = new int[64];
-                        int[] movesfrom = NodeGen.filterFrom(legalmoves, i);
-                        for (int bitmap : movesfrom) {
-                            int to = Bitmap.getTo(bitmap);
-                            draw_targets[to] = Bitmap.type(bitmap);
-                            if (hintnum >= 0){
-                                System.out.println("\n=="+FEN.printMove(bitmap, board));
-                                draw_score[to] = AlphaBeta.alphaBeta(hintnum, board, bitmap);
-                            }
-                        }
-                        canvas.redraw();
-                        canvas.update();
-                    }
-                } else if (e.button == 3) {
-                    // right click
+        } else {
+            drawFrame(gc, from, SWT.COLOR_RED);
+            int color = SWT.COLOR_YELLOW;
+            for (MoveEval move : moves) {
+                if(Bitmap.getFrom(move.bitmap)==from){
+                    int to = Bitmap.getTo(move.bitmap);
+                    drawFrame(gc, to, color);
+                    color=SWT.COLOR_GREEN;
+                    drawScore(gc, to, move.score);
                 }
             }
-
-            @Override
-            public void mouseDoubleClick(MouseEvent e) {
-                // TODO Auto-generated method stub
-
-            }
-        });
-        shell.setLayout(new GridLayout(2, false));
-        canvas.setLayoutData(new GridData(270, 270));
-        shell.setSize(500, 350);
-        Composite contoller = new Composite(shell, SWT.NONE);
-        contoller.setLayoutData(new GridData());
-        final CCombo cc = new CCombo(shell, SWT.BORDER);
-        cc.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, false, 2, 1));
-        cc.setItems(StartingGames.FEN_GAMES);
-        cc.addModifyListener(new ModifyListener() {
-
-            @Override
-            public void modifyText(ModifyEvent e) {
-                startGame(canvas, cc.getText());
-            }
-        });
-        cc.addSelectionListener(new SelectionListener() {
-
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                int i = cc.getSelectionIndex();
-                if (i < 0)
-                    return;
-                startGame(canvas, cc.getText());
-            }
-
-            @Override
-            public void widgetDefaultSelected(SelectionEvent e) {
-                // not
-            }
-        });
-        shell.open();
-        canvas.redraw();
-        canvas.update();
-        while (!shell.isDisposed()) {
-            if (!display.readAndDispatch())
-                display.sleep();
-
-        }
-        display.dispose();
-    }
-
-    void drawBoard(GC gc, Canvas canvas) {
-        Rectangle area = canvas.getClientArea();
-        gc.drawRectangle(area.x + 1, area.y + 1, area.width - 2, area.height - 2);
-        for (int i = 0; i < 64; i++) {
-            drawSquare(gc, i, 0);
-            if (draw_targets[i] != 0)
-                drawFrame(gc, i, SWT.COLOR_GREEN);
-            if (i == from)
-                drawFrame(gc, i, SWT.COLOR_RED);
-        }
-        int[] board = lastmove.getBoard();
-        for (int i = 0; i < board.length; i++) {
-            int type = board[i];
-            if (type != 0) {
-                drawPiece(gc, i, type);
-            }
-            if (hintnum>=0 && draw_targets[i] != 0)
-                drawScore(gc, i, draw_score[i]);
         }
     }
 
-    public void startGame(final Canvas canvas, String text) {
-        lastmove = new StartGame(text);
-        from = -1;
-        draw_targets = new int[64];
-        canvas.redraw();
-        canvas.update();
-    }
 
 }
