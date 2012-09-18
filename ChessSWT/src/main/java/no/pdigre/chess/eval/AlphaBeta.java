@@ -26,7 +26,7 @@ public class AlphaBeta {
 
                 @Override
                 public int compare(MoveEval o1, MoveEval o2) {
-                    return Integer.compare(o1.score, o2.score);
+                    return MoveEval.intCompare(o1.score, o2.score);
                 }
             });
         } else {
@@ -34,7 +34,7 @@ public class AlphaBeta {
 
                 @Override
                 public int compare(MoveEval o1, MoveEval o2) {
-                    return Integer.compare(o2.score, o1.score);
+                    return MoveEval.intCompare(o2.score, o1.score);
                 }
             });
         }
