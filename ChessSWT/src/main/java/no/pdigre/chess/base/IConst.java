@@ -27,13 +27,13 @@ public interface IConst {
 
     public final static int CASTLING_STATE = 15 << _CASTLING;
 
-    public final static int NOCASTLE_WHITEKING = 1 << (_CASTLING);
+    public final static int NOCASTLE_WHITEQUEEN = 1 << (_CASTLING);
 
-    public final static int NOCASTLE_WHITEQUEEN = 1 << (_CASTLING + 1);
+    public final static int NOCASTLE_WHITEKING = 1 << (_CASTLING + 1);
 
-    public final static int NOCASTLE_BLACKKING = 1 << (_CASTLING + 2);
+    public final static int NOCASTLE_BLACKQUEEN = 1 << (_CASTLING + 2);
 
-    public final static int NOCASTLE_BLACKQUEEN = 1 << (_CASTLING + 3);
+    public final static int NOCASTLE_BLACKKING = 1 << (_CASTLING + 3);
 
     public final static int _HALFMOVES = 24;
 
