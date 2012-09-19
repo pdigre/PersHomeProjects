@@ -72,7 +72,7 @@ public class StartGame implements IPosition {
                 enp=SPECIAL|PAWN|(enpassant-8)<<_FROM|(enpassant+8)<<_TO;
             }
         }
-        return (halfMoves<<_HALFMOVES)|(getCastlingState()<<_CASTLING)|(white?BLACK:0)|enp;
+        return (halfMoves<<_HALFMOVES)|getCastlingState()|(white?BLACK:0)|enp;
     }
 
 }
