@@ -10,8 +10,7 @@ import no.pdigre.chess.fen.IPosition;
  * 
  * @author Per Digre
  */
-public class ZobristKey implements IConst{
-
+public class ZobristKey implements IConst {
 
     public static long[] random64 = new long[] { 0x9D39247E33776D41L, 0x2AF7398005AAA5C7L, 0x44DB015024623547L,
         0x9C15F73E62A76AE2L, 0x75834465489C0C89L, 0x3290AC3A203001BFL, 0x0FBBAD1F61042279L, 0xE83A908FF2FB60CAL,
@@ -171,7 +170,6 @@ public class ZobristKey implements IConst{
         0xE21A6B35DF0C3AD7L, 0x003A93D8B2806962L, 0x1C99DED33CB890A1L, 0xCF3145DE0ADD4289L, 0xD0E4427A5514FB72L,
         0x77C621CC9FB3A483L, 0x67A34DAC4356550BL, 0xF8D626AAAF278509L };
 
- 
     /**
      * 
      */
@@ -204,36 +202,6 @@ public class ZobristKey implements IConst{
         }
         return 0;
     }
-    // public static long[] getKey(Board board) {
-    // long key[] = {0,0};
-    //
-    // long square = BitboardUtils.H1;
-    // byte index = 0;
-    // int color = 0;
-    // while (square != 0) {
-    // color = (square & board.whites) != 0 ? 0 : 1;
-    // key[color] ^= getKeyPieceIndex(index, board.getPieceAt(square));
-    // square <<= 1;
-    // index++;
-    // }
-    //
-    // if (board.getWhiteKingsideCastling()) key[0] ^= whiteKingSideCastling;
-    // if (board.getWhiteQueensideCastling()) key[0] ^= whiteQueenSideCastling;
-    // if (board.getBlackKingsideCastling()) key[1] ^= blackKingSideCastling;
-    // if (board.getBlackQueensideCastling()) key[1] ^= blackQueenSideCastling;
-    // // passant flags only when pawn can capture
-    // long passant = board.getPassantSquare();
-    // if ((passant !=0) &&
-    // (((!board.getTurn() && (((passant<<9) | (passant<<7)) & board.blacks &
-    // board.pawns) != 0)) ||
-    // ((board.getTurn() && (((passant>>>9) | (passant>>>7)) & board.whites &
-    // board.pawns) != 0)))) {
-    // color = board.getTurn() ? 0 : 1; // TODO test
-    // key[1-color] ^= passantFile[BitboardUtils.getFile(passant)];
-    // }
-    // if (board.getTurn()) key[0] ^= whiteMove;
-    // return key;
-    // }
 
     public static long getKey(IPosition pos) {
         long key = 0;
@@ -254,32 +222,27 @@ public class ZobristKey implements IConst{
             key ^= random64[771];
         // passant flags only when pawn can capture
         int enpassant = Bitmap.getEnpassant(bitmap);
-        if(enpassant!=-1){
-            int file = enpassant&7;
-            if(!Bitmap.white(bitmap)){
-                if(file!=0 && board[enpassant+7]==BLACK_PAWN)
-                    key ^= random64[file+772];
-                if(file!=7 && board[enpassant+9]==BLACK_PAWN)
-                    key ^= random64[file+772];
+        if (enpassant != -1) {
+            int file = enpassant & 7;
+            if (!Bitmap.white(bitmap)) {
+                if (file != 0 && board[enpassant - 7] == PAWN) {
+                    key ^= random64[file + 772];
+                } else if (file != 7 && board[enpassant - 9] == PAWN) {
+                    key ^= random64[file + 772];
+                }
             } else {
-                if(file!=0 && board[enpassant-7]==PAWN)
-                    key ^= random64[file+772];
-                if(file!=7 && board[enpassant+9]==PAWN)
-                    key ^= random64[file+772];
+                if (file != 0 && board[enpassant + 7] == BLACK_PAWN) {
+                    key ^= random64[file + 772];
+                } else if (file != 7 && board[enpassant + 9] == BLACK_PAWN) {
+                    key ^= random64[file + 772];
+                }
             }
         }
-        
-        // long passant = board.getPassantSquare();
-        // if ((passant !=0) &&
-        // (((!board.getTurn() && (((passant<<9) | (passant<<7)) & board.blacks
-        // & board.pawns) != 0)) ||
-        // ((board.getTurn() && (((passant>>>9) | (passant>>>7)) & board.whites
-        // & board.pawns) != 0)))) {
-        // color = board.getTurn() ? 0 : 1; // TODO test
-        // key[1-color] ^= passantFile[BitboardUtils.getFile(passant)];
-        // }
         if (!Bitmap.white(bitmap))
             key ^= random64[780];
         return key;
     }
+    
+    
+    
 }

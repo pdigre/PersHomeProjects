@@ -57,7 +57,7 @@ public class FileBook {
 	 * @param move
 	 * @return
 	 */
-	private String int2MoveString(int move) {
+	private static String int2MoveString(int move) {
 		StringBuffer sb = new StringBuffer();
 		sb.append((char)('a' + ((move >> 6) & 0x7)));
 		sb.append(((move >> 9) & 0x7) +1);
