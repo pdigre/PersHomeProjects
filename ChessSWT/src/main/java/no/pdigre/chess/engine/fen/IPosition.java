@@ -1,6 +1,6 @@
-package no.pdigre.chess.fen;
+package no.pdigre.chess.engine.fen;
 
-import no.pdigre.chess.base.IConst;
+import no.pdigre.chess.engine.base.IConst;
 
 public abstract interface IPosition extends IConst{
 

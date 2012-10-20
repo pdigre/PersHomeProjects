@@ -1,6 +1,6 @@
-package no.pdigre.chess.fen;
+package no.pdigre.chess.engine.fen;
 
-import no.pdigre.chess.base.Bitmap;
+import no.pdigre.chess.engine.base.Bitmap;
 
 public final class Move implements IPosition {
 

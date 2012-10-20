@@ -1,13 +1,13 @@
-package no.pdigre.chess.test;
+package no.pdigre.chess.test.engine;
 
 import static org.junit.Assert.assertEquals;
-import no.pdigre.chess.base.Bitmap;
-import no.pdigre.chess.base.NodeGen;
-import no.pdigre.chess.fen.FEN;
-import no.pdigre.chess.fen.IPosition;
-import no.pdigre.chess.fen.Move;
-import no.pdigre.chess.fen.PieceType;
-import no.pdigre.chess.fen.StartGame;
+import no.pdigre.chess.engine.base.Bitmap;
+import no.pdigre.chess.engine.base.NodeGen;
+import no.pdigre.chess.engine.fen.FEN;
+import no.pdigre.chess.engine.fen.IPosition;
+import no.pdigre.chess.engine.fen.Move;
+import no.pdigre.chess.engine.fen.PieceType;
+import no.pdigre.chess.engine.fen.StartGame;
 
 import org.junit.Test;
 

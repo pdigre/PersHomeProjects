@@ -1,4 +1,4 @@
-package no.pdigre.chess.fen;
+package no.pdigre.chess.engine.fen;
 
 
 public enum PieceType {

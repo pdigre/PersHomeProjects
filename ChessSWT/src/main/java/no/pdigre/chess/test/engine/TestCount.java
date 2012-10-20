@@ -1,9 +1,9 @@
-package no.pdigre.chess.test;
+package no.pdigre.chess.test.engine;
 
-import no.pdigre.chess.base.Bitmap;
-import no.pdigre.chess.base.IConst;
-import no.pdigre.chess.base.NodeGen;
-import no.pdigre.chess.test.StandardMovesTest.Counter;
+import no.pdigre.chess.engine.base.Bitmap;
+import no.pdigre.chess.engine.base.IConst;
+import no.pdigre.chess.engine.base.NodeGen;
+import no.pdigre.chess.test.engine.StandardMovesTest.Counter;
 
 public class TestCount {
 

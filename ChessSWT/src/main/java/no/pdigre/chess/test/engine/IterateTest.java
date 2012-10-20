@@ -1,10 +1,10 @@
-package no.pdigre.chess.test;
+package no.pdigre.chess.test.engine;
 
 import static org.junit.Assert.assertEquals;
-import no.pdigre.chess.eval.AlphaBeta;
-import no.pdigre.chess.eval.MoveEval;
-import no.pdigre.chess.fen.FEN;
-import no.pdigre.chess.fen.StartGame;
+import no.pdigre.chess.engine.eval.AlphaBeta;
+import no.pdigre.chess.engine.eval.MoveEval;
+import no.pdigre.chess.engine.fen.FEN;
+import no.pdigre.chess.engine.fen.StartGame;
 
 import org.junit.Test;
 

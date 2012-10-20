@@ -4,7 +4,7 @@ Bundle-Name: ChessSWT
 Bundle-SymbolicName: ChessSWT
 Bundle-Version: 1.0.0.qualifier
 Export-Package: no.pdigre.chess.swt,
- no.pdigre.chess.test
+ no.pdigre.chess.test.engine
 Bundle-ClassPath: .
 Require-Bundle: org.junit,org.eclipse.swt,
  org.eclipse.swt.win32.win32.x86.source

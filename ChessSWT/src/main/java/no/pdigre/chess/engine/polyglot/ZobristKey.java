@@ -1,8 +1,8 @@
-package no.pdigre.chess.polyglot;
+package no.pdigre.chess.engine.polyglot;
 
-import no.pdigre.chess.base.Bitmap;
-import no.pdigre.chess.base.IConst;
-import no.pdigre.chess.fen.IPosition;
+import no.pdigre.chess.engine.base.Bitmap;
+import no.pdigre.chess.engine.base.IConst;
+import no.pdigre.chess.engine.fen.IPosition;
 
 /**
  * Use Polyglot Zobrist hashkey format as in
@@ -12,6 +12,25 @@ import no.pdigre.chess.fen.IPosition;
  */
 public class ZobristKey implements IConst {
 
+    
+    long zobrist;
+    
+    public ZobristKey(long zobrist){
+        this.zobrist=zobrist;
+    }
+    
+    @Override
+    public int hashCode() {
+        return (int) zobrist;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof ZobristKey)
+            return ((ZobristKey) obj).zobrist==zobrist;
+        return super.equals(obj);
+    }
+    
     public static long[] random64 = new long[] { 0x9D39247E33776D41L, 0x2AF7398005AAA5C7L, 0x44DB015024623547L,
         0x9C15F73E62A76AE2L, 0x75834465489C0C89L, 0x3290AC3A203001BFL, 0x0FBBAD1F61042279L, 0xE83A908FF2FB60CAL,
         0x0D7E765D58755C10L, 0x1A083822CEAFE02DL, 0x9605D5F0E25EC3B0L, 0xD021FF5CD13A2ED5L, 0x40BDF15D4A672E32L,

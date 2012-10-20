@@ -1,4 +1,4 @@
-package no.pdigre.chess.base;
+package no.pdigre.chess.engine.base;
 
 
 public interface IConst {

@@ -1,4 +1,4 @@
-package no.pdigre.chess.fen;
+package no.pdigre.chess.engine.fen;
 
 public class StartingGames {
 	public static final String[] FEN_GAMES = new String[]{

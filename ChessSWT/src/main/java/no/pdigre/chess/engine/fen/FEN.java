@@ -1,8 +1,8 @@
-package no.pdigre.chess.fen;
+package no.pdigre.chess.engine.fen;
 
-import no.pdigre.chess.base.Bitmap;
-import no.pdigre.chess.base.IConst;
-import no.pdigre.chess.base.NodeGen;
+import no.pdigre.chess.engine.base.Bitmap;
+import no.pdigre.chess.engine.base.IConst;
+import no.pdigre.chess.engine.base.NodeGen;
 
 public class FEN implements IConst{
 

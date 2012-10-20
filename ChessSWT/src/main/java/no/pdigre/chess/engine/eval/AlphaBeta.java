@@ -1,11 +1,11 @@
-package no.pdigre.chess.eval;
+package no.pdigre.chess.engine.eval;
 
 import java.util.Arrays;
 import java.util.Comparator;
 
-import no.pdigre.chess.base.Bitmap;
-import no.pdigre.chess.base.IConst;
-import no.pdigre.chess.base.NodeGen;
+import no.pdigre.chess.engine.base.Bitmap;
+import no.pdigre.chess.engine.base.IConst;
+import no.pdigre.chess.engine.base.NodeGen;
 
 public class AlphaBeta {
 

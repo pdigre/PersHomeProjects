@@ -1,4 +1,4 @@
-package no.pdigre.chess.eval;
+package no.pdigre.chess.engine.eval;
 
 
 public class MoveEval implements Comparable<MoveEval>{
