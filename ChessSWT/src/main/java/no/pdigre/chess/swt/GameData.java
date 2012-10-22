@@ -2,7 +2,6 @@ package no.pdigre.chess.swt;
 
 import java.util.ArrayList;
 
-import org.eclipse.swt.graphics.GC;
 
 import no.pdigre.chess.engine.base.Bitmap;
 import no.pdigre.chess.engine.base.NodeGen;
@@ -83,7 +82,7 @@ public class GameData {
 		return list;
 	}
 
-	public ArrayList<Marking> markMovesForPiece(GC gc) {
+	public ArrayList<Marking> markMovesForPiece() {
 		ArrayList<Marking> list=new ArrayList<Marking>();
 		MoveEval[] moves = eval.moves;
 		list.add(new Marking(MarkingType.MoveFrom,from));

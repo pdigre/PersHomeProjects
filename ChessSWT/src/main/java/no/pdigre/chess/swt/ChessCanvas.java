@@ -21,8 +21,6 @@ import org.eclipse.swt.widgets.Display;
 
 public abstract class ChessCanvas extends Canvas {
 
-	GameData game = new GameData();
-
 	public boolean todo_board = false;
 	public boolean todo_pieces = false;
 	public boolean todo_markers = false;
@@ -47,12 +45,7 @@ public abstract class ChessCanvas extends Canvas {
 			@Override
 			public void mouseDown(MouseEvent e) {
 				if (e.button == 1) {
-					int i = findSquare(e.x, e.y);
-					if (game.draw_targets[i] != 0) {
-						makeMove(i);
-					} else {
-						markMoves(i);
-					}
+					selectSquare(findSquare(e.x, e.y));
 				} else if (e.button == 3) {
 					// right click
 				}
@@ -66,11 +59,7 @@ public abstract class ChessCanvas extends Canvas {
 		setLayoutData(new GridData(270, 270));
 	}
 
-	public abstract void markMoves(int i);
-
-	public abstract void makeMove(int i);
-
-	public void updateBoard(PaintEvent e) {
+	void updateBoard(PaintEvent e) {
 		if (todo_board) {
 			todo_board = false;
 			drawBoard(e.gc, (Canvas) e.widget);
@@ -78,46 +67,70 @@ public abstract class ChessCanvas extends Canvas {
 		if (todo_pieces) {
 			todo_pieces = false;
 			for (int i = 0; i < 64; i++)
-				drawPiece(e.gc, i, game.board[i]);
+				drawPiece(e.gc, i, getBoard()[i]);
 		}
 		if (todo_markers) {
 			todo_markers = false;
-			if (game.from == -1) {
-				markPiecesThatCanMove(e.gc);
+			if (pickingPiece()) {
+				ArrayList<Marking> list = markPiecesThatCanMove();
+                for (Marking mark : list) {
+                	drawFrame(e.gc, mark.pos,
+                			mark.type == MarkingType.BestMoveFrom ? SWT.COLOR_YELLOW
+                					: SWT.COLOR_GREEN);
+                }
 			} else {
-				markMovesForPiece(e.gc);
+				GC gc = e.gc;
+                ArrayList<Marking> list = markMovesForPiece();
+                for (Marking mark : list) {
+                	int color = SWT.COLOR_YELLOW;
+                	switch(mark.type){
+                	case MoveFrom:
+                		drawFrame(gc, mark.pos, SWT.COLOR_RED);
+                		break;
+                	case MoveTo:
+                		drawFrame(gc, mark.pos, color);
+                		color = SWT.COLOR_GREEN;
+                		drawScore(gc, mark.pos, mark.score);
+                		break;
+                	default:
+                		break;
+                	}
+                }
 			}
 		}
 	}
 
-	public void updateAll() {
+    protected abstract int[] getBoard();
+
+    protected abstract boolean pickingPiece();
+
+    protected abstract ArrayList<Marking> markPiecesThatCanMove();
+
+	protected abstract ArrayList<Marking> markMovesForPiece();
+
+	protected void updateAll() {
 		todo_board = true;
 		todo_pieces = true;
 		todo_markers = true;
 		updateCanvas();
 	}
 
-	public void updateBoard() {
+	protected void updateBoard() {
 		todo_board = true;
 		todo_pieces = true;
 		updateCanvas();
 	}
 
-	public void updateMarkers() {
+	protected void updateMarkers() {
 		todo_board = true;
 		todo_pieces = true;
 		todo_markers = true;
 		updateCanvas();
 	}
 
-	public void updateCanvas() {
+	protected void updateCanvas() {
 		redraw();
 		update();
-	}
-
-	public void drawPieces(GC gc) {
-		for (int i = 0; i < 64; i++)
-			drawPiece(gc, i, game.board[i]);
 	}
 
 	public static void drawBoard(GC gc, Canvas canvas) {
@@ -150,7 +163,9 @@ public abstract class ChessCanvas extends Canvas {
 				* PIECE_HEIGHT);
 	}
 
-	public static void drawSquare(GC gc, int i, int color) {
+	protected abstract void selectSquare(int i);
+
+    public static void drawSquare(GC gc, int i, int color) {
 		gc.setBackground(getBGColor(gc, i, color));
 		gc.fillRectangle(getRectangle(i));
 	}
@@ -189,35 +204,6 @@ public abstract class ChessCanvas extends Canvas {
 		if (x < 0 || x > 7 || y < 0 || y > 7)
 			return -1;
 		return x + y * 8;
-	}
-
-	public void markPiecesThatCanMove(GC gc) {
-		ArrayList<Marking> list = game.markPiecesThatCanMove();
-		for (Marking mark : list) {
-			drawFrame(gc, mark.pos,
-					mark.type == MarkingType.BestMoveFrom ? SWT.COLOR_YELLOW
-							: SWT.COLOR_GREEN);
-		}
-	}
-
-
-	public void markMovesForPiece(GC gc) {
-		ArrayList<Marking> list = game.markMovesForPiece(gc);
-		for (Marking mark : list) {
-			int color = SWT.COLOR_YELLOW;
-			switch(mark.type){
-			case MoveFrom:
-				drawFrame(gc, mark.pos, SWT.COLOR_RED);
-				break;
-			case MoveTo:
-				drawFrame(gc, mark.pos, color);
-				color = SWT.COLOR_GREEN;
-				drawScore(gc, mark.pos, mark.score);
-				break;
-			default:
-				break;
-			}
-		}
 	}
 
 

@@ -1,5 +1,7 @@
 package no.pdigre.chess.swt;
 
+import java.util.ArrayList;
+
 import no.pdigre.chess.engine.fen.IPosition;
 import no.pdigre.chess.engine.fen.StartGame;
 import no.pdigre.chess.engine.fen.StartingGames;
@@ -13,24 +15,48 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 public class ChessDialog {
-    public ChessCanvas canvas;
-    
-    public ChessDialog(){
-    	Shell shell = new Shell(new Display());
-        canvas = new ChessCanvas(shell, SWT.None){
-        	public void markMoves(int i) {
-        		game.markToMoves(i);
-        		updateAll();
-        	}
 
-        	public void makeMove(int i) {
-        		game.makeMove(i);
-        		updateAll();
-        	}
+    ChessCanvas canvas;
+
+    GameData game = new GameData();
+
+
+    public ChessDialog(Shell shell) {
+        canvas = new ChessCanvas(shell, SWT.None) {
+
+            @Override
+            protected ArrayList<Marking> markMovesForPiece() {
+                return game.markMovesForPiece();
+            }
+
+            @Override
+            protected ArrayList<Marking> markPiecesThatCanMove() {
+                return game.markPiecesThatCanMove();
+            }
+
+            @Override
+            protected boolean pickingPiece() {
+                return game.from == -1;
+            }
+
+            @Override
+            protected void selectSquare(int i) {
+                if (game.draw_targets[i] != 0) {
+                    game.makeMove(i);
+                    updateAll();
+                } else {
+                    game.markToMoves(i);
+                    updateAll();
+                }
+            }
+
+            @Override
+            protected int[] getBoard() {
+                return game.board;
+            }
         };
         shell.setLayout(new GridLayout(2, false));
         shell.setSize(500, 350);
@@ -43,7 +69,7 @@ public class ChessDialog {
 
             @Override
             public void modifyText(ModifyEvent e) {
-            	setup(new StartGame(cc.getText()));
+                setup(new StartGame(cc.getText()));
             }
 
         });
@@ -62,32 +88,21 @@ public class ChessDialog {
                 // not
             }
         });
-    	shell.open();
+        shell.open();
     }
 
     public void setup(IPosition startGame) {
-    	canvas.game.setup(startGame);
-    	canvas.updateBoard();
+        game.setup(startGame);
+        canvas.updateBoard();
 
-		new Thread(new Runnable() {
+        new Thread(new Runnable() {
 
-			@Override
-			public void run() {
-				canvas.game.analyzeMarkers();
-				canvas.updateMarkers();
-			}
-		}).run();
-    }
-
-	public void run() {
-        Shell shell = canvas.getShell();
-        Display display = shell.getDisplay();
-        while (!shell.isDisposed()) {
-            if (!display.readAndDispatch())
-                display.sleep();
-
-        }
-        display.dispose();
+            @Override
+            public void run() {
+                game.analyzeMarkers();
+                canvas.updateMarkers();
+            }
+        }).run();
     }
 
 }
