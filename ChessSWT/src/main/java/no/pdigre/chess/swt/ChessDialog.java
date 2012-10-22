@@ -3,6 +3,8 @@ package no.pdigre.chess.swt;
 import java.util.ArrayList;
 
 import no.pdigre.chess.engine.fen.IPosition;
+import no.pdigre.chess.engine.fen.Move;
+import no.pdigre.chess.engine.fen.PieceType;
 import no.pdigre.chess.engine.fen.StartGame;
 import no.pdigre.chess.engine.fen.StartingGames;
 
@@ -23,29 +25,14 @@ public class ChessDialog {
 
     GameData game = new GameData();
 
-
     public ChessDialog(Shell shell) {
         canvas = new ChessCanvas(shell, SWT.None) {
 
             @Override
-            protected ArrayList<Marking> markMovesForPiece() {
-                return game.markMovesForPiece();
-            }
-
-            @Override
-            protected ArrayList<Marking> markPiecesThatCanMove() {
-                return game.markPiecesThatCanMove();
-            }
-
-            @Override
-            protected boolean pickingPiece() {
-                return game.from == -1;
-            }
-
-            @Override
-            protected void selectSquare(int i) {
+            protected void selectSquareEvent(int i) {
                 if (game.draw_targets[i] != 0) {
-                    game.makeMove(i);
+                    Move move = game.makeMove(i);
+                    setup(move);
                     updateAll();
                 } else {
                     game.markToMoves(i);
@@ -54,8 +41,19 @@ public class ChessDialog {
             }
 
             @Override
-            protected int[] getBoard() {
-                return game.board;
+            protected String getImage(int i) {
+                int type = game.board[i];
+                if (type == 0)
+                    return null;
+                PieceType ptype = PieceType.types[type];
+                String filename = (ptype.fen > 'Z' ? "b" + ptype.fen + ".gif" : "w" + ptype.fen + ".gif")
+                    .toLowerCase();
+                return filename;
+            }
+
+            @Override
+            protected ArrayList<Marking> getMarkings() {
+                return game.getMarkings();
             }
         };
         shell.setLayout(new GridLayout(2, false));
