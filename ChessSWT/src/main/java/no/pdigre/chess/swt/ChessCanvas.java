@@ -3,8 +3,8 @@ package no.pdigre.chess.swt;
 import java.util.ArrayList;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Color;
@@ -19,11 +19,11 @@ import org.eclipse.swt.widgets.Display;
 
 public abstract class ChessCanvas extends Canvas {
 
-    public boolean todo_board = false;
+    private boolean todo_board = false;
 
-    public boolean todo_pieces = false;
+    private boolean todo_pieces = false;
 
-    public boolean todo_markers = false;
+    private boolean todo_markers = false;
 
     public ChessCanvas(Composite parent, int style) {
         super(parent, style);
@@ -35,12 +35,7 @@ public abstract class ChessCanvas extends Canvas {
             }
 
         });
-        addMouseListener(new MouseListener() {
-
-            @Override
-            public void mouseUp(MouseEvent e) {
-                // TODO Auto-generated method stub
-            }
+        addMouseListener(new MouseAdapter() {
 
             @Override
             public void mouseDown(MouseEvent e) {
@@ -50,11 +45,6 @@ public abstract class ChessCanvas extends Canvas {
                     // right click
                 }
             }
-
-            @Override
-            public void mouseDoubleClick(MouseEvent e) {
-                // TODO Auto-generated method stub
-            }
         });
         setLayoutData(new GridData(270, 270));
     }
@@ -62,7 +52,11 @@ public abstract class ChessCanvas extends Canvas {
     void updateBoard(PaintEvent e) {
         if (todo_board) {
             todo_board = false;
-            drawBoard(e.gc, (Canvas) e.widget);
+            GC gc = e.gc;
+            Rectangle area = ((Canvas) e.widget).getClientArea();
+            gc.drawRectangle(area.x + 1, area.y + 1, area.width - 2, area.height - 2);
+            for (int i = 0; i < 64; i++)
+                drawSquare(gc, i, 0);
         }
         if (todo_pieces) {
             todo_pieces = false;
@@ -71,8 +65,8 @@ public abstract class ChessCanvas extends Canvas {
         }
         if (todo_markers) {
             todo_markers = false;
+            int color = SWT.COLOR_YELLOW;
             for (Marking mark : getMarkings()) {
-                int color = SWT.COLOR_YELLOW;
                 switch (mark.type) {
                     case BestMoveFrom:
                         drawFrame(e.gc, mark.pos,SWT.COLOR_YELLOW);
@@ -124,22 +118,15 @@ public abstract class ChessCanvas extends Canvas {
         update();
     }
 
-    public static void drawBoard(GC gc, Canvas canvas) {
-        Rectangle area = canvas.getClientArea();
-        gc.drawRectangle(area.x + 1, area.y + 1, area.width - 2, area.height - 2);
-        for (int i = 0; i < 64; i++)
-            drawSquare(gc, i, 0);
-    }
+    private static final int PIECE_HEIGHT = 32;
 
-    public static final int PIECE_HEIGHT = 32;
+    private static final int PIECE_WIDTH = 32;
 
-    public static final int PIECE_WIDTH = 32;
+    private static final int BOARD_OFFSET = PIECE_HEIGHT * 8 - 24;
 
-    public static final int BOARD_OFFSET = PIECE_HEIGHT * 8 - 24;
+    private static final int BOARD_MARGIN = PIECE_WIDTH - 24;
 
-    public static final int BOARD_MARGIN = PIECE_WIDTH - 24;
-
-    public void drawPiece(GC gc, int i, String filename) {
+    private void drawPiece(GC gc, int i, String filename) {
         if (filename == null)
             return;
         int x = i % 8;
@@ -151,39 +138,39 @@ public abstract class ChessCanvas extends Canvas {
 
     protected abstract void selectSquareEvent(int i);
 
-    public static void drawSquare(GC gc, int i, int color) {
+    private static void drawSquare(GC gc, int i, int color) {
         gc.setBackground(getBGColor(gc, i, color));
         gc.fillRectangle(getRectangle(i));
     }
 
-    public static void drawFrame(GC gc, int i, int color) {
+    private static void drawFrame(GC gc, int i, int color) {
         gc.setForeground(getBGColor(gc, i, color));
         gc.drawRectangle(getRectangle(i));
     }
 
-    public static void drawScore(GC gc, int i, int score) {
+    private static void drawScore(GC gc, int i, int score) {
         Rectangle r = getRectangle(i);
         gc.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_CYAN));
         gc.drawText(Integer.toString(score), r.x, r.y);
     }
 
-    public static Color getBGColor(GC gc, int i, int color) {
+    private static Color getBGColor(GC gc, int i, int color) {
         if (color == 0)
             color = isBlack(i) ? SWT.COLOR_DARK_GRAY : SWT.COLOR_GRAY;
         return gc.getDevice().getSystemColor(color);
     }
 
-    public static boolean isBlack(int i) {
+    private final static boolean isBlack(int i) {
         return (i % 8 + (i - i % 8) / 8) % 2 == 0;
     }
 
-    public static Rectangle getRectangle(int i) {
+    private final static Rectangle getRectangle(int i) {
         int x = i % 8;
         return new Rectangle(BOARD_MARGIN + x * PIECE_WIDTH, BOARD_OFFSET - ((i - x) / 8) * PIECE_HEIGHT,
             PIECE_WIDTH - 1, PIECE_HEIGHT - 1);
     }
 
-    public static int findSquare(int ex, int ey) {
+    final static int findSquare(int ex, int ey) {
         int x = (ex - BOARD_MARGIN) / PIECE_WIDTH;
         int y = (BOARD_OFFSET - ey + PIECE_HEIGHT) / PIECE_HEIGHT;
         if (x < 0 || x > 7 || y < 0 || y > 7)

@@ -2,8 +2,6 @@ package no.pdigre.chess.swt;
 
 import java.util.ArrayList;
 
-import no.pdigre.chess.engine.fen.IPosition;
-import no.pdigre.chess.engine.fen.Move;
 import no.pdigre.chess.engine.fen.PieceType;
 import no.pdigre.chess.engine.fen.StartGame;
 import no.pdigre.chess.engine.fen.StartingGames;
@@ -12,8 +10,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -23,21 +21,26 @@ public class ChessDialog {
 
     ChessCanvas canvas;
 
-    GameData game = new GameData();
+    GameData game = new GameData() {
+
+        @Override
+        protected void updateBoard() {
+            canvas.updateBoard();
+        }
+
+        @Override
+        protected void updateMarkers() {
+            canvas.updateMarkers();
+        }
+    };
 
     public ChessDialog(Shell shell) {
         canvas = new ChessCanvas(shell, SWT.None) {
 
             @Override
             protected void selectSquareEvent(int i) {
-                if (game.draw_targets[i] != 0) {
-                    Move move = game.makeMove(i);
-                    setup(move);
-                    updateAll();
-                } else {
-                    game.markToMoves(i);
-                    updateAll();
-                }
+                game.clickSquare(i);
+                updateAll();
             }
 
             @Override
@@ -67,40 +70,22 @@ public class ChessDialog {
 
             @Override
             public void modifyText(ModifyEvent e) {
-                setup(new StartGame(cc.getText()));
+                game.setup(new StartGame(cc.getText()));
             }
 
         });
-        cc.addSelectionListener(new SelectionListener() {
+        cc.addSelectionListener(new SelectionAdapter() {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
                 int i = cc.getSelectionIndex();
                 if (i < 0)
                     return;
-                setup(new StartGame(cc.getText()));
-            }
-
-            @Override
-            public void widgetDefaultSelected(SelectionEvent e) {
-                // not
+                game.setup(new StartGame(cc.getText()));
             }
         });
         shell.open();
-    }
-
-    public void setup(IPosition startGame) {
-        game.setup(startGame);
-        canvas.updateBoard();
-
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                game.analyzeMarkers();
-                canvas.updateMarkers();
-            }
-        }).run();
+        game.setup(new StartGame(StartingGames.FEN_GAMES[0]));
     }
 
 }
