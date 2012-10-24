@@ -1,8 +1,8 @@
 package no.pdigre.chess.swt;
 
-public class Manual extends Player {
+public class ManualWithHelp extends Player {
 
-    public Manual(GameData gameData) {
+    public ManualWithHelp(GameData gameData) {
         super(gameData);
     }
 
@@ -12,7 +12,7 @@ public class Manual extends Player {
 
             @Override
             public void run() {
-                game.manual();
+                game.manualWithHelp();
                 game.updateMarkers();
             }
         }).run();

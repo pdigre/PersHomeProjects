@@ -28,20 +28,23 @@ public abstract class GameData {
 
     Player black = new Novice(this);
     
-    Player player;
-
     public void setup(IPosition move) {
         lastmove = move;
         board = lastmove.getBoard();
         from = -1;
         updateBoard();
-        player=lastmove.whiteTurn()?white:black;
+        Player player=lastmove.whiteTurn()?white:black;
         player.run();
     }
 
-    public void analyzeMarkers() {
-        eval = new AlphaBeta(lastmove.getBoard(), lastmove.getInherit(), 5);
+    public void manual() {
         System.out.println(FEN.getFen(lastmove));
+        eval= new JustMoves(lastmove.getBoard(), lastmove.getInherit());
+    }
+
+    public void manualWithHelp() {
+        System.out.println(FEN.getFen(lastmove));
+        eval = new AlphaBeta(lastmove.getBoard(), lastmove.getInherit(), 5);
         draw_targets = new int[64];
         draw_score = new int[64];
         MoveEval[] moves = eval.moves;

@@ -6,6 +6,7 @@ import java.util.Comparator;
 import no.pdigre.chess.engine.base.Bitmap;
 import no.pdigre.chess.engine.base.IConst;
 import no.pdigre.chess.engine.base.NodeGen;
+import no.pdigre.chess.engine.fen.FEN;
 
 public class AlphaBeta {
 
@@ -49,7 +50,7 @@ public class AlphaBeta {
     }
 
     public final int whiteMove(int whiteBest, int blackBest, int depthleft, int[] board0, int bitmap0, int score0) {
-        int score1 = evalWhiteMove(bitmap0, board0, score0);
+        int score1 = evalWhiteMove(bitmap0, board0, score0,depthleft);
         if (depthleft == 0)
             return score1;
         depthleft--;
@@ -70,7 +71,7 @@ public class AlphaBeta {
     }
 
     public final int blackMove(int whiteBest, int blackBest, int depthleft, int[] board0, int bitmap0, int score0) {
-        int score1 = evalBlackMove(bitmap0, board0, score0);
+        int score1 = evalBlackMove(bitmap0, board0, score0,depthleft);
         if (depthleft == 0)
             return score1;
         depthleft--;
@@ -92,16 +93,34 @@ public class AlphaBeta {
 
     /**
      * @param board
+     * @param depthleft 
      */
-    public final static int evalWhiteMove(int bitmap, int[] board, int score) {
-        return score - capturedValue(bitmap);
+    public final int evalWhiteMove(int bitmap, int[] board, int score, int depthleft) {
+        int capturedValue = capturedValue(bitmap);
+        int i = score - capturedValue;
+//        printStack(bitmap,board, capturedValue, i,depthleft);
+        return i;
     }
 
     /**
      * @param board
+     * @param depthleft 
      */
-    public final static int evalBlackMove(int bitmap, int[] board, int score) {
-        return score + capturedValue(bitmap);
+    public final int evalBlackMove(int bitmap, int[] board, int score, int depthleft) {
+        int capturedValue = capturedValue(bitmap);
+        int i = score + capturedValue;
+//        printStack(bitmap,board, capturedValue, i,depthleft);
+        return i;
+    }
+
+    protected void printStack(int bitmap,int[] board, int capturedValue, int total, int depthleft) {
+        if(capturedValue!=0){
+            for (int j = stack.length-1; j >= depthleft; j--) {
+                int bit = stack[j];
+                System.out.print(FEN.printMove(bit, board) + " ");
+            }
+            System.out.println(FEN.printMove(bitmap, board) + " "+total);
+        }
     }
 
     /**
