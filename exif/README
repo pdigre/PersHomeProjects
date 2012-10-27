@@ -1,0 +1,87 @@
+JHeader version 0.1
+Copyright (C) 2006 Matthew Baker
+Email msb@safe-mail.net
+Project URL: www.sourceforge.net/jheader
+
+Released under the GNU General Public Licence.  See file LICENCE.  To use
+this product in a closed-source product, please contact Matthew Baker on
+the above email address for information about licensing.
+
+DESCRIPTION
+
+JHeader is a Java library for reading and editing EXIF and JFIF headers in
+JPEG files.  It also comes with a command line tool and a GUI tool.
+
+Features include:
+   - Display and edit any recognized EXIF tag
+   - Add and remove EXIF tags
+   - Convert JFIF files to EXIF and vice versa
+   - Create and extract thumbnails from EXIF and JFIF headers
+   - View and edit JPEG file comments
+   - A command line tool for performing some operations
+   - A GUI tool and a useful JTable component for performing some operations
+
+The library is designed to make it simple to display, in a moderately
+attractive manner, all tags in a file without the programmer having to
+know what they are called or what their types are.  Also, any EXIF tag
+can be set from a string.  If the string cannot be parsed into the
+tag's required type (for example trying to assign text to a numeric
+tag), an exception is thrown.
+
+The tags are moderately strongly typed: they are either Long, Double, String,
+Rational, DateTimeTag, UndefinedTag or a subclass of EnumeratedTag.  It is
+possible to convert between tag types where it makes sense to do so.  In
+particular, every type can be converted to and from a String.
+
+Numeric tags which can take a discrete set of enumerated values have
+an associated type derived from the EnumeratedTag class.  It defines
+the set of allowable values and allows the caller to list the
+allowable values, both as numbers and as a more user-friendly string.
+You don't have to use these classes - you can refer purely to the base
+EnumeratedTag class or else just fetch and edit the tag as a Long.
+
+REQUIREMENTS
+
+JHeader is written in Java and requires version 1.5 to compile and run.  It
+requires ant to compile.
+
+BUILDING
+
+JHeader is available as source and binary distributions.  If you don't want
+to build, download the binary distribution.  To build, type
+
+   ant dist
+
+You can build the javadocs with
+
+   ant javadoc
+
+USAGE
+
+There are some examples in the examples directory of the source distribution.
+The command line tool, CJHeaderTool, and the GUI tool, JHeaderTool, are more
+elaborate examples and illustrate most of the library's functionality.  The
+javadocs (build them with ant javadoc) are quite detailed.
+
+To see the command line usage for CJheaderTool, type
+
+    java net.sourceforge.jheader.CJHeaderTool -help
+
+The command line usage for JHeaderTool is
+
+    java net.sourceforge.jheader.gui.JHeaderTool [jpeg-file]
+
+or
+
+    java -jar jheadertool-0.1.jar
+
+TO DO
+
+Support has been coded for a good deal more cameras than have been
+tested.  The author only has access to a limited number of cameras.
+It is likely, therefore, that there are bugs.  Please contact the
+author if you find any.  Also please contact the author if you have
+Makernote details on any camera that is not supported.
+
+Matthew Baker
+July 2006
