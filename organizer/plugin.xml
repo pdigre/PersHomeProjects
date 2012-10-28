@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.propertyPages">
+      <page
+            name="Sample Page"
+            nameFilter="*.jpg"
+            class="organizer.properties.SamplePropertyPage"
+            id="organizer.properties.samplePropertyPage">
+         <enabledWhen>
+            <instanceof
+                  value="org.eclipse.core.resources.IFile">
+            </instanceof>
+         </enabledWhen>
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.propertiesView">
+      <excludeSources
+            id="organizer.excludeSources1">
+      </excludeSources>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.contentTypes">
+      <content-type
+            describer="organizer.properties.ContentDescriber"
+            file-extensions="jpg"
+            id="organizer.jpg"
+            name="Photo"
+            priority="normal">
+      </content-type>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            adaptableType="org.eclipse.core.resources.IResource"
+            class="organizer.AdapterFactory">
+         <adapter
+               type="org.eclipse.ui.views.properties.IPropertySource">
+         </adapter>
+      </factory>
+      <factory
+            adaptableType="org.eclipse.jface.viewers.ISelection"
+            class="organizer.AdapterFactory2">
+         <adapter
+               type="org.eclipse.jface.viewers.ISelection">
+         </adapter>
+      </factory>
+   </extension>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup
+            class="organizer.Startup">
+      </startup>
+   </extension>
+
+</plugin>
