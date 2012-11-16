@@ -1,0 +1,304 @@
+
+Canon_AebSequenceAutoCancellation.java,209
+public class Canon_AebSequenceAutoCancellation Canon_AebSequenceAutoCancellation6,102
+    public Canon_AebSequenceAutoCancellation(Canon_AebSequenceAutoCancellation.Canon_AebSequenceAutoCancellation26,740
+
+Canon_AfAssistLight.java,139
+public class Canon_AfAssistLight Canon_AfAssistLight6,102
+    public Canon_AfAssistLight(Canon_AfAssistLight.Canon_AfAssistLight22,400
+
+Canon_AfSelectionPoint.java,154
+public class Canon_AfSelectionPoint Canon_AfSelectionPoint6,102
+    public Canon_AfSelectionPoint(Canon_AfSelectionPoint.Canon_AfSelectionPoint28,636
+
+Canon_AutoReductionOfFillFlash.java,194
+public class Canon_AutoReductionOfFillFlash Canon_AutoReductionOfFillFlash6,102
+    public Canon_AutoReductionOfFillFlash(Canon_AutoReductionOfFillFlash.Canon_AutoReductionOfFillFlash22,439
+
+Canon_ContinuousDriveMode.java,169
+public class Canon_ContinuousDriveMode Canon_ContinuousDriveMode6,102
+    public Canon_ContinuousDriveMode(Canon_ContinuousDriveMode.Canon_ContinuousDriveMode22,438
+
+Canon_Contrast.java,114
+public class Canon_Contrast Canon_Contrast6,102
+    public Canon_Contrast(Canon_Contrast.Canon_Contrast24,464
+
+Canon_EasyShootingMode.java,155
+public class Canon_EasyShootingMode Canon_EasyShootingMode6,102
+    public Canon_EasyShootingMode(Canon_EasyShootingMode.Canon_EasyShootingMode42,1086
+
+Canon_ExposureMode.java,134
+public class Canon_ExposureMode Canon_ExposureMode6,102
+    public Canon_ExposureMode(Canon_ExposureMode.Canon_ExposureMode30,703
+
+Canon_FlashBias.java,120
+public class Canon_FlashBias Canon_FlashBias6,102
+    public Canon_FlashBias(Canon_FlashBias.Canon_FlashBias52,1610
+
+Canon_FlashDetails.java,134
+public class Canon_FlashDetails Canon_FlashDetails6,102
+    public Canon_FlashDetails(Canon_FlashDetails.Canon_FlashDetails24,506
+
+Canon_FlashMode.java,119
+public class Canon_FlashMode Canon_FlashMode6,102
+    public Canon_FlashMode(Canon_FlashMode.Canon_FlashMode34,965
+
+Canon_FocusMode.java,119
+public class Canon_FocusMode Canon_FocusMode6,102
+    public Canon_FocusMode(Canon_FocusMode.Canon_FocusMode32,715
+
+Canon_FocusModeG1.java,129
+public class Canon_FocusModeG1 Canon_FocusModeG16,102
+    public Canon_FocusModeG1(Canon_FocusModeG1.Canon_FocusModeG122,422
+
+Canon_ImageSize.java,119
+public class Canon_ImageSize Canon_ImageSize6,102
+    public Canon_ImageSize(Canon_ImageSize.Canon_ImageSize24,460
+
+Canon_Iso.java,89
+public class Canon_Iso Canon_Iso6,102
+    public Canon_Iso(Canon_Iso.Canon_Iso24,485
+
+Canon_LensAfButtonFnSwitch.java,174
+public class Canon_LensAfButtonFnSwitch Canon_LensAfButtonFnSwitch6,102
+    public Canon_LensAfButtonFnSwitch(Canon_LensAfButtonFnSwitch.Canon_LensAfButtonFnSwitch24,522
+
+Canon_LongExposureNoiseReduction.java,204
+public class Canon_LongExposureNoiseReduction Canon_LongExposureNoiseReduction6,102
+    public Canon_LongExposureNoiseReduction(Canon_LongExposureNoiseReduction.Canon_LongExposureNoiseReduction22,419
+
+Canon_MacroMode.java,119
+public class Canon_MacroMode Canon_MacroMode6,102
+    public Canon_MacroMode(Canon_MacroMode.Canon_MacroMode22,403
+
+Canon_MenuButtonReturnPosition.java,194
+public class Canon_MenuButtonReturnPosition Canon_MenuButtonReturnPosition6,102
+    public Canon_MenuButtonReturnPosition(Canon_MenuButtonReturnPosition.Canon_MenuButtonReturnPosition24,528
+
+Canon_MeteringMode.java,134
+public class Canon_MeteringMode Canon_MeteringMode6,102
+    public Canon_MeteringMode(Canon_MeteringMode.Canon_MeteringMode24,508
+
+Canon_MirrorLockup.java,134
+public class Canon_MirrorLockup Canon_MirrorLockup6,102
+    public Canon_MirrorLockup(Canon_MirrorLockup.Canon_MirrorLockup22,415
+
+Canon_Saturation.java,124
+public class Canon_Saturation Canon_Saturation6,102
+    public Canon_Saturation(Canon_Saturation.Canon_Saturation24,468
+
+Canon_SensorCleaning.java,144
+public class Canon_SensorCleaning Canon_SensorCleaning6,102
+    public Canon_SensorCleaning(Canon_SensorCleaning.Canon_SensorCleaning22,419
+
+Canon_SetButtonFuncWhenShooting.java,199
+public class Canon_SetButtonFuncWhenShooting Canon_SetButtonFuncWhenShooting6,102
+    public Canon_SetButtonFuncWhenShooting(Canon_SetButtonFuncWhenShooting.Canon_SetButtonFuncWhenShooting26,655
+
+Canon_Sharpness.java,119
+public class Canon_Sharpness Canon_Sharpness6,102
+    public Canon_Sharpness(Canon_Sharpness.Canon_Sharpness24,466
+
+Canon_ShutterAeLockButtons.java,174
+public class Canon_ShutterAeLockButtons Canon_ShutterAeLockButtons6,102
+    public Canon_ShutterAeLockButtons(Canon_ShutterAeLockButtons.Canon_ShutterAeLockButtons26,614
+
+Canon_ShutterCurtainSync.java,164
+public class Canon_ShutterCurtainSync Canon_ShutterCurtainSync6,102
+    public Canon_ShutterCurtainSync(Canon_ShutterCurtainSync.Canon_ShutterCurtainSync22,494
+
+Canon_ShutterSpeedInAvMode.java,174
+public class Canon_ShutterSpeedInAvMode Canon_ShutterSpeedInAvMode6,102
+    public Canon_ShutterSpeedInAvMode(Canon_ShutterSpeedInAvMode.Canon_ShutterSpeedInAvMode22,452
+
+Canon_TvAvExposureLevel.java,159
+public class Canon_TvAvExposureLevel Canon_TvAvExposureLevel6,102
+    public Canon_TvAvExposureLevel(Canon_TvAvExposureLevel.Canon_TvAvExposureLevel22,440
+
+Canon_WhiteBalance.java,134
+public class Canon_WhiteBalance Canon_WhiteBalance6,102
+    public Canon_WhiteBalance(Canon_WhiteBalance.Canon_WhiteBalance32,721
+
+Casio_CcdSensitivity.java,144
+public class Casio_CcdSensitivity Casio_CcdSensitivity6,102
+    public Casio_CcdSensitivity(Casio_CcdSensitivity.Casio_CcdSensitivity36,889
+
+Casio_Contrast.java,114
+public class Casio_Contrast Casio_Contrast6,102
+    public Casio_Contrast(Casio_Contrast.Casio_Contrast24,449
+
+Casio_DigitalZoom.java,129
+public class Casio_DigitalZoom Casio_DigitalZoom6,102
+    public Casio_DigitalZoom(Casio_DigitalZoom.Casio_DigitalZoom21,392
+
+Casio_FlashIntensity.java,144
+public class Casio_FlashIntensity Casio_FlashIntensity6,102
+    public Casio_FlashIntensity(Casio_FlashIntensity.Casio_FlashIntensity24,473
+
+Casio_FlashMode.java,119
+public class Casio_FlashMode Casio_FlashMode6,102
+    public Casio_FlashMode(Casio_FlashMode.Casio_FlashMode26,532
+
+Casio_FocussingMode.java,139
+public class Casio_FocussingMode Casio_FocussingMode6,102
+    public Casio_FocussingMode(Casio_FocussingMode.Casio_FocussingMode26,543
+
+Casio_Quality.java,109
+public class Casio_Quality Casio_Quality6,102
+    public Casio_Quality(Casio_Quality.Casio_Quality24,460
+
+Casio_RecordingMode.java,139
+public class Casio_RecordingMode Casio_RecordingMode6,102
+    public Casio_RecordingMode(Casio_RecordingMode.Casio_RecordingMode28,654
+
+Casio_Saturation.java,124
+public class Casio_Saturation Casio_Saturation6,102
+    public Casio_Saturation(Casio_Saturation.Casio_Saturation24,453
+
+Casio_Sharpness.java,119
+public class Casio_Sharpness Casio_Sharpness6,102
+    public Casio_Sharpness(Casio_Sharpness.Casio_Sharpness24,454
+
+Casio_WhiteBalance.java,134
+public class Casio_WhiteBalance Casio_WhiteBalance6,102
+    public Casio_WhiteBalance(Casio_WhiteBalance.Casio_WhiteBalance30,672
+
+CfaPattern.java,94
+public class CfaPattern CfaPattern6,102
+    public CfaPattern(CfaPattern.CfaPattern32,668
+
+ColorSpace.java,94
+public class ColorSpace ColorSpace6,102
+    public ColorSpace(ColorSpace.ColorSpace22,409
+
+Compression.java,99
+public class Compression Compression6,102
+    public Compression(Compression.Compression22,386
+
+ExposureProgram.java,119
+public class ExposureProgram ExposureProgram6,102
+    public ExposureProgram(ExposureProgram.ExposureProgram36,916
+
+FileSource.java,94
+public class FileSource FileSource6,102
+    public FileSource(FileSource.FileSource20,363
+
+Flash.java,69
+public class Flash Flash6,102
+    public Flash(Flash.Flash28,739
+
+Fujifilm_AeWarning.java,134
+public class Fujifilm_AeWarning Fujifilm_AeWarning6,102
+    public Fujifilm_AeWarning(Fujifilm_AeWarning.Fujifilm_AeWarning22,418
+
+Fujifilm_BlurWarning.java,144
+public class Fujifilm_BlurWarning Fujifilm_BlurWarning6,102
+    public Fujifilm_BlurWarning(Fujifilm_BlurWarning.Fujifilm_BlurWarning22,429
+
+Fujifilm_Color.java,114
+public class Fujifilm_Color Fujifilm_Color6,102
+    public Fujifilm_Color(Fujifilm_Color.Fujifilm_Color24,453
+
+Fujifilm_ContTake.java,129
+public class Fujifilm_ContTake Fujifilm_ContTake6,102
+    public Fujifilm_ContTake(Fujifilm_ContTake.Fujifilm_ContTake22,389
+
+Fujifilm_FlashMode.java,134
+public class Fujifilm_FlashMode Fujifilm_FlashMode6,102
+    public Fujifilm_FlashMode(Fujifilm_FlashMode.Fujifilm_FlashMode26,538
+
+Fujifilm_FocusMode.java,134
+public class Fujifilm_FocusMode Fujifilm_FocusMode6,102
+    public Fujifilm_FocusMode(Fujifilm_FocusMode.Fujifilm_FocusMode22,418
+
+Fujifilm_FocusWarning.java,149
+public class Fujifilm_FocusWarning Fujifilm_FocusWarning6,102
+    public Fujifilm_FocusWarning(Fujifilm_FocusWarning.Fujifilm_FocusWarning22,431
+
+Fujifilm_Macro.java,114
+public class Fujifilm_Macro Fujifilm_Macro6,102
+    public Fujifilm_Macro(Fujifilm_Macro.Fujifilm_Macro22,383
+
+Fujifilm_PictureMode.java,144
+public class Fujifilm_PictureMode Fujifilm_PictureMode6,102
+    public Fujifilm_PictureMode(Fujifilm_PictureMode.Fujifilm_PictureMode36,963
+
+Fujifilm_Sharpness.java,134
+public class Fujifilm_Sharpness Fujifilm_Sharpness6,102
+    public Fujifilm_Sharpness(Fujifilm_Sharpness.Fujifilm_Sharpness28,594
+
+Fujifilm_SlowSync.java,129
+public class Fujifilm_SlowSync Fujifilm_SlowSync6,102
+    public Fujifilm_SlowSync(Fujifilm_SlowSync.Fujifilm_SlowSync22,389
+
+Fujifilm_Tone.java,109
+public class Fujifilm_Tone Fujifilm_Tone6,102
+    public Fujifilm_Tone(Fujifilm_Tone.Fujifilm_Tone24,451
+
+Fujifilm_WhiteBalance.java,149
+public class Fujifilm_WhiteBalance Fujifilm_WhiteBalance6,102
+    public Fujifilm_WhiteBalance(Fujifilm_WhiteBalance.Fujifilm_WhiteBalance33,975
+
+LightSource.java,100
+public class LightSource LightSource6,102
+    public LightSource(LightSource.LightSource42,1095
+
+MeteringMode.java,104
+public class MeteringMode MeteringMode6,102
+    public MeteringMode(MeteringMode.MeteringMode34,838
+
+Nikon_CcdSensitivity.java,144
+public class Nikon_CcdSensitivity Nikon_CcdSensitivity6,102
+    public Nikon_CcdSensitivity(Nikon_CcdSensitivity.Nikon_CcdSensitivity26,533
+
+Nikon_ColorMode.java,119
+public class Nikon_ColorMode Nikon_ColorMode6,102
+    public Nikon_ColorMode(Nikon_ColorMode.Nikon_ColorMode22,415
+
+Nikon_ImageAdjustment.java,149
+public class Nikon_ImageAdjustment Nikon_ImageAdjustment6,102
+    public Nikon_ImageAdjustment(Nikon_ImageAdjustment.Nikon_ImageAdjustment28,659
+
+Nikon_Quality.java,109
+public class Nikon_Quality Nikon_Quality6,102
+    public Nikon_Quality(Nikon_Quality.Nikon_Quality30,706
+
+Nikon_WhiteBalance.java,134
+public class Nikon_WhiteBalance Nikon_WhiteBalance6,102
+    public Nikon_WhiteBalance(Nikon_WhiteBalance.Nikon_WhiteBalance32,759
+
+Olympus_JpegQual.java,124
+public class Olympus_JpegQual Olympus_JpegQual6,102
+    public Olympus_JpegQual(Olympus_JpegQual.Olympus_JpegQual25,475
+
+Olympus_Macro.java,109
+public class Olympus_Macro Olympus_Macro6,102
+    public Olympus_Macro(Olympus_Macro.Olympus_Macro22,399
+
+Olympus_SpecialMode.java,139
+public class Olympus_SpecialMode Olympus_SpecialMode6,102
+    public Olympus_SpecialMode(Olympus_SpecialMode.Olympus_SpecialMode34,966
+
+Orientation.java,100
+public class Orientation Orientation6,102
+    public Orientation(Orientation.Orientation42,1327
+
+ResolutionUnit.java,114
+public class ResolutionUnit ResolutionUnit6,102
+    public ResolutionUnit(ResolutionUnit.ResolutionUnit25,496
+
+SceneType.java,89
+public class SceneType SceneType6,102
+    public SceneType(SceneType.SceneType20,378
+
+SensingMethod.java,109
+public class SensingMethod SensingMethod6,102
+    public SensingMethod(SensingMethod.SensingMethod20,377
+
+TestTag.java,79
+public class TestTag TestTag6,102
+    public TestTag(TestTag.TestTag24,434
+
+YCbCrPositioning.java,124
+public class YCbCrPositioning YCbCrPositioning6,102
+    public YCbCrPositioning(YCbCrPositioning.YCbCrPositioning24,487

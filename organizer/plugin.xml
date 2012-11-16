@@ -3,57 +3,77 @@
 <plugin>
 
    <extension
-         point="org.eclipse.ui.propertyPages">
-      <page
-            name="Sample Page"
-            nameFilter="*.jpg"
-            class="organizer.properties.SamplePropertyPage"
-            id="organizer.properties.samplePropertyPage">
-         <enabledWhen>
-            <instanceof
-                  value="org.eclipse.core.resources.IFile">
-            </instanceof>
-         </enabledWhen>
-      </page>
-   </extension>
-   <extension
-         point="org.eclipse.ui.propertiesView">
-      <excludeSources
-            id="organizer.excludeSources1">
-      </excludeSources>
-   </extension>
-   <extension
-         point="org.eclipse.core.runtime.contentTypes">
-      <content-type
-            describer="organizer.properties.ContentDescriber"
-            file-extensions="jpg"
-            id="organizer.jpg"
-            name="Photo"
-            priority="normal">
-      </content-type>
-   </extension>
-   <extension
-         point="org.eclipse.core.runtime.adapters">
-      <factory
-            adaptableType="org.eclipse.core.resources.IResource"
-            class="organizer.AdapterFactory">
-         <adapter
-               type="org.eclipse.ui.views.properties.IPropertySource">
-         </adapter>
-      </factory>
-      <factory
-            adaptableType="org.eclipse.jface.viewers.ISelection"
-            class="organizer.AdapterFactory2">
-         <adapter
-               type="org.eclipse.jface.viewers.ISelection">
-         </adapter>
-      </factory>
-   </extension>
-   <extension
          point="org.eclipse.ui.startup">
       <startup
-            class="organizer.Startup">
+            class="org.digre.organizer.navigator.Startup">
       </startup>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <navigatorContent
+            activeByDefault="true"
+            appearsBefore="org.eclipse.ui.navigator.resourceContent"
+            contentProvider="org.digre.organizer.navigator.GContentProvider"
+            icon="icons/genova_16.png"
+            id="org.digre.photos.content"
+            labelProvider="org.digre.organizer.navigator.GLabelProvider"
+            name="Photo Contents"
+            priority="highest">
+         <possibleChildren>
+            <or>
+               <instanceof
+                     value="org.digre.organizer.navigator.IObject">
+               </instanceof>
+               <instanceof
+                     value="org.eclipse.core.resources.IResource">
+               </instanceof>
+               <instanceof
+                     value="org.eclipse.ui.IWorkingSet">
+               </instanceof>
+            </or>
+         </possibleChildren>
+         <triggerPoints>
+            <or>
+               <instanceof
+                     value="org.eclipse.core.resources.IResource">
+               </instanceof>
+               <instanceof
+                     value="org.eclipse.ui.IWorkingSet">
+               </instanceof>
+               <instanceof
+                     value="org.digre.organizer.navigator.IObject">
+               </instanceof>
+            </or>
+         </triggerPoints>
+         <enablement>
+            <or>
+               <instanceof
+                     value="org.digre.organizer.navigator.IObject">
+               </instanceof>
+               <instanceof
+                     value="org.eclipse.core.resources.IResource">
+               </instanceof>
+               <instanceof
+                     value="org.eclipse.ui.IWorkingSet">
+               </instanceof>
+               <instanceof
+                     value="org.eclipse.core.resources.IWorkspaceRoot">
+               </instanceof>
+            </or>
+         </enablement>
+      </navigatorContent>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.viewer">
+      <viewerContentBinding
+            viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <contentExtension
+                  isRoot="true"
+                  pattern="org.digre.photos.content">
+            </contentExtension>
+         </includes>
+      </viewerContentBinding>
    </extension>
 
 </plugin>
