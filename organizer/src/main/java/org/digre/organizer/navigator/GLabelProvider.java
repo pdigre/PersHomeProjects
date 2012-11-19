@@ -35,8 +35,8 @@ public class GLabelProvider implements ILabelProvider {
 
     @Override
     public Image getImage(Object element) {
-        if(element instanceof GImage)
-            return ExifPropertyDescriptor.MISSING_IMAGE;
+        if(element instanceof GObject)
+            return ((GObject)element).getImage().getImage();
         return null;
     }
 

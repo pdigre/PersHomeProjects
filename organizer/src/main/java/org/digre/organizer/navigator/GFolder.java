@@ -15,7 +15,7 @@ public class GFolder extends GObject{
     }
 
     public static Object[] getProjectRoot(IProject project) {
-        return new Object[]{new GCameras(project)};
+        return new Object[]{new GCameras(project),new GMustRotate(project)};
     }
     
 }

@@ -9,28 +9,15 @@ import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.runtime.CoreException;
 
 
-public class GCameras extends GFolder {
+public class GMustRotate extends GFolder {
 
-    public GCameras(Object parent) {
-        super("Cameras",parent);
+    public GMustRotate(Object parent) {
+        super("Must rotate",parent);
     }
 
     @Override
     public Object[] getChildren() {
-        Object[] array = getPhotosAsArray(getProject());
-        return array;
-    }
-
-    @Override
-    public ImageConst getImage() {
-        return ImageConst.IMAGES;
-    }
-
-    public static Object[] getPhotosAsArray(IProject project) {
-        return getPhotos(project).toArray();
-    }
-
-    public static ArrayList<Object> getPhotos(IProject project) {
+        IProject project = getProject();
         final ArrayList<Object> list=new ArrayList<Object>();
         try {
             project.accept(new IResourceVisitor() {
@@ -46,7 +33,11 @@ public class GCameras extends GFolder {
         } catch (CoreException e) {
             e.printStackTrace();
         }
-        return list;
+        return list.toArray();
     }
     
+    @Override
+    public ImageConst getImage() {
+        return ImageConst.Rotate;
+    }
 }

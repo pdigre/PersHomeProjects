@@ -14,7 +14,7 @@
             activeByDefault="true"
             appearsBefore="org.eclipse.ui.navigator.resourceContent"
             contentProvider="org.digre.organizer.navigator.GContentProvider"
-            icon="icons/genova_16.png"
+            icon="src/main/java/org/digre/organizer/icons/genova_16.png"
             id="org.digre.photos.content"
             labelProvider="org.digre.organizer.navigator.GLabelProvider"
             name="Photo Contents"

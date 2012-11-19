@@ -2,6 +2,7 @@ package org.digre.organizer.navigator;
 
 import java.util.ArrayList;
 
+import org.digre.organizer.icons.ImageConst;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
@@ -72,6 +73,10 @@ public class GObject implements IPropertySource, IObject {
         if (parent instanceof IProject)
             return (IProject) parent;
         return ((GObject) getParentNode()).getProject();
+    }
+
+    public ImageConst getImage() {
+        return ImageConst.MISSING;
     }
 
 }
