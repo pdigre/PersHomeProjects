@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 import no.pdigre.chess.engine.base.Bitmap;
 import no.pdigre.chess.engine.base.NodeGen;
 import no.pdigre.chess.engine.fen.FEN;
-import no.pdigre.chess.engine.fen.IPosition;
-import no.pdigre.chess.engine.fen.Move;
 import no.pdigre.chess.engine.fen.PieceType;
 import no.pdigre.chess.engine.fen.StartGame;
 
@@ -83,50 +81,6 @@ public class StandardMovesTest {
         return sb.toString();
     }
 
-    public class Counter {
-
-        public int moves;
-
-        public int captures;
-
-        public int checks;
-
-        public int mates;
-
-        public int castlings;
-
-        public int enpassants;
-
-        public int promotions;
-
-        public void count(IPosition move, int[] board) {
-            moves++;
-            if (Bitmap.isCastling(((Move) move).getInherit())) {
-                castlings++;
-            }
-            if (Bitmap.isPromotion(((Move) move).getInherit())) {
-                promotions++;
-            }
-            if (Bitmap.isCapture(((Move) move).getInherit())) {
-                captures++;
-                if (Bitmap.isEnpassant(((Move) move).getInherit())) {
-                    enpassants++;
-                }
-            }
-            int[] brd = Bitmap.apply(board, ((Move)move).getInherit());
-            boolean white = move.whiteTurn();
-            int kpos = NodeGen.getKingPos(brd, white);
-            if(!NodeGen.checkSafe(brd, kpos, white)){
-                checks++;
-                if(!(new NodeGen(brd, move.getInherit()).nextSafe()!=0))
-                    mates++;
-            }
-        }
-
-    }
-
-    public Counter[] counters = new Counter[MAXDEPTH];
-
     /**
      * Takes 22.5 sec with 28.07.2012 Takes 2.1 sec with 02.08.2012 Takes 60.0
      * sec with 02.08.2012 for 6 levels
@@ -136,18 +90,15 @@ public class StandardMovesTest {
     @Test
     public void testThinkStart1() {
         String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-        counters = new Counter[MAXDEPTH];
-        for (int i = 0; i < MAXDEPTH; i++)
-            counters[i] = new Counter();
         StartGame start = new StartGame(fen);
-        new TestCount(start.getInherit(), 0, counters, start.getBoard()).run();
-        printCounter();
+        Counter[] counters = new TestCount(start.getInherit(), 0, MAXDEPTH, start.getBoard()).process();
+        printCounter(counters);
         assertEquals(counters[4].moves, 4865609);
         assertEquals(counters[4].captures, 82719);
         assertEquals(counters[4].enpassants, 258);
     }
 
-    private void printCounter() {
+    private void printCounter(Counter[] counters) {
         String x = "Depth,Moves,Captures,Enpassant,Castling,Promotion,Check,Mate";
         System.out.println(format10(x));
         for (int i = 0; i < MAXDEPTH; i++) {
@@ -169,12 +120,9 @@ public class StandardMovesTest {
     @Test
     public void testThinkPromo() {
         String fen = "n1n5/PPPk4/8/8/8/8/4Kppp/5N1N b - - 0 1";
-        counters = new Counter[MAXDEPTH];
-        for (int i = 0; i < MAXDEPTH; i++)
-            counters[i] = new Counter();
         StartGame start = new StartGame(fen);
-        new TestCount(start.getInherit(), 0, counters, start.getBoard()).run();
-        printCounter();
+        Counter[] counters = new TestCount(start.getInherit(), 0, MAXDEPTH, start.getBoard()).process();
+        printCounter(counters);
         assertEquals(counters[0].moves, 24);
         assertEquals(counters[1].moves, 496);
         assertEquals(counters[2].moves, 9483);

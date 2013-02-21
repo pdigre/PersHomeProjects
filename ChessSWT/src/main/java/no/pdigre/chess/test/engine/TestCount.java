@@ -3,7 +3,6 @@ package no.pdigre.chess.test.engine;
 import no.pdigre.chess.engine.base.Bitmap;
 import no.pdigre.chess.engine.base.IConst;
 import no.pdigre.chess.engine.base.NodeGen;
-import no.pdigre.chess.test.engine.StandardMovesTest.Counter;
 
 public class TestCount {
 
@@ -17,12 +16,14 @@ public class TestCount {
 
     final protected int[] board;
 
-    public TestCount(int bitmap, int level, Counter[] counters, int[] board) {
+    public TestCount(int bitmap, int level, int MAXDEPTH, int[] board) {
         this.bitmap = bitmap;
         this.level = level;
-        this.counters = counters;
-        this.counter = counters[level];
         this.board = board;
+        counters = new Counter[MAXDEPTH];
+        for (int i = 0; i < MAXDEPTH; i++)
+            counters[i] = new Counter();
+        counter = counters[level];
     }
 
     private void loop(int bitmap2, int[] board2) {
@@ -34,10 +35,10 @@ public class TestCount {
                 counter.mates++;
         }
         if (level + 1 < counters.length)
-            new TestCount(bitmap2, level + 1, counters, board2).run();
+            Counter.total(counters, new TestCount(bitmap2, level + 1, counters.length, board2).process());
     }
 
-    public void run() {
+    public Counter[] process() {
         NodeGen pull = new NodeGen(board, bitmap);
         int bitmap=pull.nextSafe();
         while(bitmap!=0){
@@ -45,6 +46,7 @@ public class TestCount {
             loop(bitmap, Bitmap.apply(board, bitmap));
             bitmap=pull.nextSafe();
         }
+        return counters;
     }
 
     public void count(int bitmap) {
