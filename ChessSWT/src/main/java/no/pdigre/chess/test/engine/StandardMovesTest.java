@@ -91,7 +91,24 @@ public class StandardMovesTest {
     public void testThinkStart1() {
         String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
         StartGame start = new StartGame(fen);
-        Counter[] counters = new TestCount(start.getInherit(), 0, MAXDEPTH, start.getBoard()).process();
+        Counter[] counters = new TestCount(start.getInherit(), 0, MAXDEPTH, start.getBoard()).compute();
+        printCounter(counters);
+        assertEquals(counters[4].moves, 4865609);
+        assertEquals(counters[4].captures, 82719);
+        assertEquals(counters[4].enpassants, 258);
+    }
+
+    /**
+     * Takes 22.5 sec with 28.07.2012 Takes 2.1 sec with 02.08.2012 Takes 60.0
+     * sec with 02.08.2012 for 6 levels
+     * Takes 4.1 secs with 05.08.2012
+     * Takes 3.9 secs with 07.08.2012
+     */
+    @Test
+    public void testThinkStart2() {
+        String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+        StartGame start = new StartGame(fen);
+        Counter[] counters = new TestCount(start.getInherit(), 0, MAXDEPTH, start.getBoard()).computeParallel();
         printCounter(counters);
         assertEquals(counters[4].moves, 4865609);
         assertEquals(counters[4].captures, 82719);
@@ -121,7 +138,20 @@ public class StandardMovesTest {
     public void testThinkPromo() {
         String fen = "n1n5/PPPk4/8/8/8/8/4Kppp/5N1N b - - 0 1";
         StartGame start = new StartGame(fen);
-        Counter[] counters = new TestCount(start.getInherit(), 0, MAXDEPTH, start.getBoard()).process();
+        Counter[] counters = new TestCount(start.getInherit(), 0, MAXDEPTH, start.getBoard()).compute();
+        printCounter(counters);
+        assertEquals(counters[0].moves, 24);
+        assertEquals(counters[1].moves, 496);
+        assertEquals(counters[2].moves, 9483);
+        assertEquals(counters[3].moves, 182838);
+        assertEquals(counters[4].moves, 3605103);
+    }
+
+    @Test
+    public void testThinkPromo2() {
+        String fen = "n1n5/PPPk4/8/8/8/8/4Kppp/5N1N b - - 0 1";
+        StartGame start = new StartGame(fen);
+        Counter[] counters = new TestCount(start.getInherit(), 0, MAXDEPTH, start.getBoard()).computeParallel();
         printCounter(counters);
         assertEquals(counters[0].moves, 24);
         assertEquals(counters[1].moves, 496);

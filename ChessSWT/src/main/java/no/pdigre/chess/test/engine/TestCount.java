@@ -1,12 +1,18 @@
 package no.pdigre.chess.test.engine;
 
+import java.util.ArrayList;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.RecursiveTask;
+
 import no.pdigre.chess.engine.base.Bitmap;
 import no.pdigre.chess.engine.base.IConst;
 import no.pdigre.chess.engine.base.NodeGen;
 
-public class TestCount {
+public class TestCount extends RecursiveTask<Counter[]>{
 
-    final protected int bitmap;
+	private static final long serialVersionUID = -3058348904963758664L;
+
+	final protected int bitmap;
 
     final protected int level;
 
@@ -26,26 +32,36 @@ public class TestCount {
         counter = counters[level];
     }
 
-    private void loop(int bitmap2, int[] board2) {
-        counter.moves++;
+	private void countMove(int bitmap2, int[] board2) {
+		counter.moves++;
         boolean white = Bitmap.white(bitmap);
         if (!NodeGen.checkSafe(board2, NodeGen.getKingPos(board2, white), white)) {
             counter.checks++;
             if (!(new NodeGen(board2, bitmap2 & (IConst.CASTLING_STATE | IConst.HALFMOVES)).nextSafe()!=0))
                 counter.mates++;
         }
-        if (level + 1 < counters.length)
-            Counter.total(counters, new TestCount(bitmap2, level + 1, counters.length, board2).process());
-    }
+	}
 
-    public Counter[] process() {
+    public Counter[] computeParallel() {
         NodeGen pull = new NodeGen(board, bitmap);
+        int processors = Runtime.getRuntime().availableProcessors();
+        System.out.println("No of processors: " + processors);
+		ForkJoinPool pool=new ForkJoinPool(processors);
+        ArrayList<TestCount> tasks = new ArrayList<TestCount>();
         int bitmap=pull.nextSafe();
         while(bitmap!=0){
             count(bitmap);
-            loop(bitmap, Bitmap.apply(board, bitmap));
+			int[] board2 = Bitmap.apply(board, bitmap);
+            countMove(bitmap, board2);
+			if (level + 1 < counters.length) {
+				TestCount task = new TestCount(bitmap, level + 1, counters.length, board2);
+				tasks.add(task);
+				pool.execute(task);
+			}
             bitmap=pull.nextSafe();
         }
+        for (TestCount task : tasks)
+    		Counter.total(counters, task.join());
         return counters;
     }
 
@@ -61,5 +77,20 @@ public class TestCount {
         if(Bitmap.isPromotion(bitmap))
             counter.promotions++;
     }
+
+	@Override
+	protected Counter[] compute() {
+        NodeGen pull = new NodeGen(board, bitmap);
+        int bitmap=pull.nextSafe();
+        while(bitmap!=0){
+            count(bitmap);
+			int[] board2 = Bitmap.apply(board, bitmap);
+            countMove(bitmap, board2);
+			if (level + 1 < counters.length)
+			    Counter.total(counters, new TestCount(bitmap, level + 1, counters.length, board2).compute());
+            bitmap=pull.nextSafe();
+        }
+        return counters;
+	}
 
 }
