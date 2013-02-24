@@ -22,6 +22,19 @@ public class TestCount extends RecursiveTask<Counter[]>{
 
     final protected int[] board;
 
+    private boolean countJustMoves=false;
+
+    public TestCount(int bitmap, int level, int MAXDEPTH, int[] board,boolean countJustMoves) {
+        this.countJustMoves=countJustMoves;
+        this.bitmap = bitmap;
+        this.level = level;
+        this.board = board;
+        counters = new Counter[MAXDEPTH];
+        for (int i = 0; i < MAXDEPTH; i++)
+            counters[i] = new Counter();
+        counter = counters[level];
+    }
+
     public TestCount(int bitmap, int level, int MAXDEPTH, int[] board) {
         this.bitmap = bitmap;
         this.level = level;
@@ -34,6 +47,8 @@ public class TestCount extends RecursiveTask<Counter[]>{
 
 	private void countMove(int bitmap2, int[] board2) {
 		counter.moves++;
+		if(countJustMoves)
+		    return;
         boolean white = Bitmap.white(bitmap);
         if (!NodeGen.checkSafe(board2, NodeGen.getKingPos(board2, white), white)) {
             counter.checks++;
@@ -45,7 +60,7 @@ public class TestCount extends RecursiveTask<Counter[]>{
     public Counter[] computeParallel() {
         NodeGen pull = new NodeGen(board, bitmap);
         int processors = Runtime.getRuntime().availableProcessors();
-        System.out.println("No of processors: " + processors);
+//        System.out.println("No of processors: " + processors);
 		ForkJoinPool pool=new ForkJoinPool(processors);
         ArrayList<TestCount> tasks = new ArrayList<TestCount>();
         int bitmap=pull.nextSafe();

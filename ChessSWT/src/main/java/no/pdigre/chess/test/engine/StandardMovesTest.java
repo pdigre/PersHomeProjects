@@ -9,11 +9,11 @@ import no.pdigre.chess.engine.fen.StartGame;
 
 import org.junit.Test;
 
+@SuppressWarnings("static-method")
 public class StandardMovesTest {
 
     private static final int MAXDEPTH = 5;
 
-    @SuppressWarnings("static-method")
     @Test
     public void testWhiteStart() {
         String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
@@ -23,21 +23,18 @@ public class StandardMovesTest {
         assertEquals("Pawn1", "P a4 a3", getLegalMovesFromPos("a2", move));
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void testEnpassant() {
         String fen = "rnbqkbnr/ppp1pppp/8/8/1PpP4/8/P3PPPP/RNBQKBNR b KQkq b3 0 3";
         assertEquals("Pawn", "p b3 c3", getLegalMovesFromPos("c4", new StartGame(fen)));
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void testOpening1() {
         String fen = "rnbqkb1r/pppp1ppp/5n2/4p3/3PP3/8/PPP2PPP/RNBQKBNR w KQkq - 1 3";
         assertEquals("Queen", "Q h5 g4 f3 e2 d3 d2", getLegalMovesFromPos("d1", new StartGame(fen)));
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void testPromotions() {
         String fen = "n1n5/PPPk4/8/8/8/8/4Kppp/5N1N b - - 0 1";
@@ -45,7 +42,6 @@ public class StandardMovesTest {
         assertEquals("Pawn", "p h1 h1 h1 h1 f1 f1 f1 f1 g1 g1 g1 g1", moves);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void testCheck1() {
         String fen = "rnbqk1nr/ppp2ppp/4p3/3p4/1b1P4/P4P2/1PP1P1PP/RNBQKBNR w KQkq - 1 4";
@@ -115,7 +111,7 @@ public class StandardMovesTest {
         assertEquals(counters[4].enpassants, 258);
     }
 
-    private void printCounter(Counter[] counters) {
+    private static void printCounter(Counter[] counters) {
         String x = "Depth,Moves,Captures,Enpassant,Castling,Promotion,Check,Mate";
         System.out.println(format10(x));
         for (int i = 0; i < MAXDEPTH; i++) {
