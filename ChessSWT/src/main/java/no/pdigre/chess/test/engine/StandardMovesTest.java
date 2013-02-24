@@ -87,7 +87,7 @@ public class StandardMovesTest {
     public void testThinkStart1() {
         String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
         StartGame start = new StartGame(fen);
-        Counter[] counters = new TestCount(start.getInherit(), 0, MAXDEPTH, start.getBoard()).compute();
+        Counter[] counters = new CountMore(start.getInherit(), MAXDEPTH, start.getBoard()).compute();
         printCounter(counters);
         assertEquals(counters[4].moves, 4865609);
         assertEquals(counters[4].captures, 82719);
@@ -104,7 +104,7 @@ public class StandardMovesTest {
     public void testThinkStart2() {
         String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
         StartGame start = new StartGame(fen);
-        Counter[] counters = new TestCount(start.getInherit(), 0, MAXDEPTH, start.getBoard()).computeParallel();
+        Counter[] counters = new CountMoreParallel(start.getInherit(), MAXDEPTH, start.getBoard()).compute();
         printCounter(counters);
         assertEquals(counters[4].moves, 4865609);
         assertEquals(counters[4].captures, 82719);
@@ -134,7 +134,7 @@ public class StandardMovesTest {
     public void testThinkPromo() {
         String fen = "n1n5/PPPk4/8/8/8/8/4Kppp/5N1N b - - 0 1";
         StartGame start = new StartGame(fen);
-        Counter[] counters = new TestCount(start.getInherit(), 0, MAXDEPTH, start.getBoard()).compute();
+        Counter[] counters = new CountMore(start.getInherit(), MAXDEPTH, start.getBoard()).compute();
         printCounter(counters);
         assertEquals(counters[0].moves, 24);
         assertEquals(counters[1].moves, 496);
@@ -147,7 +147,7 @@ public class StandardMovesTest {
     public void testThinkPromo2() {
         String fen = "n1n5/PPPk4/8/8/8/8/4Kppp/5N1N b - - 0 1";
         StartGame start = new StartGame(fen);
-        Counter[] counters = new TestCount(start.getInherit(), 0, MAXDEPTH, start.getBoard()).computeParallel();
+        Counter[] counters = new CountMoreParallel(start.getInherit(), MAXDEPTH, start.getBoard()).compute();
         printCounter(counters);
         assertEquals(counters[0].moves, 24);
         assertEquals(counters[1].moves, 496);

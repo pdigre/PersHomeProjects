@@ -3,7 +3,6 @@ package no.pdigre.chess.test.engine;
 import no.pdigre.chess.engine.base.Bitmap;
 import no.pdigre.chess.engine.base.NodeGen;
 import no.pdigre.chess.engine.fen.IPosition;
-import no.pdigre.chess.engine.fen.Move;
 
 public class Counter {
 
@@ -27,32 +26,28 @@ public class Counter {
     
     public void count(IPosition move, int[] board) {
         moves++;
-        if (Bitmap.isCastling(((Move) move).getInherit())) {
+        int inherit = move.getInherit();
+        if (Bitmap.isCastling(inherit)) {
             castlings++;
         }
-        if (Bitmap.isPromotion(((Move) move).getInherit())) {
+        if (Bitmap.isPromotion(inherit)) {
             promotions++;
         }
-        if (Bitmap.isCapture(((Move) move).getInherit())) {
+        if (Bitmap.isCapture(inherit)) {
             captures++;
-            if (Bitmap.isEnpassant(((Move) move).getInherit())) {
+            if (Bitmap.isEnpassant(inherit)) {
                 enpassants++;
             }
         }
-        int[] brd = Bitmap.apply(board, ((Move)move).getInherit());
+        int[] brd = Bitmap.apply(board, inherit);
         boolean white = move.whiteTurn();
         int kpos = NodeGen.getKingPos(brd, white);
         if(!NodeGen.checkSafe(brd, kpos, white)){
             checks++;
-            if(!(new NodeGen(brd, move.getInherit()).nextSafe()!=0))
+            if(!(new NodeGen(brd, inherit).nextSafe()!=0))
                 mates++;
         }
     }
-
-	public static void total(Counter[] total, Counter[] add) {
-        for (int i = 0; i < total.length; i++)
-        	total[i].add(add[i]);
-	}
 
 	private void add(Counter count) {
         captures += count.captures;
@@ -63,5 +58,15 @@ public class Counter {
         moves += count.moves;
         promotions += count.promotions;
 	}
+
+    public static void total(Counter[] total, Counter[] add) {
+        for (int i = 0; i < add.length; i++)
+            total[i+1].add(add[i]);
+    }
+
+    public static void total(int[] total, int[] add) {
+        for (int i = 0; i < add.length; i++)
+            total[i+1]+=add[i];
+    }
 
 }

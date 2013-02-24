@@ -12,8 +12,6 @@ import org.junit.Test;
 
 public class AccuracyTest {
 
-    private static final int MAXDEPTH = 6;
-
     public class Perft {
 
         public final String fen;
@@ -60,9 +58,9 @@ public class AccuracyTest {
             System.out.print((line++)+". "+perft);
             StartGame start = new StartGame(perft.fen);
             long time = System.currentTimeMillis();
-            Counter[] counters = new TestCount(start.getInherit(), 0, Math.min(MAXDEPTH,perft.count.length), start.getBoard(),true).computeParallel();
+            int[] counters = new CountMoveParallel(start.getInherit(), perft.count.length, start.getBoard()).compute();
             for (int i = 0; i < counters.length; i++) {
-                if(perft.count[i]!=counters[i].moves){
+                if(perft.count[i]!=counters[i]){
                     System.out.println(" NOT "+(System.currentTimeMillis()-time)+"ms");
                     printCounter(counters);
                     throw new AssertionError("Wrong move count");
@@ -72,13 +70,11 @@ public class AccuracyTest {
         }
     }
 
-    private static void printCounter(Counter[] counters) {
-        String x = "Depth,Moves,Captures,Enpassant,Castling,Promotion,Check,Mate";
+    private static void printCounter(int[] counters) {
+        String x = "Depth,Moves";
         System.out.println(format10(x));
-        for (int i = 0; i < MAXDEPTH; i++) {
-            Counter cnt = counters[i];
-            System.out.println(format10(String.format("%d,%d,%d,%d,%d,%d,%d,%d", i + 1, cnt.moves, cnt.captures,
-                cnt.enpassants, cnt.castlings, cnt.promotions, cnt.checks, cnt.mates)));
+        for (int i = 0; i < counters.length; i++) {
+            System.out.println(format10(String.format("%d,%d", i + 1, counters[i])));
         }
     }
 
