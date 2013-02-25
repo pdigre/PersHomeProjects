@@ -2,7 +2,7 @@ package no.pdigre.chess.test.engine;
 
 import static org.junit.Assert.assertEquals;
 import no.pdigre.chess.engine.base.Bitmap;
-import no.pdigre.chess.engine.base.NodeGen;
+import no.pdigre.chess.engine.base.NodeUtil;
 import no.pdigre.chess.engine.fen.FEN;
 import no.pdigre.chess.engine.fen.PieceType;
 import no.pdigre.chess.engine.fen.StartGame;
@@ -70,7 +70,7 @@ public class StandardMovesTest {
         FEN.printPiece(type, from);
         StringBuffer sb = new StringBuffer();
         sb.append(PieceType.types[type].fen);
-        for (int bitmap : NodeGen.filterFrom(NodeGen.getAllMoves(board, start.getInherit()), from)) {
+        for (int bitmap : NodeUtil.filterFrom(NodeUtil.getAllMoves(board, start.getInherit()), from)) {
             sb.append(" ");
             sb.append(FEN.pos2string(Bitmap.getTo(bitmap)));
         }
@@ -79,9 +79,8 @@ public class StandardMovesTest {
 
     /**
      * Takes 22.5 sec with 28.07.2012 Takes 2.1 sec with 02.08.2012 Takes 60.0
-     * sec with 02.08.2012 for 6 levels
-     * Takes 4.1 secs with 05.08.2012
-     * Takes 3.9 secs with 07.08.2012
+     * sec with 02.08.2012 for 6 levels Takes 4.1 secs with 05.08.2012 Takes 3.9
+     * secs with 07.08.2012
      */
     @Test
     public void testThinkStart1() {
@@ -96,9 +95,8 @@ public class StandardMovesTest {
 
     /**
      * Takes 22.5 sec with 28.07.2012 Takes 2.1 sec with 02.08.2012 Takes 60.0
-     * sec with 02.08.2012 for 6 levels
-     * Takes 4.1 secs with 05.08.2012
-     * Takes 3.9 secs with 07.08.2012
+     * sec with 02.08.2012 for 6 levels Takes 4.1 secs with 05.08.2012 Takes 3.9
+     * secs with 07.08.2012
      */
     @Test
     public void testThinkStart2() {
@@ -154,6 +152,28 @@ public class StandardMovesTest {
         assertEquals(counters[2].moves, 9483);
         assertEquals(counters[3].moves, 182838);
         assertEquals(counters[4].moves, 3605103);
+    }
+
+    @Test
+    public void testOrdering() {
+        String fen = "n1n5/PPPk4/8/8/8/8/4Kppp/5N1N b - - 0 1";
+        StartGame start = new StartGame(fen);
+        int[] board = start.getBoard();
+        int inherit = start.getInherit();
+        int[] sorted = NodeUtil.getAllBestFirst(board, inherit);
+        int high = 9000000;
+        for (int bitmap : sorted) {
+            int val = Bitmap.tacticValue(bitmap);
+            if (val < high)
+                high = val;
+            if (val > high){
+                System.out.println("=================================");
+                for (int bm : sorted) {
+                    System.out.println(FEN.printMove(bm, board));
+                }
+                throw new AssertionError("Wrong move value ordering");
+            }
+        }
     }
 
 }

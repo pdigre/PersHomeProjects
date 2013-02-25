@@ -6,6 +6,7 @@ import java.util.Comparator;
 import no.pdigre.chess.engine.base.Bitmap;
 import no.pdigre.chess.engine.base.IConst;
 import no.pdigre.chess.engine.base.NodeGen;
+import no.pdigre.chess.engine.base.NodeUtil;
 import no.pdigre.chess.engine.fen.FEN;
 
 public class AlphaBeta {
@@ -15,7 +16,7 @@ public class AlphaBeta {
     public MoveEval[] moves;
 
     public AlphaBeta(int[] board, int inherit, int inital_depth) {
-        int[] legalmoves = NodeGen.getAllMoves(board, inherit);
+        int[] legalmoves = NodeUtil.getAllBestFirst(board, inherit);
         moves = new MoveEval[legalmoves.length];
         for (int i = 0; i < moves.length; i++) {
             int bitmap = legalmoves[i];
@@ -96,8 +97,8 @@ public class AlphaBeta {
      * @param depthleft 
      */
     public final int evalWhiteMove(int bitmap, int[] board, int score, int depthleft) {
-        int capturedValue = capturedValue(bitmap);
-        int i = score - capturedValue;
+        int val = Bitmap.tacticValue(bitmap);
+        int i = score - val;
 //        printStack(bitmap,board, capturedValue, i,depthleft);
         return i;
     }
@@ -107,8 +108,8 @@ public class AlphaBeta {
      * @param depthleft 
      */
     public final int evalBlackMove(int bitmap, int[] board, int score, int depthleft) {
-        int capturedValue = capturedValue(bitmap);
-        int i = score + capturedValue;
+        int val = Bitmap.tacticValue(bitmap);
+        int i = score + val;
 //        printStack(bitmap,board, capturedValue, i,depthleft);
         return i;
     }
@@ -132,10 +133,6 @@ public class AlphaBeta {
             total += Bitmap.value(piece);
         }
         return total;
-    }
-
-    public final static int capturedValue(int bitmap) {
-        return Bitmap.value((bitmap & IConst.CAPTURE) >>> IConst._CAPTURE);
     }
 
     public int[] getBitmaps() {

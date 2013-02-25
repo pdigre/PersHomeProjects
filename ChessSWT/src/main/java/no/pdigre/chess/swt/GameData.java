@@ -3,7 +3,7 @@ package no.pdigre.chess.swt;
 import java.util.ArrayList;
 
 import no.pdigre.chess.engine.base.Bitmap;
-import no.pdigre.chess.engine.base.NodeGen;
+import no.pdigre.chess.engine.base.NodeUtil;
 import no.pdigre.chess.engine.eval.AlphaBeta;
 import no.pdigre.chess.engine.eval.MoveEval;
 import no.pdigre.chess.engine.fen.FEN;
@@ -66,7 +66,7 @@ public abstract class GameData {
         from = i;
         draw_targets = new int[64];
         draw_score = new int[64];
-        int[] movesfrom = NodeGen.filterFrom(bitmaps, i);
+        int[] movesfrom = NodeUtil.filterFrom(bitmaps, i);
         for (int bitmap : movesfrom) {
             int to = Bitmap.getTo(bitmap);
             draw_targets[to] = Bitmap.type(bitmap);
@@ -76,7 +76,7 @@ public abstract class GameData {
     }
 
     private Move makeMove(int i) {
-        return new Move(lastmove, NodeGen.filterTo(NodeGen.filterFrom(eval.getBitmaps(), from), i)[0]);
+        return new Move(lastmove, NodeUtil.filterTo(NodeUtil.filterFrom(eval.getBitmaps(), from), i)[0]);
     }
 
     private ArrayList<Marking> getPiecesThatCanMove() {

@@ -112,6 +112,8 @@ public class FEN implements IConst{
             sb.append(" enpassant");
         if (Bitmap.isCastling(bitmap))
             sb.append(" castling");
+        if (Bitmap.isPromotion(bitmap))
+            sb.append(" promoted");
         boolean white = Bitmap.white(bitmap);
         if (!NodeGen.checkSafe(board, NodeGen.getKingPos(board, white), white)) {
             sb.append(" check");

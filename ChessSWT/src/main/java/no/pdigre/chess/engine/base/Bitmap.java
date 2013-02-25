@@ -202,4 +202,11 @@ public class Bitmap implements IConst {
                 return 0;
         }
     }
+    
+    public final static int tacticValue(int bitmap) {
+        int val = Bitmap.value((bitmap & IConst.CAPTURE) >>> IConst._CAPTURE);
+        if(Bitmap.isPromotion(bitmap))
+            val+=Bitmap.value(Bitmap.type(bitmap));
+        return val;
+    }
 }
