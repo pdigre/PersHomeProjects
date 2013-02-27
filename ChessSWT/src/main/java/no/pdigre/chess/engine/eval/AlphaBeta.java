@@ -15,12 +15,12 @@ public class AlphaBeta {
 
     public MoveEval[] moves;
 
-    public AlphaBeta(int[] board, int inherit, int inital_depth) {
+    public AlphaBeta(int[] board, int inherit, int depth) {
         int[] legalmoves = NodeUtil.getAllBestFirst(board, inherit);
         moves = new MoveEval[legalmoves.length];
         for (int i = 0; i < moves.length; i++) {
             int bitmap = legalmoves[i];
-            moves[i] = new MoveEval(bitmap, board, alphaBeta(inital_depth, board, bitmap));
+            moves[i] = new MoveEval(bitmap, board, alphaBeta(depth, board, bitmap));
         }
 
         if (Bitmap.white(inherit)) {

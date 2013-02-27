@@ -109,6 +109,22 @@ public class StandardMovesTest {
         assertEquals(counters[4].enpassants, 258);
     }
 
+    /**
+     * Takes 22.5 sec with 28.07.2012 Takes 2.1 sec with 02.08.2012 Takes 60.0
+     * sec with 02.08.2012 for 6 levels Takes 4.1 secs with 05.08.2012 Takes 3.9
+     * secs with 07.08.2012
+     */
+    @Test
+    public void testThinkStart3() {
+        String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+        StartGame start = new StartGame(fen);
+        Counter[] counters = new CountMoreParallel2(start.getInherit(), MAXDEPTH, start.getBoard()).compute();
+        printCounter(counters);
+        assertEquals(counters[4].moves, 4865609);
+        assertEquals(counters[4].captures, 82719);
+        assertEquals(counters[4].enpassants, 258);
+    }
+
     private static void printCounter(Counter[] counters) {
         String x = "Depth,Moves,Captures,Enpassant,Castling,Promotion,Check,Mate";
         System.out.println(format10(x));

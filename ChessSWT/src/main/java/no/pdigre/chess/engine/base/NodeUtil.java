@@ -18,6 +18,8 @@ public class NodeUtil {
 
     public static int[] getAllBestFirst(final int[] board, int parent) {
         int[] all = getAllMoves(board, parent);
+        if(all.length<2)
+            return all;
         int cutoff = -9000;
         int next = 0;
         int p2 = all.length - 1;
