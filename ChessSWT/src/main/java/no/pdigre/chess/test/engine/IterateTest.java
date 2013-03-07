@@ -1,8 +1,5 @@
 package no.pdigre.chess.test.engine;
 
-import java.util.ArrayList;
-import java.util.concurrent.ForkJoinPool;
-
 import no.pdigre.chess.engine.base.NodeUtil;
 import no.pdigre.chess.engine.eval.IThinker;
 import no.pdigre.chess.engine.eval.NegaMax;
@@ -24,33 +21,32 @@ public class IterateTest {
 	}
 
 	/**
-	 * 3.6s normal
-	 * 1.4s parallel
-	 * @param eval
+	 * 3.6s normal 2.2s parallel
+	 * 
+	 * @param strategy
 	 */
-	public static void testThinker(IThinker eval) {
+	public static void testThinker(IThinker strategy) {
 		String fen = "rnbqkb1r/p1p2ppp/1p2pn2/3p4/3P1B2/2N5/PPPQPPPP/R3KBNR w KQkq - 2 5";
 		StartGame start = new StartGame(fen);
 		int[] board = start.getBoard();
 		int[] moves = NodeUtil.getAllBestFirst(board, start.getInherit());
-		int processors = Runtime.getRuntime().availableProcessors();
-		ForkJoinPool pool = new ForkJoinPool(processors);
-        ArrayList<Iterator> tasks = new ArrayList<Iterator>();
-		int extra = moves.length / 3;
-		for (int bitmap : moves) {
-			Iterator task = new Iterator(eval,board, bitmap,3);
-			tasks.add(task);
-			pool.execute(task);
-		}
-		for (Iterator task : tasks) {
-			if(extra--<0)
+		Evaluation[] evals = new Evaluation[moves.length];
+		for (int i = 0; i < moves.length; i++)
+			evals[i] = new Evaluation(board, moves[i]);
+
+		int extra = evals.length / 3;
+		for (Evaluation eval : evals)
+			eval.execute(strategy, 3);
+		for (Evaluation eval : evals)
+			eval.join();
+		for (Evaluation eval : evals) {
+			if (extra-- < 0)
 				break;
-			task.join();
-			task.lookDeeper();
-			pool.execute(task);
+			eval.execute(strategy, 4);
 		}
-		for (Iterator task : tasks) {
-			System.out.println(task.join());
+		for (Evaluation eval : evals){
+			eval.join();
+			System.out.println(eval.toString());
 		}
 	}
 
