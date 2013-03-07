@@ -17,7 +17,10 @@ public class NodeUtil {
     }
 
     public static int[] getAllBestFirst(final int[] board, int parent) {
-        int[] all = getAllMoves(board, parent);
+        return sortMoves(getAllMoves(board, parent));
+    }
+
+    public static int[] sortMoves(int[] all) {
         if(all.length<2)
             return all;
         int cutoff = -9000;
