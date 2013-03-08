@@ -1,6 +1,7 @@
 package no.pdigre.chess.test.engine;
 
 import no.pdigre.chess.engine.base.NodeUtil;
+import no.pdigre.chess.engine.eval.Evaluator;
 import no.pdigre.chess.engine.eval.IThinker;
 import no.pdigre.chess.engine.eval.NegaMax;
 import no.pdigre.chess.engine.eval.NegaMaxCutoff;

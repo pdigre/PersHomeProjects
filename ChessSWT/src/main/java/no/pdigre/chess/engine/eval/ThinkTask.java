@@ -1,9 +1,8 @@
-package no.pdigre.chess.test.engine;
+package no.pdigre.chess.engine.eval;
 
 import java.util.concurrent.RecursiveTask;
 
 import no.pdigre.chess.engine.base.Bitmap;
-import no.pdigre.chess.engine.eval.IThinker;
 
 public class ThinkTask extends RecursiveTask<Integer> {
 
