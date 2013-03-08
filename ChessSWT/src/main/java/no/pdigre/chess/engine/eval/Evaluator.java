@@ -1,8 +1,7 @@
-package no.pdigre.chess.test.engine;
+package no.pdigre.chess.engine.eval;
 
 import java.util.concurrent.ForkJoinPool;
 
-import no.pdigre.chess.engine.eval.IThinker;
 import no.pdigre.chess.engine.fen.FEN;
 
 public class Evaluator {
