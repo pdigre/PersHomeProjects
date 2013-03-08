@@ -13,19 +13,36 @@ import org.junit.Test;
 @SuppressWarnings("static-method")
 public class ThinkerTest {
 
+    /**
+     * Takes 2.2 sec with quadcore i7
+     */
     @Test
     public void testNegamax() {
         String fen = "rnbqkb1r/p1p2ppp/1p2pn2/3p4/3P1B2/2N5/PPPQPPPP/R3KBNR w KQkq - 2 5";
         NegaMax first = new NegaMax(new NegaMax(new NegaMax(new NegaMaxEnd())));
-        NegaMax second = new NegaMax(first);
+        NegaMax second = new NegaMax(new NegaMax(new NegaMax(new NegaMax(new NegaMaxEnd()))));
         testThinker(fen,first, second);
     }
 
+    /**
+     * Takes 148ms with quadcore i7
+     */
     @Test
     public void testNegamaxCutoff() {
         String fen = "rnbqkb1r/p1p2ppp/1p2pn2/3p4/3P1B2/2N5/PPPQPPPP/R3KBNR w KQkq - 2 5";
         IThinker first = new NegaMaxCutoff(new NegaMaxCutoff(new NegaMaxCutoff(new NegaMaxEnd())));
-        IThinker second = new NegaMaxCutoff(first);
+        IThinker second = new NegaMaxCutoff(new NegaMaxCutoff(new NegaMaxCutoff(new NegaMaxCutoff(new NegaMaxEnd()))));
+        testThinker(fen,first, second);
+    }
+
+    /**
+     * Takes 148ms with quadcore i7
+     */
+    @Test
+    public void testNegamaxCutoffWithTransposition() {
+        String fen = "rnbqkb1r/p1p2ppp/1p2pn2/3p4/3P1B2/2N5/PPPQPPPP/R3KBNR w KQkq - 2 5";
+        IThinker first = new NegaMaxCutoff(new NegaMaxCutoff(new NegaMaxCutoff(new NegaMaxEnd())));
+        IThinker second = new NegaMaxCutoff(new NegaMaxCutoff(new NegaMaxCutoff(new NegaMaxCutoff(new NegaMaxEnd()))));
         testThinker(fen,first, second);
     }
 
