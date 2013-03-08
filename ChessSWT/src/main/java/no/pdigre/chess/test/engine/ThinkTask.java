@@ -5,27 +5,25 @@ import java.util.concurrent.RecursiveTask;
 import no.pdigre.chess.engine.base.Bitmap;
 import no.pdigre.chess.engine.eval.IThinker;
 
-public class EvalTask extends RecursiveTask<Integer> {
+public class ThinkTask extends RecursiveTask<Integer> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2971959747250168203L;
-	private IThinker eval;
-	private int[] board;
-	private int bitmap;
-	private int level;
+	final private IThinker thinker;
+	final private int[] board;
+	final private int bitmap;
 	
-	public EvalTask(IThinker eval, int[] board, int bitmap, int level) {
-		this.eval = eval;
+	public ThinkTask(IThinker thinker, int[] board, int bitmap) {
+		this.thinker = thinker;
 		this.board = board;
 		this.bitmap = bitmap;
-		this.level = level;
 	}
 	
 	@Override
 	protected Integer compute() {
-		return eval.run(Bitmap.apply(board, bitmap), bitmap, level);
+		return thinker.think(Bitmap.apply(board, bitmap), bitmap, 0, IThinker.MIN, IThinker.MAX);
 	}
 
 }
