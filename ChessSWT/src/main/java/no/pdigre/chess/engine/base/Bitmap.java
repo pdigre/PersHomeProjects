@@ -42,6 +42,10 @@ public class Bitmap implements IConst {
         return (bitmap >> _TO) & 63;
     }
 
+    final static public int getFromTo(int bitmap) {
+        return (bitmap&(FROM|TO))>>8;
+    }
+
     final public static boolean isCapture(final int bitmap) {
         return (bitmap & CAPTURE) != 0;
     }
@@ -209,4 +213,5 @@ public class Bitmap implements IConst {
             val+=Bitmap.value(Bitmap.type(bitmap));
         return val;
     }
+
 }

@@ -6,10 +6,19 @@ import no.pdigre.chess.engine.eval.IThinker;
 import no.pdigre.chess.engine.eval.NegaMax;
 import no.pdigre.chess.engine.eval.NegaMaxCutoff;
 import no.pdigre.chess.engine.eval.NegaMaxEnd;
+import no.pdigre.chess.engine.eval.NegaMaxTransposition;
 import no.pdigre.chess.engine.fen.StartGame;
 
 import org.junit.Test;
 
+/**
+ * Count at level 3
+ * Negamax  13391      - 197s
+ * w/cutoff 1891/13391 - 2.5s
+ * w/transp 1300/13391 - 2.1s
+ * @author Per Digre
+ *
+ */
 @SuppressWarnings("static-method")
 public class ThinkerTest {
 
@@ -20,8 +29,9 @@ public class ThinkerTest {
     public void testNegamax() {
         String fen = "rnbqkb1r/p1p2ppp/1p2pn2/3p4/3P1B2/2N5/PPPQPPPP/R3KBNR w KQkq - 2 5";
         NegaMax first = new NegaMax(new NegaMax(new NegaMax(new NegaMaxEnd())));
-        NegaMax second = new NegaMax(new NegaMax(new NegaMax(new NegaMax(new NegaMaxEnd()))));
-        testThinker(fen,first, second);
+        NegaMax tt = new NegaMax(first);
+        testThinker(fen, first, new NegaMax(tt));
+        tt.printHitrate();
     }
 
     /**
@@ -31,8 +41,9 @@ public class ThinkerTest {
     public void testNegamaxCutoff() {
         String fen = "rnbqkb1r/p1p2ppp/1p2pn2/3p4/3P1B2/2N5/PPPQPPPP/R3KBNR w KQkq - 2 5";
         IThinker first = new NegaMaxCutoff(new NegaMaxCutoff(new NegaMaxCutoff(new NegaMaxEnd())));
-        IThinker second = new NegaMaxCutoff(new NegaMaxCutoff(new NegaMaxCutoff(new NegaMaxCutoff(new NegaMaxEnd()))));
-        testThinker(fen,first, second);
+        NegaMaxCutoff tt = new NegaMaxCutoff(first);
+        testThinker(fen, first, new NegaMaxCutoff(tt));
+        tt.printHitrate();
     }
 
     /**
@@ -42,14 +53,15 @@ public class ThinkerTest {
     public void testNegamaxCutoffWithTransposition() {
         String fen = "rnbqkb1r/p1p2ppp/1p2pn2/3p4/3P1B2/2N5/PPPQPPPP/R3KBNR w KQkq - 2 5";
         IThinker first = new NegaMaxCutoff(new NegaMaxCutoff(new NegaMaxCutoff(new NegaMaxEnd())));
-        IThinker second = new NegaMaxCutoff(new NegaMaxCutoff(new NegaMaxCutoff(new NegaMaxCutoff(new NegaMaxEnd()))));
-        testThinker(fen,first, second);
+        NegaMaxTransposition tt = new NegaMaxTransposition(first);
+        testThinker(fen, first, new NegaMaxCutoff(tt));
+        tt.printHitrate();
     }
 
     /**
      * @param first
      */
-    public static void testThinker(String fen,IThinker first, IThinker second) {
+    public static void testThinker(String fen, IThinker first, IThinker second) {
         StartGame start = new StartGame(fen);
         int[] board = start.getBoard();
         int[] moves = NodeUtil.getAllBestFirst(board, start.getInherit());

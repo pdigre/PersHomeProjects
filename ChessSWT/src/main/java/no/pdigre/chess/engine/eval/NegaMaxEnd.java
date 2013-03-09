@@ -11,4 +11,19 @@ public class NegaMaxEnd implements IThinker {
     public int think(int[] board, int inherit, int total, int alpha, int beta) {
         return total+ Bitmap.tacticValue(inherit);
     }
+
+    @Override
+    public int getCurrent() {
+        return 0;
+    }
+
+    @Override
+    public IThinker getParent() {
+        return null;
+    }
+
+    @Override
+    public void setParent(IThinker prev) {
+        // none
+    }
 }
