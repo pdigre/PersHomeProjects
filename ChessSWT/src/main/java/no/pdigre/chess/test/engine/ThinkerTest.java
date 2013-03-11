@@ -48,13 +48,16 @@ public class ThinkerTest {
 
     /**
      * Takes 148ms with quadcore i7
+     * 
+     * with test2 
+     * 5201/39731
      */
     @Test
     public void testNegamaxCutoffWithTransposition() {
         String fen = "rnbqkb1r/p1p2ppp/1p2pn2/3p4/3P1B2/2N5/PPPQPPPP/R3KBNR w KQkq - 2 5";
-        IThinker first = new NegaMaxCutoff(new NegaMaxCutoff(new NegaMaxCutoff(new NegaMaxEnd())));
+        IThinker first = new NegaMaxCutoff(new NegaMaxEnd());
         NegaMaxTransposition tt = new NegaMaxTransposition(first);
-        testThinker(fen, first, new NegaMaxCutoff(tt));
+        testThinker2(fen, first, new NegaMax(tt));
         tt.printHitrate();
     }
 
@@ -69,7 +72,7 @@ public class ThinkerTest {
         for (int i = 0; i < moves.length; i++)
             evals[i] = new Evaluator(board, moves[i]);
         for (Evaluator eval : evals)
-            eval.think(first);
+            eval.async(first);
         for (Evaluator eval : evals)
             eval.join();
         Evaluator.sort(evals);
@@ -77,7 +80,7 @@ public class ThinkerTest {
         for (Evaluator eval : evals) {
             if (extra-- < 0)
                 break;
-            eval.think(second);
+            eval.async(second);
         }
         for (Evaluator eval : evals)
             eval.join();
@@ -86,4 +89,17 @@ public class ThinkerTest {
             System.out.println(eval.toString());
     }
 
+    public static void testThinker2(String fen, IThinker first, IThinker second) {
+        StartGame start = new StartGame(fen);
+        int[] board = start.getBoard();
+        int[] moves = NodeUtil.getAllBestFirst(board, start.getInherit());
+        Evaluator[] evals = new Evaluator[moves.length];
+        for (int i = 0; i < moves.length; i++)
+            evals[i] = new Evaluator(board, moves[i]);
+        for (Evaluator eval : evals)
+            eval.sync(second);
+        Evaluator.sort(evals);
+        for (Evaluator eval : evals)
+            System.out.println(eval.toString());
+    }
 }

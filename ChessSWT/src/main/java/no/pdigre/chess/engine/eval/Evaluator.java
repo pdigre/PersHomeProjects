@@ -2,6 +2,7 @@ package no.pdigre.chess.engine.eval;
 
 import java.util.concurrent.ForkJoinPool;
 
+import no.pdigre.chess.engine.base.Bitmap;
 import no.pdigre.chess.engine.fen.FEN;
 
 public class Evaluator {
@@ -23,9 +24,14 @@ public class Evaluator {
         this.bitmap = bitmap;
     }
 
-    public void think(IThinker thinker) {
+    public void async(IThinker thinker) {
         task = new ThinkTask(thinker, board, bitmap);
         pool.execute(task);
+    }
+
+    public void sync(IThinker thinker) {
+        score = thinker.think(Bitmap.apply(board, bitmap), bitmap, 0, IThinker.MIN, IThinker.MAX);
+        sb.append(score);
     }
 
     public void join() {

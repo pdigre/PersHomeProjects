@@ -1,6 +1,6 @@
 package no.pdigre.chess.engine.eval;
 
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.HashSet;
 
 import no.pdigre.chess.engine.base.Bitmap;
 import no.pdigre.chess.engine.base.NodeUtil;
@@ -14,8 +14,7 @@ public class NegaMaxTransposition implements IThinker {
 
     public static long FROMTO_3 = FROMTO_2 << 12;
 
-    
-    public ConcurrentHashMap<Long, Integer> tt = new ConcurrentHashMap<Long, Integer>();
+    public HashSet<Long> tt = new HashSet<Long>();
 
     private IThinker next;
 
@@ -42,40 +41,27 @@ public class NegaMaxTransposition implements IThinker {
         this.bitmap = bitmap0;
         this.board = board0;
         total += Bitmap.tacticValue(bitmap0);
+        int ft1 = Bitmap.getFromTo(getParent().getCurrent());
+        int ft2x = Bitmap.getFromTo(bitmap0) << 12;
+        long commonkey = ft1 | ft2x;
+        long commontrn = ft2x | (ft1 << 24);
         int[] moves = NodeUtil.getAllBestFirst(board0, bitmap0);
-        counter+=moves.length;
+        counter += moves.length;
         for (int i = 0; i < moves.length; i++) {
             int bitmap = moves[i];
-            long key = Bitmap.getFromTo(bitmap) | (getKey(this) << 12);
-            long t = getTransposition(key);
             int score = 0;
-            Integer val=tt.get(t);
-            if (val!=null) {
-                score = val;
-            } else {
-                score = -next.think(Bitmap.apply(board0, bitmap), bitmap, -total, -beta, -alpha);
-                tt.put(key, score);
-            }
-            if (score >= beta)
-                return beta;
+            long ft3 = Bitmap.getFromTo(bitmap);
+            if (tt.contains(ft3 | commontrn))
+                continue;
+            tt.add(commonkey | (ft3 << 24));
+            score = -next.think(Bitmap.apply(board0, bitmap), bitmap, -total, -beta, -alpha);
+//            if (score >= beta)
+//                return beta;
             if (score > alpha)
                 alpha = score;
         }
         return alpha;
     }
-
-    final private static long getTransposition(long key) {
-        return key & FROMTO_3 >> 24 | (key & FROMTO_2) | key & FROMTO_1 << 24;
-    }
-
-    final private static long getKey(IThinker thinker) {
-        long key = Bitmap.getFromTo(thinker.getCurrent());
-        IThinker parent = thinker.getParent();
-        if (parent != null)
-            key += getKey(parent) << 12;
-        return key;
-    }
-
 
     @Override
     public int getCurrent() {
