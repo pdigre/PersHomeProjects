@@ -13,7 +13,7 @@ public class NegaMaxEnd implements IThinker {
     }
 
     @Override
-    public int getCurrent() {
+    public int getBitmap() {
         return 0;
     }
 

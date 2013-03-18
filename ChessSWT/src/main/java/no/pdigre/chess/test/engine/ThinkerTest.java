@@ -1,6 +1,7 @@
 package no.pdigre.chess.test.engine;
 
 import no.pdigre.chess.engine.base.NodeUtil;
+import no.pdigre.chess.engine.eval.EvalUnit;
 import no.pdigre.chess.engine.eval.Evaluator;
 import no.pdigre.chess.engine.eval.IThinker;
 import no.pdigre.chess.engine.eval.NegaMax;
@@ -62,6 +63,22 @@ public class ThinkerTest {
     }
 
     /**
+     * Takes 148ms with quadcore i7
+     * 
+     * with test2 
+     * 5201/39731
+     */
+    @Test
+    public void testEvalUnit() {
+        String fen = "rnbqkb1r/p1p2ppp/1p2pn2/3p4/3P1B2/2N5/PPPQPPPP/R3KBNR w KQkq - 2 5";
+        StartGame start = new StartGame(fen);
+        EvalUnit top = new EvalUnit(start.getBoard(), start.getInherit());
+        top.firstPass();
+        top.printScore();
+        
+    }
+
+    /**
      * @param first
      */
     public static void testThinker(String fen, IThinker first, IThinker second) {
@@ -92,7 +109,9 @@ public class ThinkerTest {
     public static void testThinker2(String fen, IThinker first, IThinker second) {
         StartGame start = new StartGame(fen);
         int[] board = start.getBoard();
-        int[] moves = NodeUtil.getAllBestFirst(board, start.getInherit());
+        int bitmap = start.getInherit();
+        EvalUnit eu = new EvalUnit(board, bitmap);
+        int[] moves = NodeUtil.getAllBestFirst(board, bitmap);
         Evaluator[] evals = new Evaluator[moves.length];
         for (int i = 0; i < moves.length; i++)
             evals[i] = new Evaluator(board, moves[i]);
@@ -102,4 +121,6 @@ public class ThinkerTest {
         for (Evaluator eval : evals)
             System.out.println(eval.toString());
     }
+    
+    
 }

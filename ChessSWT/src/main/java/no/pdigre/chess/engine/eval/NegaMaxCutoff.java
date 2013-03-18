@@ -48,7 +48,7 @@ public class NegaMaxCutoff implements IThinker {
     }
 
     @Override
-    public int getCurrent() {
+    public int getBitmap() {
         return bitmap;
     }
 

@@ -24,7 +24,11 @@ public class NegaMaxTransposition implements IThinker {
 
     private int[] board;
 
-    private int counter;
+    private int total;
+
+    private int hits;
+
+    private int adds;
 
     @Override
     public void setParent(IThinker parent) {
@@ -37,34 +41,54 @@ public class NegaMaxTransposition implements IThinker {
     }
 
     @Override
-    public int think(int[] board0, int bitmap0, int total, int alpha, int beta) {
+    public int think(int[] board0, int bitmap0, int aggr, int alpha, int beta) {
         this.bitmap = bitmap0;
         this.board = board0;
-        total += Bitmap.tacticValue(bitmap0);
-        int ft1 = Bitmap.getFromTo(getParent().getCurrent());
-        int ft2x = Bitmap.getFromTo(bitmap0) << 12;
+        aggr += Bitmap.tacticValue(bitmap0);
+        long ft1 = Bitmap.getFromTo(getParent().getBitmap());
+        long ft2 = Bitmap.getFromTo(bitmap0);
+        long ft2x = ft2 << 12;
         long commonkey = ft1 | ft2x;
         long commontrn = ft2x | (ft1 << 24);
+//        String s1 = fromto((int) ft1);
+//        String s12 = FEN.printMove(getParent().getBitmap(), board0);
+//        String s2 = fromto((int) ft2);
+//        String s22 = FEN.printMove(bitmap0, board0);
         int[] moves = NodeUtil.getAllBestFirst(board0, bitmap0);
-        counter += moves.length;
+        total += moves.length;
         for (int i = 0; i < moves.length; i++) {
             int bitmap = moves[i];
             int score = 0;
             long ft3 = Bitmap.getFromTo(bitmap);
-            if (tt.contains(ft3 | commontrn))
+//            String s3 = fromto((int) ft3);
+//            String s32 = FEN.printMove(bitmap, Bitmap.apply(board0, bitmap));
+            Long trans = ft3 | commontrn;
+            if (tt.contains(trans)) {
+                hits++;
                 continue;
-            tt.add(commonkey | (ft3 << 24));
-            score = -next.think(Bitmap.apply(board0, bitmap), bitmap, -total, -beta, -alpha);
-//            if (score >= beta)
-//                return beta;
+            }
+            adds++;
+            Long key = commonkey | (ft3 << 24);
+            tt.add(key);
+            score = -next.think(Bitmap.apply(board0, bitmap), bitmap, -aggr, -beta, -alpha);
+            // if (score >= beta)
+            // return beta;
             if (score > alpha)
                 alpha = score;
         }
         return alpha;
     }
 
+    public static String[] S1 = "1,2,3,4,5,6,7,8".split(",");
+
+    public static String[] S2 = "A,B,C,D,E,F,G,H".split(",");
+
+    public static String fromto(int p) {
+        return (S2[p & 7]) + (S1[(p >> 3) & 7]) + (S2[(p >> 6) & 7]) + (S1[(p >> 9) & 7]);
+    }
+
     @Override
-    public int getCurrent() {
+    public int getBitmap() {
         return bitmap;
     }
 
@@ -79,7 +103,7 @@ public class NegaMaxTransposition implements IThinker {
     }
 
     public void printHitrate() {
-        System.out.println("Scanning:" + tt.size() + "/" + counter);
+        System.out.println("Scanning:" + tt.size() + "/" + total + " (hits:" + hits + ",adds:" + adds + ")");
     }
 
 }

@@ -35,8 +35,8 @@ public class NegaMax implements IThinker {
         int[] moves = NodeUtil.getAllBestFirst(board0, bitmap0);
         counter+=moves.length;
         for (int i = 0; i < moves.length; i++) {
-            bitmap = moves[i];
-            int score = -next.think(Bitmap.apply(board0, bitmap), bitmap, -total, -beta, -alpha);
+            int bitmap1 = moves[i];
+            int score = -next.think(Bitmap.apply(board0, bitmap1), bitmap1, -total, -beta, -alpha);
             if (score > max)
                 max = score;
         }
@@ -44,7 +44,7 @@ public class NegaMax implements IThinker {
     }
 
     @Override
-    public int getCurrent() {
+    public int getBitmap() {
         return bitmap;
     }
 
