@@ -1,5 +1,7 @@
 package no.pdigre.chess.test.engine;
 
+import java.util.HashSet;
+
 import no.pdigre.chess.engine.base.NodeUtil;
 import no.pdigre.chess.engine.eval.EvalUnit;
 import no.pdigre.chess.engine.eval.Evaluator;
@@ -57,9 +59,10 @@ public class ThinkerTest {
     public void testNegamaxCutoffWithTransposition() {
         String fen = "rnbqkb1r/p1p2ppp/1p2pn2/3p4/3P1B2/2N5/PPPQPPPP/R3KBNR w KQkq - 2 5";
         IThinker first = new NegaMaxCutoff(new NegaMaxEnd());
-        NegaMaxTransposition tt = new NegaMaxTransposition(first);
-        testThinker2(fen, first, new NegaMax(tt));
-        tt.printHitrate();
+        HashSet<Long> tt=new HashSet<Long>();
+        NegaMaxTransposition nm = NegaMaxTransposition.createAndFill(first,tt);
+        testThinker2(fen, first, new NegaMax(nm));
+        nm.printHitrate();
     }
 
     /**
@@ -73,7 +76,24 @@ public class ThinkerTest {
         String fen = "rnbqkb1r/p1p2ppp/1p2pn2/3p4/3P1B2/2N5/PPPQPPPP/R3KBNR w KQkq - 2 5";
         StartGame start = new StartGame(fen);
         EvalUnit top = new EvalUnit(start.getBoard(), start.getInherit());
-        top.firstPass();
+        top.runFirstPass();
+        top.runSecondPass(20);
+        top.printScore();
+    }
+
+    /**
+     * Takes 148ms with quadcore i7
+     * 
+     * with test2 
+     * 5201/39731
+     */
+    @Test
+    public void testEvalUnit2() {
+        String fen = "8/4p3/8/3P3p/P2pK3/6P1/7b/3k4 w - - 0 1";
+        StartGame start = new StartGame(fen);
+        EvalUnit top = new EvalUnit(start.getBoard(), start.getInherit());
+        top.runFirstPass();
+        top.runSecondPass(20);
         top.printScore();
         
     }
