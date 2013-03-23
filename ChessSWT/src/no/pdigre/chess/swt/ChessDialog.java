@@ -10,6 +10,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.PaintEvent;
+import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -25,12 +27,29 @@ public class ChessDialog {
 
         @Override
         protected void updateBoard() {
-            canvas.updateBoard();
+            canvas.updateCanvas(new PaintListener() {
+            
+                @Override
+                public void paintControl(PaintEvent e) {
+                    canvas.clearBoard(e);
+                    canvas.updatePieces(e);
+                }
+            
+            });
         }
 
         @Override
         protected void updateMarkers() {
-            canvas.updateMarkers();
+            canvas.updateCanvas(new PaintListener() {
+            
+                @Override
+                public void paintControl(PaintEvent e) {
+                    canvas.clearBoard(e);
+                    canvas.updatePieces(e);
+                    canvas.updateMarkers(e);
+                }
+            
+            });
         }
     };
 
@@ -40,7 +59,16 @@ public class ChessDialog {
             @Override
             protected void selectSquareEvent(int i) {
                 game.clickSquare(i);
-                updateAll();
+                updateCanvas(new PaintListener() {
+                
+                    @Override
+                    public void paintControl(PaintEvent e) {
+                        clearBoard(e);
+                        updatePieces(e);
+                        updateMarkers(e);
+                    }
+                
+                });
             }
 
             @Override
@@ -61,8 +89,8 @@ public class ChessDialog {
         };
         shell.setLayout(new GridLayout(2, false));
         shell.setSize(500, 350);
-        Composite contoller = new Composite(shell, SWT.NONE);
-        contoller.setLayoutData(new GridData());
+        Composite controller = new Composite(shell, SWT.NONE);
+        controller.setLayoutData(new GridData());
         final CCombo cc = new CCombo(shell, SWT.BORDER);
         cc.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, false, 2, 1));
         cc.setItems(StartingGames.FEN_GAMES);
@@ -70,7 +98,8 @@ public class ChessDialog {
 
             @Override
             public void modifyText(ModifyEvent e) {
-                game.setup(new StartGame(cc.getText()));
+                setup(cc.getText());
+                game.computeMarkers();
             }
 
         });
@@ -81,11 +110,16 @@ public class ChessDialog {
                 int i = cc.getSelectionIndex();
                 if (i < 0)
                     return;
-                game.setup(new StartGame(cc.getText()));
+                setup(cc.getText());
+                game.computeMarkers();
             }
         });
         shell.open();
-        game.setup(new StartGame(StartingGames.FEN_GAMES[0]));
+        setup(StartingGames.FEN_GAMES[0]);
     }
 
+    public void setup(String fen){
+        game.setup(new StartGame(fen));
+    }
+    
 }

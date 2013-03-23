@@ -2,17 +2,27 @@ package no.pdigre.chess.swt;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.junit.Test;
 
-
+@SuppressWarnings("static-method")
 public class Chess {
 
+    public Shell shell;
+    private ChessDialog dialog;
+
+    @Test
     public static void main(String[] args) {
-        new Chess();
+        Chess chess = new Chess();
+        chess.dialog.game.computeMarkers();
+        chess.runDisplay();
     }
 
     public Chess(){
-        Shell shell = new Shell(new Display());
-    	new ChessDialog(shell);
+        shell = new Shell(new Display());
+    	dialog = new ChessDialog(shell);
+    }
+
+    public void runDisplay() {
         Display display = shell.getDisplay();
         while (!shell.isDisposed()) {
             if (!display.readAndDispatch())
@@ -20,6 +30,10 @@ public class Chess {
         
         }
         display.dispose();
+    }
+
+    public void setup(String fen){
+        dialog.setup(fen);
     }
 
 

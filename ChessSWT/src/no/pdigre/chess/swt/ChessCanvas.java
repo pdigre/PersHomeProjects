@@ -19,22 +19,8 @@ import org.eclipse.swt.widgets.Display;
 
 public abstract class ChessCanvas extends Canvas {
 
-    private boolean todo_board = false;
-
-    private boolean todo_pieces = false;
-
-    private boolean todo_markers = false;
-
     public ChessCanvas(Composite parent, int style) {
         super(parent, style);
-        addPaintListener(new PaintListener() {
-
-            @Override
-            public void paintControl(PaintEvent e) {
-                updateBoard(e);
-            }
-
-        });
         addMouseListener(new MouseAdapter() {
 
             @Override
@@ -49,73 +35,52 @@ public abstract class ChessCanvas extends Canvas {
         setLayoutData(new GridData(270, 270));
     }
 
-    void updateBoard(PaintEvent e) {
-        if (todo_board) {
-            todo_board = false;
-            GC gc = e.gc;
-            Rectangle area = ((Canvas) e.widget).getClientArea();
-            gc.drawRectangle(area.x + 1, area.y + 1, area.width - 2, area.height - 2);
-            for (int i = 0; i < 64; i++)
-                drawSquare(gc, i, 0);
-        }
-        if (todo_pieces) {
-            todo_pieces = false;
-            for (int i = 0; i < 64; i++)
-                drawPiece(e.gc, i, getImage(i));
-        }
-        if (todo_markers) {
-            todo_markers = false;
-            int color = SWT.COLOR_YELLOW;
-            for (Marking mark : getMarkings()) {
-                switch (mark.type) {
-                    case BestMoveFrom:
-                        drawFrame(e.gc, mark.pos,SWT.COLOR_YELLOW);
-                        break;
-                    case MoveFrom:
-                        drawFrame(e.gc, mark.pos,SWT.COLOR_GREEN);
-                        break;
-                    case MarkFrom:
-                        drawFrame(e.gc, mark.pos, SWT.COLOR_RED);
-                        break;
-                    case MoveTo:
-                        drawFrame(e.gc, mark.pos, color);
-                        color = SWT.COLOR_GREEN;
-                        drawScore(e.gc, mark.pos, mark.score);
-                        break;
-                    default:
-                        break;
-                }
+    public void updateMarkers(PaintEvent e) {
+        int color = SWT.COLOR_YELLOW;
+        for (Marking mark : getMarkings()) {
+            switch (mark.type) {
+                case BestMoveFrom:
+                    drawFrame(e.gc, mark.pos, SWT.COLOR_YELLOW);
+                    break;
+                case MoveFrom:
+                    drawFrame(e.gc, mark.pos, SWT.COLOR_GREEN);
+                    break;
+                case MarkFrom:
+                    drawFrame(e.gc, mark.pos, SWT.COLOR_RED);
+                    break;
+                case MoveTo:
+                    drawFrame(e.gc, mark.pos, color);
+                    color = SWT.COLOR_GREEN;
+                    drawScore(e.gc, mark.pos, mark.score);
+                    break;
+                default:
+                    break;
             }
         }
+    }
+
+    public static void clearBoard(PaintEvent e) {
+        GC gc = e.gc;
+        Rectangle area = ((Canvas) e.widget).getClientArea();
+        gc.drawRectangle(area.x + 1, area.y + 1, area.width - 2, area.height - 2);
+        for (int i = 0; i < 64; i++)
+            drawSquare(gc, i, 0);
+    }
+
+    public void updatePieces(PaintEvent e) {
+        for (int i = 0; i < 64; i++)
+            drawPiece(e.gc, i, getImage(i));
     }
 
     protected abstract ArrayList<Marking> getMarkings();
 
     protected abstract String getImage(int i);
 
-    protected void updateAll() {
-        todo_board = true;
-        todo_pieces = true;
-        todo_markers = true;
-        updateCanvas();
-    }
-
-    protected void updateBoard() {
-        todo_board = true;
-        todo_pieces = true;
-        updateCanvas();
-    }
-
-    protected void updateMarkers() {
-        todo_board = true;
-        todo_pieces = true;
-        todo_markers = true;
-        updateCanvas();
-    }
-
-    protected void updateCanvas() {
+    public void updateCanvas(PaintListener painter) {
+        addPaintListener(painter);
         redraw();
         update();
+        removePaintListener(painter);
     }
 
     private static final int PIECE_HEIGHT = 32;

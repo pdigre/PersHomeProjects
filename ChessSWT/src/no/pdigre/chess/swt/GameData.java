@@ -33,8 +33,10 @@ public abstract class GameData {
         board = lastmove.getBoard();
         from = -1;
         updateBoard();
-        Player player=lastmove.whiteTurn()?white:black;
-        player.run();
+    }
+
+    public void computeMarkers() {
+        (lastmove.whiteTurn()?white:black).run();
     }
 
     public void manual() {

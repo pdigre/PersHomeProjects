@@ -14,7 +14,7 @@ public class NegaMaxTransposition implements IThinker {
 
     public static long FROMTO_3 = FROMTO_2 << 12;
 
-    public HashSet<Long> tt = new HashSet<Long>();
+    public HashSet<Long> tt;
 
     private IThinker next;
 
@@ -30,13 +30,16 @@ public class NegaMaxTransposition implements IThinker {
 
     private int adds;
 
+    private boolean lAdd;
+
     @Override
     public void setParent(IThinker parent) {
         this.parent = parent;
     }
 
-    public NegaMaxTransposition(IThinker next) {
+    public NegaMaxTransposition(IThinker next,HashSet<Long> tt) {
         this.next = next;
+        this.tt=tt;
         next.setParent(this);
     }
 
@@ -50,26 +53,22 @@ public class NegaMaxTransposition implements IThinker {
         long ft2x = ft2 << 12;
         long commonkey = ft1 | ft2x;
         long commontrn = ft2x | (ft1 << 24);
-//        String s1 = fromto((int) ft1);
-//        String s12 = FEN.printMove(getParent().getBitmap(), board0);
-//        String s2 = fromto((int) ft2);
-//        String s22 = FEN.printMove(bitmap0, board0);
         int[] moves = NodeUtil.getAllBestFirst(board0, bitmap0);
         total += moves.length;
         for (int i = 0; i < moves.length; i++) {
             int bitmap = moves[i];
             int score = 0;
             long ft3 = Bitmap.getFromTo(bitmap);
-//            String s3 = fromto((int) ft3);
-//            String s32 = FEN.printMove(bitmap, Bitmap.apply(board0, bitmap));
             Long trans = ft3 | commontrn;
             if (tt.contains(trans)) {
                 hits++;
                 continue;
             }
-            adds++;
-            Long key = commonkey | (ft3 << 24);
-            tt.add(key);
+            if(lAdd){
+                adds++;
+                Long key = commonkey | (ft3 << 24);
+                tt.add(key);
+            }
             score = -next.think(Bitmap.apply(board0, bitmap), bitmap, -aggr, -beta, -alpha);
             // if (score >= beta)
             // return beta;
@@ -104,6 +103,16 @@ public class NegaMaxTransposition implements IThinker {
 
     public void printHitrate() {
         System.out.println("Scanning:" + tt.size() + "/" + total + " (hits:" + hits + ",adds:" + adds + ")");
+    }
+
+    public static NegaMaxTransposition createAndFill(IThinker tail, HashSet<Long> tt) {
+        NegaMaxTransposition nm = new NegaMaxTransposition(tail,tt);
+        nm.lAdd=true;
+        return nm;
+    }
+
+    public static NegaMaxTransposition create(IThinker tail, HashSet<Long> tt) {
+        return new NegaMaxTransposition(tail,tt);
     }
 
 }

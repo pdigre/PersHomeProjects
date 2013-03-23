@@ -1,6 +1,8 @@
 package no.pdigre.chess.swt;
 
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.PaintEvent;
+import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Canvas;
@@ -14,43 +16,51 @@ public abstract class BoardHandler extends ChessGraphics {
     public int[] draw_targets = new int[64];
 
     public int[] draw_score = new int[64];
-    
+
     public int best_from;
+
     public int best_to;
 
     public int[] board;
 
     public Integer from = -1;
 
-    public boolean todo_board = false;
+    public void updateAll2() {
+        ((ChessCanvas) canvas).updateCanvas(new PaintListener() {
 
-    public boolean todo_pieces = false;
+            @Override
+            public void paintControl(PaintEvent e) {
+                ((ChessCanvas) canvas).clearBoard(e);
+                ((ChessCanvas) canvas).updatePieces(e);
+                ((ChessCanvas) canvas).updateMarkers(e);
+            }
 
-    public boolean todo_markers = false;
-
-    public void updateAll() {
-        todo_board = true;
-        todo_pieces = true;
-        todo_markers = true;
-        update();
+        });
     }
 
-    public void updateBoard() {
-        todo_board = true;
-        todo_pieces = true;
-        update();
+    public void updateBoard2() {
+        ((ChessCanvas) canvas).updateCanvas(new PaintListener() {
+
+            @Override
+            public void paintControl(PaintEvent e) {
+                ((ChessCanvas) canvas).clearBoard(e);
+                ((ChessCanvas) canvas).updatePieces(e);
+            }
+
+        });
     }
 
     public void updateMarkers() {
-        todo_board = true;
-        todo_pieces = true;
-        todo_markers = true;
-        update();
-    }
+        ((ChessCanvas) canvas).updateCanvas(new PaintListener() {
 
-    public void update() {
-        canvas.redraw();
-        canvas.update();
+            @Override
+            public void paintControl(PaintEvent e) {
+                ((ChessCanvas) canvas).clearBoard(e);
+                ((ChessCanvas) canvas).updatePieces(e);
+                ((ChessCanvas) canvas).updateMarkers(e);
+            }
+
+        });
     }
 
     public void runDialog() {

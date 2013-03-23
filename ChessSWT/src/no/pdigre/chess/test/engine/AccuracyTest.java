@@ -1,9 +1,5 @@
 package no.pdigre.chess.test.engine;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import no.pdigre.chess.engine.fen.StartGame;
@@ -18,16 +14,16 @@ public class AccuracyTest {
 
         public final int[] count;
 
-        public Perft(String fen,int[] count) {
+        public Perft(String fen, int[] count) {
             this.fen = fen;
-            this.count=count;
+            this.count = count;
         }
 
         @Override
         public String toString() {
             StringBuffer sb = new StringBuffer();
             for (int i = 0; i < count.length; i++)
-                sb.append(count[i]+" ");
+                sb.append(count[i] + " ");
             sb.append(fen);
             return sb.toString();
         }
@@ -35,38 +31,29 @@ public class AccuracyTest {
 
     @Test
     public void testAccuracy() {
-        ArrayList<Perft> list=new ArrayList<AccuracyTest.Perft>();
-        try {
-            InputStream in = getClass().getResourceAsStream("perftsuite.epd");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            while (true) {
-                String line = reader.readLine();
-                if (line == null)
-                    break;
-                String[] split = line.split("\\;");
-                int[] count=new int[split.length-1];
-                for (int i = 0; i < count.length; i++)
-                    count[i] = Integer.parseInt(split[i + 1].split(" ")[1]);
-                list.add(new Perft(split[0],count));
-            }
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        ArrayList<Perft> list = new ArrayList<AccuracyTest.Perft>();
+        for (String line : FileUtils.stream2lines(getClass().getResourceAsStream("perftsuite.epd"))) {
+            String[] split = line.split("\\;");
+            int[] count = new int[split.length - 1];
+            for (int i = 0; i < count.length; i++)
+                count[i] = Integer.parseInt(split[i + 1].split(" ")[1]);
+            list.add(new Perft(split[0], count));
         }
-        int line=1;
+        int line = 1;
         for (Perft perft : list) {
-            System.out.print((line++)+". "+perft);
+            System.out.print((line++) + ". " + perft);
             StartGame start = new StartGame(perft.fen);
             long time = System.currentTimeMillis();
-            int[] counters = new CountMoveParallel(start.getInherit(), perft.count.length, start.getBoard()).compute();
+            int[] counters = new CountMoveParallel(start.getInherit(), perft.count.length, start.getBoard())
+                .compute();
             for (int i = 0; i < counters.length; i++) {
-                if(perft.count[i]!=counters[i]){
-                    System.out.println(" NOT "+(System.currentTimeMillis()-time)+"ms");
+                if (perft.count[i] != counters[i]) {
+                    System.out.println(" NOT " + (System.currentTimeMillis() - time) + "ms");
                     printCounter(counters);
                     throw new AssertionError("Wrong move count");
                 }
             }
-            System.out.println(" OK "+(System.currentTimeMillis()-time)+"ms");
+            System.out.println(" OK " + (System.currentTimeMillis() - time) + "ms");
         }
     }
 
