@@ -19,9 +19,9 @@ public class FEN implements IConst{
 		fen.append(" ");
 		fen.append(FEN.getFenCastling(move));
 		fen.append(" ");
-		fen.append(FEN.pos2string(Bitmap.getEnpassant(move.getInherit())));
+		fen.append(FEN.pos2string(Bitmap.getEnpassant(move.getBitmap())));
 		fen.append(" ");
-		fen.append(Bitmap.halfMoves(move.getInherit()));
+		fen.append(Bitmap.halfMoves(move.getBitmap()));
 		fen.append(" ");
 		fen.append(move.totalMoves());
 		return fen.toString();
@@ -69,7 +69,7 @@ public class FEN implements IConst{
 
 	final public static String getFenCastling(IPosition move) {
 		StringBuilder sb = new StringBuilder();
-		int state = Bitmap.getCastlingState(move.getInherit());
+		int state = Bitmap.getCastlingState(move.getBitmap());
 		if ((state & IConst.NOCASTLE_WHITEKING) == 0)
 			sb.append("K");
 		if ((state & IConst.NOCASTLE_WHITEQUEEN) == 0)

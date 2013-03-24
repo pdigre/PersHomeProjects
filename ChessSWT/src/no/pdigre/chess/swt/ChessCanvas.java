@@ -1,6 +1,9 @@
 package no.pdigre.chess.swt;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
+
+import no.pdigre.chess.engine.fen.PieceType;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
@@ -19,8 +22,13 @@ import org.eclipse.swt.widgets.Display;
 
 public abstract class ChessCanvas extends Canvas {
 
+    public static EnumMap<PieceType, ImageData> imgdatas = new EnumMap<PieceType, ImageData>(PieceType.class);
+
+    public static EnumMap<PieceType, Image> images = new EnumMap<PieceType, Image>(PieceType.class);
+
     public ChessCanvas(Composite parent, int style) {
         super(parent, style);
+        loadImages(getClass());
         addMouseListener(new MouseAdapter() {
 
             @Override
@@ -35,9 +43,19 @@ public abstract class ChessCanvas extends Canvas {
         setLayoutData(new GridData(270, 270));
     }
 
-    public void updateMarkers(PaintEvent e) {
+    protected abstract void selectSquareEvent(int i);
+
+    public void updateCanvas(PaintListener painter) {
+        addPaintListener(painter);
+        redraw();
+        update();
+        removePaintListener(painter);
+    }
+
+
+    public static void updateMarkers(PaintEvent e, ArrayList<Marking> markings) {
         int color = SWT.COLOR_YELLOW;
-        for (Marking mark : getMarkings()) {
+        for (Marking mark : markings) {
             switch (mark.type) {
                 case BestMoveFrom:
                     drawFrame(e.gc, mark.pos, SWT.COLOR_YELLOW);
@@ -67,20 +85,21 @@ public abstract class ChessCanvas extends Canvas {
             drawSquare(gc, i, 0);
     }
 
-    public void updatePieces(PaintEvent e) {
-        for (int i = 0; i < 64; i++)
-            drawPiece(e.gc, i, getImage(i));
-    }
-
-    protected abstract ArrayList<Marking> getMarkings();
-
-    protected abstract String getImage(int i);
-
-    public void updateCanvas(PaintListener painter) {
-        addPaintListener(painter);
-        redraw();
-        update();
-        removePaintListener(painter);
+    public static void updatePieces(PaintEvent e, int[] board) {
+        for (int i = 0; i < 64; i++) {
+            if (images.isEmpty()) {
+                for (PieceType pt : PieceType.values())
+                    images.put(pt, new Image(e.gc.getDevice(), imgdatas.get(pt)));
+            }
+            int x = i % 8;
+            int y = (i - x) / 8;
+            int piece = board[i];
+            if (piece > 0) {
+                Image img = images.get(PieceType.types[piece]);
+                e.gc.drawImage(img, BOARD_MARGIN + x * PIECE_WIDTH, BOARD_OFFSET
+                    - y * PIECE_HEIGHT);
+            }
+        }
     }
 
     private static final int PIECE_HEIGHT = 32;
@@ -91,17 +110,13 @@ public abstract class ChessCanvas extends Canvas {
 
     private static final int BOARD_MARGIN = PIECE_WIDTH - 24;
 
-    private void drawPiece(GC gc, int i, String filename) {
-        if (filename == null)
-            return;
-        int x = i % 8;
-        int y = (i - x) / 8;
-        Image img = new Image(gc.getDevice(), new ImageData(getClass().getClassLoader().getResourceAsStream(
-            filename)));
-        gc.drawImage(img, BOARD_MARGIN + x * PIECE_WIDTH, BOARD_OFFSET - y * PIECE_HEIGHT);
+    private static void loadImages(Class<?> clz) {
+        for (PieceType ptype : PieceType.values()) {
+            String filename = (ptype.fen > 'Z' ? "b" + ptype.fen + ".gif" : "w" + ptype.fen + ".gif")
+                .toLowerCase();
+            imgdatas.put(ptype, new ImageData(clz.getClassLoader().getResourceAsStream(filename)));
+        }
     }
-
-    protected abstract void selectSquareEvent(int i);
 
     private static void drawSquare(GC gc, int i, int color) {
         gc.setBackground(getBGColor(gc, i, color));

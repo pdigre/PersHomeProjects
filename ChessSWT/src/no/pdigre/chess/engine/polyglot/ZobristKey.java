@@ -225,7 +225,7 @@ public class ZobristKey implements IConst {
     public static long getKey(IPosition pos) {
         long key = 0;
         int[] board = pos.getBoard();
-        int bitmap = pos.getInherit();
+        int bitmap = pos.getBitmap();
         for (int i = 0; i < 64; i++) {
             int piece = board[i];
             if (piece != 0)

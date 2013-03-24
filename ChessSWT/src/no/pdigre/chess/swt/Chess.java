@@ -4,11 +4,10 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.junit.Test;
 
-@SuppressWarnings("static-method")
 public class Chess {
 
     public Shell shell;
-    private ChessDialog dialog;
+    public ChessDialog dialog;
 
     @Test
     public static void main(String[] args) {

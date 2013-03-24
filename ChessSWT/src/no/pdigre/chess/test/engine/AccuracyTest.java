@@ -44,7 +44,7 @@ public class AccuracyTest {
             System.out.print((line++) + ". " + perft);
             StartGame start = new StartGame(perft.fen);
             long time = System.currentTimeMillis();
-            int[] counters = new CountMoveParallel(start.getInherit(), perft.count.length, start.getBoard())
+            int[] counters = new CountMoveParallel(start.getBitmap(), perft.count.length, start.getBoard())
                 .compute();
             for (int i = 0; i < counters.length; i++) {
                 if (perft.count[i] != counters[i]) {

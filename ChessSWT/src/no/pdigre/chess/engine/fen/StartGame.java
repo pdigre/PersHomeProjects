@@ -63,7 +63,7 @@ public class StartGame implements IPosition {
 	}
 
     @Override
-    public int getInherit() {
+    public int getBitmap() {
         int enp=0;
         if(enpassant!=-1){
             if(white){

@@ -2,10 +2,16 @@ package no.pdigre.chess.test.engine;
 
 import java.util.ArrayList;
 
+import no.pdigre.chess.engine.fen.IPosition;
 import no.pdigre.chess.swt.Chess;
+import no.pdigre.chess.swt.ChessCanvas;
+import no.pdigre.chess.swt.ChessDialog;
+import no.pdigre.chess.swt.Marking;
+
+import org.eclipse.swt.events.PaintEvent;
+import org.eclipse.swt.events.PaintListener;
 import org.junit.Test;
 
-@SuppressWarnings("static-method")
 public class GuiChessTest {
 
     public class PGN{
@@ -34,6 +40,19 @@ public class GuiChessTest {
                         @Override
                         public void run() {
                             chess.setup(pgn.fen);
+                            IPosition pos = chess.dialog.game.position;
+                            int bitmap = pos.getBitmap();
+                            final int[] board = pos.getBoard();
+                            final ArrayList<Marking> markers = ChessDialog.getPiecesThatCanMove(board,bitmap);
+                            chess.dialog.canvas.updateCanvas(new PaintListener() {
+                                
+                                @Override
+                                public void paintControl(PaintEvent e) {
+                                    ChessCanvas.clearBoard(e);
+                                    ChessCanvas.updatePieces(e,board);
+                                    ChessCanvas.updateMarkers(e, markers);
+                                }
+                            });
                         }
                     });
                     try {

@@ -75,7 +75,7 @@ public class ThinkerTest {
     public void testEvalUnit() {
         String fen = "rnbqkb1r/p1p2ppp/1p2pn2/3p4/3P1B2/2N5/PPPQPPPP/R3KBNR w KQkq - 2 5";
         StartGame start = new StartGame(fen);
-        EvalUnit top = new EvalUnit(start.getBoard(), start.getInherit());
+        EvalUnit top = new EvalUnit(start.getBoard(), start.getBitmap());
         top.runFirstPass();
         top.runSecondPass(20);
         top.printScore();
@@ -91,7 +91,7 @@ public class ThinkerTest {
     public void testEvalUnit2() {
         String fen = "8/4p3/8/3P3p/P2pK3/6P1/7b/3k4 w - - 0 1";
         StartGame start = new StartGame(fen);
-        EvalUnit top = new EvalUnit(start.getBoard(), start.getInherit());
+        EvalUnit top = new EvalUnit(start.getBoard(), start.getBitmap());
         top.runFirstPass();
         top.runSecondPass(20);
         top.printScore();
@@ -104,7 +104,7 @@ public class ThinkerTest {
     public static void testThinker(String fen, IThinker first, IThinker second) {
         StartGame start = new StartGame(fen);
         int[] board = start.getBoard();
-        int[] moves = NodeUtil.getAllBestFirst(board, start.getInherit());
+        int[] moves = NodeUtil.getAllBestFirst(board, start.getBitmap());
         Evaluator[] evals = new Evaluator[moves.length];
         for (int i = 0; i < moves.length; i++)
             evals[i] = new Evaluator(board, moves[i]);
@@ -129,7 +129,7 @@ public class ThinkerTest {
     public static void testThinker2(String fen, IThinker first, IThinker second) {
         StartGame start = new StartGame(fen);
         int[] board = start.getBoard();
-        int bitmap = start.getInherit();
+        int bitmap = start.getBitmap();
         EvalUnit eu = new EvalUnit(board, bitmap);
         int[] moves = NodeUtil.getAllBestFirst(board, bitmap);
         Evaluator[] evals = new Evaluator[moves.length];

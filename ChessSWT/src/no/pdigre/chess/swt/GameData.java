@@ -1,7 +1,5 @@
 package no.pdigre.chess.swt;
 
-import java.util.ArrayList;
-
 import no.pdigre.chess.engine.base.Bitmap;
 import no.pdigre.chess.engine.base.NodeUtil;
 import no.pdigre.chess.engine.eval.AlphaBeta;
@@ -16,37 +14,37 @@ public abstract class GameData {
 
     private int[] draw_score = new int[64];
 
-    int[] board;
+    public int[] board;
 
-    private Integer from = -1;
+    Integer from = -1;
 
-    private IPosition lastmove;
+    public IPosition position;
 
-    private AlphaBeta eval;
+    AlphaBeta eval;
 
     Player white = new Manual(this);
 
     Player black = new Novice(this);
     
     public void setup(IPosition move) {
-        lastmove = move;
-        board = lastmove.getBoard();
+        position = move;
+        board = position.getBoard();
         from = -1;
         updateBoard();
     }
 
     public void computeMarkers() {
-        (lastmove.whiteTurn()?white:black).run();
+        (position.whiteTurn()?white:black).run();
     }
 
     public void manual() {
-        System.out.println(FEN.getFen(lastmove));
-        eval= new JustMoves(lastmove.getBoard(), lastmove.getInherit());
+        System.out.println(FEN.getFen(position));
+        eval= new JustMoves(position.getBoard(), position.getBitmap());
     }
 
     public void manualWithHelp() {
-        System.out.println(FEN.getFen(lastmove));
-        eval = new AlphaBeta(lastmove.getBoard(), lastmove.getInherit(), 5);
+        System.out.println(FEN.getFen(position));
+        eval = new AlphaBeta(position.getBoard(), position.getBitmap(), 5);
         draw_targets = new int[64];
         draw_score = new int[64];
         MoveEval[] moves = eval.moves;
@@ -58,9 +56,9 @@ public abstract class GameData {
     }
 
     public void noviceMove() {
-        System.out.println(FEN.getFen(lastmove));
-        eval = new AlphaBeta(lastmove.getBoard(), lastmove.getInherit(), 5);
-        setup(new Move(lastmove, eval.getBitmaps()[0]));
+        System.out.println(FEN.getFen(position));
+        eval = new AlphaBeta(position.getBoard(), position.getBitmap(), 5);
+        setup(new Move(position, eval.getBitmaps()[0]));
     }
 
     private void markToMoves(int i) {
@@ -78,35 +76,7 @@ public abstract class GameData {
     }
 
     private Move makeMove(int i) {
-        return new Move(lastmove, NodeUtil.filterTo(NodeUtil.filterFrom(eval.getBitmaps(), from), i)[0]);
-    }
-
-    private ArrayList<Marking> getPiecesThatCanMove() {
-        ArrayList<Marking> list = new ArrayList<Marking>();
-        MoveEval[] moves = eval.moves;
-        int best = Bitmap.getFrom(moves[0].bitmap);
-        for (MoveEval move : moves) {
-            int fr = Bitmap.getFrom(move.bitmap);
-            list.add(new Marking(fr == best ? MarkingType.BestMoveFrom : MarkingType.MoveFrom, fr));
-        }
-        return list;
-    }
-
-    private ArrayList<Marking> getMovesForPiece() {
-        ArrayList<Marking> list = new ArrayList<Marking>();
-        MoveEval[] moves = eval.moves;
-        list.add(new Marking(MarkingType.MarkFrom, from));
-        for (MoveEval move : moves) {
-            if (Bitmap.getFrom(move.bitmap) == from) {
-                int to = Bitmap.getTo(move.bitmap);
-                list.add(new Marking(MarkingType.MoveTo, to, move.score));
-            }
-        }
-        return list;
-    }
-
-    public ArrayList<Marking> getMarkings() {
-        return from == -1 ? getPiecesThatCanMove() : getMovesForPiece();
+        return new Move(position, NodeUtil.filterTo(NodeUtil.filterFrom(eval.getBitmaps(), from), i)[0]);
     }
 
     protected void clickSquare(int i) {

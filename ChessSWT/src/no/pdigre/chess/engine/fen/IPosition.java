@@ -15,6 +15,6 @@ public abstract interface IPosition extends IConst{
      * Returns the castling and halfmoves state
      * @return
      */
-    public abstract int getInherit();
+    public abstract int getBitmap();
 
 }

@@ -15,29 +15,29 @@ public final class Move implements IPosition {
 
     @Override
     public String toString() {
-        return FEN.printMove(getInherit(),getBoard());
+        return FEN.printMove(getBitmap(),getBoard());
     }
 
    @Override
     final public boolean whiteTurn() {
-        return (getInherit() & BLACK) != 0;
+        return (getBitmap() & BLACK) != 0;
     }
 
     @Override
     final public int totalMoves() {
         int i = parent.totalMoves();
-        if ((getInherit() & BLACK) != 0)
+        if ((getBitmap() & BLACK) != 0)
             i++;
         return i;
     }
 
     @Override
     final public int[] getBoard() {
-        return Bitmap.apply(parent.getBoard(), getInherit());
+        return Bitmap.apply(parent.getBoard(), getBitmap());
     }
 
     @Override
-    public int getInherit() {
+    public int getBitmap() {
         return bitmap;
     }
 

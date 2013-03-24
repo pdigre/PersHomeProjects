@@ -26,7 +26,7 @@ public class Counter {
     
     public void count(IPosition move, int[] board) {
         moves++;
-        int inherit = move.getInherit();
+        int inherit = move.getBitmap();
         if (Bitmap.isCastling(inherit)) {
             castlings++;
         }
