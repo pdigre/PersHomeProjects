@@ -1,11 +1,7 @@
 package no.pdigre.chess.swt;
 
-import java.util.ArrayList;
-
-import no.pdigre.chess.engine.base.Bitmap;
-import no.pdigre.chess.engine.base.NodeUtil;
-import no.pdigre.chess.engine.fen.StartGame;
 import no.pdigre.chess.engine.fen.StartingGames;
+import no.pdigre.chess.profile.GameData;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
@@ -74,9 +70,9 @@ public class ChessDialog {
                         int bitmap = game.position.getBitmap();
                         updatePieces(e,board);
                         if(game.from == -1){
-                            updateMarkers(e, getPiecesThatCanMove(board,bitmap));
+                            updateMarkers(e, GameData.getPiecesThatCanMove(board,bitmap));
                         }else {
-                            updateMarkers(e, getMovesForPiece(board,bitmap,game.from));
+                            updateMarkers(e, GameData.getMovesForPiece(board,bitmap,game.from));
                         }
                     }
                 
@@ -96,7 +92,7 @@ public class ChessDialog {
 
             @Override
             public void modifyText(ModifyEvent e) {
-                setup(cc.getText());
+                game.setupFEN(cc.getText());
                 game.computeMarkers();
             }
 
@@ -108,39 +104,12 @@ public class ChessDialog {
                 int i = cc.getSelectionIndex();
                 if (i < 0)
                     return;
-                setup(cc.getText());
+                game.setupFEN(cc.getText());
                 game.computeMarkers();
             }
         });
         shell.open();
-        setup(StartingGames.FEN_GAMES[0]);
-    }
-
-    public static ArrayList<Marking> getPiecesThatCanMove(int[] board,int bitmap) {
-        ArrayList<Marking> list = new ArrayList<Marking>();
-        int[] moves = NodeUtil.getAllBestFirst(board, bitmap);
-        int best = Bitmap.getFrom(moves[0]);
-        for (int move : moves) {
-            int fr = Bitmap.getFrom(move);
-            list.add(new Marking(fr == best ? MarkingType.BestMoveFrom : MarkingType.MoveFrom, fr));
-        }
-        return list;
-    }
-
-    public static ArrayList<Marking> getMovesForPiece(int[] board,int bitmap, int from) {
-        ArrayList<Marking> list = new ArrayList<Marking>();
-        int[] moves = NodeUtil.getAllBestFirst(board, bitmap);
-        list.add(new Marking(MarkingType.MarkFrom, from));
-        for (int move : moves) {
-            if (Bitmap.getFrom(move) == from)
-                list.add(new Marking(MarkingType.MoveTo, Bitmap.getTo(move), 0));
-        }
-        return list;
-    }
-
-
-    public void setup(String fen){
-        game.setup(new StartGame(fen));
+        game.setupFEN(StartingGames.FEN_GAMES[0]);
     }
     
 }

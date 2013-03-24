@@ -1,4 +1,5 @@
-package no.pdigre.chess.swt;
+package no.pdigre.chess.profile;
+
 
 public abstract class Player {
 

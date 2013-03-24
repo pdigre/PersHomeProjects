@@ -32,7 +32,7 @@ public class Chess {
     }
 
     public void setup(String fen){
-        dialog.setup(fen);
+        dialog.game.setupFEN(fen);
     }
 
 

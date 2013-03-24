@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 
 import no.pdigre.chess.engine.fen.PieceType;
+import no.pdigre.chess.profile.Marking;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;

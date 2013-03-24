@@ -1,4 +1,7 @@
-package no.pdigre.chess.swt;
+package no.pdigre.chess.profile;
+
+import no.pdigre.chess.engine.fen.FEN;
+
 
 public class Manual extends Player {
 
@@ -12,7 +15,8 @@ public class Manual extends Player {
 
             @Override
             public void run() {
-                game.manual();
+                System.out.println(FEN.getFen(game.position));
+                game.eval= new JustMoves(game.position.getBoard(), game.position.getBitmap());
                 game.updateMarkers();
             }
         }).run();

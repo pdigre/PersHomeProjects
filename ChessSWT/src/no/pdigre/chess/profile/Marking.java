@@ -1,4 +1,4 @@
-package no.pdigre.chess.swt;
+package no.pdigre.chess.profile;
 
 public class Marking {
 	public MarkingType type;

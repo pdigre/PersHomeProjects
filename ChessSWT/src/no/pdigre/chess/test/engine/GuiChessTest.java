@@ -3,10 +3,10 @@ package no.pdigre.chess.test.engine;
 import java.util.ArrayList;
 
 import no.pdigre.chess.engine.fen.IPosition;
+import no.pdigre.chess.profile.GameData;
+import no.pdigre.chess.profile.Marking;
 import no.pdigre.chess.swt.Chess;
 import no.pdigre.chess.swt.ChessCanvas;
-import no.pdigre.chess.swt.ChessDialog;
-import no.pdigre.chess.swt.Marking;
 
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
@@ -43,7 +43,7 @@ public class GuiChessTest {
                             IPosition pos = chess.dialog.game.position;
                             int bitmap = pos.getBitmap();
                             final int[] board = pos.getBoard();
-                            final ArrayList<Marking> markers = ChessDialog.getPiecesThatCanMove(board,bitmap);
+                            final ArrayList<Marking> markers = GameData.getPiecesThatCanMove(board,bitmap);
                             chess.dialog.canvas.updateCanvas(new PaintListener() {
                                 
                                 @Override
