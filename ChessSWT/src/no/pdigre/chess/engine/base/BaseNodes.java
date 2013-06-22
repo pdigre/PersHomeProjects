@@ -2,7 +2,7 @@ package no.pdigre.chess.engine.base;
 
 import java.util.ArrayList;
 
-public class BaseNodes {
+public final class BaseNodes {
 	
     final public static int LEFT = -1;
 

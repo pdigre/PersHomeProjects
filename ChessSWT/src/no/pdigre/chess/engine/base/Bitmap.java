@@ -1,6 +1,6 @@
 package no.pdigre.chess.engine.base;
 
-public class Bitmap implements IConst {
+public final class Bitmap implements IConst {
 
     final static public int[] apply(final int[] in, final int bitmap) {
         int[] out = in.clone();

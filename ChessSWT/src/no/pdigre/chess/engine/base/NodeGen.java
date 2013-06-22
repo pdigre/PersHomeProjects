@@ -271,12 +271,11 @@ public class NodeGen {
     /**
      * Calculate is move is within borders return true if can continue like
      * queen
-     * 
-     * @param from TODO
-     * @param inherit TODO
-     * @param moves
-     * @param offset
-     * @param pieces
+     * @param board
+     * @param to
+     * @param white
+     * @param from
+     * @param inherit
      * @return
      */
     final private boolean add(int[] board, int to, boolean white, int from, int inherit) {

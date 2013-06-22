@@ -10,7 +10,7 @@ import no.pdigre.chess.engine.fen.FEN;
 
 public class AlphaBeta {
 
-    public int[] stack;
+    private int[] stack;
 
     public MoveEval[] moves;
 
@@ -42,14 +42,14 @@ public class AlphaBeta {
 
     }
 
-    public final int alphaBeta(int depthleft, int[] board0, int bitmap0) {
+    private final int alphaBeta(int depthleft, int[] board0, int bitmap0) {
         stack = new int[depthleft];
         if (Bitmap.white(bitmap0))
             return blackMove(-1000000, +1000000, depthleft, board0, bitmap0, 0);
         return whiteMove(-1000000, +1000000, depthleft, board0, bitmap0, 0);
     }
 
-    public final int whiteMove(int whiteBest, int blackBest, int depthleft, int[] board0, int bitmap0, int score0) {
+    private final int whiteMove(int whiteBest, int blackBest, int depthleft, int[] board0, int bitmap0, int score0) {
         int score1 = evalWhiteMove(bitmap0, board0, score0,depthleft);
         if (depthleft == 0)
             return score1;
@@ -70,7 +70,7 @@ public class AlphaBeta {
         return whiteBest;
     }
 
-    public final int blackMove(int whiteBest, int blackBest, int depthleft, int[] board0, int bitmap0, int score0) {
+    private final int blackMove(int whiteBest, int blackBest, int depthleft, int[] board0, int bitmap0, int score0) {
         int score1 = evalBlackMove(bitmap0, board0, score0,depthleft);
         if (depthleft == 0)
             return score1;
@@ -95,7 +95,7 @@ public class AlphaBeta {
      * @param board
      * @param depthleft 
      */
-    public final int evalWhiteMove(int bitmap, int[] board, int score, int depthleft) {
+    private final static int evalWhiteMove(int bitmap, int[] board, int score, int depthleft) {
         int val = Bitmap.tacticValue(bitmap);
         int i = score - val;
 //        printStack(bitmap,board, capturedValue, i,depthleft);
@@ -106,7 +106,7 @@ public class AlphaBeta {
      * @param board
      * @param depthleft 
      */
-    public final int evalBlackMove(int bitmap, int[] board, int score, int depthleft) {
+    private final static int evalBlackMove(int bitmap, int[] board, int score, int depthleft) {
         int val = Bitmap.tacticValue(bitmap);
         int i = score + val;
 //        printStack(bitmap,board, capturedValue, i,depthleft);
@@ -121,17 +121,6 @@ public class AlphaBeta {
             }
             System.out.println(FEN.printMove(bitmap, board) + " "+total);
         }
-    }
-
-    /**
-     * @param board
-     */
-    public final static int evalBoard(int[] board) {
-        int total = 0;
-        for (int piece : board) {
-            total += Bitmap.value(piece);
-        }
-        return total;
     }
 
     public int[] getBitmaps() {

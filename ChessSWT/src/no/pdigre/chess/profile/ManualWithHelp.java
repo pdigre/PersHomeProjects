@@ -19,11 +19,11 @@ public class ManualWithHelp extends Player {
             @Override
             public void run() {
                 System.out.println(FEN.getFen(game.position));
-                game.eval = new AlphaBeta(game.position.getBoard(), game.position.getBitmap(), 5);
+                AlphaBeta eval = new AlphaBeta(game.position.getBoard(), game.position.getBitmap(), 5);
+                game.eval = eval;
                 game.draw_targets = new int[64];
                 game.draw_score = new int[64];
-                MoveEval[] moves = game.eval.moves;
-                for (MoveEval move : moves) {
+                for (MoveEval move : eval.moves) {
                     int from = Bitmap.getFrom(move.bitmap);
                     if (game.draw_score[from] == 0)
                         game.draw_score[from] = move.score;

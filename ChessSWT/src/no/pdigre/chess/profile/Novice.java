@@ -18,8 +18,10 @@ public class Novice extends Player {
             @Override
             public void run() {
                 System.out.println(FEN.getFen(game.position));
-                game.eval = new AlphaBeta(game.position.getBoard(), game.position.getBitmap(), 5);
-                game.setup(new Move(game.position, game.eval.getBitmaps()[0]));
+                AlphaBeta eval = new AlphaBeta(game.position.getBoard(), game.position.getBitmap(), 5);
+                game.eval = eval;
+                Move bestmove = new Move(game.position, eval.getBitmaps()[0]);
+                game.setup(bestmove);
                 game.updateMarkers();
             }
         }).run();

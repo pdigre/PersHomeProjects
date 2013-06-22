@@ -24,9 +24,9 @@ public abstract class GameData {
 
     AlphaBeta eval;
 
-    Player white = new Manual(this);
+    private Player white = new Manual(this);
 
-    Player black = new Novice(this);
+    private Player black = new Novice(this);
     
     public void setupFEN(String fen) {
         setup(new StartGame(fen));
@@ -43,29 +43,22 @@ public abstract class GameData {
         (position.whiteTurn()?white:black).run();
     }
 
-    private void markToMoves(int i) {
-        int[] bitmaps = eval.getBitmaps();
-        from = i;
-        draw_targets = new int[64];
-        draw_score = new int[64];
-        int[] movesfrom = NodeUtil.filterFrom(bitmaps, i);
-        for (int bitmap : movesfrom) {
-            int to = Bitmap.getTo(bitmap);
-            draw_targets[to] = Bitmap.type(bitmap);
-            System.out.println("\n==" + FEN.printMove(bitmap, board));
-            draw_score[to] = eval.getMove(bitmap).score;
-        }
-    }
-
-    private Move makeMove(int i) {
-        return new Move(position, NodeUtil.filterTo(NodeUtil.filterFrom(eval.getBitmaps(), from), i)[0]);
-    }
-
     public void clickSquare(int i) {
         if (draw_targets[i] != 0) {
-            setup(makeMove(i));
+            int[] moves = NodeUtil.filterTo(NodeUtil.filterFrom(eval.getBitmaps(), from), i);
+            setup(new Move(position, moves[0]));
         } else {
-            markToMoves(i);
+            int[] bitmaps = eval.getBitmaps();
+            from = i;
+            draw_targets = new int[64];
+            draw_score = new int[64];
+            int[] movesfrom = NodeUtil.filterFrom(bitmaps, i);
+            for (int bitmap : movesfrom) {
+                int to = Bitmap.getTo(bitmap);
+                draw_targets[to] = Bitmap.type(bitmap);
+                System.out.println("\n==" + FEN.printMove(bitmap, board));
+                draw_score[to] = eval.getMove(bitmap).score;
+            }
         }
     }
 
