@@ -12,7 +12,7 @@ public class Chess {
     @Test
     public static void main(String[] args) {
         Chess chess = new Chess();
-        chess.dialog.game.computeMarkers();
+        chess.dialog.game.run();
         chess.runDisplay();
     }
 
@@ -35,6 +35,7 @@ public class Chess {
         dialog.game.setupFEN(fen);
     }
 
+    
 
 
 }

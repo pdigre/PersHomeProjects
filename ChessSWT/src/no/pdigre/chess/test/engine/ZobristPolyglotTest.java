@@ -47,8 +47,7 @@ public class ZobristPolyglotTest {
 
     public static void assertMoves(String fen, String moves_expected) {
         StartGame pos = new StartGame(fen);
-		long key = ZobristKey.getKey(pos);
-		assertEquals(moves_expected,Polyglot.printMoves(Polyglot.get(key)));
+		assertEquals(moves_expected,Polyglot.printMoves(Polyglot.get(ZobristKey.getKey(pos))));
     }
 
 

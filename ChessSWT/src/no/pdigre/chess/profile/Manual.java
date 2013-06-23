@@ -1,25 +1,40 @@
 package no.pdigre.chess.profile;
 
-import no.pdigre.chess.engine.fen.FEN;
+import java.util.ArrayList;
 
+import no.pdigre.chess.engine.base.NodeUtil;
+import no.pdigre.chess.engine.eval.AlphaBeta;
 
 public class Manual extends Player {
 
-    public Manual(GameData gameData) {
-        super(gameData);
+    @Override
+    public void run() { 
+    	printFEN();
+        bitmaps = new AlphaBeta(getBoard(), getBitmap(),0).getBitmaps();
+		game.updateBoard();
     }
 
     @Override
-    public void run() {
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                System.out.println(FEN.getFen(game.position));
-                game.eval= new JustMoves(game.position.getBoard(), game.position.getBitmap());
-                game.updateMarkers();
-            }
-        }).run();
+    public int clickSquare(int i) {
+        int[] bitmaps = getBitmaps();
+        if(from>-1){
+            int[] avail = NodeUtil.filterTo(NodeUtil.filterFrom(bitmaps, from), i);
+            from=-1;
+            if(avail.length>0)
+                return avail[0];
+        }
+        if(from==-1){
+            int[] avail = NodeUtil.filterFrom(bitmaps, i);
+            if(avail.length>0)
+                from=i;
+        } 
+        return -1;
     }
 
+    @Override
+    public ArrayList<Marking> getMarkers() {
+        if(from == -1)
+            return Marking.getPiecesThatCanMove(getBoard(),getBitmap());
+        return Marking.getMovesForPiece(getBoard(),getBitmap(),from);
+    }
 }
