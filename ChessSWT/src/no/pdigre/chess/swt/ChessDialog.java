@@ -23,32 +23,33 @@ public class ChessDialog {
     public GameData game = new GameData() {
 
         @Override
-        protected void updateBoard() {
+        protected void updateBoard(final int[] board) {
             canvas.updateCanvas(new PaintListener() {
             
                 @Override
                 public void paintControl(PaintEvent e) {
                     ChessCanvas.clearBoard(e);
-                    ChessCanvas.updatePieces(e,game.board);
+                    ChessCanvas.updatePieces(e,board);
                 }
             
             });
         }
 
         @Override
-        protected void updateMarkers() {
+        protected void updateMarkers(final int[] board,final int bitmap,final Integer ifrom) {
+//            final int[] board = game.position.getBoard();
+//            final int bitmap = game.position.getBitmap();
+//            final Integer ifrom = game.from;
             canvas.updateCanvas(new PaintListener() {
             
                 @Override
                 public void paintControl(PaintEvent e) {
                     ChessCanvas.clearBoard(e);
-                    int[] board = game.position.getBoard();
-                    int bitmap = game.position.getBitmap();
                     ChessCanvas.updatePieces(e,board);
-                    if(game.from == -1){
+                    if(ifrom == -1){
                         ChessCanvas.updateMarkers(e, getPiecesThatCanMove(board,bitmap));
                     }else {
-                        ChessCanvas.updateMarkers(e, getMovesForPiece(board,bitmap,game.from));
+                        ChessCanvas.updateMarkers(e, getMovesForPiece(board,bitmap,ifrom));
                     }
                 }
             });
@@ -66,14 +67,8 @@ public class ChessDialog {
                     @Override
                     public void paintControl(PaintEvent e) {
                         clearBoard(e);
-                        int[] board = game.position.getBoard();
-                        int bitmap = game.position.getBitmap();
-                        updatePieces(e,board);
-                        if(game.from == -1){
-                            updateMarkers(e, GameData.getPiecesThatCanMove(board,bitmap));
-                        }else {
-                            updateMarkers(e, GameData.getMovesForPiece(board,bitmap,game.from));
-                        }
+                        updatePieces(e,game.position.getBoard());
+                        updateMarkers(e, game.getMarkers());
                     }
                 
                 });
@@ -92,8 +87,7 @@ public class ChessDialog {
 
             @Override
             public void modifyText(ModifyEvent e) {
-                game.setupFEN(cc.getText());
-                game.computeMarkers();
+                game.newGame(cc.getText());
             }
 
         });
@@ -104,12 +98,11 @@ public class ChessDialog {
                 int i = cc.getSelectionIndex();
                 if (i < 0)
                     return;
-                game.setupFEN(cc.getText());
-                game.computeMarkers();
+                game.newGame(cc.getText());
             }
         });
         shell.open();
-        game.setupFEN(StartingGames.FEN_GAMES[0]);
+        game.newGame(StartingGames.FEN_GAMES[0]);
     }
     
 }

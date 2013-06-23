@@ -130,11 +130,18 @@ public class AlphaBeta {
         return ret;
     }
 
-    public MoveEval getMove(int bitmap) {
+    public int getScore(int bitmap) {
         for (MoveEval move : moves)
             if (move.bitmap == bitmap)
-                return move;
-        return null;
+                return move.score;
+        return 0;
+    }
+
+    public int[] getScores() {
+        int[] ret = new int[moves.length];
+        for (int i = 0; i < moves.length; i++)
+            ret[i] = moves[i].score;
+        return ret;
     }
 
 }

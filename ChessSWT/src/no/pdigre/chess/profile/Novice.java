@@ -2,8 +2,7 @@ package no.pdigre.chess.profile;
 
 import no.pdigre.chess.engine.eval.AlphaBeta;
 import no.pdigre.chess.engine.fen.FEN;
-import no.pdigre.chess.engine.fen.Move;
-
+import no.pdigre.chess.engine.fen.IPosition;
 
 public class Novice extends Player {
 
@@ -13,18 +12,13 @@ public class Novice extends Player {
 
     @Override
     public void run() {
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                System.out.println(FEN.getFen(game.position));
-                AlphaBeta eval = new AlphaBeta(game.position.getBoard(), game.position.getBitmap(), 5);
-                game.eval = eval;
-                Move bestmove = new Move(game.position, eval.getBitmaps()[0]);
-                game.setup(bestmove);
-                game.updateMarkers();
-            }
-        }).run();
+        IPosition pos = game.position;
+        System.out.println(FEN.getFen(pos));
+        int[] board = pos.getBoard();
+        int bitmap = pos.getBitmap();
+        AlphaBeta eval = new AlphaBeta(board, bitmap, 5);
+        bitmaps = eval.getBitmaps();
+        game.makeMove(bitmaps[0]);
     }
 
 }
