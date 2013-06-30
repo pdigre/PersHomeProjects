@@ -8,6 +8,7 @@ public interface IPlayer {
 		MANUAL(Manual.class),
 		MANUALHELP(ManualWithHelp.class),
 		NOVICE(Novice.class),
+		INTERMEDIATE2(Intermediate2.class),
 		INTERMEDIATE(Intermediate.class);
 		
 		public Class<?> profile;

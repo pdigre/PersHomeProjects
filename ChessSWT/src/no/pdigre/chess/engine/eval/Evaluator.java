@@ -13,7 +13,11 @@ public class Evaluator {
 
     final private int bitmap;
 
-    final StringBuilder sb = new StringBuilder();
+    public int getBitmap() {
+		return bitmap;
+	}
+
+	final StringBuilder sb = new StringBuilder();
 
     private ThinkTask task;
 

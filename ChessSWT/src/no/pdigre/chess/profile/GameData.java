@@ -37,7 +37,7 @@ public abstract class GameData {
         thread.start();
     }
 
-    private Player getPlayer() {
+    Player getPlayer() {
         return players[position.whiteTurn() ? 0 : 1];
     }
 
