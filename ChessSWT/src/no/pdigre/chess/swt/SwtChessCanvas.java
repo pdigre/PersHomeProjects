@@ -2,7 +2,9 @@ package no.pdigre.chess.swt;
 
 import java.util.ArrayList;
 
+import no.pdigre.chess.profile.GraphicsCommon;
 import no.pdigre.chess.profile.Marking;
+import no.pdigre.chess.profile.Square;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
@@ -21,14 +23,6 @@ import org.eclipse.swt.widgets.Display;
 
 public class SwtChessCanvas extends Canvas {
 
-    private static final int PIECE_HEIGHT = 32;
-
-    private static final int PIECE_WIDTH = 32;
-
-    private static final int BOARD_OFFSET = PIECE_HEIGHT * 8 - 24;
-
-    private static final int BOARD_MARGIN = PIECE_WIDTH - 24;
-
     private static GraphicsCommon common = new GraphicsCommon();
 
     public GC gc;
@@ -40,7 +34,7 @@ public class SwtChessCanvas extends Canvas {
             @Override
             public void mouseDown(MouseEvent e) {
                 if (e.button == 1) {
-                    game.clickSquare(findSquare(e.x, e.y));
+                    game.clickSquare(GraphicsCommon.findSquare(e.x, e.y));
                 } else if (e.button == 3) {
                     // right click
                 }
@@ -84,54 +78,35 @@ public class SwtChessCanvas extends Canvas {
         for (int i = 0; i < 64; i++) {
             Square square = common.setup(i);
             int piece = board[i];
+            int[] r = GraphicsCommon.getRectangleXYWH(i);
             if (square.piece != piece || square.score != score[i]) {
                 square.piece = piece;
                 gc.setBackground(getBGColor(gc.getDevice(), i, 0));
-                gc.fillRectangle(getRectangle(i));
+                gc.fillRectangle(r[0],r[1],r[2],r[3]);
                 if (piece > 0) {
-                    int x = i % 8;
-                    int y = (i - x) / 8;
-                    gc.drawImage(SwtGraphics.graphics.getImage(piece, gc.getDevice()), BOARD_MARGIN + x
-                        * PIECE_WIDTH, BOARD_OFFSET - y * PIECE_HEIGHT);
+                    int[] xy = GraphicsCommon.toXY(i);
+                    gc.drawImage(SwtGraphics.graphics.getImage(piece, gc.getDevice()),xy[0],xy[1] );
                 }
             }
-            if (square.marker != frame[i]) {
+            if (!square.marker.equals(frame[i])) {
                 square.marker = frame[i];
                 gc.setForeground(getBGColor(gc.getDevice(), i, frame[i]));
-                gc.drawRectangle(getRectangle(i));
+                gc.drawRectangle(r[0],r[1],r[2],r[3]);
             }
             if (square.score != score[i]) {
                 square.score = score[i];
                 if (score[i] != 0) {
-                    Rectangle r = getRectangle(i);
                     gc.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_CYAN));
-                    gc.drawText(Integer.toString(score[i]), r.x, r.y);
+                    gc.drawText(Integer.toString(score[i]), r[0], r[1]);
                 }
             }
         }
     }
 
     private static Color getBGColor(Device device, int i, int color) {
-        return device.getSystemColor(color == 0 ? isBlack(i) ? SWT.COLOR_DARK_GRAY : SWT.COLOR_GRAY : color);
+        return device.getSystemColor(color == 0 ? GraphicsCommon.isBlack(i) ? SWT.COLOR_DARK_GRAY : SWT.COLOR_GRAY : color);
     }
 
-    private final static boolean isBlack(int i) {
-        return (i % 8 + (i - i % 8) / 8) % 2 == 0;
-    }
-
-    private final static Rectangle getRectangle(int i) {
-        int x = i % 8;
-        return new Rectangle(BOARD_MARGIN + x * PIECE_WIDTH, BOARD_OFFSET - ((i - x) / 8) * PIECE_HEIGHT,
-            PIECE_WIDTH - 1, PIECE_HEIGHT - 1);
-    }
-
-    static int findSquare(int ex, int ey) {
-        int x = (ex - BOARD_MARGIN) / PIECE_WIDTH;
-        int y = (BOARD_OFFSET - ey + PIECE_HEIGHT) / PIECE_HEIGHT;
-        if (x < 0 || x > 7 || y < 0 || y > 7)
-            return -1;
-        return x + y * 8;
-    }
 
     protected void drawCanvas() {
         final Image image = new Image(getDisplay(), getSize().x, getSize().y);

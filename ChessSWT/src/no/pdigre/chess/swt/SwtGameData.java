@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import no.pdigre.chess.profile.GameData;
 import no.pdigre.chess.profile.Marking;
-import no.pdigre.chess.profile.IPlayer.Players;
 
 
 public class SwtGameData extends GameData {
@@ -30,12 +29,5 @@ public class SwtGameData extends GameData {
 
         };
         canvas.getDisplay().syncExec(runnable);
-    }
-
-    protected void start(String fen, Players p_white, Players p_black) {
-        setPlayer(p_white, true);
-        setPlayer(p_black, false);
-        setupFEN(fen);
-        run();
     }
 }

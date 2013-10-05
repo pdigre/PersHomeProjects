@@ -62,4 +62,11 @@ public abstract class GameData {
         return getPlayer().getMarkers();
     }
 
+    public void start(String fen, Players p_white, Players p_black) {
+        setPlayer(p_white, true);
+        setPlayer(p_black, false);
+        setupFEN(fen);
+        run();
+    }
+
 }
