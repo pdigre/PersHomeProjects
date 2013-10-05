@@ -7,16 +7,19 @@ import no.pdigre.chess.profile.Marking;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.PaintEvent;
+import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 
-public abstract class SwtChessCanvas extends Canvas {
+public class SwtChessCanvas extends Canvas {
 
     private static final int PIECE_HEIGHT = 32;
 
@@ -28,16 +31,16 @@ public abstract class SwtChessCanvas extends Canvas {
 
     private static GraphicsCommon common = new GraphicsCommon();
 
-    private static SwtGraphics sg = SwtGraphics.graphics;
+    public GC gc;
 
-    public SwtChessCanvas(Composite parent, int style) {
+    public SwtChessCanvas(Composite parent, int style, final SwtGameData game) {
         super(parent, style);
         addMouseListener(new MouseAdapter() {
 
             @Override
             public void mouseDown(MouseEvent e) {
                 if (e.button == 1) {
-                    selectSquareEvent(findSquare(e.x, e.y));
+                    game.clickSquare(findSquare(e.x, e.y));
                 } else if (e.button == 3) {
                     // right click
                 }
@@ -47,7 +50,7 @@ public abstract class SwtChessCanvas extends Canvas {
         setLayoutData(new GridData(270, 270));
     }
 
-    public void drawBoard(GC gc, int[] board, ArrayList<Marking> markers) {
+    public void drawBoard(int[] board, ArrayList<Marking> markers) {
         if (common.nobuffer) {
             Rectangle area = getClientArea();
             gc.drawRectangle(area.x + 1, area.y + 1, area.width - 2, area.height - 2);
@@ -88,8 +91,8 @@ public abstract class SwtChessCanvas extends Canvas {
                 if (piece > 0) {
                     int x = i % 8;
                     int y = (i - x) / 8;
-                    gc.drawImage(sg.getImage(piece, gc.getDevice()), BOARD_MARGIN + x * PIECE_WIDTH, BOARD_OFFSET
-                        - y * PIECE_HEIGHT);
+                    gc.drawImage(SwtGraphics.graphics.getImage(piece, gc.getDevice()), BOARD_MARGIN + x
+                        * PIECE_WIDTH, BOARD_OFFSET - y * PIECE_HEIGHT);
                 }
             }
             if (square.marker != frame[i]) {
@@ -130,6 +133,16 @@ public abstract class SwtChessCanvas extends Canvas {
         return x + y * 8;
     }
 
-    protected abstract void selectSquareEvent(int i);
+    protected void drawCanvas() {
+        final Image image = new Image(getDisplay(), getSize().x, getSize().y);
+        gc = new GC(image);
+        addPaintListener(new PaintListener() {
 
+            @Override
+            public void paintControl(PaintEvent e) {
+                e.gc.drawImage(image, 0, 0);
+            }
+
+        });
+    }
 }

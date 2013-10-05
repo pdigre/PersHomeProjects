@@ -126,11 +126,14 @@ public class ThinkerTest {
             System.out.println(eval.toString());
     }
 
+    /**
+     * @param first  
+     */
     public static void testThinker2(String fen, IThinker first, IThinker second) {
         StartGame start = new StartGame(fen);
         int[] board = start.getBoard();
         int bitmap = start.getBitmap();
-        EvalUnit eu = new EvalUnit(board, bitmap);
+        new EvalUnit(board, bitmap);
         int[] moves = NodeUtil.getAllBestFirst(board, bitmap);
         Evaluator[] evals = new Evaluator[moves.length];
         for (int i = 0; i < moves.length; i++)
