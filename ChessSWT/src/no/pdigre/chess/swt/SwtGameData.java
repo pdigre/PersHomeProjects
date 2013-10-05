@@ -1,20 +1,35 @@
 package no.pdigre.chess.swt;
 
+import java.util.ArrayList;
+
 import no.pdigre.chess.profile.GameData;
+import no.pdigre.chess.profile.Marking;
 import no.pdigre.chess.profile.IPlayer.Players;
 
 
 public class SwtGameData extends GameData {
 
-    private SwtChessDialog dialog;
-
-    public SwtGameData(SwtChessDialog dialog) {
-        this.dialog=dialog;
+    SwtChessCanvas canvas;
+    
+    public void setCanvas(SwtChessCanvas canvas){
+        this.canvas=canvas;
     }
-
+    
     @Override
     public void updateBoard() {
-        dialog.updateBoard(position);
+        Runnable runnable = new Runnable() {
+
+            @Override
+            public void run() {
+                ArrayList<Marking> markers = getMarkers();
+                int[] board = position.getBoard();
+                canvas.drawBoard(board, markers);
+                canvas.redraw();
+                canvas.update();
+            }
+
+        };
+        canvas.getDisplay().syncExec(runnable);
     }
 
     protected void start(String fen, Players p_white, Players p_black) {

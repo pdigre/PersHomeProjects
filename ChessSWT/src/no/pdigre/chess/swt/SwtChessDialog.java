@@ -3,20 +3,13 @@ package no.pdigre.chess.swt;
 import java.lang.Thread.State;
 import java.util.ArrayList;
 
-import no.pdigre.chess.engine.fen.IPosition;
 import no.pdigre.chess.engine.fen.StartingGames;
-import no.pdigre.chess.profile.GameData;
 import no.pdigre.chess.profile.IPlayer.Players;
-import no.pdigre.chess.profile.Marking;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.events.PaintEvent;
-import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.GC;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -26,79 +19,33 @@ import org.eclipse.swt.widgets.Shell;
 
 public class SwtChessDialog extends Composite{
 
-    public void updateBoard(final IPosition position) {
-        Runnable runnable = new Runnable() {
-
-            @Override
-            public void run() {
-                SwtChessDialog.this.updateBoard(canvas,gc_canvas, game, position);
-            }
-
-        };
-        canvas.getDisplay().syncExec(runnable);
-    }
-
-    public SwtChessCanvas canvas;
-
-    public GC gc_canvas;
-
-
-    public SwtGameData game = new SwtGameData(this);
-
     CCombo black;
 
     CCombo white;
 
     CCombo fen_combo;
 
-    public void updateBoard(SwtChessCanvas canvas,GC gc2, GameData game2, IPosition pos) {
-        ArrayList<Marking> markers = game2.getMarkers();
-        int[] board = pos.getBoard();
-        canvas.drawBoard(gc2, board, markers);
-        canvas.redraw();
-        canvas.update();
-    }
-
-    public SwtChessDialog(Shell shell) {
+    public SwtChessDialog(Shell shell,SwtGameData game) {
         super(shell, SWT.NONE);
         setLayout(new GridLayout(2, false));
         setLayoutData(new GridData(SWT.BEGINNING, SWT.BEGINNING, false, false));
-        createCanvas();
-        createPanel();
+        SwtChessCanvas canvas = createCanvas(game);
+        createPanel(game);
         shell.open();
-        drawCanvas();
-        game.start(fen_combo.getText(), Players.MANUAL, Players.NOVICE);
+        canvas.drawCanvas();
+        game.setCanvas(canvas);
     }
 
-    protected void drawCanvas() {
-        final Image image = new Image(canvas.getDisplay(), canvas.getSize().x, canvas.getSize().y);
-        gc_canvas = new GC(image);
-        canvas.addPaintListener(new PaintListener() {
-
-            @Override
-            public void paintControl(PaintEvent e) {
-                e.gc.drawImage(image, 0, 0);
-            }
-
-        });
-    }
-
-    protected void createCanvas() {
-        canvas = new SwtChessCanvas(this, SWT.NO_BACKGROUND | SWT.NO_REDRAW_RESIZE) {
-
-            @Override
-            protected void selectSquareEvent(int i) {
-                game.clickSquare(i);
-            }
-
-        };
+    private SwtChessCanvas createCanvas(SwtGameData game) {
+        SwtChessCanvas canvas = new SwtChessCanvas(this, SWT.NO_BACKGROUND | SWT.NO_REDRAW_RESIZE,game); 
         GridData gd = new GridData(270, 270);
         gd.horizontalAlignment = SWT.BEGINNING;
         gd.verticalAlignment = SWT.BEGINNING;
         canvas.setLayoutData(gd);
+        return canvas;
     }
 
-    protected void createPanel() {
+    private void createPanel(final SwtGameData game) {
         Composite panel = new Composite(this, SWT.NONE);
         GridData gd2 = new GridData(SWT.END, SWT.BEGINNING, true, true);
         panel.setLayoutData(gd2);
